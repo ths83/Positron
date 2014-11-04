@@ -57,7 +57,6 @@
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
             <version>${jersey-version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
