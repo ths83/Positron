@@ -14,10 +14,12 @@ import java.util.List;
 public class Bibliotheque {
 
     private final static ModeleBibliotheque modeleBibliotheque = new ModeleBibliotheque();
+    public static final Auteur[] auteursInit = {new Auteur.AuteurBuilder().setPrenom("Jean").setNom("Martin").createAuteur(),
+            new Auteur.AuteurBuilder().setPrenom("Marie").setNom("Durand").createAuteur()};
 
     static {
-        modeleBibliotheque.ajouterAuteur(new Auteur.AuteurBuilder().setPrenom("Jean").setNom("Martin").createAuteur());
-        modeleBibliotheque.ajouterAuteur(new Auteur.AuteurBuilder().setPrenom("Marie").setNom("Durand").createAuteur());
+        modeleBibliotheque.ajouterAuteur(auteursInit[0]);
+        modeleBibliotheque.ajouterAuteur(auteursInit[1]);
     }
 
     @PUT

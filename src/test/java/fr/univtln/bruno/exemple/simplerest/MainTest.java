@@ -1,6 +1,7 @@
 
 package fr.univtln.bruno.exemple.simplerest;
 
+import fr.univtln.bruno.d14.simpleihm.Auteur;
 import org.glassfish.grizzly.http.server.HttpServer;
 
 import com.sun.jersey.core.header.MediaTypes;
@@ -42,8 +43,12 @@ public class MainTest extends TestCase {
      * Test to see that the message "Got it!" is sent in the response.
      */
     public void testMyResource() {
-        String responseMsg = r.path("myresource").get(String.class);
-        assertEquals("Got it!", responseMsg);
+        String responseAuteurAsJson = r.path("biblio/auteur/1").get(String.class);
+        assertEquals("{\"ID\":\"1\",\"nom\":\"Durand\",\"prenom\":\"Marie\"}", responseAuteurAsJson);
+
+        Auteur responseAuteur = r.path("biblio/auteur/1").get(Auteur.class);
+        assertEquals(Bibliotheque.auteursInit[1], responseAuteur);
+
     }
 
     /**
