@@ -24,7 +24,7 @@ public class Bibliotheque {
 
     @PUT
     @Path("auteur")
-    public void ajouterAuteur(@PathParam("prenom") String prenom, @PathParam("nom") String nom) {
+    public void ajouterAuteur(@QueryParam("prenom") String prenom, @QueryParam("nom") String nom) {
         modeleBibliotheque.ajouterAuteur(prenom, nom);
     }
 
