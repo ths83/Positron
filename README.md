@@ -1,35 +1,26 @@
 # restJavaSeExample
 Some easy examples of REST with only Java SE (with jersey and glizzly)
 
-This project need some projects dependances, so do this commands tu run the dependances on the target :
+# execute the main class (run server)
 
-    git clone https://bruno@lsis.univ-tln.fr/redmine/ebenseignement/librarymanager/librarymanagerjava.git
-    cd librarymanagerjava
-    mvn install
-    cd ..
-    git clone https://bruno@lsis.univ-tln.fr/redmine/ebenseignement/librarymanager/libraryjavagui/observablelibrarygit.git
-    cd observablelibrarygit
-    mvn install
-    cd ..
-    git clone https://bruno@lsis.univ-tln.fr/redmine/ebenseignement/librarymanager/ihmsimple.git
-    cd ihmsimple
-    mvn install
-    cd ..
+mvn exec:java  -Dexec.mainClass="fr.univtln.bruno.exemple.simplerest.Main" 
 
 # examples with Curl client after running the java project :
 
 Curl examples :
 
     // Get :
-    // All authors
-    curl -H "Accept: application/json"  http://localhost:9998/biblio/auteurs
-    // Author with id 0
-    curl -H "Accept: application/json"  http://localhost:9998/biblio/auteur/0
-    // Author with id 1
-    curl -H "Accept: application/json"  http://localhost:9998/biblio/auteur/1
-    // Delete
-    // Delete Author number 0
-    curl -H "Accept: application/xml" -X DELETE  http://localhost:9998/biblio/auteur/0
-    // PUT
-    // Put an author with name Durand ans prenom Jean
-    curl -H "Content-Type: application/json" -X PUT http://localhost:9998/biblio/auteur\?nom\=Durand\&prenom\=Jean
+    // All sms
+    curl -H "Accept: application/json"  http://localhost:9998/bank/allsms
+    
+    {"cSmsReceived":[{"dateReceiving":"janvier","phone":"+33565456","data":"coords X Y","ID":"0"},{"data":"coords X Y","ID":"1"}]}
+    
+    // Get SMS ID 0
+    curl -H "Accept: application/json"  http://localhost:9998/bank/sms/0
+
+    {"dateReceiving":"janvier","phone":"+33565456","data":"coords X Y","ID":"0"}
+
+    // Get SMS ID 0
+    curl -H "Accept: application/json"  http://localhost:9998/bank/sms/1
+    
+    {"data":"coords X Y","ID":"1"}
