@@ -21,6 +21,7 @@ public class Main {
                 return Integer.parseInt(httpPort);
             } catch (NumberFormatException e) {
             }
+
         }
         return defaultPort;
     }
