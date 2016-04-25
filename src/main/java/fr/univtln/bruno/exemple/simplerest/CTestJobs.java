@@ -14,9 +14,12 @@ public class CTestJobs {
                 .Data("coords X Y").DateReceiving("janvier").Phone("+33565456")
                 .Processed("zadazd").ID(2).build();
 
-        System.out.println(SmsReceived1.toString());
-        System.out.println(SmsReceived2.toString());
-        System.out.println(SmsReceivedFull.toString());
-        System.out.println(SmsReceived1.getData());
+        CWeaponEntity pistolet = new CWeaponEntity.CWeaponBuilder().damage(50).id(10).name("9mm").build();
+        CWeaponEntity ak47 = new CWeaponEntity.CWeaponBuilder().damage(50).id(10).name("kalach").build();
+        System.out.println(pistolet);
+        System.out.println(ak47);
+
+        CBuildingEntity drone = new CBuildingEntity.CBuildingBuilder().damage(0).name("drone 045").level(25).build();
+
     }
 }
