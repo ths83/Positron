@@ -43,10 +43,11 @@ public class Main {
         // Grizzly 2 initialization
         HttpServer httpServer = startServer();
         System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit enter to stop it...",
+                + "%sapplication.wadl\nHit enter to stp it...",
                 BASE_URI));
         System.in.read();
         httpServer.stop();
         //cc
+        // a
     }    
 }
