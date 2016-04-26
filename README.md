@@ -1,4 +1,4 @@
-# restJavaSeExample
+# restJava Se Example
 Some easy examples of REST with only Java SE (with jersey and grizzly)
 
 # execute the main class (run servers)
