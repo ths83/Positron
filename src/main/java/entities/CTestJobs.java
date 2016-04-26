@@ -24,7 +24,7 @@ public class CTestJobs {
         CBuildingEntity drone = new CBuildingEntity.CBuildingBuilder().damage(0).name("drone 045").level(25).build();
         System.out.println(drone);
 
-
+        CResonatorEntity resonatorEntity = new CResonatorEntity.CResonatorBuilder().energy(100).id(0).build();
 
     }
 }
