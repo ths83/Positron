@@ -1,4 +1,6 @@
-package fr.univtln.bruno.exemple.simplerest;
+package entities;
+
+import fr.univtln.bruno.exemple.simplerest.CSmsReceived;
 
 /**
  * Created by boblinux on 06/04/16.
@@ -21,6 +23,8 @@ public class CTestJobs {
 
         CBuildingEntity drone = new CBuildingEntity.CBuildingBuilder().damage(0).name("drone 045").level(25).build();
         System.out.println(drone);
+
+
 
     }
 }

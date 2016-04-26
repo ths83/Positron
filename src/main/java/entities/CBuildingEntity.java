@@ -1,6 +1,4 @@
-package fr.univtln.bruno.exemple.simplerest;
-
-import java.util.List;
+package entities;
 
 /**
  * Created by arouani277 on 25/04/16.

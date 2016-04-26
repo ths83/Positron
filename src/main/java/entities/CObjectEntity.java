@@ -1,4 +1,4 @@
-package fr.univtln.bruno.exemple.simplerest;
+package entities;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -1,9 +1,9 @@
-package fr.univtln.bruno.exemple.simplerest;
+package entities;
 
 /**
  * Created by arouani277 on 25/04/16.
  */
-public class CWeaponEntity extends CObjectEntity{
+public class CWeaponEntity extends CObjectEntity {
 
     private int mDamage;
 

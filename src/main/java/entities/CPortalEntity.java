@@ -1,12 +1,11 @@
 package entities;
 
-import fr.univtln.bruno.exemple.simplerest.CObjectEntity;
-
 import java.util.List;
 
 /**
  * Created by nmartinez016 on 25/04/16.
  */
+
 public class CPortalEntity {
     private int mId;
     private float mLat;
