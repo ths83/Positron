@@ -63,6 +63,7 @@ public class CPortalEntity {
 
         public CPortalBuilder links(List<CLinkEntity> pLinks){
             mLinks = pLinks;
+            return this;
         }
 
         public CPortalBuilder resonators(List<CResonatorEntity> pResonators){

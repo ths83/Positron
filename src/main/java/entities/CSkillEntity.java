@@ -7,6 +7,7 @@ package entities;
 public class CSkillEntity {
     private int mId;
     private String mName;
+    private int mLevel;
 
     public CSkillEntity(CSkillBuilder pBuilder){
         mId = pBuilder.mId;

@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.List;
+import java.util.Objects;
+
 /**
  * Created by nmartinez016 on 25/04/16.
  */
@@ -10,6 +13,9 @@ public class CPlayerEntity {
     private String mEmail;
     private CTeamEntity mTeam;
     private int mHacks;
+    private int mThiefLevel;
+    private int mHackerLevel;
+    private List<CObjectEntity> mObjects;
 
 
     public CPlayerEntity(CPlayerBuilder pBuilder){
