@@ -9,6 +9,7 @@ public class CPlayerEntity {
     private String mNickName;
     private String mEmail;
     private CTeamEntity mTeam;
+    private int mHacks;
 
 
     public CPlayerEntity(CPlayerBuilder pBuilder){

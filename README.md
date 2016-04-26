@@ -1,7 +1,7 @@
 # restJavaSeExample
 Some easy examples of REST with only Java SE (with jersey and grizzly)
 
-# execute the main class (run server)
+# execute the main class (run servers)
 
     mvn exec:java  -Dexec.mainClass="fr.univtln.bruno.exemple.simplerest.Main" 
 
