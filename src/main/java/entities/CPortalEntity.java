@@ -1,5 +1,7 @@
 package entities;
 
+import fr.univtln.bruno.exemple.simplerest.CObjectEntity;
+
 import java.util.List;
 
 /**

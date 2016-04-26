@@ -20,6 +20,7 @@ public class CTestJobs {
         System.out.println(ak47);
 
         CBuildingEntity drone = new CBuildingEntity.CBuildingBuilder().damage(0).name("drone 045").level(25).build();
+        System.out.println(drone);
 
     }
 }
