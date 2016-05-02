@@ -26,9 +26,8 @@ public class CStatsBuildingsAttacked extends AStatsAttacked {
         private CPlayerEntity mAttacker;
 
 
-        public CStatsBuildingsAttackedBuilder id(int pId) {
+        public CStatsBuildingsAttackedBuilder(int pId) {
             mId = pId;
-            return this;
         }
 
         public CStatsBuildingsAttackedBuilder building(ABuildingEntity pBuilding) {

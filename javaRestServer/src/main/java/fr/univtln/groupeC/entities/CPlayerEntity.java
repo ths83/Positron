@@ -7,8 +7,11 @@ import java.util.List;
  * Created by nmartinez016 on 25/04/16.
  */
 
+<<<<<<< HEAD
 @Entity
 @Table(name = "t_player", schema = "project")
+=======
+>>>>>>> 4019515a0c71ef75179e7529e4b07b102e4b910d
 public class CPlayerEntity {
 
     @Id

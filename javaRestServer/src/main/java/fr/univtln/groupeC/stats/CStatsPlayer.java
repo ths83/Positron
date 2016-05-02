@@ -55,9 +55,8 @@ public class CStatsPlayer {
         private CPlayerEntity mPlayer;
 
 
-        public CStatsPlayerBuilder id(int pId){
+        public CStatsPlayerBuilder(int pId){
             mId = pId;
-            return this;
         }
 
         public CStatsPlayerBuilder consumablesUsed(List<CConsumableEntity> pConsumablesUSed){

@@ -13,6 +13,7 @@ public class CResonatorEntity extends ABuildingEntity {
     @ManyToOne
     @JoinColumn(name = "portal_fk")
     private CPortalEntity mPortal;
+    @ManyToOne
     @JoinColumn(name = "owner_fk")
     private CPlayerEntity mOwner;
 
@@ -47,9 +48,8 @@ public class CResonatorEntity extends ABuildingEntity {
         private CPortalEntity mPortal;
         private CPlayerEntity mOwner;
 
-        public CResonatorBuilder id(int pId){
+        public CResonatorBuilder(int pId){
             mId = pId;
-            return this;
         }
 
         public CResonatorBuilder name(String pName){

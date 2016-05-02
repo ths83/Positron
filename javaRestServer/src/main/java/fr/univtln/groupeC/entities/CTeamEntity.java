@@ -15,10 +15,13 @@ public class CTeamEntity {
     @Id
     @Column(name = "id")
     private int mId;
+
     @OneToMany
     private List<CPlayerEntity> mPlayers;
+
     @OneToMany
     private List<CPortalEntity> mPortals;
+
     @Column(name = "color")
     private String mColor;
 
@@ -72,5 +75,15 @@ public class CTeamEntity {
         }
 
 
+    }
+
+    @Override
+    public String toString() {
+        return "CTeamEntity{" +
+                "mId=" + mId +
+                ", mPlayers=" + mPlayers +
+                ", mPortals=" + mPortals +
+                ", mColor='" + mColor + '\'' +
+                '}' + super.toString();
     }
 }

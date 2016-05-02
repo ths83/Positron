@@ -22,9 +22,8 @@ public class CStatsResonatorAttacked extends AStatsAttacked{
         private CPlayerEntity mAttacker;
 
 
-        public CStatsResonatorAttackedBuilder id(int pId) {
+        public CStatsResonatorAttackedBuilder(int pId) {
             mId = pId;
-            return this;
         }
 
         public CStatsResonatorAttackedBuilder resonator(CResonatorEntity pResonator) {
