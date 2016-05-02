@@ -1,15 +1,25 @@
 package entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 /**
  * Created by nmartinez016 on 25/04/16.
  */
+@Entity
 public class CTeamEntity {
 
+    @Id
+    @Column(name = "id")
     private int mId;
+    @OneToMany
     private List<CPlayerEntity> mPlayers;
+    @OneToMany
     private List<CPortalEntity> mPortals;
+    @Column(name = "color")
     private String mColor;
 
     public CTeamEntity(CTeamBuilder pBuilder){

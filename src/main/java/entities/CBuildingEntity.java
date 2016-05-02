@@ -1,8 +1,11 @@
 package entities;
 
+import javax.persistence.Entity;
+
 /**
  * Created by arouani277 on 25/04/16.
  */
+@Entity
 public class CBuildingEntity extends CObjectEntity {
     private float mLong;
     private float mLat;
