@@ -10,9 +10,9 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class ABuildingEntity extends AObjectEntity {
     @Column(name = "long")
-    private float mLong;
+    private double mLong;
     @Column(name = "lat")
-    private float mLat;
+    private double mLat;
     @Column(name = "lifetime")
     private int mLifeTime;
     @Column(name = "radius")
@@ -24,9 +24,12 @@ public class ABuildingEntity extends AObjectEntity {
     @Column(name = "energy")
     private int mEnergy;
 
+    public ABuildingEntity(){
+        super();
+    }
 
 
-    public ABuildingEntity(int pId, String pName, float pLong, float pLat, int pLifeTime, int pRadius, int pLevel, int pEnergy, int pEnergyMax){
+    public ABuildingEntity(int pId, String pName, double pLong, double pLat, int pLifeTime, int pRadius, int pLevel, int pEnergy, int pEnergyMax){
         super(pId, pName);
         mLong = pLong;
         mLat = pLat;
@@ -50,7 +53,7 @@ public class ABuildingEntity extends AObjectEntity {
                 '}';
     }
 
-    public float getLong() {
+    public double getLong() {
         return mLong;
     }
 
@@ -58,7 +61,7 @@ public class ABuildingEntity extends AObjectEntity {
         mLong = pLong;
     }
 
-    public float getLat() {
+    public double getLat() {
         return mLat;
     }
 
