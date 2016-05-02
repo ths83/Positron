@@ -118,19 +118,19 @@ public class CStatsPlayer {
         this.mPlayer = mPlayer;
     }
 
-    public List<CBuildingEntity> getmBuildingsUsed() {
+    public List<ABuildingEntity> getmBuildingsUsed() {
         return mBuildingsUsed;
     }
 
-    public void setmBuildingsUsed(List<CBuildingEntity> mBuildingsUsed) {
+    public void setmBuildingsUsed(List<ABuildingEntity> mBuildingsUsed) {
         this.mBuildingsUsed = mBuildingsUsed;
     }
 
-    public List<CBuildingEntity> getmBuildingsDestroyed() {
+    public List<ABuildingEntity> getmBuildingsDestroyed() {
         return mBuildingsDestroyed;
     }
 
-    public void setmBuildingsDestroyed(List<CBuildingEntity> mBuildingsDestroyed) {
+    public void setmBuildingsDestroyed(List<ABuildingEntity> mBuildingsDestroyed) {
         this.mBuildingsDestroyed = mBuildingsDestroyed;
     }
 
