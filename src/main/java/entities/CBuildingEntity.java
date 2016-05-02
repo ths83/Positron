@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Table(name = "t_building")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class CBuildingEntity extends AObjectEntity {
-
     @Column(name = "long")
     private float mLong;
     @Column(name = "lat")
