@@ -15,7 +15,7 @@ public class CPlayerEntity {
     private int mHacks;
     private int mThiefLevel;
     private int mHackerLevel;
-    private List<CObjectEntity> mObjects;
+    private List<AObjectEntity> mObjects;
 
 
     public CPlayerEntity(CPlayerBuilder pBuilder){
@@ -31,8 +31,9 @@ public class CPlayerEntity {
         private String mEmail;
         private CTeamEntity mTeam;
 
-        public CPlayerBuilder(int pId){
+        public CPlayerBuilder id(int pId){
             mId = pId;
+            return this;
         }
 
         public CPlayerBuilder nickname(String pNickName){
@@ -49,5 +50,11 @@ public class CPlayerEntity {
             mTeam = pTeam;
             return this;
         }
+
+        public CPlayerEntity build(){
+            return new CPlayerEntity(this);
+        }
+
+
     }
 }
