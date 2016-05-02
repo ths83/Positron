@@ -1,4 +1,4 @@
-package entities;
+package genericdao;
 
 /**
  * Created by mpesnel786 on 02/05/16.
