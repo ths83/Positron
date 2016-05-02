@@ -26,6 +26,8 @@ public abstract class AObjectEntity {
                 '}';
     }
 
+    public AObjectEntity(){}
+
     public AObjectEntity(int pID, String pName) {
         mID = pID;
         mName = pName;

@@ -22,12 +22,15 @@ public class CResonatorEntity extends ABuildingEntity {
         mOwner = pBuilder.mOwner;
     }
 
+    public CResonatorEntity() {
+    }
+
     @Override
     public String toString() {
         return super.toString() + " CResonatorEntity{" +
                 "mPortal=" + mPortal +
                 ", mOwner=" + mOwner +
-                '}';
+                '}' + super.toString();
     }
 
     public static class CResonatorBuilder{
@@ -35,8 +38,8 @@ public class CResonatorEntity extends ABuildingEntity {
         private int mId;
         private String mName;
         private int mLevel;
-        private float mLong;
-        private float mLat;
+        private double mLong;
+        private double mLat;
         private int mLifeTime;
         private int mRadius;
         private int mEnergyMax;
@@ -44,8 +47,9 @@ public class CResonatorEntity extends ABuildingEntity {
         private CPortalEntity mPortal;
         private CPlayerEntity mOwner;
 
-        public CResonatorBuilder(int pId){
+        public CResonatorBuilder id(int pId){
             mId = pId;
+            return this;
         }
 
         public CResonatorBuilder name(String pName){
@@ -68,12 +72,12 @@ public class CResonatorEntity extends ABuildingEntity {
             return this;
         }
 
-        public CResonatorBuilder longitude(float pLong){
+        public CResonatorBuilder longitude(double pLong){
             mLong = pLong;
             return this;
         }
 
-        public CResonatorBuilder latitude(float pLat){
+        public CResonatorBuilder latitude(double pLat){
             mLat = pLat;
             return this;
         }
