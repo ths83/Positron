@@ -10,6 +10,8 @@ import java.util.List;
 /**
  * Created by mpesnel786 on 26/04/16.
  */
+
+@Entity
 public class CFieldEntity {
     @Id
     @Column(name = "field_id")

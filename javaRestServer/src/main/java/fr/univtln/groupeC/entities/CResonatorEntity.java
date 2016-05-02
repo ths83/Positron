@@ -1,7 +1,6 @@
 package fr.univtln.groupeC.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by arouani277 on 26/04/16.
@@ -9,12 +8,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_resonator", schema = "project")
-public class CResonatorEntity extends AObjectEntity {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class CResonatorEntity extends ABuildingEntity {
+    @ManyToOne
+    @Column(name = "portal_fk")
     private CPortalEntity mPortal;
+    @Column(name = "owner_fk")
     private CPlayerEntity mOwner;
 
     public CResonatorEntity(CResonatorBuilder pBuilder){
-        super(pBuilder.mId, pBuilder.mName);
+        super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
         mPortal = pBuilder.mPortal;
         mOwner = pBuilder.mOwner;
     }
@@ -32,6 +35,14 @@ public class CResonatorEntity extends AObjectEntity {
         private int mId;
         private String mName;
         private int mLevel;
+        private float mLong;
+        private float mLat;
+        private int mLifeTime;
+        private int mRadius;
+        private int mEnergyMax;
+
+        private CPortalEntity mPortal;
+        private CPlayerEntity mOwner;
 
         public CResonatorBuilder(int pId){
             mId = pId;
@@ -52,12 +63,39 @@ public class CResonatorEntity extends AObjectEntity {
             return this;
         }
 
+        public CResonatorBuilder energyMax(int pEnergyMax){
+            mEnergyMax = pEnergyMax;
+            return this;
+        }
+
+        public CResonatorBuilder longitude(float pLong){
+            mLong = pLong;
+            return this;
+        }
+
+        public CResonatorBuilder latitude(float pLat){
+            mLat = pLat;
+            return this;
+        }
+
+        public CResonatorBuilder radius(int pRadius){
+            mRadius = pRadius;
+            return this;
+        }
+
+        public CResonatorBuilder owner(CPlayerEntity pOwner){
+            mOwner = pOwner;
+            return this;
+        }
+
+        public CResonatorBuilder portal(CPortalEntity pPortal){
+            mPortal = pPortal;
+            return this;
+        }
+
         public CResonatorEntity build() {
             return new CResonatorEntity(this);
         }
 
     }
-
-
-
 }
