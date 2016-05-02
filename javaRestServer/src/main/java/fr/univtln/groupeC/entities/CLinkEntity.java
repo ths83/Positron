@@ -17,10 +17,10 @@ public class CLinkEntity implements Serializable {
     @Id
     @Column(name = "link_id")
     private int mId;
-    /*@ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "field_fk")
     @JsonIgnore
-    private CFieldEntity mField;*/
+    private CFieldEntity mField;
     @ManyToMany
     /*@ManyToMany(targetEntity=CPortalEntity.class,
             cascade={CascadeType.PERSIST, CascadeType.MERGE} )*/
@@ -73,11 +73,11 @@ public class CLinkEntity implements Serializable {
     public void setmPortals(List<CPortalEntity> mPortals) {
         this.mPortals = mPortals;
     }
-    /* public CFieldEntity getmField() {
+     public CFieldEntity getmField() {
         return mField;
-    }*/
+    }
 
-   /* public void setmField(CFieldEntity mField) {
+    public void setmField(CFieldEntity mField) {
         this.mField = mField;
-    }*/
+    }
 }
