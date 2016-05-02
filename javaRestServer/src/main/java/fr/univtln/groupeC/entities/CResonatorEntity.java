@@ -14,7 +14,7 @@ public class CResonatorEntity extends AObjectEntity {
     private CPlayerEntity mOwner;
 
     public CResonatorEntity(CResonatorBuilder pBuilder){
-        super(pBuilder.mId, pBuilder.mName, pBuilder.mLevel);
+        super(pBuilder.mId, pBuilder.mName);
         mPortal = pBuilder.mPortal;
         mOwner = pBuilder.mOwner;
     }
@@ -58,13 +58,6 @@ public class CResonatorEntity extends AObjectEntity {
 
     }
 
-    public int getEnergy() {
-        return mEnergy;
-    }
-
-    public void setEnergy(int pEnergy) {
-        mEnergy = pEnergy;
-    }
 
 
 }
