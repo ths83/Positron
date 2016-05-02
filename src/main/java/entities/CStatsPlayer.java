@@ -10,8 +10,8 @@ public class CStatsPlayer {
     private CPlayerEntity mPlayer;
     private List<CConsumableEntity> mConsumablesUsed = new ArrayList<CConsumableEntity>();
 
-    private List<CBuildingEntity> mBuildingsUsed = new ArrayList<CBuildingEntity>();
-    private List<CBuildingEntity> mBuildingsDestroyed = new ArrayList<CBuildingEntity>();
+    private List<ABuildingEntity> mBuildingsUsed = new ArrayList<ABuildingEntity>();
+    private List<ABuildingEntity> mBuildingsDestroyed = new ArrayList<ABuildingEntity>();
 
     private List<CResonatorEntity> mResonatorsDestroyed  = new ArrayList<CResonatorEntity>();
     private List<CResonatorEntity> mResonatorsBuilt  = new ArrayList<CResonatorEntity>();
@@ -24,8 +24,8 @@ public class CStatsPlayer {
         private int mId;
         private List<CConsumableEntity> mConsumablesUsed = new ArrayList<CConsumableEntity>();
 
-        private List<CBuildingEntity> mBuildingsUsed = new ArrayList<CBuildingEntity>();
-        private List<CBuildingEntity> mBuildingsDestroyed = new ArrayList<CBuildingEntity>();
+        private List<ABuildingEntity> mBuildingsUsed = new ArrayList<ABuildingEntity>();
+        private List<ABuildingEntity> mBuildingsDestroyed = new ArrayList<ABuildingEntity>();
 
         private List<CResonatorEntity> mResonatorsDestroyed  = new ArrayList<CResonatorEntity>();
         private List<CResonatorEntity> mResonatorsBuilt  = new ArrayList<CResonatorEntity>();
@@ -42,12 +42,12 @@ public class CStatsPlayer {
             return this;
         }
 
-        public CStatsPlayerBuilder buildingsUsed(List<CBuildingEntity> pBuildingsUsed){
+        public CStatsPlayerBuilder buildingsUsed(List<ABuildingEntity> pBuildingsUsed){
             mBuildingsUsed = pBuildingsUsed;
             return this;
         }
 
-        public CStatsPlayerBuilder buildingsDestroyed(List<CBuildingEntity> pBuildingsDestroyed){
+        public CStatsPlayerBuilder buildingsDestroyed(List<ABuildingEntity> pBuildingsDestroyed){
             mBuildingsDestroyed = pBuildingsDestroyed;
             return this;
         }

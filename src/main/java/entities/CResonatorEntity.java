@@ -22,6 +22,14 @@ public class CResonatorEntity extends ABuildingEntity {
         mOwner = pBuilder.mOwner;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + " CResonatorEntity{" +
+                "mPortal=" + mPortal +
+                ", mOwner=" + mOwner +
+                '}';
+    }
+
     public static class CResonatorBuilder{
         private int mId;
         private String mName;
