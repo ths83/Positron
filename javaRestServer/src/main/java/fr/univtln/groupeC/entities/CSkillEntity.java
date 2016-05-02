@@ -22,6 +22,8 @@ public class CSkillEntity {
     @Column(name = "cost")
     private int mCost;
 
+    public CSkillEntity(){}
+
     public CSkillEntity(CSkillBuilder pBuilder){
         mId = pBuilder.mId;
         mName = pBuilder.mName;

@@ -19,7 +19,7 @@ public class CPlayerEntity {
     @Column(name = "email")
     private String mEmail;
     @ManyToOne
-    @Column(name = "team")
+    @JoinColumn(name = "team")
     private CTeamEntity mTeam;
     @Column(name = "xp")
     private int mXp;

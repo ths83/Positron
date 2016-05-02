@@ -7,10 +7,14 @@ import javax.persistence.*;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "t_consumbale", schema = "project")
+@Table(name = "t_consumbale", schema = "positron")
 public class CConsumableEntity extends AObjectEntity {
     @Column(name = "rarity")
     private int mRarity;
+
+    public CConsumableEntity(){
+        super();
+    }
 
     public CConsumableEntity(CConsumableBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName);

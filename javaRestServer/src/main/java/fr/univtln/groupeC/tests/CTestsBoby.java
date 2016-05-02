@@ -27,7 +27,7 @@ public class CTestsBoby {
         System.out.println(cr.toString());
 
         CTeamEntity ctm = new CTeamEntity.CTeamBuilder(0).color("red").build();
-        CPlayerEntity cp = new CPlayerEntity.CPlayerBuilder().email("bob@z.fr").id(0).nickname("mahmoud").build();
+        CPlayerEntity cp = new CPlayerEntity.CPlayerBuilder(0).email("bob@z.fr").nickname("mahmoud").build();
 
 
     }

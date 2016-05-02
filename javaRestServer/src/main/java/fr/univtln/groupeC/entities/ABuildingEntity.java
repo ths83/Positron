@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by arouani277 on 25/04/16.
  */
 @Entity
-@Table(name = "t_building", schema = "project")
+@Table(name = "t_building", schema = "positron")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class ABuildingEntity extends AObjectEntity {
     @Column(name = "long")

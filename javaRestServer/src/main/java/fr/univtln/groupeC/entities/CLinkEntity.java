@@ -9,6 +9,7 @@ import javax.persistence.*;
  * Created by arouani277 on 26/04/16.
  */
 @Entity
+@Table(name = "t_link", schema = "positron")
 public class CLinkEntity {
     @Id
     @Column(name = "link_id")

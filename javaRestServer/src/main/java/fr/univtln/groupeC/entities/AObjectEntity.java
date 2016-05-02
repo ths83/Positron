@@ -10,7 +10,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "t_object", schema = "project")
+@Table(name = "t_object", schema = "positron")
 public abstract class AObjectEntity {
     @Id
     @Column(name = "id")

@@ -7,11 +7,13 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "t_key")
+@Table(name = "t_key", schema = "positron")
 public class CKeyEntity extends AObjectEntity {
     @ManyToOne
     @JoinColumn(name = "portal_fk")
     private CPortalEntity mPortal;
+
+    public CKeyEntity(){}
 
     public CKeyEntity(CKeyBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName);

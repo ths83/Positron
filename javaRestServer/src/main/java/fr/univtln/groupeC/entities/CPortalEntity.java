@@ -24,6 +24,8 @@ public class CPortalEntity {
     @JoinColumn(name = "portal")
     private CTeamEntity mTeam;
 
+    public CPortalEntity(){}
+
     public CPortalEntity(CPortalBuilder pBuilder){
         mId = pBuilder.mId;
         mLat = pBuilder.mLat;

@@ -12,6 +12,7 @@ import java.util.List;
  */
 
 @Entity
+@Table(name = "t_field", schema = "positron")
 public class CFieldEntity {
     @Id
     @Column(name = "field_id")

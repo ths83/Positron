@@ -15,6 +15,7 @@
         <class>fr.univtln.groupeC.entities.CLinkEntity</class>
         <class>fr.univtln.groupeC.entities.CTeamEntity</class>
         <class>fr.univtln.groupeC.entities.CTerritoryEntity</class>
+        <class>fr.univtln.groupeC.entities.CSkillEntity</class>
         <properties>
             <property name="javax.persistence.target-database" value="PostgreSQL"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
