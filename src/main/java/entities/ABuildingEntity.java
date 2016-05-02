@@ -37,7 +37,18 @@ public class ABuildingEntity extends AObjectEntity {
         mEnergyMax = pEnergyMax;
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString() + "ABuildingEntity{" +
+                "mLong=" + mLong +
+                ", mLat=" + mLat +
+                ", mLifeTime=" + mLifeTime +
+                ", mRadius=" + mRadius +
+                ", mLevel=" + mLevel +
+                ", mEnergyMax=" + mEnergyMax +
+                ", mEnergy=" + mEnergy +
+                '}';
+    }
 
     public float getLong() {
         return mLong;
@@ -63,16 +74,5 @@ public class ABuildingEntity extends AObjectEntity {
         mRadius = pRadius;
     }
 
-    @Override
-    public String toString() {
-        return "CBuildingEntity{" +
-                "mLong=" + mLong +
-                ", mLat=" + mLat +
-                ", mLifeTime=" + mLifeTime +
-                ", mRadius=" + mRadius +
-                ", mLevel=" + mLevel +
-                ", mEnergyMax=" + mEnergyMax +
-                ", mEnergy=" + mEnergy +
-                '}';
-    }
+
 }

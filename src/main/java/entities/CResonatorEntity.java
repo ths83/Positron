@@ -11,6 +11,14 @@ public class CResonatorEntity extends CObjectEntity {
         mEnergy = pBuilder.mEnergy;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + " CResonatorEntity{" +
+                "mPortal=" + mPortal +
+                ", mOwner=" + mOwner +
+                '}';
+    }
+
     public static class CResonatorBuilder{
         private int mEnergy;
         private int mID;
