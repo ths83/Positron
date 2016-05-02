@@ -1,6 +1,7 @@
 package fr.univtln.groupeC.entities;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.owlike.genson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 

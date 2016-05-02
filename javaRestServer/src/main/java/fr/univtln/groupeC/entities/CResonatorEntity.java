@@ -1,14 +1,22 @@
 package fr.univtln.groupeC.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * Created by arouani277 on 26/04/16.
  */
+
+@Entity
+@Table(name = "t_resonator", schema = "project")
 public class CResonatorEntity extends AObjectEntity {
-    private int mEnergy;
+    private CPortalEntity mPortal;
+    private CPlayerEntity mOwner;
 
     public CResonatorEntity(CResonatorBuilder pBuilder){
-        super(pBuilder.mID, pBuilder.mName, pBuilder.mLevel);
-        mEnergy = pBuilder.mEnergy;
+        super(pBuilder.mId, pBuilder.mName, pBuilder.mLevel);
+        mPortal = pBuilder.mPortal;
+        mOwner = pBuilder.mOwner;
     }
 
     @Override
@@ -21,13 +29,12 @@ public class CResonatorEntity extends AObjectEntity {
 
     public static class CResonatorBuilder{
         private int mEnergy;
-        private int mID;
+        private int mId;
         private String mName;
         private int mLevel;
 
-        public CResonatorBuilder id(int pId){
-            mID = pId;
-            return this;
+        public CResonatorBuilder(int pId){
+            mId = pId;
         }
 
         public CResonatorBuilder name(String pName){
@@ -51,18 +58,13 @@ public class CResonatorEntity extends AObjectEntity {
 
     }
 
-    public int getmEnergy() {
+    public int getEnergy() {
         return mEnergy;
     }
 
-    public void setmEnergy(int mEnergy) {
-        this.mEnergy = mEnergy;
+    public void setEnergy(int pEnergy) {
+        mEnergy = pEnergy;
     }
 
-    @Override
-    public String toString() {
-        return "CResonatorEntity{" +
-                "mEnergy=" + mEnergy +
-                '}' + super.toString();
-    }
+
 }
