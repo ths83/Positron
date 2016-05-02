@@ -1,6 +1,10 @@
 package fr.univtln.groupeC.entities;
 
+import com.owlike.genson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,18 +12,24 @@ import java.util.List;
  */
 
 @Entity
-public class CPortalEntity {
+@Table(name = "portal" , schema = "positron")
+public class CPortalEntity implements Serializable {
     @Id
+    @Column(name = "portal_id")
     private int mId;
+    @Column(name = "latitude")
     private double mLat;
+    @Column(name = "longitude")
     private double mLong;
+    @Column(name = "radius")
     private int mRadius;
     @OneToMany
     private List<AObjectEntity> mObjects;
     @OneToMany
     private List<CResonatorEntity> mResonators;
-    @OneToMany
-    public List<CLinkEntity> mLinks;
+    @ManyToMany(mappedBy = "mPortals")
+    @JsonIgnore
+    private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     @ManyToOne
     @JoinColumn(name = "portal")
     private CTeamEntity mTeam;
@@ -90,6 +100,51 @@ public class CPortalEntity {
             return new CPortalEntity(this);
         }
     }
+
+    public int getmId() {
+        return mId;
+    }
+
+    public void setmId(int mId) {
+        this.mId = mId;
+    }
+
+    public double getmLat() {
+        return mLat;
+    }
+
+    public void setmLat(float mLat) {
+        this.mLat = mLat;
+    }
+
+    public double getmLong() {
+        return mLong;
+    }
+
+    public void setmLong(float mLong) {
+        this.mLong = mLong;
+    }
+
+    public int getmRadius() {
+        return mRadius;
+    }
+
+    public void setmRadius(int mRadius) {
+        this.mRadius = mRadius;
+    }
+    @JsonIgnore
+    public List<CLinkEntity> getmLinks() {
+        return mLinks;
+    }
+
+    public void setmLinks(List<CLinkEntity> mLinks) {
+        this.mLinks = mLinks;
+    }
+
+    public void addmLink(CLinkEntity plink){
+        mLinks.add(plink);
+    }
+
 
     @Override
     public String toString() {
