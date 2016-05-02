@@ -1,40 +1,59 @@
 package entities;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * Created by arouani277 on 25/04/16.
  */
 @Entity
-public class CBuildingEntity extends CObjectEntity {
+@Table(name = "t_building")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class CBuildingEntity extends AObjectEntity {
+
+    @Column(name = "long")
     private float mLong;
+    @Column(name = "lat")
     private float mLat;
-    private int mTimeLife;
+    @Column(name = "lifetime")
+    private int mLifeTime;
+    @Column(name = "radius")
     private int mRadius;
-    private int mDamage;
-    private int mHeal;
+    @Column(name = "level")
+    private int mLevel;
+    @Column(name = "energy_max")
+    private int mEnergyMax;
+    @Column(name = "energy")
+    private int mEnergy;
 
     public CBuildingEntity(CBuildingBuilder pBuilder){
-        super(pBuilder.mID, pBuilder.mName, pBuilder.mLevel);
+        super(pBuilder.mId, pBuilder.mName);
         mLong = pBuilder.mLong;
         mLat = pBuilder.mLat;
-
-        mDamage = pBuilder.mDamage;
+        mLifeTime = pBuilder.mLifeTime;
+        mRadius = pBuilder.mRadius;
+        mLevel = pBuilder.mLevel;
+        mEnergy = pBuilder.mEnergy;
+        mEnergyMax = pBuilder.mEnergyMax;
     }
 
     public static class CBuildingBuilder{
+        private int mId;
+        private String mName;
         private float mLong;
         private float mLat;
-        private int mTimeLife;
+        private int mLifeTime;
         private int mRadius;
-        private int mDamage;
-        private int mHeal;
-        private int mID;
-        private String mName;
         private int mLevel;
+        private int mEnergyMax;
+        private int mEnergy;
 
-        public CBuildingBuilder id(int pID) {
-            mID = pID;
+
+        public CBuildingBuilder (int pID) {
+            mId = pID;
+        }
+
+        public CBuildingBuilder name(String pName){
+            mName = pName;
             return this;
         }
 
@@ -48,8 +67,8 @@ public class CBuildingEntity extends CObjectEntity {
             return this;
         }
 
-        public CBuildingBuilder timelife(int pTimeLife) {
-            mTimeLife = pTimeLife;
+        public CBuildingBuilder lifetime(int pLifeTime) {
+            mLifeTime = pLifeTime;
             return this;
         }
 
@@ -58,80 +77,50 @@ public class CBuildingEntity extends CObjectEntity {
             return this;
         }
 
-        public CBuildingBuilder damage(int pDamage) {
-            mDamage = pDamage;
-            return this;
-        }
-
         public CBuildingBuilder level(int pLevel) {
             mLevel = pLevel;
             return this;
         }
 
-        public CBuildingBuilder name(String pName) {
-            mName = pName;
+        public CBuildingBuilder energy(int pEnergy){
+            mEnergy = pEnergy;
             return this;
         }
 
-        public CBuildingBuilder heal(int pHeal) {
-            mHeal = pHeal;
+        public CBuildingBuilder energyMax(int pEnergyMax){
+            mEnergyMax = pEnergyMax;
             return this;
         }
+
 
         public CBuildingEntity build() {
             return new CBuildingEntity(this);
         }
 
-
-
     }
 
-    public float getmLong() {
+    public float getLong() {
         return mLong;
     }
 
-    public void setmLong(float mLong) {
-        this.mLong = mLong;
+    public void setLong(float pLong) {
+        mLong = pLong;
     }
 
-    public float getmLat() {
+    public float getLat() {
         return mLat;
     }
 
-    public void setmLat(float mLat) {
-        this.mLat = mLat;
+    public void setLat(float pLat) {
+        mLat = pLat;
     }
 
-    public int getmRadius() {
+    public int getRadius() {
         return mRadius;
     }
 
-    public void setmRadius(int mRadius) {
-        this.mRadius = mRadius;
-    }
-
-    public int getmTimeLife() {
-        return mTimeLife;
-    }
-
-    public void setmTimeLife(int mTimeLife) {
-        this.mTimeLife = mTimeLife;
-    }
-
-    public int getmDamage() {
-        return mDamage;
-    }
-
-    public void setmDamage(int mDamage) {
-        this.mDamage = mDamage;
-    }
-
-    public int getmHeal() {
-        return mHeal;
-    }
-
-    public void setmHeal(int mHeal) {
-        this.mHeal = mHeal;
+    public void setRadius(int pRadius) {
+        mRadius = pRadius;
     }
 
     @Override
@@ -139,10 +128,11 @@ public class CBuildingEntity extends CObjectEntity {
         return "CBuildingEntity{" +
                 "mLong=" + mLong +
                 ", mLat=" + mLat +
-                ", mTimeLife=" + mTimeLife +
+                ", mLifeTime=" + mLifeTime +
                 ", mRadius=" + mRadius +
-                ", mDamage=" + mDamage +
-                ", mHeal=" + mHeal +
-                '}' + super.toString();
+                ", mLevel=" + mLevel +
+                ", mEnergyMax=" + mEnergyMax +
+                ", mEnergy=" + mEnergy +
+                '}';
     }
 }
