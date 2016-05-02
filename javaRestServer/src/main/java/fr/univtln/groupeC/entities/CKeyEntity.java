@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "t_key")
 public class CKeyEntity extends AObjectEntity {
     @ManyToOne
-    @Column(name = "portal_fk")
+    @JoinColumn(name = "portal_fk")
     private CPortalEntity mPortal;
 
     public CKeyEntity(CKeyBuilder pBuilder){

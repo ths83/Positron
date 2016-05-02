@@ -11,9 +11,9 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class CResonatorEntity extends ABuildingEntity {
     @ManyToOne
-    @Column(name = "portal_fk")
+    @JoinColumn(name = "portal_fk")
     private CPortalEntity mPortal;
-    @Column(name = "owner_fk")
+    @JoinColumn(name = "owner_fk")
     private CPlayerEntity mOwner;
 
     public CResonatorEntity(CResonatorBuilder pBuilder){

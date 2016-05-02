@@ -22,12 +22,24 @@ public class CTeamEntity {
     @Column(name = "color")
     private String mColor;
 
+    public CTeamEntity(){}
+
     public CTeamEntity(CTeamBuilder pBuilder){
         mId = pBuilder.mId;
         mPlayers = pBuilder.mPlayers;
         mPortals = pBuilder.mPortals;
         mColor = pBuilder.mColor;
 
+    }
+
+    @Override
+    public String toString() {
+        return "CTeamEntity{" +
+                "mId=" + mId +
+                ", mPlayers=" + mPlayers +
+                ", mPortals=" + mPortals +
+                ", mColor='" + mColor + '\'' +
+                '}';
     }
 
     public static class CTeamBuilder{

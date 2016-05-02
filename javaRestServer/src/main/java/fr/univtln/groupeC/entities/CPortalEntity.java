@@ -1,19 +1,27 @@
 package fr.univtln.groupeC.entities;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by nmartinez016 on 25/04/16.
  */
 
+@Entity
 public class CPortalEntity {
+    @Id
     private int mId;
     private float mLat;
     private float mLong;
     private int mRadius;
+    @OneToMany
     private List<AObjectEntity> mObjects;
+    @OneToMany
     private List<CResonatorEntity> mResonators;
+    @OneToMany
     public List<CLinkEntity> mLinks;
+    @ManyToOne
+    @JoinColumn(name = "portal")
     private CTeamEntity mTeam;
 
     public CPortalEntity(CPortalBuilder pBuilder){

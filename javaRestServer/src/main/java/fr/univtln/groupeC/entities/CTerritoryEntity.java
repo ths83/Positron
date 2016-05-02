@@ -4,6 +4,7 @@ package fr.univtln.groupeC.entities;
 import com.owlike.genson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
 /**
  * Created by mpesnel786 on 26/04/16.
  */
+
+@Entity
 public class CTerritoryEntity {
     @Id
     @Column(name = "territory_id")
