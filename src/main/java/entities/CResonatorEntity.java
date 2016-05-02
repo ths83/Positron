@@ -3,11 +3,11 @@ package entities;
 /**
  * Created by arouani277 on 26/04/16.
  */
-public class CResonatorEntity extends AObjectEntity {
+public class CResonatorEntity extends CObjectEntity {
     private int mEnergy;
 
     public CResonatorEntity(CResonatorBuilder pBuilder){
-        super(pBuilder.mID, pBuilder.mName);
+        super(pBuilder.mID, pBuilder.mName, pBuilder.mLevel);
         mEnergy = pBuilder.mEnergy;
     }
 
@@ -51,6 +51,7 @@ public class CResonatorEntity extends AObjectEntity {
         this.mEnergy = mEnergy;
     }
 
+    @Override
     public String toString() {
         return "CResonatorEntity{" +
                 "mEnergy=" + mEnergy +

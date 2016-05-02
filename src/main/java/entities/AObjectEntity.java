@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @Entity
-@Table(name = "t_object")
+@Table(name = "t_object", schema = "project")
 public abstract class AObjectEntity {
     @Id
     @Column(name = "id")

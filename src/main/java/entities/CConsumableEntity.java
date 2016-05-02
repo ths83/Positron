@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "t_consumbale")
+@Table(name = "t_consumbale", schema = "project")
 public class CConsumableEntity extends AObjectEntity {
     @Column(name = "rarity")
     private int mRarity;
