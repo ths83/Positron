@@ -1,4 +1,6 @@
-package entities;
+package entities.stats;
+
+import entities.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,25 @@ public class CStatsPlayer {
 
     private int mID;
 
+    public CStatsPlayer(CStatsPlayerBuilder pBuilder){
+        mID = pBuilder.mId;
+
+        mPlayer = pBuilder.mPlayer;
+        mConsumablesUsed = pBuilder.mConsumablesUsed;
+
+        mBuildingsUsed = pBuilder.mBuildingsUsed;
+        mBuildingsDestroyed = pBuilder.mBuildingsDestroyed;
+
+        mResonatorsBuilt = pBuilder.mResonatorsBuilt;
+        mResonatorsDestroyed = pBuilder.mResonatorsDestroyed;
+
+        mKeysUSed = pBuilder.mKeysUSed;
+
+
+    }
+
     public static class CStatsPlayerBuilder{
+
         private int mId;
         private List<CConsumableEntity> mConsumablesUsed = new ArrayList<CConsumableEntity>();
 
@@ -31,6 +51,9 @@ public class CStatsPlayer {
         private List<CResonatorEntity> mResonatorsBuilt  = new ArrayList<CResonatorEntity>();
 
         private List<CKeyEntity> mKeysUSed  = new ArrayList<CKeyEntity>();
+
+        private CPlayerEntity mPlayer;
+
 
         public CStatsPlayerBuilder id(int pId){
             mId = pId;
@@ -67,7 +90,79 @@ public class CStatsPlayer {
             return this;
         }
 
+        public CStatsPlayerBuilder player(CPlayerEntity pPlayer ){
+            mPlayer = pPlayer;
+            return this;
+        }
+
+        public CStatsPlayer build(){
+            return new CStatsPlayer(this);
+        }
+
+
     }
 
+    public List<CConsumableEntity> getmConsumablesUsed() {
+        return mConsumablesUsed;
+    }
 
+    public void setmConsumablesUsed(List<CConsumableEntity> mConsumablesUsed) {
+        this.mConsumablesUsed = mConsumablesUsed;
+    }
+
+    public CPlayerEntity getmPlayer() {
+        return mPlayer;
+    }
+
+    public void setmPlayer(CPlayerEntity mPlayer) {
+        this.mPlayer = mPlayer;
+    }
+
+    public List<CBuildingEntity> getmBuildingsUsed() {
+        return mBuildingsUsed;
+    }
+
+    public void setmBuildingsUsed(List<CBuildingEntity> mBuildingsUsed) {
+        this.mBuildingsUsed = mBuildingsUsed;
+    }
+
+    public List<CBuildingEntity> getmBuildingsDestroyed() {
+        return mBuildingsDestroyed;
+    }
+
+    public void setmBuildingsDestroyed(List<CBuildingEntity> mBuildingsDestroyed) {
+        this.mBuildingsDestroyed = mBuildingsDestroyed;
+    }
+
+    public List<CResonatorEntity> getmResonatorsDestroyed() {
+        return mResonatorsDestroyed;
+    }
+
+    public void setmResonatorsDestroyed(List<CResonatorEntity> mResonatorsDestroyed) {
+        this.mResonatorsDestroyed = mResonatorsDestroyed;
+    }
+
+    public int getmID() {
+        return mID;
+    }
+
+    public void setmID(int mID) {
+        this.mID = mID;
+    }
+
+    public List<CResonatorEntity> getmResonatorsBuilt() {
+        return mResonatorsBuilt;
+    }
+
+    public void setmResonatorsBuilt(List<CResonatorEntity> mResonatorsBuilt) {
+        this.mResonatorsBuilt = mResonatorsBuilt;
+    }
+
+    public List<CKeyEntity> getmKeysUSed() {
+        return mKeysUSed;
+    }
+
+    public void setmKeysUSed(List<CKeyEntity> mKeysUSed) {
+        this.mKeysUSed = mKeysUSed;
+    }
 }

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
  * Created by arouani277 on 25/04/16.
  */
 @Entity
-public class CBuildingEntity extends CObjectEntity {
+public class CBuildingEntity extends AObjectEntity {
     private float mLong;
     private float mLat;
     private int mTimeLife;
@@ -15,10 +15,9 @@ public class CBuildingEntity extends CObjectEntity {
     private int mHeal;
 
     public CBuildingEntity(CBuildingBuilder pBuilder){
-        super(pBuilder.mID, pBuilder.mName, pBuilder.mLevel);
+        super(pBuilder.mID, pBuilder.mName);
         mLong = pBuilder.mLong;
         mLat = pBuilder.mLat;
-
         mDamage = pBuilder.mDamage;
     }
 
