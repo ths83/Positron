@@ -9,9 +9,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "t_key")
 public class CKeyEntity extends AObjectEntity {
-    @Id
-    @Column(name = "id")
-    private int mId;
     @ManyToOne
     @Column(name = "portal_fk")
     private CPortalEntity mPortal;
