@@ -3,7 +3,7 @@ package entities;
 /**
  * Created by arouani277 on 26/04/16.
  */
-public class CResonatorEntity extends CObjectEntity {
+public class CResonatorEntity extends AObjectEntity {
     private int mEnergy;
 
     public CResonatorEntity(CResonatorBuilder pBuilder){

@@ -11,9 +11,10 @@ public class CTestNicolas {
 
     public static void main(String[] args) {
 
-        CCrudMethods lCrud = new CCrudMethods();
+        //CCrudMethods lCrud = new CCrudMethods();
         CSkillEntity lSkill1 = new CSkillEntity.CSkillBuilder(1).name("gun1").level(1).cost(10).build();
-        lCrud.create(lSkill1);
+        System.out.println(lSkill1);
+        //lCrud.create(lSkill1);
 
 
     }
