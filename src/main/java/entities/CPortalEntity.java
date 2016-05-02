@@ -11,7 +11,7 @@ public class CPortalEntity {
     private float mLat;
     private float mLong;
     private int mRadius;
-    private List<CObjectEntity> mObjects;
+    private List<AObjectEntity> mObjects;
     private List<CResonatorEntity> mResonators;
     public List<CLinkEntity> mLinks;
     private CTeamEntity mTeam;
@@ -32,7 +32,7 @@ public class CPortalEntity {
         private float mLat;
         private float mLong;
         private int mRadius;
-        private List<CObjectEntity> mObjects;
+        private List<AObjectEntity> mObjects;
         private List<CResonatorEntity> mResonators;
         public List<CLinkEntity> mLinks;
         private CTeamEntity mTeam;
@@ -56,7 +56,7 @@ public class CPortalEntity {
             return this;
         }
 
-        public CPortalBuilder objects(List<CObjectEntity> pObjects){
+        public CPortalBuilder objects(List<AObjectEntity> pObjects){
             mObjects = pObjects;
             return this;
         }
