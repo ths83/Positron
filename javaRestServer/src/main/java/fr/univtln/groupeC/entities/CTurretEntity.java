@@ -34,9 +34,8 @@ public class CTurretEntity extends ABuildingEntity {
         private int mDamage;
 
 
-        public CTurretBuilder id(int pId){
+        public CTurretBuilder(int pId){
             mId = pId;
-            return this;
         }
 
         public CTurretBuilder damage(int pDamage){
@@ -93,6 +92,6 @@ public class CTurretEntity extends ABuildingEntity {
     public String toString() {
         return "CTurretEntity{" +
                 "mDamage=" + mDamage +
-                '}'+super.toString() ;
+                '}'+super.toString();
     }
 }

@@ -47,9 +47,8 @@ public class CResonatorEntity extends ABuildingEntity {
         private CPortalEntity mPortal;
         private CPlayerEntity mOwner;
 
-        public CResonatorBuilder id(int pId){
+        public CResonatorBuilder(int pId){
             mId = pId;
-            return this;
         }
 
         public CResonatorBuilder name(String pName){

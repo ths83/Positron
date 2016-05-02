@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * Created by nmartinez016 on 25/04/16.
  */
+
 public class CPlayerEntity {
 
     private int mId;
@@ -30,9 +31,8 @@ public class CPlayerEntity {
         private String mEmail;
         private CTeamEntity mTeam;
 
-        public CPlayerBuilder id(int pId){
+        public CPlayerBuilder(int pId){
             mId = pId;
-            return this;
         }
 
         public CPlayerBuilder nickname(String pNickName){

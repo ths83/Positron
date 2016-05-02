@@ -8,8 +8,8 @@ import java.util.List;
 
 public class CPortalEntity {
     private int mId;
-    private float mLat;
-    private float mLong;
+    private double mLat;
+    private double mLong;
     private int mRadius;
     private List<AObjectEntity> mObjects;
     private List<CResonatorEntity> mResonators;
@@ -29,8 +29,8 @@ public class CPortalEntity {
 
     public static class CPortalBuilder{
         private int mId;
-        private float mLat;
-        private float mLong;
+        private double mLat;
+        private double mLong;
         private int mRadius;
         private List<AObjectEntity> mObjects;
         private List<CResonatorEntity> mResonators;
@@ -41,12 +41,12 @@ public class CPortalEntity {
             mId = pId;
         }
 
-        public CPortalBuilder latitude(float pLat){
+        public CPortalBuilder latitude(double pLat){
             mLat = pLat;
             return this;
         }
 
-        public CPortalBuilder longitude(float pLong){
+        public CPortalBuilder longitude(double pLong){
             mLong = pLong;
             return this;
         }
@@ -79,5 +79,19 @@ public class CPortalEntity {
         public CPortalEntity build(){
             return new CPortalEntity(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "CPortalEntity{" +
+                "mId=" + mId +
+                ", mLat=" + mLat +
+                ", mLong=" + mLong +
+                ", mRadius=" + mRadius +
+                ", mObjects=" + mObjects +
+                ", mResonators=" + mResonators +
+                ", mLinks=" + mLinks +
+                ", mTeam=" + mTeam +
+                '}' + super.toString();
     }
 }
