@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>fr.univtln.bruno.exemple.simplerest</groupId>
-    <artifactId>restbiblio</artifactId>
+    <groupId>fr.univtln.groupeC</groupId>
+    <artifactId>javaServerRest</artifactId>
     <packaging>jar</packaging>
     <version>1.18.1</version>
-    <name>restbiblio</name>
+    <name>javaServerRest</name>
     <dependencies>
         <dependency>
             <groupId>com.sun.jersey</groupId>
@@ -90,7 +90,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>fr.univtln.bruno.exemple.simplerest.Main</mainClass>
+                    <mainClass>fr.univtln.groupeC.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
