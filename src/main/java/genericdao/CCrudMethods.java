@@ -1,4 +1,4 @@
-package entities;
+package genericdao;
 
 import javax.persistence.*;
 import java.util.List;
