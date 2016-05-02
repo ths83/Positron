@@ -3,6 +3,9 @@ target/
 .project
 .settings/
 Thumbs.db
+
+# libreoffice
+.~*
  
 # built application files
 *.apk
