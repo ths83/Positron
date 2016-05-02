@@ -1,29 +1,56 @@
 package entities;
 
+import javax.persistence.*;
+
 /**
  * Created by arouani277 on 26/04/16.
  */
-public class CResonatorEntity extends CObjectEntity {
-    private int mEnergy;
+
+@Entity
+@Table(name = "t_resonator", schema = "project")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class CResonatorEntity extends ABuildingEntity {
+    @Column(name = "portal_fk")
+    private CPortalEntity mPortal;
+    @Column(name = "player_fk")
+    private CPlayerEntity mOwner;
+
 
     public CResonatorEntity(CResonatorBuilder pBuilder){
-        super(pBuilder.mID, pBuilder.mName, pBuilder.mLevel);
-        mEnergy = pBuilder.mEnergy;
+        super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
+        mPortal = pBuilder.mPortal;
+        mOwner = pBuilder.mOwner;
     }
 
     public static class CResonatorBuilder{
-        private int mEnergy;
-        private int mID;
+        private int mId;
         private String mName;
+        private float mLong;
+        private float mLat;
+        private int mLifeTime;
+        private int mRadius;
         private int mLevel;
+        private int mEnergyMax;
+        private int mEnergy;
+        private CPortalEntity mPortal;
+        private CPlayerEntity mOwner;
 
-        public CResonatorBuilder id(int pId){
-            mID = pId;
-            return this;
+        public CResonatorBuilder(int pId){
+            mId = pId;
         }
 
         public CResonatorBuilder name(String pName){
             mName = pName;
+            return this;
+        }
+
+        public CResonatorBuilder longitude(int pLongitude){
+            mLong = pLongitude;
+            return this;
+        }
+
+        public CResonatorBuilder latitude(int pLatitude){
+            mLat = pLatitude;
             return this;
         }
 
@@ -43,18 +70,5 @@ public class CResonatorEntity extends CObjectEntity {
 
     }
 
-    public int getmEnergy() {
-        return mEnergy;
-    }
 
-    public void setmEnergy(int mEnergy) {
-        this.mEnergy = mEnergy;
-    }
-
-    @Override
-    public String toString() {
-        return "CResonatorEntity{" +
-                "mEnergy=" + mEnergy +
-                '}' + super.toString();
-    }
 }
