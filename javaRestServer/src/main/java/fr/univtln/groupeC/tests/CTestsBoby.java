@@ -38,13 +38,10 @@ public class CTestsBoby {
         CTeamEntity ctm = new CTeamEntity.CTeamBuilder(78678).color("red").portals(portals).build();
         System.out.println(ctm.toString());
 
-<<<<<<< HEAD
-        CTeamEntity ctm = new CTeamEntity.CTeamBuilder(0).color("red").build();
-        CPlayerEntity cp = new CPlayerEntity.CPlayerBuilder(0).email("bob@z.fr").nickname("mahmoud").build();
-=======
+
         CPlayerEntity cp = new CPlayerEntity.CPlayerBuilder(5858).email("bob@z.fr").nickname("mahmoud").team(ctm).build();
         System.out.println(cp.toString());
->>>>>>> 4019515a0c71ef75179e7529e4b07b102e4b910d
+
 
         CSkillEntity csk = new CSkillEntity.CSkillBuilder(5).cost(140).level(10).name("ntm").build();
         System.out.println(csk.toString());

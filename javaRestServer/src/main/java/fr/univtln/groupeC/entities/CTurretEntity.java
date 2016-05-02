@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "t_turret", schema = "project")
+@Table(name = "t_turret", schema = "positron")
 public class CTurretEntity extends ABuildingEntity {
     private int mDamage;
 

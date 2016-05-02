@@ -10,7 +10,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "t_skill", schema = "project")
+@Table(name = "t_skill", schema = "positron")
 public class CSkillEntity {
     @Id
     @Column(name = "id")

@@ -2,6 +2,7 @@ package fr.univtln.groupeC.tests;
 
 import fr.univtln.groupeC.dao.CCrudMethods;
 import fr.univtln.groupeC.entities.CPlayerEntity;
+import fr.univtln.groupeC.entities.CResonatorEntity;
 import fr.univtln.groupeC.entities.CSkillEntity;
 import fr.univtln.groupeC.entities.CTeamEntity;
 
@@ -32,6 +33,9 @@ public class CTestsNicolas {
         System.out.println("team 1 persistee");
         lCrud.create(lPlayer1);
         System.out.println("team 2 persistee");
+
+        CResonatorEntity lResonator1 = new CResonatorEntity.CResonatorBuilder(1).level(2).owner(lPlayer1).radius(16).energy(150).energyMax(150).longitude(120.3).latitude(442.3).build();
+        lCrud.create(lResonator1);
 
     }
 

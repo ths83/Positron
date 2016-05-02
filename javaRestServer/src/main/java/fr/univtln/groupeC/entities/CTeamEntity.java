@@ -1,15 +1,13 @@
 package fr.univtln.groupeC.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by nmartinez016 on 25/04/16.
  */
 @Entity
+@Table(name = "t_team", schema = "positron")
 public class CTeamEntity {
 
     @Id
@@ -33,16 +31,6 @@ public class CTeamEntity {
         mPortals = pBuilder.mPortals;
         mColor = pBuilder.mColor;
 
-    }
-
-    @Override
-    public String toString() {
-        return "CTeamEntity{" +
-                "mId=" + mId +
-                ", mPlayers=" + mPlayers +
-                ", mPortals=" + mPortals +
-                ", mColor='" + mColor + '\'' +
-                '}';
     }
 
     public static class CTeamBuilder{
@@ -84,6 +72,6 @@ public class CTeamEntity {
                 ", mPlayers=" + mPlayers +
                 ", mPortals=" + mPortals +
                 ", mColor='" + mColor + '\'' +
-                '}' + super.toString();
+                '}';
     }
 }

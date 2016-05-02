@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "t_resonator", schema = "project")
+@Table(name = "t_resonator", schema = "positron")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class CResonatorEntity extends ABuildingEntity {
     @ManyToOne
