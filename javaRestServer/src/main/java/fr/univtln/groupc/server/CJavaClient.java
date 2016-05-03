@@ -1,6 +1,7 @@
 package fr.univtln.groupc.server;
 
 import com.sun.jersey.api.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.CSkillEntity;
 
@@ -12,7 +13,7 @@ public class CJavaClient {
         // create the client
         Client c = Client.create();
         WebResource webResource = c.resource(CServer.BASE_URI);
-        Client client = ClientBuilder.newClient();
+        javax.ws.rs.client.Client client = ClientBuilder.newClient();
         CSkillEntity csk = new CSkillEntity.CSkillBuilder(5).cost(140).level(10).name("ntm").build();
 
         webResource.path("skills/create").post(csk);

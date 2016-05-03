@@ -21,6 +21,14 @@ public class CSkillService {
         mCrudMethods.create(pSkill);
     }
 
+    @PUT
+    @Consumes("application/json")
+    @Path("put")
+    public void ajouterSkill(@QueryParam("name") String  nom, @QueryParam("id") int id) {
+        CSkillEntity csk = new CSkillEntity.CSkillBuilder(id).name(nom).build();
+        mCrudMethods.create(csk);
+    }
+
     @GET
     @Path("/{id}")
     public CSkillEntity read(@PathParam("id") int pId){
