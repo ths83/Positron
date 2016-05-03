@@ -12,7 +12,8 @@ import java.util.List;
  * Created by arouani277 on 26/04/16.
  */
 @Entity
-@Table(name = "link" , schema = "positron")
+@Table(name = "t_link" , schema = "positron")
+@NamedQueries(@NamedQuery(name = CLinkEntity.GET_ALL, query = "select l from CLinkEntity l"))
 public class CLinkEntity implements Serializable {
     @Id
     @Column(name = "link_id")
@@ -22,13 +23,11 @@ public class CLinkEntity implements Serializable {
     @JsonIgnore
     private CFieldEntity mField;
     @ManyToMany
-    /*@ManyToMany(targetEntity=CPortalEntity.class,
-            cascade={CascadeType.PERSIST, CascadeType.MERGE} )*/
     @JoinTable(name = "portal_link",joinColumns=@JoinColumn(name="link_fk", referencedColumnName="link_id"),inverseJoinColumns=@JoinColumn(name="portal_fk", referencedColumnName="portal_id"),schema = "positron")
     @JsonIgnore
     private List<CPortalEntity> mPortals  = new ArrayList<>();
 
-    //TODO  manytoone portal1 portal2
+    public final static String GET_ALL = "Link.getAll";
 
     public CLinkEntity() {}
 
@@ -82,11 +81,17 @@ public class CLinkEntity implements Serializable {
     public void setmPortals(List<CPortalEntity> mPortals) {
         this.mPortals = mPortals;
     }
-     public CFieldEntity getmField() {
+
+    public CFieldEntity getmField() {
         return mField;
     }
 
     public void setmField(CFieldEntity mField) {
         this.mField = mField;
+    }
+
+    public boolean algoCreateLink(CPortalEntity p1, CPortalEntity p2){
+        boolean b=false;
+        return(b);
     }
 }

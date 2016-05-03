@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "portal" , schema = "positron")
+@Table(name = "t_portal" , schema = "positron")
 @NamedQueries(@NamedQuery(name = CPortalEntity.GET_ALL, query = "select p from CPortalEntity p"))
 public class CPortalEntity implements Serializable {
     @Id
@@ -25,14 +25,16 @@ public class CPortalEntity implements Serializable {
     @Column(name = "radius")
     private int mRadius;
     @OneToMany
+    @JoinTable(schema = "positron")
     private List<AObjectEntity> mObjects;
     @OneToMany
+    @JoinTable(schema = "positron")
     private List<CResonatorEntity> mResonators;
     @ManyToMany(mappedBy = "mPortals")
     @JsonIgnore
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     @ManyToOne
-    @JoinColumn(name = "portal")
+    @JoinColumn(name = "team_fk")
     private CTeamEntity mTeam;
 
     public final static String GET_ALL = "Portal.getAll";

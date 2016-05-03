@@ -1,6 +1,7 @@
 package fr.univtln.groupc.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by nmartinez016 on 25/04/16.
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "t_skill", schema = "positron")
 @NamedQueries(@NamedQuery(name = CSkillEntity.GET_ALL, query = "select p from CSkillEntity p"))
-public class CSkillEntity {
+public class CSkillEntity implements Serializable{
     @Id
     @Column(name = "id")
     private int mId;
@@ -29,6 +30,42 @@ public class CSkillEntity {
         mName = pBuilder.mName;
         mLevel = pBuilder.mLevel;
         mCost = pBuilder.mCost;
+    }
+
+    public int getmId() {
+        return mId;
+    }
+
+    public void setmId(int mId) {
+        this.mId = mId;
+    }
+
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public int getmLevel() {
+        return mLevel;
+    }
+
+    public void setmLevel(int mLevel) {
+        this.mLevel = mLevel;
+    }
+
+    public int getmCost() {
+        return mCost;
+    }
+
+    public void setmCost(int mCost) {
+        this.mCost = mCost;
+    }
+
+    public static String getGetAll() {
+        return GET_ALL;
     }
 
     @Override

@@ -5,6 +5,8 @@ import javax.ws.rs.client.ClientBuilder;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.CSkillEntity;
 
+import javax.ws.rs.client.ClientBuilder;
+
 /**
  * Created by arouani277 on 03/05/16.
  */
@@ -13,7 +15,9 @@ public class CJavaClient {
         // create the client
         Client c = Client.create();
         WebResource webResource = c.resource(CServer.BASE_URI);
-        javax.ws.rs.client.Client client = ClientBuilder.newClient();
+
+       // Client client = ClientBuilder.newClient();
+
         CSkillEntity csk = new CSkillEntity.CSkillBuilder(5).cost(140).level(10).name("ntm").build();
 
         webResource.path("skills/create").post(csk);

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by arouani277 on 03/05/16.
  */
 @Path("/skills")
-public class CSkillService {
+public class CSkillService{
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
     @POST
@@ -30,8 +30,10 @@ public class CSkillService {
     }
 
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CSkillEntity read(@PathParam("id") int pId){
+        System.out.println("dedans");
         return (CSkillEntity)mCrudMethods.find(CSkillEntity.class, pId);
     }
 

@@ -13,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "t_field", schema = "positron")
+@NamedQueries(@NamedQuery(name = CFieldEntity.GET_ALL, query = "select f from CFieldEntity f"))
 public class CFieldEntity {
     @Id
     @Column(name = "field_id")
@@ -24,6 +25,8 @@ public class CFieldEntity {
     @OneToMany(mappedBy="mField")
     @JsonIgnore
     private List<CLinkEntity> mLinks = new ArrayList<CLinkEntity>();
+
+    public final static String GET_ALL = "Field.getAll";
 
     public CFieldEntity() {}
 
