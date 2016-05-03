@@ -33,7 +33,7 @@ public class CServer {
     public static final URI BASE_URI = getBaseURI();
 
     protected static HttpServer startServer() throws IOException {
-        ResourceConfig resourceConfig = new PackagesResourceConfig("fr.univtln.groupeC");
+        ResourceConfig resourceConfig = new PackagesResourceConfig("fr.univtln.groupc");
 
         System.out.println("Starting grizzly2...");
         return GrizzlyServerFactory.createHttpServer(BASE_URI, resourceConfig);
