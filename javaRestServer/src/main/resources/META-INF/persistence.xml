@@ -3,19 +3,19 @@
 
     <persistence-unit name="NewPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>fr.univtln.groupeC.entities.ABuildingEntity</class>
-        <class>fr.univtln.groupeC.entities.CPortalEntity</class>
-        <class>fr.univtln.groupeC.entities.CFieldEntity</class>
-        <class>fr.univtln.groupeC.entities.CPlayerEntity</class>
-        <class>fr.univtln.groupeC.entities.CPortalEntity</class>
-        <class>fr.univtln.groupeC.entities.CKeyEntity</class>
-        <class>fr.univtln.groupeC.entities.CConsumableEntity</class>
-        <class>fr.univtln.groupeC.entities.AObjectEntity</class>
-        <class>fr.univtln.groupeC.entities.CResonatorEntity</class>
-        <class>fr.univtln.groupeC.entities.CLinkEntity</class>
-        <class>fr.univtln.groupeC.entities.CTeamEntity</class>
-        <class>fr.univtln.groupeC.entities.CTerritoryEntity</class>
-        <class>fr.univtln.groupeC.entities.CSkillEntity</class>
+        <class>fr.univtln.groupec.entities.ABuildingEntity</class>
+        <class>fr.univtln.groupec.entities.CPortalEntity</class>
+        <class>fr.univtln.groupec.entities.CFieldEntity</class>
+        <class>fr.univtln.groupec.entities.CPlayerEntity</class>
+        <class>fr.univtln.groupec.entities.CPortalEntity</class>
+        <class>fr.univtln.groupec.entities.CKeyEntity</class>
+        <class>fr.univtln.groupec.entities.CConsumableEntity</class>
+        <class>fr.univtln.groupec.entities.AObjectEntity</class>
+        <class>fr.univtln.groupec.entities.CResonatorEntity</class>
+        <class>fr.univtln.groupec.entities.CLinkEntity</class>
+        <class>fr.univtln.groupec.entities.CTeamEntity</class>
+        <class>fr.univtln.groupec.entities.CTerritoryEntity</class>
+        <class>fr.univtln.groupec.entities.CSkillEntity</class>
         <properties>
             <property name="javax.persistence.target-database" value="PostgreSQL"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
