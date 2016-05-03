@@ -24,6 +24,7 @@ public class CSkillService {
     @GET
     @Path("/{id}")
     public CSkillEntity read(@PathParam("id") int pId){
+        System.out.println("dedans");
         return (CSkillEntity)mCrudMethods.find(CSkillEntity.class, pId);
     }
 
