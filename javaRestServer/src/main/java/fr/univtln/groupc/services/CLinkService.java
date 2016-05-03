@@ -13,7 +13,7 @@ import java.util.List;
 
 @Path("/links")
 public class CLinkService {
-    private static CCrudMethods mCrudMethods = new CCrudMethods();
+    private CCrudMethods mCrudMethods = new CCrudMethods();
 
     @POST
     @Consumes("application/json")

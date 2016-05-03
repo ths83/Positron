@@ -10,9 +10,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "t_player", schema = "positron")
-
+@NamedQueries(@NamedQuery(name = CPlayerEntity.GET_ALL, query = "select p from CPlayerEntity p"))
 public class CPlayerEntity {
-
     @Id
     @Column(name = "id")
     private int mId;
@@ -41,6 +40,8 @@ public class CPlayerEntity {
     @OneToMany
     @JoinTable(schema = "positron")
     private List<AObjectEntity> mObjects;
+
+    public final static String GET_ALL = "Player.getAll";
 
     public CPlayerEntity(){}
 
