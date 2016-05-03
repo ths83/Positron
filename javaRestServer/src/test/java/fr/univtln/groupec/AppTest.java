@@ -1,4 +1,4 @@
-package fr.univtln.groupec;
+package fr.univtln.groupeC;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -109,7 +109,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>fr.univtln.groupec.App</mainClass>
+          <mainClass>fr.univtln.groupc.App</mainClass>
         </configuration>
       </plugin>
     </plugins>
