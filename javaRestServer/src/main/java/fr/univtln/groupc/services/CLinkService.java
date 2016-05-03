@@ -31,7 +31,7 @@ public class CLinkService {
     }
 
     @GET
-    @Path("/")
+    @Path("/all")
     public List<CLinkEntity> readAll(){
         return (List<CLinkEntity>)mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
     }

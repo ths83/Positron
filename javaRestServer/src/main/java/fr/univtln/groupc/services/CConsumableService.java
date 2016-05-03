@@ -29,7 +29,7 @@ public class CConsumableService {
     }
 
     @GET
-    @Path("/")
+    @Path("/all")
     public List<CConsumableEntity> readAll(){
         return (List<CConsumableEntity>)mCrudMethods.findWithNamedQuery(CConsumableEntity.GET_ALL);
     }

@@ -26,7 +26,7 @@ public class CKeyService {
     }
 
     @GET
-    @Path("/")
+    @Path("/all")
     public List<CKeyEntity> readAll(){
         return (List<CKeyEntity>)mCrudMethods.findWithNamedQuery(CKeyEntity.GET_ALL);
     }

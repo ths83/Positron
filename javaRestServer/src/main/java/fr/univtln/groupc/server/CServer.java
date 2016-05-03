@@ -26,7 +26,7 @@ public class CServer {
     }
 
     private static URI getBaseURI() {
-        return UriBuilder.fromUri("http://localhost/").port(getPort(9998)).build();
+        return UriBuilder.fromUri("http://0.0.0.0/").port(getPort(9998)).build();
     }
 
     public static final URI BASE_URI = getBaseURI();
