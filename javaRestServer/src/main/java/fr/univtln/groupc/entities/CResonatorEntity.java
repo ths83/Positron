@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "t_resonator", schema = "positron")
+@NamedQueries(@NamedQuery(name = CResonatorEntity.GET_ALL, query = "select p from CResonatorEntity p"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class CResonatorEntity extends ABuildingEntity {
     @ManyToOne
@@ -16,6 +17,8 @@ public class CResonatorEntity extends ABuildingEntity {
     @ManyToOne
     @JoinColumn(name = "owner_fk")
     private CPlayerEntity mOwner;
+
+    public final static String GET_ALL = "Resonator.getAll";
 
     public CResonatorEntity(CResonatorBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
