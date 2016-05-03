@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "t_building", schema = "positron")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class ABuildingEntity extends AObjectEntity {
+    // la
     @Column(name = "long")
     private double mLong;
     @Column(name = "lat")
