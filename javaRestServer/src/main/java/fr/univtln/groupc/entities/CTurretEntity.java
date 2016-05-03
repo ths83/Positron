@@ -1,6 +1,8 @@
 package fr.univtln.groupc.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -10,8 +12,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_turret", schema = "positron")
+@NamedQueries(@NamedQuery(name = CTurretEntity.GET_ALL, query = "select p from CTurretEntity p"))
+
 public class CTurretEntity extends ABuildingEntity {
     private int mDamage;
+    public final static String GET_ALL = "Turret.getAll";
 
     public CTurretEntity(CTurretBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
