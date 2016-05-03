@@ -13,6 +13,10 @@ import java.util.List;
 @Path("/teams")
 public class CTeamService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
+
+    /**
+     * @param pTeam
+     */
     @POST
     @Consumes("application/json")
     @Path("create")
@@ -20,6 +24,10 @@ public class CTeamService {
         mCrudMethods.create(pTeam);
     }
 
+    /**
+     * @param pId
+     * @return
+     */
     @GET
     @Produces("application/json")
     @Path("/{id}")
@@ -27,6 +35,9 @@ public class CTeamService {
         return (CTeamEntity)mCrudMethods.find(CTeamEntity.class, pId);
     }
 
+    /**
+     * @return
+     */
     @GET
     @Produces("application/json")
     @Path("/all")

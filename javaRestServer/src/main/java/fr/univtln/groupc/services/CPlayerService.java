@@ -12,6 +12,9 @@ import java.util.List;
 public class CPlayerService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
+    /**
+     * @param pPlayer
+     */
     @POST
     @Consumes("application/json")
     @Path("create")
@@ -19,18 +22,29 @@ public class CPlayerService {
         mCrudMethods.create(pPlayer);
     }
 
+    /**
+     * @param pId
+     * @return
+     */
     @GET
     @Path("/{id}")
     public CPlayerEntity read(@PathParam("id") int pId){
         return (CPlayerEntity)mCrudMethods.find(CPlayerEntity.class, pId);
     }
 
+    /**
+     * @return
+     */
     @GET
     @Path("/all")
     public List<CPlayerEntity> readAll(){
         return (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
     }
 
+    /**
+     * @param pPlayer
+     * @return
+     */
     @PUT
     @Consumes("application/json")
     @Produces("application/json")

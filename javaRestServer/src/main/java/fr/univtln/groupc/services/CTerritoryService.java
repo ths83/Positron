@@ -16,6 +16,9 @@ public class CTerritoryService {
 
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
+    /**
+     * @param pTerritory
+     */
     @POST
     @Consumes("application/json")
     @Path("create")
@@ -23,6 +26,10 @@ public class CTerritoryService {
         mCrudMethods.create(pTerritory);
     }
 
+    /**
+     * @param pId
+     * @return
+     */
     @GET
     @Produces("application/json")
     @Path("/{id}")
@@ -31,6 +38,9 @@ public class CTerritoryService {
         return (CTerritoryEntity)mCrudMethods.find(CTerritoryEntity.class, pId);
     }
 
+    /**
+     * @return
+     */
     @GET
     @Path("/all")
     public List<CTerritoryEntity> readAll(){

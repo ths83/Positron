@@ -14,6 +14,9 @@ import java.util.List;
 public class CSkillService{
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
+    /**
+     * @param pSkill
+     */
     @POST
     @Consumes("application/json")
     @Path("create")
@@ -21,6 +24,10 @@ public class CSkillService{
         mCrudMethods.create(pSkill);
     }
 
+    /**
+     * @param pId
+     * @return
+     */
     @GET
     @Produces("application/json")
     @Path("/{id}")
@@ -29,6 +36,9 @@ public class CSkillService{
         return (CSkillEntity)mCrudMethods.find(CSkillEntity.class, pId);
     }
 
+    /**
+     * @return
+     */
     @GET
     @Path("/all")
     public List<CPortalEntity> readAll(){

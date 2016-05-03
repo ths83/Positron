@@ -2,25 +2,51 @@ package fr.univtln.groupc.stats;
 
 import fr.univtln.groupc.entities.*;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by arouani277 on 02/05/16.
  */
+@Entity
+@Table(name = "t_stats_player", schema = "positron")
+@NamedQueries(@NamedQuery(name = CStatsPlayer.GET_ALL, query = "select p from CStatsPlayer p"))
+
 public class CStatsPlayer {
+
+    @ManyToOne
+    @JoinColumn(name = "team_fk")
     private CPlayerEntity mPlayer;
+
+    @OneToMany
+    @JoinTable(schema = "positron")
     private List<CConsumableEntity> mConsumablesUsed = new ArrayList<CConsumableEntity>();
 
+    @OneToMany
+    @JoinTable(schema = "positron")
     private List<ABuildingEntity> mBuildingsUsed = new ArrayList<ABuildingEntity>();
+
+    @OneToMany
+    @JoinTable(schema = "positron")
     private List<ABuildingEntity> mBuildingsDestroyed = new ArrayList<ABuildingEntity>();
 
+    @OneToMany
+    @JoinTable(schema = "positron")
     private List<CResonatorEntity> mResonatorsDestroyed  = new ArrayList<CResonatorEntity>();
+
+    @OneToMany
+    @JoinTable(schema = "positron")
     private List<CResonatorEntity> mResonatorsBuilt  = new ArrayList<CResonatorEntity>();
 
+    @OneToMany
+    @JoinTable(schema = "t_player")
     private List<CKeyEntity> mKeysUSed  = new ArrayList<CKeyEntity>();
 
+    @Id
     private int mID;
+
+    public final static String GET_ALL = "StatsPlayer.getAll";
 
     public CStatsPlayer(CStatsPlayerBuilder pBuilder){
         mID = pBuilder.mId;

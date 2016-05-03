@@ -15,6 +15,9 @@ import java.util.List;
 public class CConsumableService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
+    /**
+     * @param pConsumable
+     */
     @POST
     @Consumes("application/json")
     @Path("create")
@@ -22,12 +25,19 @@ public class CConsumableService {
         mCrudMethods.create(pConsumable);
     }
 
+    /**
+     * @param pId
+     * @return
+     */
     @GET
     @Path("/{id}")
     public CConsumableEntity read(@PathParam("id") int pId){
         return (CConsumableEntity) mCrudMethods.find(CConsumableEntity.class, pId);
     }
 
+    /**
+     * @return
+     */
     @GET
     @Path("/all")
     public List<CConsumableEntity> readAll(){

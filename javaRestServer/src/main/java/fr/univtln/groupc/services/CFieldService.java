@@ -12,6 +12,9 @@ import java.util.List;
 public class CFieldService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
+    /**
+     * @param pField
+     */
     @POST
     @Consumes("application/json")
     @Path("create")
@@ -19,18 +22,29 @@ public class CFieldService {
         mCrudMethods.create(pField);
     }
 
+    /**
+     * @param pId
+     * @return
+     */
     @GET
     @Path("/{id}")
     public CFieldEntity read(@PathParam("id") int pId){
         return (CFieldEntity)mCrudMethods.find(CFieldEntity.class, pId);
     }
 
+    /**
+     * @return
+     */
     @GET
     @Path("/all")
     public List<CFieldEntity> readAll(){
         return (List<CFieldEntity>)mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
     }
 
+    /**
+     * @param pField
+     * @return
+     */
     @PUT
     @Consumes("application/json")
     @Produces("application/json")

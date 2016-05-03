@@ -15,6 +15,9 @@ import java.util.List;
 public class CResonatorService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
+    /**
+     * @param pResonator
+     */
     @POST
     @Consumes("application/json")
     @Path("create")
@@ -22,6 +25,10 @@ public class CResonatorService {
         mCrudMethods.create(pResonator);
     }
 
+    /**
+     * @param pId
+     * @return
+     */
     @GET
     @Produces("application/json")
     @Path("/{id}")
@@ -30,6 +37,9 @@ public class CResonatorService {
         return (CResonatorEntity)mCrudMethods.find(CResonatorEntity.class, pId);
     }
 
+    /**
+     * @return
+     */
     @GET
     @Path("/all")
     public List<CResonatorEntity> readAll(){

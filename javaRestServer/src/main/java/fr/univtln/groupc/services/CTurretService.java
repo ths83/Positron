@@ -15,6 +15,9 @@ public class CTurretService {
 
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
+    /**
+     * @param pTurret
+     */
     @POST
     @Consumes("application/json")
     @Path("create")
@@ -22,6 +25,10 @@ public class CTurretService {
         mCrudMethods.create(pTurret);
     }
 
+    /**
+     * @param pId
+     * @return
+     */
     @GET
     @Produces("application/json")
     @Path("/{id}")
@@ -29,6 +36,9 @@ public class CTurretService {
         return (CTurretEntity)mCrudMethods.find(CTurretEntity.class, pId);
     }
 
+    /**
+     * @return
+     */
     @GET
     @Produces("application/json")
     @Path("/all")

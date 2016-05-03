@@ -15,6 +15,9 @@ public class CPortalService {
 
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
+    /**
+     * @param pPortal
+     */
     @POST
     @Consumes("application/json")
     @Path("create")
@@ -22,6 +25,10 @@ public class CPortalService {
         mCrudMethods.create(pPortal);
     }
 
+    /**
+     * @param pId
+     * @return
+     */
     @GET
     @Produces("application/json")
     @Path("/{id}")
@@ -29,6 +36,9 @@ public class CPortalService {
         return (CPortalEntity)mCrudMethods.find(CPortalEntity.class, pId);
     }
 
+    /**
+     * @return
+     */
     @GET
     @Produces("application/json")
     @Path("/all")

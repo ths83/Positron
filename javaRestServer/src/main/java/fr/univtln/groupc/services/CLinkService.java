@@ -15,6 +15,9 @@ import java.util.List;
 public class CLinkService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
+    /**
+     * @param pLink
+     */
     @POST
     @Consumes("application/json")
     @Path("create")
@@ -24,18 +27,29 @@ public class CLinkService {
         }
     }
 
+    /**
+     * @param pId
+     * @return
+     */
     @GET
     @Path("/{id}")
     public CLinkEntity read(@PathParam("id") int pId){
         return (CLinkEntity)mCrudMethods.find(CLinkEntity.class, pId);
     }
 
+    /**
+     * @return
+     */
     @GET
     @Path("/all")
     public List<CLinkEntity> readAll(){
         return (List<CLinkEntity>)mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
     }
 
+    /**
+     * @param pLink
+     * @return
+     */
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
