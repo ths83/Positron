@@ -12,7 +12,7 @@ import java.util.List;
  * Created by arouani277 on 26/04/16.
  */
 @Entity
-@Table(name = "link" , schema = "positron")
+@Table(name = "t_link" , schema = "positron")
 public class CLinkEntity implements Serializable {
     @Id
     @Column(name = "link_id")

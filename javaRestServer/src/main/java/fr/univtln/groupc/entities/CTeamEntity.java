@@ -15,9 +15,11 @@ public class CTeamEntity {
     private int mId;
 
     @OneToMany
+    @JoinTable(schema = "positron")
     private List<CPlayerEntity> mPlayers;
 
     @OneToMany
+    @JoinTable(schema = "positron")
     private List<CPortalEntity> mPortals;
 
     @Column(name = "color")
