@@ -8,10 +8,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "t_key", schema = "positron")
+@NamedQueries(@NamedQuery(name = CKeyEntity.GET_ALL, query = "select k from CKeyEntity k"))
 public class CKeyEntity extends AObjectEntity {
     @ManyToOne
     @JoinColumn(name = "portal_fk")
     private CPortalEntity mPortal;
+
+    public final static String GET_ALL = "Key.getAll";
 
     public CKeyEntity(){}
 

@@ -81,7 +81,7 @@ public class CLinkEntity implements Serializable {
     public void setmPortals(List<CPortalEntity> mPortals) {
         this.mPortals = mPortals;
     }
-    
+
     public CFieldEntity getmField() {
         return mField;
     }
