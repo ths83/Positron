@@ -30,7 +30,7 @@ public class CSkillService{
     }
 
     @GET
-    @Path("/")
+    @Path("/all")
     public List<CPortalEntity> readAll(){
         return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
     }

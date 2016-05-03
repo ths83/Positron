@@ -26,7 +26,7 @@ public class CPlayerService {
     }
 
     @GET
-    @Path("/")
+    @Path("/all")
     public List<CPlayerEntity> readAll(){
         return (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
     }
