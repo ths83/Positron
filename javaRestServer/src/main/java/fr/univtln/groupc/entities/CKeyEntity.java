@@ -24,6 +24,14 @@ public class CKeyEntity extends AObjectEntity {
         mPortal = pBuilder.mPortal;
     }
 
+    public CPortalEntity getPortal() {
+        return mPortal;
+    }
+
+    public void setPortal(CPortalEntity pPortal) {
+        mPortal = pPortal;
+    }
+
     public static class CKeyBuilder{
         int mId;
         String mName;
