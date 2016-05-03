@@ -37,8 +37,8 @@ public abstract class AObjectEntity {
         return mID;
     }
 
-    public void setmID(int mID) {
-        this.mID = mID;
+    public void setID(int pID) {
+        mID = pID;
     }
 
     public String getmName() {
