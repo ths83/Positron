@@ -1,9 +1,6 @@
 package fr.univtln.groupc.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by nmartinez016 on 25/04/16.
@@ -11,6 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_skill", schema = "positron")
+@NamedQueries(@NamedQuery(name = CSkillEntity.GET_ALL, query = "select p from CSkillEntity p"))
 public class CSkillEntity {
     @Id
     @Column(name = "id")
@@ -21,6 +19,8 @@ public class CSkillEntity {
     private int mLevel;
     @Column(name = "cost")
     private int mCost;
+
+    public final static String GET_ALL = "Skill.getAll";
 
     public CSkillEntity(){}
 
@@ -35,7 +35,7 @@ public class CSkillEntity {
     public String toString() {
         return "CSkillEntity{" +
                 "mId=" + mId +
-                ", mName='" + mName + '\'' +
+                ", mName ='" + mName + '\'' +
                 ", mLevel=" + mLevel +
                 ", mCost=" + mCost +
                 '}';
@@ -70,4 +70,5 @@ public class CSkillEntity {
             return new CSkillEntity(this);
         }
     }
+
 }
