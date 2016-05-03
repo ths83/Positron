@@ -1,6 +1,7 @@
 package fr.univtln.groupc.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_player", schema = "positron")
 @NamedQueries(@NamedQuery(name = CPlayerEntity.GET_ALL, query = "select p from CPlayerEntity p"))
-public class CPlayerEntity {
+public class CPlayerEntity implements Serializable {
     @Id
     @Column(name = "id")
     private int mId;
@@ -90,6 +91,94 @@ public class CPlayerEntity {
 
     public void addSkill(CSkillEntity pSkill){
         mSkills.add(pSkill);
+    }
+
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int pId) {
+        mId = pId;
+    }
+
+    public String getNickName() {
+        return mNickName;
+    }
+
+    public void setNickName(String pNickName) {
+        mNickName = pNickName;
+    }
+
+    public String getEmail() {
+        return mEmail;
+    }
+
+    public void setEmail(String pEmail) {
+        mEmail = pEmail;
+    }
+
+    public CTeamEntity getTeam() {
+        return mTeam;
+    }
+
+    public void setTeam(CTeamEntity pTeam) {
+        mTeam = pTeam;
+    }
+
+    public int getXp() {
+        return mXp;
+    }
+
+    public void setXp(int pXp) {
+        mXp = pXp;
+    }
+
+    public int getBagSize() {
+        return mBagSize;
+    }
+
+    public void setBagSize(int pBagSize) {
+        mBagSize = pBagSize;
+    }
+
+    public double getLong() {
+        return mLong;
+    }
+
+    public void setLong(double pLong) {
+        mLong = pLong;
+    }
+
+    public double getLat() {
+        return mLat;
+    }
+
+    public void setLat(double pLat) {
+        mLat = pLat;
+    }
+
+    public int getEnergy() {
+        return mEnergy;
+    }
+
+    public void setEnergy(int pEnergy) {
+        mEnergy = pEnergy;
+    }
+
+    public int getEnergyMax() {
+        return mEnergyMax;
+    }
+
+    public void setEnergyMax(int pEnergyMax) {
+        mEnergyMax = pEnergyMax;
+    }
+
+    public List<AObjectEntity> getObjects() {
+        return mObjects;
+    }
+
+    public void setObjects(List<AObjectEntity> pObjects) {
+        mObjects = pObjects;
     }
 
     public static class CPlayerBuilder{

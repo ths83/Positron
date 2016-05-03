@@ -44,4 +44,16 @@ public class CConsumableService {
         return (List<CConsumableEntity>)mCrudMethods.findWithNamedQuery(CConsumableEntity.GET_ALL);
     }
 
+    @PUT
+    @Path("/")
+    public CConsumableEntity update(CConsumableEntity pConsumable){
+        return mCrudMethods.update(pConsumable);
+    }
+
+    @DELETE
+    @Path("/")
+    public void delete(CConsumableEntity pConsumable){
+        return mCrudMethods.delete(CConsumableEntity.class, pConsumable.getId());
+    }
+
 }

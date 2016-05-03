@@ -111,4 +111,26 @@ public class CAlgorithm {
         }
     }
 
+
+    public static double[] calculateHeronFunction(double mTab[], int mValueToCalc){
+
+        double pResult[] = new double[mValueToCalc];
+        double pPerimeterByTwo;
+
+        long pInit = System.currentTimeMillis();
+        for (int i = 2; i < mValueToCalc; i ++ ){
+            pPerimeterByTwo = (mTab[i-2] + mTab[i-1] + mTab[i]) / 2;
+            pResult[i] =Math.abs(Math.sqrt(pPerimeterByTwo * (pPerimeterByTwo - mTab[i-2])
+                    * (pPerimeterByTwo - mTab[i-1]) * (pPerimeterByTwo - mTab[i])));
+        }
+        System.out.println(System.currentTimeMillis()- pInit);
+        return pResult;
+    }
+
+    public static double[] calculateSinusLaw(double mTab[], int mValueToCalc){
+
+        double[] pResult = new double[mValueToCalc];
+        return pResult;
+    }
+
 }

@@ -24,6 +24,14 @@ public class CConsumableEntity extends AObjectEntity {
 
     }
 
+    public int getRarity() {
+        return mRarity;
+    }
+
+    public void setRarity(int pRarity) {
+        mRarity = pRarity;
+    }
+
     public static class CConsumableBuilder{
         private int mId;
         private String mName;
