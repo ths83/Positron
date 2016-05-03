@@ -60,4 +60,14 @@ public class CSkillEntity {
             return new CSkillEntity(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "CSkillEntity{" +
+                "mId=" + mId +
+                ", mName='" + mName + '\'' +
+                ", mLevel=" + mLevel +
+                ", mCost=" + mCost +
+                '}';
+    }
 }

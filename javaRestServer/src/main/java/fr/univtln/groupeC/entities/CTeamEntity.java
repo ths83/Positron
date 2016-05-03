@@ -35,16 +35,6 @@ public class CTeamEntity {
 
     }
 
-    @Override
-    public String toString() {
-        return "CTeamEntity{" +
-                "mId=" + mId +
-                ", mPlayers=" + mPlayers +
-                ", mPortals=" + mPortals +
-                ", mColor='" + mColor + '\'' +
-                '}';
-    }
-
     public static class CTeamBuilder{
         private int mId;
         private List<CPlayerEntity> mPlayers;
