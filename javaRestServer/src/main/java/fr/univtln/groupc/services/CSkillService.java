@@ -17,7 +17,7 @@ public class CSkillService{
     @POST
     @Consumes("application/json")
     @Path("create")
-    public void createBet(CSkillEntity pSkill){
+    public void createSkill(CSkillEntity pSkill){
         mCrudMethods.create(pSkill);
     }
 
