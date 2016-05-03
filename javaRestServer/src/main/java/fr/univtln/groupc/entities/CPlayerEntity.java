@@ -36,8 +36,10 @@ public class CPlayerEntity {
     @Column(name = "energy_max")
     private int mEnergyMax;
     @OneToMany
+    @JoinTable(schema = "positron")
     private List<CSkillEntity> mSkills;
     @OneToMany
+    @JoinTable(schema = "positron")
     private List<AObjectEntity> mObjects;
 
     public CPlayerEntity(){}

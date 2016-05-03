@@ -1,8 +1,8 @@
 package fr.univtln.groupc.services;
 
-import fr.univtln.groupec.dao.CCrudMethods;
-import fr.univtln.groupec.entities.CLinkEntity;
-import fr.univtln.groupec.entities.CPortalEntity;
+import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CPortalEntity;
 
 import javax.ws.rs.*;
 import java.util.List;

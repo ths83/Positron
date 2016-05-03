@@ -12,7 +12,7 @@ import java.util.List;
  * Created by arouani277 on 26/04/16.
  */
 @Entity
-@Table(name = "link" , schema = "positron")
+@Table(name = "t_link" , schema = "positron")
 @NamedQueries(@NamedQuery(name = CLinkEntity.GET_ALL, query = "select l from CLinkEntity l"))
 public class CLinkEntity implements Serializable {
     @Id
@@ -81,7 +81,8 @@ public class CLinkEntity implements Serializable {
     public void setmPortals(List<CPortalEntity> mPortals) {
         this.mPortals = mPortals;
     }
-     public CFieldEntity getmField() {
+    
+    public CFieldEntity getmField() {
         return mField;
     }
 
