@@ -4,6 +4,8 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.CSkillEntity;
 
+import javax.ws.rs.client.ClientBuilder;
+
 /**
  * Created by arouani277 on 03/05/16.
  */
