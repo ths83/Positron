@@ -2,6 +2,7 @@ package fr.univtln.groupc.tests;
 
 import fr.univtln.groupc.entities.*;
 
+import javax.ws.rs.HEAD;
 import java.util.ArrayList;
 import java.util.List;
 

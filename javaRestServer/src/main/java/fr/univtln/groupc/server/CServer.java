@@ -26,14 +26,13 @@ public class CServer {
     }
 
     private static URI getBaseURI() {
-        //return UriBuilder.fromUri("http://0.0.0.0/").port(getPort(9998)).build();
         return UriBuilder.fromUri("http://0.0.0.0/").port(getPort(9998)).build();
     }
 
     public static final URI BASE_URI = getBaseURI();
 
     protected static HttpServer startServer() throws IOException {
-        ResourceConfig resourceConfig = new PackagesResourceConfig("fr.univtln.groupeC");
+        ResourceConfig resourceConfig = new PackagesResourceConfig("fr.univtln.groupc");
 
         System.out.println("Starting grizzly2...");
         return GrizzlyServerFactory.createHttpServer(BASE_URI, resourceConfig);

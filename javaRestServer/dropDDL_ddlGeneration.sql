@@ -1,5 +1,5 @@
 ALTER TABLE positron.t_building DROP CONSTRAINT FK_t_building_id
-ALTER TABLE positron.t_portal DROP CONSTRAINT FK_t_portal_portal
+ALTER TABLE positron.t_portal DROP CONSTRAINT FK_t_portal_team_fk
 ALTER TABLE positron.t_field DROP CONSTRAINT FK_t_field_territory_fk
 ALTER TABLE positron.t_player DROP CONSTRAINT FK_t_player_team
 ALTER TABLE positron.t_key DROP CONSTRAINT FK_t_key_portal_fk

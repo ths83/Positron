@@ -1,9 +1,7 @@
 package fr.univtln.groupc.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by nmartinez016 on 25/04/16.
@@ -11,7 +9,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_skill", schema = "positron")
-public class CSkillEntity {
+@NamedQueries(@NamedQuery(name = CSkillEntity.GET_ALL, query = "select p from CSkillEntity p"))
+public class CSkillEntity implements Serializable{
     @Id
     @Column(name = "id")
     private int mId;
@@ -22,6 +21,8 @@ public class CSkillEntity {
     @Column(name = "cost")
     private int mCost;
 
+    public final static String GET_ALL = "Skill.getAll";
+
     public CSkillEntity(){}
 
     public CSkillEntity(CSkillBuilder pBuilder){
@@ -31,11 +32,47 @@ public class CSkillEntity {
         mCost = pBuilder.mCost;
     }
 
+    public int getmId() {
+        return mId;
+    }
+
+    public void setmId(int mId) {
+        this.mId = mId;
+    }
+
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public int getmLevel() {
+        return mLevel;
+    }
+
+    public void setmLevel(int mLevel) {
+        this.mLevel = mLevel;
+    }
+
+    public int getmCost() {
+        return mCost;
+    }
+
+    public void setmCost(int mCost) {
+        this.mCost = mCost;
+    }
+
+    public static String getGetAll() {
+        return GET_ALL;
+    }
+
     @Override
     public String toString() {
         return "CSkillEntity{" +
                 "mId=" + mId +
-                ", mName='" + mName + '\'' +
+                ", mName ='" + mName + '\'' +
                 ", mLevel=" + mLevel +
                 ", mCost=" + mCost +
                 '}';
@@ -70,4 +107,5 @@ public class CSkillEntity {
             return new CSkillEntity(this);
         }
     }
+
 }

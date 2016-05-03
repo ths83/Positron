@@ -26,7 +26,7 @@ public class CFieldService {
     }
 
     @GET
-    @Path("/")
+    @Path("/all")
     public List<CFieldEntity> readAll(){
         return (List<CFieldEntity>)mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
     }

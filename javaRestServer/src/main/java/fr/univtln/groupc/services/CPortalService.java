@@ -23,13 +23,15 @@ public class CPortalService {
     }
 
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CPortalEntity read(@PathParam("id") int pId){
         return (CPortalEntity)mCrudMethods.find(CPortalEntity.class, pId);
     }
 
     @GET
-    @Path("/")
+    @Produces("application/json")
+    @Path("/all")
     public List<CPortalEntity> readAll(){
         return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
     }

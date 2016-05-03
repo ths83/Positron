@@ -8,6 +8,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "t_team", schema = "positron")
+@NamedQueries(@NamedQuery(name = CTeamEntity.GET_ALL, query = "select p from CTeamEntity p"))
+
 public class CTeamEntity {
 
     @Id
@@ -24,6 +26,8 @@ public class CTeamEntity {
 
     @Column(name = "color")
     private String mColor;
+
+    public final static String GET_ALL = "Portal.getAll";
 
     public CTeamEntity(){}
 

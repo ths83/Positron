@@ -34,7 +34,7 @@ public class CPortalEntity implements Serializable {
     @JsonIgnore
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     @ManyToOne
-    @JoinColumn(name = "portal")
+    @JoinColumn(name = "team_fk")
     private CTeamEntity mTeam;
 
     public final static String GET_ALL = "Portal.getAll";
