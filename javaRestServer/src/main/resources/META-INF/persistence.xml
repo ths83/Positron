@@ -19,9 +19,9 @@
         <properties>
             <property name="javax.persistence.target-database" value="PostgreSQL"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://89.234.183.3:5432/postgres"/>
-            <property name="javax.persistence.jdbc.user" value="postgres"/>
-            <property name="javax.persistence.jdbc.password" value="groupc"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://sinfo1:5432/mpesnel786"/>
+            <property name="javax.persistence.jdbc.user" value="mpesnel786"/>
+            <property name="javax.persistence.jdbc.password" value="2304015302"/>
 
             <!-- Les options de générations des tables -->
             <property name="eclipselink.ddl-generation.output-mode" value="both"/>

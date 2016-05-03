@@ -7,6 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "t_key", schema = "positron")
 @NamedQueries(@NamedQuery(name = CKeyEntity.GET_ALL, query = "select k from CKeyEntity k"))
 public class CKeyEntity extends AObjectEntity {
@@ -47,5 +48,11 @@ public class CKeyEntity extends AObjectEntity {
         }
     }
 
+    public CPortalEntity getmPortal() {
+        return mPortal;
+    }
 
+    public void setmPortal(CPortalEntity mPortal) {
+        this.mPortal = mPortal;
+    }
 }
