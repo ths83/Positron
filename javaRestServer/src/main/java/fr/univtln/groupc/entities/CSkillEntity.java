@@ -35,7 +35,7 @@ public class CSkillEntity {
     public String toString() {
         return "CSkillEntity{" +
                 "mId=" + mId +
-                ", mName='" + mName + '\'' +
+                ", mName ='" + mName + '\'' +
                 ", mLevel=" + mLevel +
                 ", mCost=" + mCost +
                 '}';
@@ -71,13 +71,4 @@ public class CSkillEntity {
         }
     }
 
-    @Override
-    public String toString() {
-        return "CSkillEntity{" +
-                "mId=" + mId +
-                ", mName='" + mName + '\'' +
-                ", mLevel=" + mLevel +
-                ", mCost=" + mCost +
-                '}';
-    }
 }
