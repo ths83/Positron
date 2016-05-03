@@ -14,7 +14,7 @@ public class CJavaClient {
         // create the client
         Client c = Client.create();
         WebResource webResource = c.resource(CServer.BASE_URI);
-        Client client = ClientBuilder.newClient();
+       // Client client = ClientBuilder.newClient();
         CSkillEntity csk = new CSkillEntity.CSkillBuilder(5).cost(140).level(10).name("ntm").build();
 
         webResource.path("skills/create").post(csk);
