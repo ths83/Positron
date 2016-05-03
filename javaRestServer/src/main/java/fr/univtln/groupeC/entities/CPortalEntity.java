@@ -13,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "portal" , schema = "positron")
+@NamedQueries(@NamedQuery(name = CPortalEntity.GET_ALL, query = "select p from CPortalEntity p"))
 public class CPortalEntity implements Serializable {
     @Id
     @Column(name = "portal_id")
@@ -33,6 +34,8 @@ public class CPortalEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "portal")
     private CTeamEntity mTeam;
+
+    public final static String GET_ALL = "Portal.getAll";
 
     public CPortalEntity(){}
 
