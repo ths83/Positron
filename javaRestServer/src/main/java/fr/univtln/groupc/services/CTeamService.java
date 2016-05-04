@@ -20,7 +20,7 @@ public class CTeamService {
     @POST
     @Consumes("application/json")
     @Path("create")
-    public void createBet(CTeamEntity pTeam){
+    public void createTeam(CTeamEntity pTeam){
         mCrudMethods.create(pTeam);
     }
 
@@ -43,5 +43,19 @@ public class CTeamService {
     @Path("/all")
     public List<CTeamEntity> readAll(){
         return mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
+    }
+
+    @PUT
+    @Produces("application/json")
+    @Path("/")
+    public CTeamEntity updateTeam(CTeamEntity pTeam){
+        return (CTeamEntity)mCrudMethods.update(pTeam);
+    }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void deleteTeam(CTeamEntity pTeam){
+        mCrudMethods.delete(CTeamEntity.class, pTeam.getId());
     }
 }

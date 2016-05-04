@@ -21,7 +21,7 @@ public class CTurretService {
     @POST
     @Consumes("application/json")
     @Path("create")
-    public void createBet(CTurretEntity pTurret){
+    public void createTurret(CTurretEntity pTurret){
         mCrudMethods.create(pTurret);
     }
 
@@ -32,8 +32,8 @@ public class CTurretService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CTurretEntity read(@PathParam("id") int pId){
-        return mCrudMethods.find(CTurretEntity.class, pId);
+    public CTurretEntity readTurret(@PathParam("id") int pId) {
+        return (CTurretEntity) mCrudMethods.find(CTurretEntity.class, pId);
     }
 
     /**
@@ -44,6 +44,20 @@ public class CTurretService {
     @Path("/all")
     public List<CTurretEntity> readAll(){
         return mCrudMethods.findWithNamedQuery(CTurretEntity.GET_ALL);
+    }
+
+    @PUT
+    @Consumes("application/json")
+    @Path("/")
+    public CTurretEntity updateTurret(CTurretEntity pTurret){
+        return (CTurretEntity)mCrudMethods.update(pTurret);
+    }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void deleteTurret(CTurretEntity pTurret){
+        mCrudMethods.delete(CTurretEntity.class, pTurret.getId());
     }
 
 }
