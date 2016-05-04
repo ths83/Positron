@@ -40,6 +40,7 @@ public class CSkillService{
      * @return
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CPortalEntity> readAll(){
         return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);

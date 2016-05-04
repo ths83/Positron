@@ -32,6 +32,7 @@ public class CStatsPlayerService {
      * @return CStatsPlayer
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CStatsPlayer read(@PathParam("id") int pId){
         return (CStatsPlayer)mCrudMethods.find(CStatsPlayer.class, pId);
@@ -41,6 +42,7 @@ public class CStatsPlayerService {
      * @return List<CStatsPlayer>
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CStatsPlayer> readAll(){
         return mCrudMethods.findWithNamedQuery(CStatsPlayer.GET_ALL);
