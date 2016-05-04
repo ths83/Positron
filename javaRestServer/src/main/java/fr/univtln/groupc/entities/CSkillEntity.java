@@ -9,7 +9,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "t_skill", schema = "positron")
-@NamedQueries(@NamedQuery(name = CSkillEntity.GET_ALL, query = "select p from CSkillEntity p"))
+@NamedQueries({@NamedQuery(name = CSkillEntity.GET_ALL, query = "select p from CSkillEntity p"),
+@NamedQuery(name = CSkillEntity.GET_BY_LEVEL, query = "select s from CSkillEntity s where s.mLevel = :mLevel")})
 public class CSkillEntity implements Serializable{
     @Id
     @Column(name = "id")
@@ -22,6 +23,7 @@ public class CSkillEntity implements Serializable{
     private int mCost;
 
     public final static String GET_ALL = "Skill.getAll";
+    public final static String GET_BY_LEVEL = "Skill.getByLevel";
 
     public CSkillEntity(){}
 

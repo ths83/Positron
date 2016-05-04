@@ -30,20 +30,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Activity.MapsActivity"
+            android:name="fr.univtln.groupc.activities.MapsActivity"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".GoogleSignIn.SignInActivity">
+        <activity android:name="fr.univtln.groupc.googlesignin.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.DrawerActivity"></activity>
+        <activity android:name="fr.univtln.groupc.activities.DrawerActivity"></activity>
     </application>
 
 </manifest>

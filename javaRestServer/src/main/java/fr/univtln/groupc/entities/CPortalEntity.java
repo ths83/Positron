@@ -31,6 +31,7 @@ public class CPortalEntity implements Serializable {
     private List<AObjectEntity> mObjects;
     @OneToMany
     @JoinTable(schema = "positron")
+    @JsonIgnore
     private List<CResonatorEntity> mResonators;
     @ManyToMany(mappedBy = "mPortals")
     @JsonIgnore
@@ -165,7 +166,24 @@ public class CPortalEntity implements Serializable {
         if (mTeam != null){
             mTeam.addPortal(this);
         }
+    }
 
+    @JsonIgnore
+    public List<CResonatorEntity> getResonators(){
+        return mResonators;
+    }
+
+    @JsonProperty
+    public void setResonators(List<CResonatorEntity> pResonators){
+        mResonators = pResonators;
+    }
+
+    public List<AObjectEntity> getObjects(){
+        return mObjects;
+    }
+
+    public void setObjects(List<AObjectEntity> pObjects){
+        mObjects = pObjects;
     }
 
 

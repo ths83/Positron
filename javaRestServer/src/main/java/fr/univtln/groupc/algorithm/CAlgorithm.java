@@ -176,7 +176,7 @@ public class CAlgorithm {
 
         for(CLinkEntity lLinkVerified : pLinkList){
 
-            if(lLinkVerified.getId()!= pFieldCreated.getmLinks().get(0).getId() && lLinkVerified.getId()!= pFieldCreated.getmLinks().get(1).getId() && lLinkVerified.getmId()!= pFieldCreated.getmLinks().get(2).getmId()) {
+            if(lLinkVerified.getId()!= pFieldCreated.getmLinks().get(0).getId() && lLinkVerified.getId()!= pFieldCreated.getmLinks().get(1).getId() && lLinkVerified.getId()!= pFieldCreated.getmLinks().get(2).getId()) {
 
                 for (li = 0; li < 3; li++) {
                     for (lu = 0; lu < 2; lu++) {

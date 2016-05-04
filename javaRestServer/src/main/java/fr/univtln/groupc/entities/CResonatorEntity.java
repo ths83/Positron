@@ -14,7 +14,7 @@ public class CResonatorEntity extends ABuildingEntity {
     @ManyToOne
     @JoinColumn(name = "portal_fk")
     private CPortalEntity mPortal;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "owner_fk")
     private CPlayerEntity mOwner;
 

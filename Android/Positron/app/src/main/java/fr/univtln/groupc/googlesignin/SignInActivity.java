@@ -1,4 +1,4 @@
-package fr.univtln.m1dapm.groupec.tperron710.positron.GoogleSignIn;
+package fr.univtln.groupc.googlesignin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import fr.univtln.m1dapm.groupec.tperron710.positron.Activity.MapsActivity;
+import fr.univtln.groupc.activities.MapsActivity;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{

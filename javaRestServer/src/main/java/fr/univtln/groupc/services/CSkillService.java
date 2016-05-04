@@ -1,6 +1,7 @@
 package fr.univtln.groupc.services;
 
 import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CSkillEntity;
 
@@ -34,6 +35,13 @@ public class CSkillService{
     public CSkillEntity readSkill(@PathParam("id") int pId){
         System.out.println("dedans");
         return (CSkillEntity)mCrudMethods.find(CSkillEntity.class, pId);
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/level/{id}")
+    public List<CSkillEntity> readSkillByLevel(@PathParam("id") int pLevel){
+        return (List<CSkillEntity>)mCrudMethods.findWithNamedQuery(CSkillEntity.GET_BY_LEVEL, CQueryParameter.with("mLevel", pLevel).parameters());
     }
 
     /**

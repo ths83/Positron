@@ -1,4 +1,4 @@
-package fr.univtln.m1dapm.groupec.tperron710.positron.Activity;
+package fr.univtln.groupc.activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,13 +13,9 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 

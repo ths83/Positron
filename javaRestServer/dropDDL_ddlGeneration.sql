@@ -4,7 +4,7 @@ ALTER TABLE positron.t_field DROP CONSTRAINT FK_t_field_territory_fk
 ALTER TABLE positron.t_player DROP CONSTRAINT FK_t_player_team
 ALTER TABLE positron.t_key DROP CONSTRAINT FK_t_key_portal_fk
 ALTER TABLE positron.t_key DROP CONSTRAINT FK_t_key_id
-ALTER TABLE positron.t_consumbale DROP CONSTRAINT FK_t_consumbale_id
+ALTER TABLE positron.t_consumable DROP CONSTRAINT FK_t_consumable_id
 ALTER TABLE positron.t_resonator DROP CONSTRAINT FK_t_resonator_id
 ALTER TABLE positron.t_resonator DROP CONSTRAINT FK_t_resonator_owner_fk
 ALTER TABLE positron.t_resonator DROP CONSTRAINT FK_t_resonator_portal_fk
@@ -29,7 +29,7 @@ DROP TABLE positron.t_portal CASCADE
 DROP TABLE positron.t_field CASCADE
 DROP TABLE positron.t_player CASCADE
 DROP TABLE positron.t_key CASCADE
-DROP TABLE positron.t_consumbale CASCADE
+DROP TABLE positron.t_consumable CASCADE
 DROP TABLE positron.t_resonator CASCADE
 DROP TABLE positron.t_link CASCADE
 DROP TABLE positron.t_team CASCADE

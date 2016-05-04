@@ -1,5 +1,8 @@
 package fr.univtln.groupc.entities;
 
+import com.owlike.genson.annotation.JsonIgnore;
+import com.owlike.genson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ public class CPlayerEntity implements Serializable {
     private List<CSkillEntity> mSkills;
     @OneToMany
     @JoinTable(schema = "positron")
+    @JsonIgnore
     private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
 
     public final static String GET_ALL = "Player.getAll";
@@ -82,7 +86,6 @@ public class CPlayerEntity implements Serializable {
                 ", mEnergyMax=" + mEnergyMax +
                 ", mTeam=" + mTeam +
                 ", mSkills=" + mSkills +
-                ", mObjects=" + mObjects +
                 '}';
     }
 
@@ -174,10 +177,12 @@ public class CPlayerEntity implements Serializable {
         mEnergyMax = pEnergyMax;
     }
 
+    @JsonIgnore
     public List<AObjectEntity> getObjects() {
         return mObjects;
     }
 
+    @JsonProperty
     public void setObjects(List<AObjectEntity> pObjects) {
         mObjects = pObjects;
     }

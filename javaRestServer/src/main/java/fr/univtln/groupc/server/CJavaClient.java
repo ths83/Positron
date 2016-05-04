@@ -5,10 +5,7 @@ import javax.ws.rs.client.ClientBuilder;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.dao.CQueryParameter;
-import fr.univtln.groupc.entities.CConsumableEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
-import fr.univtln.groupc.entities.CSkillEntity;
-import fr.univtln.groupc.entities.CTeamEntity;
+import fr.univtln.groupc.entities.*;
 
 import javax.ws.rs.client.ClientBuilder;
 import java.util.List;
@@ -79,7 +76,7 @@ public class CJavaClient {
 
         // TEST TEAM LIST PORTALS AFTER UPDATING PORTAL
         System.out.println(webResource.path("teams/1").get(CTeamEntity.class));
-        // !!!!!!!!!!! TEST FAILED !!!!!!!!!!!
+        // TEST SUCCESFUL
 
 
 
@@ -87,7 +84,7 @@ public class CJavaClient {
 
         CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder(10).name("conso1").rarity(2).build();
 
-        webResource.path("consumables/create").post(lConsumable);
+        //webResource.path("consumables/create").post(lConsumable);
         CConsumableEntity lConsumableGotten = webResource.path("consumables/10").get(CConsumableEntity.class);
         System.out.println(lConsumableGotten);
         // TEST SUCCESFUL
@@ -106,6 +103,45 @@ public class CJavaClient {
         System.out.println(lConsumable);
 
         // TEST SUCCESFUL
+
+        // TEST SKILLS
+        CSkillEntity lSkill10 = new CSkillEntity.CSkillBuilder(10).name("skill10").cost(15).level(2).build();
+        webResource.path("skills/create").post(lSkill10);
+        // TEST SUCCESFUL
+
+        // TEST SKILLS BY LEVEL
+        System.out.println(webResource.path("skills/level/2").get(List.class));
+        // TEST SUCCESFUL
+
+        // TEST CREATE PLAYER
+
+        CPlayerEntity lPlayer = new CPlayerEntity.CPlayerBuilder(7).nickname("raul").email("gonzalesblancoraul@gmail.com").xp(150).energy(800).energyMax(800).build();
+        lCrud.create(lPlayer);
+
+        // TEST SUCCESFUL
+
+        // TEST GET PLAYER BY ID
+        CPlayerEntity lPlayerGotten = lCrud.find(CPlayerEntity.class, 7);
+        System.out.println(lPlayerGotten);
+        lPlayerGotten.addSkill(lSkill10);
+        lCrud.update(lPlayerGotten);
+        System.out.println(lCrud.find(CPlayerEntity.class, 7));
+        // TEST SUCCESFUL
+
+        // TEST CREATE RESONATOR
+        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(50).name("reso_de_test").level(3).energyMax(40).energy(30).radius(45).build();
+        lCrud.create(lResonator);
+        // TEST SUCCESFUL
+
+        // TEST GET RESONATOR BY ID
+        CResonatorEntity lResonatorGotten = lCrud.find(CResonatorEntity.class, 50);
+        // TEST SUCCESFUL
+
+        // TEST UPDATE RESONATOR OWNER
+        lResonatorGotten.setOwner(lPlayerGotten);
+        lCrud.update(lResonatorGotten);
+        // TEST SUCCESFUL
+
 
 
     }
