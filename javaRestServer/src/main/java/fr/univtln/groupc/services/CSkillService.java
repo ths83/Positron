@@ -31,7 +31,7 @@ public class CSkillService{
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CSkillEntity read(@PathParam("id") int pId){
+    public CSkillEntity readSkill(@PathParam("id") int pId){
         System.out.println("dedans");
         return (CSkillEntity)mCrudMethods.find(CSkillEntity.class, pId);
     }
@@ -43,5 +43,19 @@ public class CSkillService{
     @Path("/all")
     public List<CPortalEntity> readAll(){
         return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
+    }
+
+    @PUT
+    @Consumes("application/json")
+    @Path("/")
+    public CSkillEntity updateSkill(CSkillEntity pSkill){
+        return (CSkillEntity)mCrudMethods.update(pSkill);
+    }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void deleteSkill(CSkillEntity pSkill){
+        mCrudMethods.delete(CSkillEntity.class, pSkill);
     }
 }
