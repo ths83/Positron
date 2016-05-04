@@ -59,4 +59,11 @@ public class CStatsPlayerService {
     public CStatsPlayer updateTeam(CStatsPlayer pStatsPlayer){
         return mCrudMethods.update(pStatsPlayer);
     }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void delete(CStatsPlayer pStatsPlayer){
+        mCrudMethods.delete(CStatsPlayer.class, pStatsPlayer.getmID());
+    }
 }

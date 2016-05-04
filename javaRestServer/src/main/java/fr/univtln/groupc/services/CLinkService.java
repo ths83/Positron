@@ -52,7 +52,6 @@ public class CLinkService {
      * @param pLink
      * @return CLinkEntity
      */
-
     @DELETE
     @Consumes("application/json")
     @Path("/")

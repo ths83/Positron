@@ -49,7 +49,7 @@ public class CTeamService {
     @Produces("application/json")
     @Path("/")
     public CTeamEntity updateTeam(CTeamEntity pTeam){
-        return (CTeamEntity)mCrudMethods.update(pTeam);
+        return mCrudMethods.update(pTeam);
     }
 
     @DELETE

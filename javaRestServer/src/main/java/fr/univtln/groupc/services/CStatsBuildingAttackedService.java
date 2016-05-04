@@ -56,4 +56,11 @@ public class CStatsBuildingAttackedService {
     public CStatsBuildingsAttacked updateTeam(CStatsBuildingsAttacked pStatsBuildingsAttacked){
         return mCrudMethods.update(pStatsBuildingsAttacked);
     }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void delete(CStatsBuildingsAttacked pStatsBuildingAttacked){
+        mCrudMethods.delete(CStatsBuildingsAttacked.class, pStatsBuildingAttacked.getmId());
+    }
 }

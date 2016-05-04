@@ -53,4 +53,11 @@ public class CKeyService {
     public CKeyEntity updateTeam(CKeyEntity pKey){
         return mCrudMethods.update(pKey);
     }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void delete(CKeyEntity pKey){
+        mCrudMethods.delete(CKeyEntity.class, pKey.getId());
+    }
 }
