@@ -13,6 +13,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "t_territory", schema = "positron")
+@NamedQueries(@NamedQuery(name = CTerritoryEntity.GET_ALL, query = "select p from CTerritoryEntity p"))
+
 public class CTerritoryEntity {
     @Id
     @Column(name = "territory_id")
@@ -20,6 +22,9 @@ public class CTerritoryEntity {
     @OneToMany(mappedBy="mTerritory")
     @JsonIgnore
     private List<CFieldEntity> mFields = new ArrayList<CFieldEntity>();
+
+    public final static String GET_ALL = "Territory.getAll";
+
 
     public CTerritoryEntity() {}
 

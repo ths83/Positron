@@ -43,7 +43,7 @@ public class CStatsPlayerService {
     @GET
     @Path("/all")
     public List<CStatsPlayer> readAll(){
-        return (List<CStatsPlayer>)mCrudMethods.findWithNamedQuery(CStatsPlayer.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CStatsPlayer.GET_ALL);
     }
 
     /**
@@ -55,6 +55,6 @@ public class CStatsPlayerService {
     @Produces("application/json")
     @Path("/update")
     public CStatsPlayer updateTeam(CStatsPlayer pStatsPlayer){
-        return (CStatsPlayer) mCrudMethods.update(pStatsPlayer);
+        return mCrudMethods.update(pStatsPlayer);
     }
 }

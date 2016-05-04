@@ -27,23 +27,23 @@ public class CTurretService {
 
     /**
      * @param pId
-     * @return
+     * @return CTurretEntity
      */
     @GET
     @Produces("application/json")
     @Path("/{id}")
     public CTurretEntity read(@PathParam("id") int pId){
-        return (CTurretEntity)mCrudMethods.find(CTurretEntity.class, pId);
+        return mCrudMethods.find(CTurretEntity.class, pId);
     }
 
     /**
-     * @return
+     * @return List<CTurretEntity>
      */
     @GET
     @Produces("application/json")
     @Path("/all")
     public List<CTurretEntity> readAll(){
-        return (List<CTurretEntity>)mCrudMethods.findWithNamedQuery(CTurretEntity.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CTurretEntity.GET_ALL);
     }
 
 }

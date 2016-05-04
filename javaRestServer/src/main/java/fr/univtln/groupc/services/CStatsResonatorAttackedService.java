@@ -29,6 +29,7 @@ public class CStatsResonatorAttackedService {
      * @return pStatsResonatorAttacked
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CStatsResonatorAttacked read(@PathParam("id") int pId){
         return mCrudMethods.find(CStatsResonatorAttacked.class, pId);
@@ -38,6 +39,7 @@ public class CStatsResonatorAttackedService {
      * @return List<CStatsResonatorAttacked>
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CStatsResonatorAttacked> readAll(){
         return mCrudMethods.findWithNamedQuery(CStatsResonatorAttacked.GET_ALL);

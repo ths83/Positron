@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class CStatsResonatorAttacked extends AStatsAttacked{
 
     @ManyToOne
-    @JoinTable(schema = "positron")
     private CResonatorEntity mResonator;
 
     public final static String GET_ALL = "StatsBuildingAttacked.getAll";

@@ -28,22 +28,21 @@ public class CTerritoryService {
 
     /**
      * @param pId
-     * @return
+     * @return CTerritoryEntity
      */
     @GET
     @Produces("application/json")
     @Path("/{id}")
     public CTerritoryEntity read(@PathParam("id") int pId){
-        System.out.println("dedans");
-        return (CTerritoryEntity)mCrudMethods.find(CTerritoryEntity.class, pId);
+        return mCrudMethods.find(CTerritoryEntity.class, pId);
     }
 
     /**
-     * @return
+     * @return List<CTerritoryEntity>
      */
     @GET
     @Path("/all")
     public List<CTerritoryEntity> readAll(){
-        return (List<CTerritoryEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CTerritoryEntity.GET_ALL);
     }
 }

@@ -35,7 +35,7 @@ public class CStatsBuildingAttackedService {
     }
 
     /**
-     * @return List<CStatsPlayer>
+     * @return List<CStatsBuildingsAttacked>
      */
     @GET
     @Path("/all")
@@ -45,7 +45,7 @@ public class CStatsBuildingAttackedService {
 
     /**
      * @param pStatsBuildingsAttacked
-     * @return CStatsPlayer
+     * @return CStatsBuildingsAttacked
      */
     @PUT
     @Consumes("application/json")

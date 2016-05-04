@@ -26,6 +26,20 @@ public class CJavaClient {
         String responseSkillsAsJson = webResource.path("skills/5").get(String.class);
         System.out.println(responseSkillsAsJson);
 
+        //Send a get with a String as response
+        String responseSmsAsJson = webResource.path("bank/allsms").get(String.class);
+        System.out.println(responseSmsAsJson);
+
+
+        //Idem but the result is deserialised to an instance of Auteur
+        /*
+        CSmsReceived smsReceived = webResource.path("bank/sms/1").get(CSmsReceived.class);
+        System.out.println(smsReceived);
+        */
+
+        webResource.path("bank/sms").queryParam("Data","X").queryParam("Data","Y").put();
+        System.out.println(webResource.path("bank/allsms").get(String.class));
+
     }
 }
 
