@@ -1,6 +1,7 @@
 package fr.univtln.groupc.services;
 
 import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import javax.ws.rs.*;
@@ -37,6 +38,18 @@ public class CPortalService {
         return (CPortalEntity)mCrudMethods.find(CPortalEntity.class, pId);
     }
 
+
+    /*
+     * Liste tous les portails appartenant a une team
+     */
+
+    @GET
+    @Produces
+    @Path("/team/{id}")
+    public List<CPortalEntity> readPortalsByTeam(@PathParam("id") int pId){
+        return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_BY_TEAM, CQueryParameter.with("mId", pId).parameters());
+    }
+
     /**
      * @return List<CPortalEntity>
      */
@@ -53,6 +66,7 @@ public class CPortalService {
      */
     @PUT
     @Consumes("application/json")
+    @Produces("application/json")
     @Path("/put")
     public CPortalEntity updatePortal(CPortalEntity pPortal){
         return (CPortalEntity)mCrudMethods.update(pPortal);

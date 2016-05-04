@@ -14,7 +14,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "t_portal" , schema = "positron")
-@NamedQueries(@NamedQuery(name = CPortalEntity.GET_ALL, query = "select p from CPortalEntity p"))
+@NamedQueries({@NamedQuery(name = CPortalEntity.GET_ALL, query = "select p from CPortalEntity p"),
+@NamedQuery(name = CPortalEntity.GET_BY_TEAM, query = "select p from CPortalEntity p where p.mTeam = (select t from CTeamEntity t where t.mId = :mId)")})
 public class CPortalEntity implements Serializable {
     @Id
     @Column(name = "portal_id")
@@ -34,11 +35,12 @@ public class CPortalEntity implements Serializable {
     @ManyToMany(mappedBy = "mPortals")
     @JsonIgnore
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_fk")
     private CTeamEntity mTeam;
 
     public final static String GET_ALL = "Portal.getAll";
+    public final static String GET_BY_TEAM = "Portal.getByTeam";
 
     public CPortalEntity(){}
 
@@ -152,6 +154,18 @@ public class CPortalEntity implements Serializable {
 
     public void addLink(CLinkEntity pLink){
         mLinks.add(pLink);
+    }
+
+    public CTeamEntity getTeam(){
+        return mTeam;
+    }
+
+    public void setTeam(CTeamEntity pTeam){
+        mTeam = pTeam;
+        if (mTeam != null){
+            mTeam.addPortal(this);
+        }
+
     }
 
 

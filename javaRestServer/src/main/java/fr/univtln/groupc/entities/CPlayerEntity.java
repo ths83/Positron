@@ -197,8 +197,8 @@ public class CPlayerEntity implements Serializable {
         private double mLong;
         private int mBagSize;
         private int mXp;
-        private List<CSkillEntity> mSkills;
-        private List<AObjectEntity> mObjects=new ArrayList<AObjectEntity>();
+        private List<CSkillEntity> mSkills = new ArrayList<>();
+        private List<AObjectEntity> mObjects = new ArrayList<>();
 
         public CPlayerBuilder(int pId){
             mId = pId;

@@ -3,6 +3,9 @@ package fr.univtln.groupc.server;
 import com.sun.jersey.api.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import com.sun.jersey.api.client.WebResource;
+import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.dao.CQueryParameter;
+import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CSkillEntity;
 import fr.univtln.groupc.entities.CTeamEntity;
@@ -16,6 +19,7 @@ import java.util.List;
 public class CJavaClient {
     public static void main(String[] args) {
         // create the client
+        CCrudMethods lCrud = new CCrudMethods();
         Client c = Client.create();
         WebResource webResource = c.resource(CServer.BASE_URI);
 
@@ -61,9 +65,35 @@ public class CJavaClient {
 
         // TEST GET TEAM BY ID
         CTeamEntity lTeamGotten = webResource.path("teams/1").get(CTeamEntity.class);
-
         System.out.println(lTeamGotten);
+        // TEST SUCCESFUL
 
+        lPortalGotten.setTeam(lTeamGotten);
+        // TEST UPDATE PORTAL WITH A TEAM
+        webResource.path("portals/put").put(lPortalGotten);
+
+        lPortalGotten = webResource.path("portals/80").get(CPortalEntity.class);
+        System.out.println("apres update -> ");
+        System.out.println(lPortalGotten);
+        // TEST SUCCESFUL
+
+        // TEST TEAM LIST PORTALS AFTER UPDATING PORTAL
+        System.out.println(webResource.path("teams/1").get(CTeamEntity.class));
+        // !!!!!!!!!!! TEST FAILED !!!!!!!!!!!
+
+
+
+        // TEST PERSIST CONSUMABLE + GET BY ID
+
+        CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder(10).name("conso1").rarity(2).build();
+
+        webResource.path("consumables/create").post(lConsumable);
+        CConsumableEntity lConsumableGotten = webResource.path("consumables/10").get(CConsumableEntity.class);
+        System.out.println(lConsumableGotten);
+
+        System.out.println(lCrud.findWithNamedQuery(CPortalEntity.GET_BY_TEAM, CQueryParameter.with("mId", 1).parameters()));
+
+        // TEST SUCCESFUL
     }
 }
 
