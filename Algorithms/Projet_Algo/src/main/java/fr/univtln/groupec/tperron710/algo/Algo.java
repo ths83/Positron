@@ -5,8 +5,10 @@ import fr.univtln.groupec.tperron710.objet.Lien;
 import fr.univtln.groupec.tperron710.objet.Portail;
 import fr.univtln.groupec.tperron710.objet.Territoire;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by xdurbec066 on 02/05/16.
@@ -102,6 +104,70 @@ public abstract class Algo {
         System.out.println("Colision Territoire détectée");
         return false;
         }
+    }
+
+
+    public static List<Lien> detectInternalLink (Territoire pfieldCreated,List<Lien> pLinkList){
+        List<Lien> lInternalLinkList = new ArrayList<Lien>();
+
+        Iterator<Lien> lIteratorLinkList= pLinkList.iterator();
+        double lPx=0,lPy=0,lFieldVector[][]={{0,0},{0,0},{0,0}},det[]={0,0,0},lLinkVector[][]={{0,0},{0,0},{0,0}};
+        int li=0,lu=0;
+        Lien lLinkVerified;
+
+        for(li=0;li<3;li++){
+            for(lu=0;lu<2;lu++){
+                if(li==2){
+
+                    if(lu==0){
+                        lFieldVector[li][lu]=pfieldCreated.getLP().get(li).getX()-pfieldCreated.getLP().get(0).getX();
+                    }
+                    else{
+                        lFieldVector[li][lu]=pfieldCreated.getLP().get(li).getX()-pfieldCreated.getLP().get(0).getY();
+                    }
+                }
+                else {
+                       if(lu==0){
+                           lFieldVector[li][lu]=pfieldCreated.getLP().get(li+1).getX()-pfieldCreated.getLP().get(li).getX();
+                       }
+                       else{
+                           lFieldVector[li][lu]=pfieldCreated.getLP().get(li+1).getX()-pfieldCreated.getLP().get(li).getY();
+                       }
+                }
+            }
+        }
+
+        while(lIteratorLinkList.hasNext()){
+
+            lLinkVerified = lIteratorLinkList.next();
+            lPx = lLinkVerified.getP1().getX();
+            lPy = lLinkVerified.getP1().getY();
+
+            for(li=0;li<3;li++){
+                for(lu=0;lu<2;lu++){
+                        if(lu==0){
+                            lLinkVector[li][lu]=lLinkVerified.getP1().getX()-pfieldCreated.getLP().get(li).getX();
+                        }
+                        else{
+                            lLinkVector[li][lu]=lLinkVerified.getP1().getX()-pfieldCreated.getLP().get(li).getY();
+                        }
+                }
+            }
+
+
+            for(li=0;li<3;li++){
+
+                        det[li]= lFieldVector[li][0]*lLinkVector[li][1]-lFieldVector[li][1]*lLinkVector[li][0];
+            }
+            System.out.println(det[0]+"   "+det[1]+"   "+det[2]);
+           if(det[0]+det[1]+det[2]!=0) {
+                if (((det[0] <= 0 && det[1] <= 0 && det[2] <= 0) || (det[0] >= 0 && det[1] >= 0 && det[2] >= 0))) {
+                    lInternalLinkList.add(lLinkVerified);
+                }
+            }
+         }
+        return lInternalLinkList;
+
     }
 
 }

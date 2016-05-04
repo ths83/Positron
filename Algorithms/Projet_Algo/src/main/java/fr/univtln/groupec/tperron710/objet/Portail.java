@@ -6,10 +6,12 @@ package fr.univtln.groupec.tperron710.objet;
 public class Portail {
         int x;
         int y;
+        int id;
 
-    public Portail(int x, int y) {
+    public Portail(int x, int y, int id) {
         this.x = x;
         this.y = y;
+        this.id = id;
     }
 
     public int getX() {
@@ -26,5 +28,22 @@ public class Portail {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Portail{" +
+                "x=" + x +
+                ", y=" + y +
+                ", id=" + id +
+                '}';
     }
 }
