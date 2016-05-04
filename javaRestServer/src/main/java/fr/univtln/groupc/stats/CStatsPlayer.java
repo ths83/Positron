@@ -40,7 +40,7 @@ public class CStatsPlayer {
     private List<CResonatorEntity> mResonatorsBuilt  = new ArrayList<CResonatorEntity>();
 
     @OneToMany
-    @JoinTable(schema = "t_player")
+    @JoinTable(schema = "positron")
     private List<CKeyEntity> mKeysUSed  = new ArrayList<CKeyEntity>();
 
     @Id
