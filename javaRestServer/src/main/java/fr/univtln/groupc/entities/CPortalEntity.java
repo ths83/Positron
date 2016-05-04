@@ -53,6 +53,14 @@ public class CPortalEntity implements Serializable {
         mLinks = pBuilder.mLinks;
     }
 
+    public double getmLong() {
+        return mLong;
+    }
+
+    public double getmLat() {
+        return mLat;
+    }
+
     public static class CPortalBuilder{
         private int mId;
         private double mLat;
