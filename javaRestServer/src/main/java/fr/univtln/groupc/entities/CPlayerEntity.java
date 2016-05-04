@@ -2,6 +2,7 @@ package fr.univtln.groupc.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class CPlayerEntity implements Serializable {
     private List<CSkillEntity> mSkills;
     @OneToMany
     @JoinTable(schema = "positron")
-    private List<AObjectEntity> mObjects;
+    private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
 
     public final static String GET_ALL = "Player.getAll";
 
@@ -181,6 +182,10 @@ public class CPlayerEntity implements Serializable {
         mObjects = pObjects;
     }
 
+    public void addObjects(AObjectEntity o) {
+        mObjects.add(o);
+    }
+
     public static class CPlayerBuilder{
         private int mId;
         private String mNickName;
@@ -193,7 +198,7 @@ public class CPlayerEntity implements Serializable {
         private int mBagSize;
         private int mXp;
         private List<CSkillEntity> mSkills;
-        private List<AObjectEntity> mObjects;
+        private List<AObjectEntity> mObjects=new ArrayList<AObjectEntity>();
 
         public CPlayerBuilder(int pId){
             mId = pId;
@@ -257,7 +262,7 @@ public class CPlayerEntity implements Serializable {
         public CPlayerEntity build(){
             return new CPlayerEntity(this);
         }
-
-
     }
+
+
 }

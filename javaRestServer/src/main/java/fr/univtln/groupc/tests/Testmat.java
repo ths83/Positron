@@ -1,10 +1,7 @@
 package fr.univtln.groupc.tests;
 
 import fr.univtln.groupc.dao.CCrudMethods;
-import fr.univtln.groupc.entities.CKeyEntity;
-import fr.univtln.groupc.entities.CLinkEntity;
-import fr.univtln.groupc.entities.CPlayerEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +21,7 @@ public class Testmat {
         CKeyEntity k3 = new CKeyEntity.CKeyBuilder(3).portal(p2).build();
         CKeyEntity k4 = new CKeyEntity.CKeyBuilder(4).portal(p1).build();
         CKeyEntity k5 = new CKeyEntity.CKeyBuilder(5).portal(p1).build();
+        CResonatorEntity r1 = new CResonatorEntity.CResonatorBuilder(6).build();
         //lp.add(p1);
         //lp.add(p2);
         //System.out.printf("liste : " + lp.toString());
@@ -32,6 +30,12 @@ public class Testmat {
         CPlayerEntity j3 = new CPlayerEntity.CPlayerBuilder(3).nickname("morata").build();
         CPlayerEntity j4 = new CPlayerEntity.CPlayerBuilder(2).nickname("marchisio").build();
         //CLinkEntity l = new CLinkEntity.CLinkBuilder(1).portals(lp).build();
+
+        System.out.printf(j1.getObjects().toString());
+        j1.addObjects(k3);
+        j1.addObjects(k4);
+        j1.addObjects(r1);
+        j2.addObjects(k2);
         crud.create(p1);
         crud.create(p2);
         crud.create(p3);
@@ -44,6 +48,7 @@ public class Testmat {
         crud.create(j2);
         crud.create(j3);
         crud.create(j4);
+        crud.create(r1);
 
     }
 }

@@ -62,7 +62,7 @@ public class CStatsBuildingAttackedService {
      */
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    //@Path("/")
     public void delete(CStatsBuildingsAttacked pStatsBuildingAttacked){
         mCrudMethods.delete(CStatsBuildingsAttacked.class, pStatsBuildingAttacked.getmId());
     }
