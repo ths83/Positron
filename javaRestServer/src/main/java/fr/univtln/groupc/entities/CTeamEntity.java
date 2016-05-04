@@ -20,7 +20,7 @@ public class CTeamEntity {
     @JoinTable(schema = "positron")
     private List<CPlayerEntity> mPlayers;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(schema = "positron")
     private List<CPortalEntity> mPortals;
 
@@ -31,7 +31,7 @@ public class CTeamEntity {
         return mId;
     }
 
-    public void setmId(int pId) {
+    public void setId(int pId) {
         mId = pId;
     }
 

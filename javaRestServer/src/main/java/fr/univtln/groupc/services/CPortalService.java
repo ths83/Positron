@@ -53,6 +53,7 @@ public class CPortalService {
      */
     @PUT
     @Consumes("application/json")
+    @Produces("application/json")
     @Path("/put")
     public CPortalEntity updatePortal(CPortalEntity pPortal){
         return (CPortalEntity)mCrudMethods.update(pPortal);

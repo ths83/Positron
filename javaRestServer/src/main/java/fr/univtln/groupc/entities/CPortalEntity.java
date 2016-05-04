@@ -34,7 +34,7 @@ public class CPortalEntity implements Serializable {
     @ManyToMany(mappedBy = "mPortals")
     @JsonIgnore
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_fk")
     private CTeamEntity mTeam;
 
@@ -152,6 +152,14 @@ public class CPortalEntity implements Serializable {
 
     public void addLink(CLinkEntity pLink){
         mLinks.add(pLink);
+    }
+
+    public CTeamEntity getTeam(){
+        return mTeam;
+    }
+
+    public void setTeam(CTeamEntity pTeam){
+        mTeam = pTeam;
     }
 
 
