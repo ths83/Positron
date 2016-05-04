@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by arouani277 on 03/05/16.
  */
-@Path("/skills")
+@Path("/resonators")
 public class CResonatorService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
 
@@ -28,7 +28,7 @@ public class CResonatorService {
 
     /**
      * @param pId
-     * @return
+     * @return CResonatorEntity
      */
     @GET
     @Produces("application/json")
@@ -39,23 +39,31 @@ public class CResonatorService {
     }
 
     /**
-     * @return
+     * @return List<CResonatorEntity>
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CResonatorEntity> readAll(){
-        return (List<CResonatorEntity>)mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
     }
 
+    /**
+     * @param pResonator
+     * @return CResonatorEntity
+     */
     @PUT
-    @Path("/")
+    @Path("/put")
     public CResonatorEntity updateResonator(CResonatorEntity pResonator){
-        return (CResonatorEntity)mCrudMethods.update(pResonator);
+        return mCrudMethods.update(pResonator);
     }
 
+    /**
+     * @param pResonator
+     */
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deleteResonator(CResonatorEntity pResonator){
         mCrudMethods.delete(CResonatorEntity.class, pResonator.getId());
     }

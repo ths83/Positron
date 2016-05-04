@@ -16,7 +16,6 @@ import java.util.List;
 public class CStatsPlayer {
 
     @ManyToOne
-    @JoinColumn(name = "team_fk")
     private CPlayerEntity mPlayer;
 
     @OneToMany

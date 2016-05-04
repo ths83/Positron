@@ -26,35 +26,42 @@ public class CTeamService {
 
     /**
      * @param pId
-     * @return
+     * @return CTeamEntity
      */
     @GET
     @Produces("application/json")
     @Path("/{id}")
     public CTeamEntity read(@PathParam("id") int pId){
-        return (CTeamEntity)mCrudMethods.find(CTeamEntity.class, pId);
+        return mCrudMethods.find(CTeamEntity.class, pId);
     }
 
     /**
-     * @return
+     * @return List<CTeamEntity>
      */
     @GET
     @Produces("application/json")
     @Path("/all")
     public List<CTeamEntity> readAll(){
-        return (List<CTeamEntity>)mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
     }
 
+    /**
+     * @param pTeam
+     * @return CTeamEntity
+     */
     @PUT
     @Produces("application/json")
-    @Path("/")
+    @Path("/put")
     public CTeamEntity updateTeam(CTeamEntity pTeam){
-        return (CTeamEntity)mCrudMethods.update(pTeam);
+        return mCrudMethods.update(pTeam);
     }
 
+    /**
+     * @param pTeam
+     */
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deleteTeam(CTeamEntity pTeam){
         mCrudMethods.delete(CTeamEntity.class, pTeam.getId());
     }

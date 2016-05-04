@@ -22,12 +22,13 @@ public class CPortalService {
     @Consumes("application/json")
     @Path("create")
     public void createPortal(CPortalEntity pPortal){
+        System.out.println("in");
         mCrudMethods.create(pPortal);
     }
 
     /**
      * @param pId
-     * @return
+     * @return CPortalEntity
      */
     @GET
     @Produces("application/json")
@@ -37,7 +38,7 @@ public class CPortalService {
     }
 
     /**
-     * @return
+     * @return List<CPortalEntity>
      */
     @GET
     @Produces("application/json")
@@ -46,16 +47,24 @@ public class CPortalService {
         return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
     }
 
+    /**
+     * @param pPortal
+     * @return CPortalEntity
+     */
     @PUT
     @Consumes("application/json")
-    @Path("/")
+    @Path("/put")
     public CPortalEntity updatePortal(CPortalEntity pPortal){
         return (CPortalEntity)mCrudMethods.update(pPortal);
     }
 
+
+    /**
+     * @param pPortal
+     */
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deletePortal(CPortalEntity pPortal){
         mCrudMethods.delete(CPortalEntity.class, pPortal.getId());
     }

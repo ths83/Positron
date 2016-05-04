@@ -43,4 +43,36 @@ public class AStatsAttacked {
                 ", Id=" + mId +
                 '}';
     }
+
+    public CPlayerEntity getmOwner() {
+        return mOwner;
+    }
+
+    public void setmOwner(CPlayerEntity mOwner) {
+        this.mOwner = mOwner;
+    }
+
+    public CPlayerEntity getmAttacker() {
+        return mAttacker;
+    }
+
+    public void setmAttacker(CPlayerEntity mAttacker) {
+        this.mAttacker = mAttacker;
+    }
+
+    public int getmCpt() {
+        return mCpt;
+    }
+
+    public void setmCpt(int mCpt) {
+        this.mCpt = mCpt;
+    }
+
+    public int getmId() {
+        return mId;
+    }
+
+    public void setmId(int mId) {
+        this.mId = mId;
+    }
 }

@@ -32,6 +32,7 @@ public class CStatsPlayerService {
      * @return CStatsPlayer
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CStatsPlayer read(@PathParam("id") int pId){
         return (CStatsPlayer)mCrudMethods.find(CStatsPlayer.class, pId);
@@ -41,9 +42,10 @@ public class CStatsPlayerService {
      * @return List<CStatsPlayer>
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CStatsPlayer> readAll(){
-        return (List<CStatsPlayer>)mCrudMethods.findWithNamedQuery(CStatsPlayer.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CStatsPlayer.GET_ALL);
     }
 
     /**
@@ -55,6 +57,16 @@ public class CStatsPlayerService {
     @Produces("application/json")
     @Path("/update")
     public CStatsPlayer updateTeam(CStatsPlayer pStatsPlayer){
-        return (CStatsPlayer) mCrudMethods.update(pStatsPlayer);
+        return mCrudMethods.update(pStatsPlayer);
+    }
+
+    /**
+     * @param pStatsPlayer
+     */
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void delete(CStatsPlayer pStatsPlayer){
+        mCrudMethods.delete(CStatsPlayer.class, pStatsPlayer.getmID());
     }
 }

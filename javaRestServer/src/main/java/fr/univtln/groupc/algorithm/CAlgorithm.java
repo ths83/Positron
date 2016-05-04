@@ -32,19 +32,19 @@ public class CAlgorithm {
 
             // Pour chaque territoire on calcule le déterminant pour chaque segment qui le constitue.
             for (lI = 0; lI < 3; lI++) {
-                mAx = mField.getmLinks().get(lI).getmPortals().get(0).getmLong();
-                mAy = mField.getmLinks().get(lI).getmPortals().get(0).getmLat();
+                mAx = mField.getLinks().get(lI).getPortals().get(0).getLong();
+                mAy = mField.getLinks().get(lI).getPortals().get(0).getLat();
 
                 if (lI != 2) {
 
-                    mBx = mField.getmLinks().get(lI+1).getmPortals().get(0).getmLong();
-                    mBy = mField.getmLinks().get(lI+1).getmPortals().get(0).getmLat();
+                    mBx = mField.getLinks().get(lI+1).getPortals().get(0).getLong();
+                    mBy = mField.getLinks().get(lI+1).getPortals().get(0).getLat();
                 } else {
-                    mBx = mField.getmLinks().get(0).getmPortals().get(0).getmLong();
-                    mBy = mField.getmLinks().get(0).getmPortals().get(0).getmLat();
+                    mBx = mField.getLinks().get(0).getPortals().get(0).getLong();
+                    mBy = mField.getLinks().get(0).getPortals().get(0).getLat();
                 }
 
-                lDet[lI] = ((mBx - mAx) * (pPortal.getmLat() - mAy)) - ((mBy - mAy) * (pPortal.getmLong() - mAx));
+                lDet[lI] = ((mBx - mAx) * (pPortal.getLat() - mAy)) - ((mBy - mAy) * (pPortal.getLong() - mAx));
 
             }
 
@@ -65,21 +65,21 @@ public class CAlgorithm {
         Iterator<CLinkEntity> mIteratorLink = mLinkList.iterator();
         double mABx=0,mABy=0,mAP1y=0,mAP1x=0,mAP2y=0,mAP2x=0;
         
-        double mP1X = mLinkToDo.getmPortals().get(0).getmLong();
-        double mP2X = mLinkToDo.getmPortals().get(1).getmLong();
-        double mP1Y = mLinkToDo.getmPortals().get(0).getmLat();
-        double mP2Y = mLinkToDo.getmPortals().get(1).getmLat();
+        double mP1X = mLinkToDo.getPortals().get(0).getLong();
+        double mP2X = mLinkToDo.getPortals().get(1).getLong();
+        double mP1Y = mLinkToDo.getPortals().get(0).getLat();
+        double mP2Y = mLinkToDo.getPortals().get(1).getLat();
         
         CLinkEntity mComparedLinks;
         
         while(mIteratorLink.hasNext()){
             mComparedLinks = mIteratorLink.next();
-            mABx=mComparedLinks.getmPortals().get(1).getmLong()-mComparedLinks.getmPortals().get(0).getmLong();
-            mABy=mComparedLinks.getmPortals().get(1).getmLat()-mComparedLinks.getmPortals().get(0).getmLat();
-            mAP1x=mP1X-mComparedLinks.getmPortals().get(0).getmLong();
-            mAP1y=mP1Y-mComparedLinks.getmPortals().get(0).getmLat();
-            mAP2x=mP2X-mComparedLinks.getmPortals().get(0).getmLong();
-            mAP2y=mP2Y-mComparedLinks.getmPortals().get(0).getmLat();
+            mABx=mComparedLinks.getPortals().get(1).getLong()-mComparedLinks.getPortals().get(0).getLong();
+            mABy=mComparedLinks.getPortals().get(1).getLat()-mComparedLinks.getPortals().get(0).getLat();
+            mAP1x=mP1X-mComparedLinks.getPortals().get(0).getLong();
+            mAP1y=mP1Y-mComparedLinks.getPortals().get(0).getLat();
+            mAP2x=mP2X-mComparedLinks.getPortals().get(0).getLong();
+            mAP2y=mP2Y-mComparedLinks.getPortals().get(0).getLat();
 
             if((mABx*mAP1y-mABy*mAP1x)*(mABx*mAP2y-mABy*mAP2x)<0){
                 return false;
@@ -93,7 +93,7 @@ public class CAlgorithm {
 
 
     public static boolean detectColision(CLinkEntity mCheckedLink,List<CLinkEntity> mLinkList,List<CFieldEntity> mFieldList){
-        if (CAlgorithm.detectFieldCollision(mCheckedLink.getmPortals().get(0), mFieldList)) {
+        if (CAlgorithm.detectFieldCollision(mCheckedLink.getPortals().get(0), mFieldList)) {
             System.out.println("Colision Territoire non détectée");
             if(CAlgorithm.detectLinkCollision(mCheckedLink, mLinkList)){
                 System.out.println("Colision Lien non détectée");

@@ -28,7 +28,7 @@ public class CTerritoryService {
 
     /**
      * @param pId
-     * @return
+     * @return CTerritoryEntity
      */
     @GET
     @Produces("application/json")
@@ -36,27 +36,35 @@ public class CTerritoryService {
     public CTerritoryEntity readTerritory(@PathParam("id") int pId){
         System.out.println("dedans");
         return (CTerritoryEntity)mCrudMethods.find(CTerritoryEntity.class, pId);
+
     }
 
     /**
-     * @return
+     * @return List<CTerritoryEntity>
      */
     @GET
     @Path("/all")
     public List<CTerritoryEntity> readAll(){
-        return (List<CTerritoryEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CTerritoryEntity.GET_ALL);
     }
 
+    /**
+     * @param pTerritory
+     * @return CTerritoryEntity
+     */
     @PUT
     @Consumes("application/json")
-    @Path("/")
+    @Path("/put")
     public CTerritoryEntity updateTerritory(CTerritoryEntity pTerritory){
         return (CTerritoryEntity)mCrudMethods.update(pTerritory);
     }
 
+    /**
+     * @param pTerritory
+     */
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deleteTerritory(CTerritoryEntity pTerritory){
         mCrudMethods.delete(CTerritoryEntity.class, pTerritory.getId());
     }

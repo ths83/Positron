@@ -26,7 +26,7 @@ public class CSkillService{
 
     /**
      * @param pId
-     * @return
+     * @return CSkillEntity
      */
     @GET
     @Produces("application/json")
@@ -37,24 +37,32 @@ public class CSkillService{
     }
 
     /**
-     * @return
+     * @return List<CPortalEntity>
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CPortalEntity> readAll(){
         return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
     }
 
+    /**
+     * @param pSkill
+     * @return CSkillEntity
+     */
     @PUT
     @Consumes("application/json")
-    @Path("/")
+    @Path("/put")
     public CSkillEntity updateSkill(CSkillEntity pSkill){
         return (CSkillEntity)mCrudMethods.update(pSkill);
     }
 
+    /**
+     * @param pSkill
+     */
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deleteSkill(CSkillEntity pSkill){
         mCrudMethods.delete(CSkillEntity.class, pSkill);
     }
