@@ -2,6 +2,7 @@ package fr.univtln.groupc.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -192,8 +193,8 @@ public class CPlayerEntity implements Serializable {
         private double mLong;
         private int mBagSize;
         private int mXp;
-        private List<CSkillEntity> mSkills;
-        private List<AObjectEntity> mObjects;
+        private List<CSkillEntity> mSkills = new ArrayList<>();
+        private List<AObjectEntity> mObjects = new ArrayList<>();
 
         public CPlayerBuilder(int pId){
             mId = pId;

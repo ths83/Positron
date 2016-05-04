@@ -3,6 +3,8 @@ package fr.univtln.groupc.server;
 import com.sun.jersey.api.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import com.sun.jersey.api.client.WebResource;
+import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CSkillEntity;
@@ -17,6 +19,7 @@ import java.util.List;
 public class CJavaClient {
     public static void main(String[] args) {
         // create the client
+        CCrudMethods lCrud = new CCrudMethods();
         Client c = Client.create();
         WebResource webResource = c.resource(CServer.BASE_URI);
 
@@ -79,6 +82,7 @@ public class CJavaClient {
         // !!!!!!!!!!! TEST FAILED !!!!!!!!!!!
 
 
+
         // TEST PERSIST CONSUMABLE + GET BY ID
 
         CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder(10).name("conso1").rarity(2).build();
@@ -86,6 +90,8 @@ public class CJavaClient {
         webResource.path("consumables/create").post(lConsumable);
         CConsumableEntity lConsumableGotten = webResource.path("consumables/10").get(CConsumableEntity.class);
         System.out.println(lConsumableGotten);
+
+        System.out.println(lCrud.findWithNamedQuery(CPortalEntity.GET_BY_TEAM, CQueryParameter.with("mId", 1).parameters()));
 
         // TEST SUCCESFUL
     }
