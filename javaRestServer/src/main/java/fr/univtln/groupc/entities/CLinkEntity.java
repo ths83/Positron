@@ -2,6 +2,7 @@ package fr.univtln.groupc.entities;
 
 
 import com.owlike.genson.annotation.JsonIgnore;
+import com.owlike.genson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -35,7 +36,7 @@ public class CLinkEntity implements Serializable {
         mId = pBuilder.mId;
         mPortals = pBuilder.mPortals;
         for (CPortalEntity cPortalEntity : mPortals) {
-            cPortalEntity.addmLink(this);
+            cPortalEntity.addLink(this);
         }
     }
 
@@ -78,6 +79,7 @@ public class CLinkEntity implements Serializable {
         return mPortals;
     }
 
+    @JsonProperty
     public void setPortals(List<CPortalEntity> pPortals) {
         mPortals = pPortals;
     }
