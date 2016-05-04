@@ -29,7 +29,7 @@ public class CStatsPlayerService {
 
     /**
      * @param pId
-     * @return
+     * @return CStatsPlayer
      */
     @GET
     @Path("/{id}")
@@ -38,7 +38,7 @@ public class CStatsPlayerService {
     }
 
     /**
-     * @return
+     * @return List<CStatsPlayer>
      */
     @GET
     @Path("/all")
@@ -48,7 +48,7 @@ public class CStatsPlayerService {
 
     /**
      * @param pStatsPlayer
-     * @return
+     * @return CStatsPlayer
      */
     @PUT
     @Consumes("application/json")
