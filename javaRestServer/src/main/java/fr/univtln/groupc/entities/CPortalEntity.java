@@ -53,13 +53,6 @@ public class CPortalEntity implements Serializable {
         mLinks = pBuilder.mLinks;
     }
 
-    public double getmLong() {
-        return mLong;
-    }
-
-    public double getmLat() {
-        return mLat;
-    }
 
     public static class CPortalBuilder{
         private int mId;
@@ -127,7 +120,7 @@ public class CPortalEntity implements Serializable {
         return mLat;
     }
 
-    public void setLat(float pLat) {
+    public void setLat(double pLat) {
         mLat = pLat;
     }
 
@@ -135,7 +128,7 @@ public class CPortalEntity implements Serializable {
         return mLong;
     }
 
-    public void setLong(float pLong) {
+    public void setLong(double pLong) {
         mLong = pLong;
     }
 

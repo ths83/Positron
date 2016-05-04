@@ -5,8 +5,10 @@ import javax.ws.rs.client.ClientBuilder;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CSkillEntity;
+import fr.univtln.groupc.entities.CTeamEntity;
 
 import javax.ws.rs.client.ClientBuilder;
+import java.util.List;
 
 /**
  * Created by arouani277 on 03/05/16.
@@ -47,9 +49,20 @@ public class CJavaClient {
          */
 
         CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(80).longitude(80).latitude(80).build();
-        webResource.path("portals/create").post(lPortal);
+        //webResource.path("portals/create").post(lPortal);
+        // TEST GET PORTAL BY ID
         CPortalEntity lPortalGotten = webResource.path("portals/80").get(CPortalEntity.class);
         System.out.println(lPortalGotten);
+        // TEST SUCCESFULL
+
+        // TEST GET ALL PORTALS
+        System.out.println(webResource.path("portals/all").get(List.class));
+        // TEST SUCCESFULL
+
+        // TEST GET TEAM BY ID
+        CTeamEntity lTeamGotten = webResource.path("teams/1").get(CTeamEntity.class);
+
+        System.out.println(lTeamGotten);
 
     }
 }
