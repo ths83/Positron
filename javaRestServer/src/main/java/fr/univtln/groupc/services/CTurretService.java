@@ -46,6 +46,10 @@ public class CTurretService {
         return mCrudMethods.findWithNamedQuery(CTurretEntity.GET_ALL);
     }
 
+    /**
+     * @param pTurret
+     * @return CTurretEntity
+     */
     @PUT
     @Consumes("application/json")
     @Path("/")
@@ -53,6 +57,9 @@ public class CTurretService {
         return (CTurretEntity)mCrudMethods.update(pTurret);
     }
 
+    /**
+     * @param pTurret
+     */
     @DELETE
     @Consumes("application/json")
     @Path("/")

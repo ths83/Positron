@@ -28,7 +28,7 @@ public class CResonatorService {
 
     /**
      * @param pId
-     * @return
+     * @return CResonatorEntity
      */
     @GET
     @Produces("application/json")
@@ -39,21 +39,28 @@ public class CResonatorService {
     }
 
     /**
-     * @return
+     * @return List<CResonatorEntity>
      */
     @GET
     @Produces("application/json")
     @Path("/all")
     public List<CResonatorEntity> readAll(){
-        return (List<CResonatorEntity>)mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
     }
 
+    /**
+     * @param pResonator
+     * @return CResonatorEntity
+     */
     @PUT
     @Path("/")
     public CResonatorEntity updateResonator(CResonatorEntity pResonator){
-        return (CResonatorEntity)mCrudMethods.update(pResonator);
+        return mCrudMethods.update(pResonator);
     }
 
+    /**
+     * @param pResonator
+     */
     @DELETE
     @Consumes("application/json")
     @Path("/")

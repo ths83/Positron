@@ -3,6 +3,7 @@ package fr.univtln.groupc.services;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.CResonatorEntity;
 
 import javax.ws.rs.*;
 import java.util.List;
@@ -46,6 +47,12 @@ public class CLinkService {
     @Path("/all")
     public List<CLinkEntity> readAll(){
         return (List<CLinkEntity>)mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
+    }
+
+    @PUT
+    @Path("/")
+    public CLinkEntity updateResonator(CLinkEntity pLink){
+        return mCrudMethods.update(pLink);
     }
 
     /**

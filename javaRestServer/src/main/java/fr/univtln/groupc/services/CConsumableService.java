@@ -54,6 +54,9 @@ public class CConsumableService {
         return mCrudMethods.update(pConsumable);
     }
 
+    /**
+     * @param pConsumable
+     */
     @DELETE
     @Consumes("application/json")
     @Path("/")
