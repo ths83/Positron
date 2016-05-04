@@ -90,10 +90,24 @@ public class CJavaClient {
         webResource.path("consumables/create").post(lConsumable);
         CConsumableEntity lConsumableGotten = webResource.path("consumables/10").get(CConsumableEntity.class);
         System.out.println(lConsumableGotten);
+        // TEST SUCCESFUL
+
+        // TEST NAMED QUERY GET PORTAL BY TEAM
 
         System.out.println(lCrud.findWithNamedQuery(CPortalEntity.GET_BY_TEAM, CQueryParameter.with("mId", 1).parameters()));
+        System.out.println(webResource.path("portals/teams/1").get(List.class));
+        // TEST SUCCESFUL
+
+        // TEST UPDATE CONSUMABLE
+
+        lConsumable.setRarity(3);
+        webResource.path("consumables/put").put(lConsumable);
+        lConsumable = webResource.path("consumables/10").get(CConsumableEntity.class);
+        System.out.println(lConsumable);
 
         // TEST SUCCESFUL
+
+
     }
 }
 

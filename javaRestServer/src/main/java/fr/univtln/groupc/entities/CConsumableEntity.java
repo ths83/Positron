@@ -32,6 +32,13 @@ public class CConsumableEntity extends AObjectEntity {
         mRarity = pRarity;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "CConsumableEntity{" +
+                "mRarity=" + mRarity +
+                '}';
+    }
+
     public static class CConsumableBuilder{
         private int mId;
         private String mName;

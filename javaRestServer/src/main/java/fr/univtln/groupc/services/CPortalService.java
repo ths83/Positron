@@ -44,8 +44,8 @@ public class CPortalService {
      */
 
     @GET
-    @Produces
-    @Path("/team/{id}")
+    @Produces("application/json")
+    @Path("/teams/{id}")
     public List<CPortalEntity> readPortalsByTeam(@PathParam("id") int pId){
         return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_BY_TEAM, CQueryParameter.with("mId", pId).parameters());
     }
