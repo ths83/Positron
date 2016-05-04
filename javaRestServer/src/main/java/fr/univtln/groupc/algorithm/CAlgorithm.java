@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class CAlgorithm {
 
 
-    public static boolean detectFieldCollision(CPortalEntity pPortal, List<CFieldEntity> pListField) {
+    /*public static boolean detectFieldCollision(CPortalEntity pPortal, List<CFieldEntity> pListField) {
         Iterator<CFieldEntity> mIterator = pListField.iterator();
         double lDet[] = {0,0,0};
         int lI;
@@ -131,6 +131,6 @@ public class CAlgorithm {
 
         double[] pResult = new double[mValueToCalc];
         return pResult;
-    }
+    }*/
 
 }
