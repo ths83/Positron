@@ -24,9 +24,10 @@ public class CFieldService {
 
     /**
      * @param pId
-     * @return
+     * @return CFieldEntity
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CFieldEntity read(@PathParam("id") int pId){
         return (CFieldEntity)mCrudMethods.find(CFieldEntity.class, pId);
@@ -36,6 +37,7 @@ public class CFieldService {
      * @return
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CFieldEntity> readAll(){
         return (List<CFieldEntity>)mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
@@ -51,5 +53,12 @@ public class CFieldService {
     @Path("/update")
     public CFieldEntity updateTeam(CFieldEntity pField){
         return (CFieldEntity) mCrudMethods.update(pField);
+    }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void delete(CFieldEntity pField){
+        mCrudMethods.delete(CFieldEntity.class, pField.getId());
     }
 }

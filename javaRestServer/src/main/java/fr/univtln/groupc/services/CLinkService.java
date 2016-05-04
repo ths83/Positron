@@ -29,9 +29,10 @@ public class CLinkService {
 
     /**
      * @param pId
-     * @return
+     * @return CLinkEntity
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CLinkEntity read(@PathParam("id") int pId){
         return (CLinkEntity)mCrudMethods.find(CLinkEntity.class, pId);
@@ -41,6 +42,7 @@ public class CLinkService {
      * @return
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CLinkEntity> readAll(){
         return (List<CLinkEntity>)mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
@@ -48,9 +50,8 @@ public class CLinkService {
 
     /**
      * @param pLink
-     * @return
+     * @return CLinkEntity
      */
-
     @DELETE
     @Consumes("application/json")
     @Path("/")

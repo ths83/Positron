@@ -27,6 +27,7 @@ public class CPlayerService {
      * @return
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CPlayerEntity readPlayer(@PathParam("id") int pId){
         return (CPlayerEntity)mCrudMethods.find(CPlayerEntity.class, pId);
@@ -36,6 +37,7 @@ public class CPlayerService {
      * @return
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CPlayerEntity> readAll(){
         return (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);

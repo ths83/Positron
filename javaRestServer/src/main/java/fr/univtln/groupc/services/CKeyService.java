@@ -24,12 +24,13 @@ public class CKeyService {
 
     /**
      * @param pId
-     * @return
+     * @return CKeyEntity
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CKeyEntity read(@PathParam("id") int pId){
-        return (CKeyEntity)mCrudMethods.find(CKeyEntity.class, pId);
+        return mCrudMethods.find(CKeyEntity.class, pId);
     }
 
     /**
@@ -38,18 +39,25 @@ public class CKeyService {
     @GET
     @Path("/all")
     public List<CKeyEntity> readAll(){
-        return (List<CKeyEntity>)mCrudMethods.findWithNamedQuery(CKeyEntity.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CKeyEntity.GET_ALL);
     }
 
     /**
      * @param pKey
-     * @return
+     * @return CKeyEntity
      */
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
     @Path("/update")
     public CKeyEntity updateTeam(CKeyEntity pKey){
-        return (CKeyEntity) mCrudMethods.update(pKey);
+        return mCrudMethods.update(pKey);
+    }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void delete(CKeyEntity pKey){
+        mCrudMethods.delete(CKeyEntity.class, pKey.getId());
     }
 }

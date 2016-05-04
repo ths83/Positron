@@ -56,4 +56,11 @@ public class CStatsResonatorAttackedService {
     public CStatsResonatorAttacked updateTeam(CStatsResonatorAttacked pStatsResonatorAttacked){
         return mCrudMethods.update(pStatsResonatorAttacked);
     }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void delete(CStatsResonatorAttacked pStatsResonatorAttacked){
+        mCrudMethods.delete(CStatsResonatorAttacked.class, pStatsResonatorAttacked.getmId());
+    }
 }

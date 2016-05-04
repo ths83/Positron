@@ -42,6 +42,7 @@ public class CResonatorService {
      * @return
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CResonatorEntity> readAll(){
         return (List<CResonatorEntity>)mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);

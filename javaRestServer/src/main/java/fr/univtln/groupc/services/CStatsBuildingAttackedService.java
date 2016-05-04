@@ -29,6 +29,7 @@ public class CStatsBuildingAttackedService {
      * @return CStatsBuildingsAttacked
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CStatsBuildingsAttacked read(@PathParam("id") int pId){
         return mCrudMethods.find(CStatsBuildingsAttacked.class, pId);
@@ -38,6 +39,7 @@ public class CStatsBuildingAttackedService {
      * @return List<CStatsBuildingsAttacked>
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CStatsBuildingsAttacked> readAll(){
         return mCrudMethods.findWithNamedQuery(CStatsBuildingsAttacked.GET_ALL);
@@ -53,5 +55,12 @@ public class CStatsBuildingAttackedService {
     @Path("/update")
     public CStatsBuildingsAttacked updateTeam(CStatsBuildingsAttacked pStatsBuildingsAttacked){
         return mCrudMethods.update(pStatsBuildingsAttacked);
+    }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void delete(CStatsBuildingsAttacked pStatsBuildingAttacked){
+        mCrudMethods.delete(CStatsBuildingsAttacked.class, pStatsBuildingAttacked.getmId());
     }
 }
