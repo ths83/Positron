@@ -3,6 +3,7 @@ package fr.univtln.groupc.services;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.CResonatorEntity;
 
 import javax.ws.rs.*;
 import java.util.List;
@@ -22,16 +23,17 @@ public class CLinkService {
     @Consumes("application/json")
     @Path("create")
     public void createLink(CLinkEntity pLink){
-        if (pLink.algoCreateLink(pLink.getmPortals().get(1),pLink.getmPortals().get(2))==true) {
+        if (pLink.algoCreateLink(pLink.getPortals().get(1),pLink.getPortals().get(2))==true) {
             mCrudMethods.create(pLink);
         }
     }
 
     /**
      * @param pId
-     * @return
+     * @return CLinkEntity
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CLinkEntity read(@PathParam("id") int pId){
         return (CLinkEntity)mCrudMethods.find(CLinkEntity.class, pId);
@@ -41,20 +43,26 @@ public class CLinkService {
      * @return
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CLinkEntity> readAll(){
         return (List<CLinkEntity>)mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
     }
 
+    @PUT
+    @Path("/")
+    public CLinkEntity updateResonator(CLinkEntity pLink){
+        return mCrudMethods.update(pLink);
+    }
+
     /**
      * @param pLink
-     * @return
+     * @return CLinkEntity
      */
-    @PUT
+    @DELETE
     @Consumes("application/json")
-    @Produces("application/json")
-    @Path("/update")
-    public CLinkEntity updateTeam(CLinkEntity pLink){
-        return (CLinkEntity) mCrudMethods.update(pLink);
+    @Path("/delete")
+    public void deleteLink(CLinkEntity pLink){
+        mCrudMethods.delete(CLinkEntity.class, pLink.getId());
     }
 }

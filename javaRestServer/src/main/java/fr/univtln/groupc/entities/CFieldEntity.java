@@ -2,6 +2,7 @@ package fr.univtln.groupc.entities;
 
 
 import com.owlike.genson.annotation.JsonIgnore;
+import com.owlike.genson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,6 +35,10 @@ public class CFieldEntity {
         mId = pBuilder.mId;
     }
 
+    public List<CLinkEntity> getmLinks() {
+        return mLinks;
+    }
+
     public static class CFieldBuilder{
         private int mId;
 
@@ -46,34 +51,39 @@ public class CFieldEntity {
         }
     }
 
-    public int getmId() {
+    public int getId() {
         return mId;
     }
 
-    public void setmId(int mId) {
-        this.mId = mId;
+    public void setId(int pId) {
+        mId = pId;
     }
 
-    public CTerritoryEntity getmTerritory() {
+    public CTerritoryEntity getTerritory() {
         return mTerritory;
     }
 
-    public void setmTerritory(CTerritoryEntity mTerritory) {
-        this.mTerritory = mTerritory;
+    public void setTerritory(CTerritoryEntity pTerritory) {
+        mTerritory = pTerritory;
     }
 
     @JsonIgnore
-    public List<CLinkEntity> getmLinks() {
+    public List<CLinkEntity> getLinks() {
         return mLinks;
     }
 
-    public void addmLinks(CLinkEntity pLink){
-        mLinks.add(pLink);
-        pLink.setmField(this);
+    @JsonProperty
+    public void setLinks(List<CLinkEntity> pLinks){
+        mLinks = pLinks;
     }
 
-    public void delmLinks(CLinkEntity pLink){
+    public void addLinks(CLinkEntity pLink){
+        mLinks.add(pLink);
+        pLink.setField(this);
+    }
+
+    public void delLinks(CLinkEntity pLink){
         mLinks.remove(pLink);
-        pLink.setmField(null);
+        pLink.setField(null);
     }
 }

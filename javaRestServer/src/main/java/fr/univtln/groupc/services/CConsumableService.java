@@ -27,33 +27,41 @@ public class CConsumableService {
 
     /**
      * @param pId
-     * @return
+     * @return CConsumableEntity
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
     public CConsumableEntity read(@PathParam("id") int pId){
-        return (CConsumableEntity) mCrudMethods.find(CConsumableEntity.class, pId);
+        return mCrudMethods.find(CConsumableEntity.class, pId);
     }
 
     /**
-     * @return
+     * @return CConsumableEntity
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CConsumableEntity> readAll(){
-        return (List<CConsumableEntity>)mCrudMethods.findWithNamedQuery(CConsumableEntity.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CConsumableEntity.GET_ALL);
     }
 
     @PUT
-    @Path("/")
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("/put")
     public CConsumableEntity update(CConsumableEntity pConsumable){
         return mCrudMethods.update(pConsumable);
     }
 
+    /**
+     * @param pConsumable
+     */
     @DELETE
-    @Path("/")
+    @Consumes("application/json")
+    @Path("/delete")
     public void delete(CConsumableEntity pConsumable){
-        return mCrudMethods.delete(CConsumableEntity.class, pConsumable.getId());
+        mCrudMethods.delete(CConsumableEntity.class, pConsumable.getId());
     }
 
 }

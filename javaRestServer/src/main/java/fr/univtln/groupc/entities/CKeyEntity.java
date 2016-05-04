@@ -56,11 +56,4 @@ public class CKeyEntity extends AObjectEntity {
         }
     }
 
-    public CPortalEntity getmPortal() {
-        return mPortal;
-    }
-
-    public void setmPortal(CPortalEntity mPortal) {
-        this.mPortal = mPortal;
-    }
 }

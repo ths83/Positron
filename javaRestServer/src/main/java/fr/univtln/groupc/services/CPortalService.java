@@ -1,6 +1,7 @@
 package fr.univtln.groupc.services;
 
 import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import javax.ws.rs.*;
@@ -21,29 +22,65 @@ public class CPortalService {
     @POST
     @Consumes("application/json")
     @Path("create")
-    public void createBet(CPortalEntity pPortal){
+    public void createPortal(CPortalEntity pPortal){
+        System.out.println("in");
         mCrudMethods.create(pPortal);
     }
 
     /**
      * @param pId
-     * @return
+     * @return CPortalEntity
      */
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CPortalEntity read(@PathParam("id") int pId){
+    public CPortalEntity readPortal(@PathParam("id") int pId){
         return (CPortalEntity)mCrudMethods.find(CPortalEntity.class, pId);
     }
 
+
+    /*
+     * Liste tous les portails appartenant a une team
+     */
+
+    @GET
+    @Produces
+    @Path("/team/{id}")
+    public List<CPortalEntity> readPortalsByTeam(@PathParam("id") int pId){
+        return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_BY_TEAM, CQueryParameter.with("mId", pId).parameters());
+    }
+
     /**
-     * @return
+     * @return List<CPortalEntity>
      */
     @GET
     @Produces("application/json")
     @Path("/all")
     public List<CPortalEntity> readAll(){
         return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
+    }
+
+    /**
+     * @param pPortal
+     * @return CPortalEntity
+     */
+    @PUT
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("/put")
+    public CPortalEntity updatePortal(CPortalEntity pPortal){
+        return (CPortalEntity)mCrudMethods.update(pPortal);
+    }
+
+
+    /**
+     * @param pPortal
+     */
+    @DELETE
+    @Consumes("application/json")
+    @Path("/delete")
+    public void deletePortal(CPortalEntity pPortal){
+        mCrudMethods.delete(CPortalEntity.class, pPortal.getId());
     }
 
 

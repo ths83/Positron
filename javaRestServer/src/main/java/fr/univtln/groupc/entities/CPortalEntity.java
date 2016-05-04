@@ -1,6 +1,7 @@
 package fr.univtln.groupc.entities;
 
 import com.owlike.genson.annotation.JsonIgnore;
+import com.owlike.genson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "t_portal" , schema = "positron")
-@NamedQueries(@NamedQuery(name = CPortalEntity.GET_ALL, query = "select p from CPortalEntity p"))
+@NamedQueries({@NamedQuery(name = CPortalEntity.GET_ALL, query = "select p from CPortalEntity p"),
+@NamedQuery(name = CPortalEntity.GET_BY_TEAM, query = "select p from CPortalEntity p where p.mTeam = (select t from CTeamEntity t where t.mId = :mId)")})
 public class CPortalEntity implements Serializable {
     @Id
     @Column(name = "portal_id")
@@ -33,11 +35,12 @@ public class CPortalEntity implements Serializable {
     @ManyToMany(mappedBy = "mPortals")
     @JsonIgnore
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_fk")
     private CTeamEntity mTeam;
 
     public final static String GET_ALL = "Portal.getAll";
+    public final static String GET_BY_TEAM = "Portal.getByTeam";
 
     public CPortalEntity(){}
 
@@ -51,6 +54,7 @@ public class CPortalEntity implements Serializable {
         mTeam = pBuilder.mTeam;
         mLinks = pBuilder.mLinks;
     }
+
 
     public static class CPortalBuilder{
         private int mId;
@@ -106,48 +110,62 @@ public class CPortalEntity implements Serializable {
         }
     }
 
-    public int getmId() {
+    public int getId() {
         return mId;
     }
 
-    public void setmId(int mId) {
-        this.mId = mId;
+    public void setId(int pId) {
+        mId = pId;
     }
 
-    public double getmLat() {
+    public double getLat() {
         return mLat;
     }
 
-    public void setmLat(float mLat) {
-        this.mLat = mLat;
+    public void setLat(double pLat) {
+        mLat = pLat;
     }
 
-    public double getmLong() {
+    public double getLong() {
         return mLong;
     }
 
-    public void setmLong(float mLong) {
-        this.mLong = mLong;
+    public void setLong(double pLong) {
+        mLong = pLong;
     }
 
-    public int getmRadius() {
+    public int getRadius() {
         return mRadius;
     }
 
-    public void setmRadius(int mRadius) {
-        this.mRadius = mRadius;
+    public void setRadius(int pRadius) {
+        mRadius = pRadius;
     }
+
     @JsonIgnore
-    public List<CLinkEntity> getmLinks() {
+    public List<CLinkEntity> getLinks() {
         return mLinks;
     }
 
-    public void setmLinks(List<CLinkEntity> mLinks) {
-        this.mLinks = mLinks;
+    @JsonProperty
+    public void setLinks(List<CLinkEntity> pLinks) {
+        mLinks = pLinks;
     }
 
-    public void addmLink(CLinkEntity plink){
-        mLinks.add(plink);
+    public void addLink(CLinkEntity pLink){
+        mLinks.add(pLink);
+    }
+
+    public CTeamEntity getTeam(){
+        return mTeam;
+    }
+
+    public void setTeam(CTeamEntity pTeam){
+        mTeam = pTeam;
+        if (mTeam != null){
+            mTeam.addPortal(this);
+        }
+
     }
 
 

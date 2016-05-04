@@ -2,6 +2,7 @@ package fr.univtln.groupc.entities;
 
 
 import com.owlike.genson.annotation.JsonIgnore;
+import com.owlike.genson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -35,7 +36,7 @@ public class CLinkEntity implements Serializable {
         mId = pBuilder.mId;
         mPortals = pBuilder.mPortals;
         for (CPortalEntity cPortalEntity : mPortals) {
-            cPortalEntity.addmLink(this);
+            cPortalEntity.addLink(this);
         }
     }
 
@@ -66,32 +67,37 @@ public class CLinkEntity implements Serializable {
         }
     }
 
-    public int getmId() {
+    public int getId() {
         return mId;
     }
 
-    public void setmId(int mId) {
+    public void setId(int mId) {
         this.mId = mId;
     }
     @JsonIgnore
-    public List<CPortalEntity> getmPortals() {
+    public List<CPortalEntity> getPortals() {
         return mPortals;
     }
 
-    public void setmPortals(List<CPortalEntity> mPortals) {
-        this.mPortals = mPortals;
+    @JsonProperty
+    public void setPortals(List<CPortalEntity> pPortals) {
+        mPortals = pPortals;
     }
 
-    public CFieldEntity getmField() {
+    public CFieldEntity getField() {
         return mField;
     }
 
-    public void setmField(CFieldEntity mField) {
-        this.mField = mField;
+    public void setField(CFieldEntity pField) {
+        mField = pField;
     }
 
     public boolean algoCreateLink(CPortalEntity p1, CPortalEntity p2){
         boolean b=false;
         return(b);
+    }
+
+    public List<CPortalEntity> getmPortals() {
+        return mPortals;
     }
 }

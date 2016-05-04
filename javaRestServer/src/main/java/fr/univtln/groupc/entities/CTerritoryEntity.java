@@ -13,6 +13,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "t_territory", schema = "positron")
+@NamedQueries(@NamedQuery(name = CTerritoryEntity.GET_ALL, query = "select p from CTerritoryEntity p"))
+
 public class CTerritoryEntity {
     @Id
     @Column(name = "territory_id")
@@ -20,6 +22,9 @@ public class CTerritoryEntity {
     @OneToMany(mappedBy="mTerritory")
     @JsonIgnore
     private List<CFieldEntity> mFields = new ArrayList<CFieldEntity>();
+
+    public final static String GET_ALL = "Territory.getAll";
+
 
     public CTerritoryEntity() {}
 
@@ -40,26 +45,26 @@ public class CTerritoryEntity {
 
     }
 
-    public int getmId() {
+    public int getId() {
         return mId;
     }
 
-    public void setmId(int mId) {
-        this.mId = mId;
+    public void setId(int pId) {
+        mId = pId;
     }
 
     @JsonIgnore
-    public List<CFieldEntity> getmFields() {
+    public List<CFieldEntity> getFields() {
         return mFields;
     }
 
-    public void addmFields(CFieldEntity pField){
+    public void addField(CFieldEntity pField){
         mFields.add(pField);
-        pField.setmTerritory(this);
+        pField.setTerritory(this);
     }
 
-    public void delmFields(CFieldEntity pField){
+    public void delFields(CFieldEntity pField){
         mFields.remove(pField);
-        pField.setmTerritory(null);
+        pField.setTerritory(null);
     }
 }

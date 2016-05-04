@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Table(name = "t_building", schema = "positron")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class ABuildingEntity extends AObjectEntity {
-    // la
     @Column(name = "long")
     private double mLong;
     @Column(name = "lat")
@@ -78,5 +77,35 @@ public class ABuildingEntity extends AObjectEntity {
         mRadius = pRadius;
     }
 
+    public int getLifeTime() {
+        return mLifeTime;
+    }
 
+    public void setLifeTime(int pLifeTime) {
+        mLifeTime = pLifeTime;
+    }
+
+    public int getLevel() {
+        return mLevel;
+    }
+
+    public void setLevel(int pLevel) {
+        mLevel = mLevel;
+    }
+
+    public int getEnergyMax() {
+        return mEnergyMax;
+    }
+
+    public void setEnergyMax(int pEnergyMax) {
+        mEnergyMax = pEnergyMax;
+    }
+
+    public int getEnergy() {
+        return mEnergy;
+    }
+
+    public void setEnergy(int pEnergy) {
+        mEnergy = pEnergy;
+    }
 }

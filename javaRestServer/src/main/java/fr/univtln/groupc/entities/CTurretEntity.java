@@ -26,6 +26,14 @@ public class CTurretEntity extends ABuildingEntity {
     public CTurretEntity() {
     }
 
+    public int getDamage() {
+        return mDamage;
+    }
+
+    public void setDamage(int pDamage) {
+        mDamage = pDamage;
+    }
+
     public static class CTurretBuilder{
         private int mEnergy;
         private int mId;

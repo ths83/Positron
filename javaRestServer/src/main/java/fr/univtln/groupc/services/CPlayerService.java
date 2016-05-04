@@ -24,18 +24,20 @@ public class CPlayerService {
 
     /**
      * @param pId
-     * @return
+     * @return CPlayerEntity
      */
     @GET
+    @Produces("application/json")
     @Path("/{id}")
-    public CPlayerEntity read(@PathParam("id") int pId){
+    public CPlayerEntity readPlayer(@PathParam("id") int pId){
         return (CPlayerEntity)mCrudMethods.find(CPlayerEntity.class, pId);
     }
 
     /**
-     * @return
+     * @return List<CPlayerEntity>
      */
     @GET
+    @Produces("application/json")
     @Path("/all")
     public List<CPlayerEntity> readAll(){
         return (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
@@ -43,13 +45,23 @@ public class CPlayerService {
 
     /**
      * @param pPlayer
-     * @return
+     * @return CPlayerEntity
      */
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
     @Path("/update")
-    public CPlayerEntity updateTeam(CPlayerEntity pPlayer){
+    public CPlayerEntity updatePlayer(CPlayerEntity pPlayer){
         return (CPlayerEntity) mCrudMethods.update(pPlayer);
+    }
+
+    /**
+     * @param pPlayer
+     */
+    @DELETE
+    @Consumes("application/json")
+    @Path("/delete")
+    public void deletePlayer(CPlayerEntity pPlayer){
+        mCrudMethods.delete(CPlayerEntity.class, pPlayer.getId());
     }
 }

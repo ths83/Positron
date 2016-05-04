@@ -16,7 +16,6 @@ import java.util.List;
 public class CStatsPlayer {
 
     @ManyToOne
-    @JoinColumn(name = "team_fk")
     private CPlayerEntity mPlayer;
 
     @OneToMany
@@ -40,7 +39,7 @@ public class CStatsPlayer {
     private List<CResonatorEntity> mResonatorsBuilt  = new ArrayList<CResonatorEntity>();
 
     @OneToMany
-    @JoinTable(schema = "t_player")
+    @JoinTable(schema = "positron")
     private List<CKeyEntity> mKeysUSed  = new ArrayList<CKeyEntity>();
 
     @Id
@@ -63,6 +62,9 @@ public class CStatsPlayer {
         mKeysUSed = pBuilder.mKeysUSed;
 
 
+    }
+
+    public CStatsPlayer() {
     }
 
     public static class CStatsPlayerBuilder{

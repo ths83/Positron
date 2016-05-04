@@ -1,6 +1,11 @@
 package fr.univtln.groupc.entities;
 
+import com.owlike.genson.annotation.JsonIgnore;
+import com.owlike.genson.annotation.JsonProperty;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,9 +13,9 @@ import java.util.List;
  */
 @Entity
 @Table(name = "t_team", schema = "positron")
-@NamedQueries(@NamedQuery(name = CTeamEntity.GET_ALL, query = "select p from CTeamEntity p"))
+@NamedQueries(@NamedQuery(name = CTeamEntity.GET_ALL, query = "select t from CTeamEntity t"))
 
-public class CTeamEntity {
+public class CTeamEntity implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -18,16 +23,55 @@ public class CTeamEntity {
 
     @OneToMany
     @JoinTable(schema = "positron")
-    private List<CPlayerEntity> mPlayers;
+    private List<CPlayerEntity> mPlayers = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(schema = "positron")
-    private List<CPortalEntity> mPortals;
+    @JsonIgnore
+    private List<CPortalEntity> mPortals = new ArrayList<>();
 
     @Column(name = "color")
     private String mColor;
 
-    public final static String GET_ALL = "Portal.getAll";
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int pId) {
+        mId = pId;
+    }
+
+    public List<CPlayerEntity> getPlayers() {
+        return mPlayers;
+    }
+
+    @JsonProperty
+    public void setPlayers(List<CPlayerEntity> pPlayers) {
+        mPlayers = pPlayers;
+    }
+
+    @JsonIgnore
+    public List<CPortalEntity> getPortals() {
+        return mPortals;
+    }
+
+    public void setPortals(List<CPortalEntity> pPortals) {
+        mPortals = pPortals;
+    }
+
+    public String getColor() {
+        return mColor;
+    }
+
+    public void setColor(String pColor) {
+        mColor = pColor;
+    }
+
+
+
+
+
+    public final static String GET_ALL = "Team.getAll";
 
     public CTeamEntity(){}
 
@@ -39,10 +83,18 @@ public class CTeamEntity {
 
     }
 
+    public void addPortal(CPortalEntity pPortal){
+        mPortals.add(pPortal);
+    }
+
+    public void addPlayer(CPlayerEntity pPlayer){
+        mPlayers.add(pPlayer);
+    }
+
     public static class CTeamBuilder{
         private int mId;
-        private List<CPlayerEntity> mPlayers;
-        private List<CPortalEntity> mPortals;
+        private List<CPlayerEntity> mPlayers = new ArrayList<>();
+        private List<CPortalEntity> mPortals = new ArrayList<>();
         private String mColor;
 
         public CTeamBuilder(int pId){
@@ -76,7 +128,6 @@ public class CTeamEntity {
         return "CTeamEntity{" +
                 "mId=" + mId +
                 ", mPlayers=" + mPlayers +
-                ", mPortals=" + mPortals +
                 ", mColor='" + mColor + '\'' +
                 '}';
     }
