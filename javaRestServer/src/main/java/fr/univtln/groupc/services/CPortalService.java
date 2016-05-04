@@ -22,6 +22,7 @@ public class CPortalService {
     @Consumes("application/json")
     @Path("create")
     public void createPortal(CPortalEntity pPortal){
+        System.out.println("in");
         mCrudMethods.create(pPortal);
     }
 
@@ -48,14 +49,14 @@ public class CPortalService {
 
     @PUT
     @Consumes("application/json")
-    @Path("/")
+    @Path("/put")
     public CPortalEntity updatePortal(CPortalEntity pPortal){
         return (CPortalEntity)mCrudMethods.update(pPortal);
     }
 
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deletePortal(CPortalEntity pPortal){
         mCrudMethods.delete(CPortalEntity.class, pPortal.getId());
     }

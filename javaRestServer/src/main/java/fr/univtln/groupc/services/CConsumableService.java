@@ -49,14 +49,14 @@ public class CConsumableService {
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("/")
+    @Path("/put")
     public CConsumableEntity update(CConsumableEntity pConsumable){
         return mCrudMethods.update(pConsumable);
     }
 
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void delete(CConsumableEntity pConsumable){
         mCrudMethods.delete(CConsumableEntity.class, pConsumable.getId());
     }

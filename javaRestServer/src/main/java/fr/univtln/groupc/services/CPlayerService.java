@@ -57,7 +57,7 @@ public class CPlayerService {
 
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deletePlayer(CPlayerEntity pPlayer){
         mCrudMethods.delete(CPlayerEntity.class, pPlayer.getId());
     }

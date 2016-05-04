@@ -54,7 +54,7 @@ public class CLinkService {
      */
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deleteLink(CLinkEntity pLink){
         mCrudMethods.delete(CLinkEntity.class, pLink.getId());
     }

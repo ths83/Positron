@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by arouani277 on 04/05/16.
  */
-@Path("/statsBuildingAttacked")
+@Path("/statsResonatorsAttacked")
 public class CStatsResonatorAttackedService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
 

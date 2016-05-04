@@ -48,14 +48,14 @@ public class CTurretService {
 
     @PUT
     @Consumes("application/json")
-    @Path("/")
+    @Path("/put")
     public CTurretEntity updateTurret(CTurretEntity pTurret){
         return (CTurretEntity)mCrudMethods.update(pTurret);
     }
 
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deleteTurret(CTurretEntity pTurret){
         mCrudMethods.delete(CTurretEntity.class, pTurret.getId());
     }

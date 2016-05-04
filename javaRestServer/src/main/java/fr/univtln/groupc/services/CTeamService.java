@@ -47,14 +47,14 @@ public class CTeamService {
 
     @PUT
     @Produces("application/json")
-    @Path("/")
+    @Path("/put")
     public CTeamEntity updateTeam(CTeamEntity pTeam){
         return mCrudMethods.update(pTeam);
     }
 
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deleteTeam(CTeamEntity pTeam){
         mCrudMethods.delete(CTeamEntity.class, pTeam.getId());
     }

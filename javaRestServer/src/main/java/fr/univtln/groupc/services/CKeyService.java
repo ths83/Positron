@@ -56,7 +56,7 @@ public class CKeyService {
 
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void delete(CKeyEntity pKey){
         mCrudMethods.delete(CKeyEntity.class, pKey.getId());
     }

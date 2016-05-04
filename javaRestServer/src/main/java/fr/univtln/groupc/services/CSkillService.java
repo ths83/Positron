@@ -48,14 +48,14 @@ public class CSkillService{
 
     @PUT
     @Consumes("application/json")
-    @Path("/")
+    @Path("/put")
     public CSkillEntity updateSkill(CSkillEntity pSkill){
         return (CSkillEntity)mCrudMethods.update(pSkill);
     }
 
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deleteSkill(CSkillEntity pSkill){
         mCrudMethods.delete(CSkillEntity.class, pSkill);
     }

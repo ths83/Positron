@@ -50,14 +50,14 @@ public class CTerritoryService {
 
     @PUT
     @Consumes("application/json")
-    @Path("/")
+    @Path("/put")
     public CTerritoryEntity updateTerritory(CTerritoryEntity pTerritory){
         return (CTerritoryEntity)mCrudMethods.update(pTerritory);
     }
 
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    @Path("/delete")
     public void deleteTerritory(CTerritoryEntity pTerritory){
         mCrudMethods.delete(CTerritoryEntity.class, pTerritory.getId());
     }
