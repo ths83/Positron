@@ -40,26 +40,26 @@ public class CTerritoryEntity {
 
     }
 
-    public int getmId() {
+    public int getId() {
         return mId;
     }
 
-    public void setmId(int mId) {
-        this.mId = mId;
+    public void setId(int pId) {
+        mId = pId;
     }
 
     @JsonIgnore
-    public List<CFieldEntity> getmFields() {
+    public List<CFieldEntity> getFields() {
         return mFields;
     }
 
-    public void addmFields(CFieldEntity pField){
+    public void addField(CFieldEntity pField){
         mFields.add(pField);
-        pField.setmTerritory(this);
+        pField.setTerritory(this);
     }
 
-    public void delmFields(CFieldEntity pField){
+    public void delFields(CFieldEntity pField){
         mFields.remove(pField);
-        pField.setmTerritory(null);
+        pField.setTerritory(null);
     }
 }

@@ -66,28 +66,28 @@ public class CLinkEntity implements Serializable {
         }
     }
 
-    public int getmId() {
+    public int getId() {
         return mId;
     }
 
-    public void setmId(int mId) {
+    public void setId(int mId) {
         this.mId = mId;
     }
     @JsonIgnore
-    public List<CPortalEntity> getmPortals() {
+    public List<CPortalEntity> getPortals() {
         return mPortals;
     }
 
-    public void setmPortals(List<CPortalEntity> mPortals) {
-        this.mPortals = mPortals;
+    public void setPortals(List<CPortalEntity> pPortals) {
+        mPortals = pPortals;
     }
 
-    public CFieldEntity getmField() {
+    public CFieldEntity getField() {
         return mField;
     }
 
-    public void setmField(CFieldEntity mField) {
-        this.mField = mField;
+    public void setField(CFieldEntity pField) {
+        mField = pField;
     }
 
     public boolean algoCreateLink(CPortalEntity p1, CPortalEntity p2){

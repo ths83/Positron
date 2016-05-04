@@ -27,6 +27,38 @@ public class CTeamEntity {
     @Column(name = "color")
     private String mColor;
 
+    public int getId() {
+        return mId;
+    }
+
+    public void setmId(int pId) {
+        mId = pId;
+    }
+
+    public List<CPlayerEntity> getPlayers() {
+        return mPlayers;
+    }
+
+    public void setPlayers(List<CPlayerEntity> pPlayers) {
+        mPlayers = pPlayers;
+    }
+
+    public List<CPortalEntity> getPortals() {
+        return mPortals;
+    }
+
+    public void setPortals(List<CPortalEntity> pPortals) {
+        mPortals = pPortals;
+    }
+
+    public String getColor() {
+        return mColor;
+    }
+
+    public void setColor(String pColor) {
+        mColor = pColor;
+    }
+
     public final static String GET_ALL = "Portal.getAll";
 
     public CTeamEntity(){}

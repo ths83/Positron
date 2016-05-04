@@ -5,6 +5,7 @@ import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.CSkillEntity;
 
+import javax.persistence.PostUpdate;
 import javax.ws.rs.*;
 import java.util.List;
 
@@ -44,5 +45,14 @@ public class CResonatorService {
     @Path("/all")
     public List<CResonatorEntity> readAll(){
         return (List<CResonatorEntity>)mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
+    }
+
+
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void delete(CResonatorEntity pResonator){
+        mCrudMethods.delete(CResonatorEntity.class, pResonator.getId());
     }
 }

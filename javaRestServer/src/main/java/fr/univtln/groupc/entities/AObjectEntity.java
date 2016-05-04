@@ -14,39 +14,38 @@ import javax.persistence.Table;
 public abstract class AObjectEntity {
     @Id
     @Column(name = "id")
-    private int mID;
+    private int mId;
     @Column(name = "name")
     private String mName;
 
     @Override
     public String toString() {
         return "CObjectEntity{" +
-                "mID=" + mID +
+                "mId=" + mId +
                 ", mName='" + mName + '\'' +
                 '}';
     }
 
     public AObjectEntity(){}
 
-    public AObjectEntity(int pID, String pName) {
-        mID = pID;
+    public AObjectEntity(int pId, String pName) {
+        mId = pId;
         mName = pName;
     }
 
-    public int getmID() {
-        return mID;
+    public int getId() {
+        return mId;
     }
 
-
-    public void setID(int pID) {
-        mID = pID;
+    public void setId(int pId) {
+        mId = pId;
     }
 
-    public String getmName() {
+    public String getName() {
         return mName;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(String pName) {
+        mName = pName;
     }
 }

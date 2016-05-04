@@ -29,6 +29,22 @@ public class CResonatorEntity extends ABuildingEntity {
     public CResonatorEntity() {
     }
 
+    public CPortalEntity getPortal() {
+        return mPortal;
+    }
+
+    public void setPortal(CPortalEntity pPortal) {
+        mPortal = pPortal;
+    }
+
+    public CPlayerEntity getOwner() {
+        return mOwner;
+    }
+
+    public void setOwner(CPlayerEntity pOwner) {
+        mOwner = pOwner;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " CResonatorEntity{" +
@@ -62,6 +78,11 @@ public class CResonatorEntity extends ABuildingEntity {
 
         public CResonatorBuilder level(int pLevel) {
             mLevel = pLevel;
+            return this;
+        }
+
+        public CResonatorBuilder lifeTime(int pLifeTime){
+            mLifeTime = pLifeTime;
             return this;
         }
 

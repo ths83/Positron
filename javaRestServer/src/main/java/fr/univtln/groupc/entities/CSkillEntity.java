@@ -32,36 +32,36 @@ public class CSkillEntity implements Serializable{
         mCost = pBuilder.mCost;
     }
 
-    public int getmId() {
+    public int getId() {
         return mId;
     }
 
-    public void setmId(int mId) {
-        this.mId = mId;
+    public void setId(int pId) {
+        mId = pId;
     }
 
-    public String getmName() {
+    public String getName() {
         return mName;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(String pName) {
+        mName = pName;
     }
 
-    public int getmLevel() {
+    public int getLevel() {
         return mLevel;
     }
 
-    public void setmLevel(int mLevel) {
-        this.mLevel = mLevel;
+    public void setLevel(int pLevel) {
+        mLevel = pLevel;
     }
 
-    public int getmCost() {
+    public int getCost() {
         return mCost;
     }
 
-    public void setmCost(int mCost) {
-        this.mCost = mCost;
+    public void setCost(int pCost) {
+        mCost = pCost;
     }
 
     public static String getGetAll() {

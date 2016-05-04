@@ -46,5 +46,12 @@ public class CPortalService {
         return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
     }
 
+    @PUT
+    @Consumes("application/json")
+    @Path("/")
+    public CPortalEntity update(CPortalEntity pPortal){
+        return (CPortalEntity)mCrudMethods.update(pPortal);
+    }
+
 
 }
