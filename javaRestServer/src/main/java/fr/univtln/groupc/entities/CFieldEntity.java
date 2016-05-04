@@ -35,6 +35,10 @@ public class CFieldEntity {
         mId = pBuilder.mId;
     }
 
+    public List<CLinkEntity> getmLinks() {
+        return mLinks;
+    }
+
     public static class CFieldBuilder{
         private int mId;
 

@@ -60,6 +60,9 @@ public class CStatsPlayerService {
         return mCrudMethods.update(pStatsPlayer);
     }
 
+    /**
+     * @param pStatsPlayer
+     */
     @DELETE
     @Consumes("application/json")
     @Path("/")

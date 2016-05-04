@@ -57,6 +57,9 @@ public class CStatsBuildingAttackedService {
         return mCrudMethods.update(pStatsBuildingsAttacked);
     }
 
+    /**
+     * @param pStatsBuildingAttacked
+     */
     @DELETE
     @Consumes("application/json")
     @Path("/")

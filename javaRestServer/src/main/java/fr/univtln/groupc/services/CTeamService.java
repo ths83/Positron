@@ -45,6 +45,10 @@ public class CTeamService {
         return mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
     }
 
+    /**
+     * @param pTeam
+     * @return CTeamEntity
+     */
     @PUT
     @Produces("application/json")
     @Path("/put")
@@ -52,6 +56,9 @@ public class CTeamService {
         return mCrudMethods.update(pTeam);
     }
 
+    /**
+     * @param pTeam
+     */
     @DELETE
     @Consumes("application/json")
     @Path("/delete")

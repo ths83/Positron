@@ -57,6 +57,9 @@ public class CStatsResonatorAttackedService {
         return mCrudMethods.update(pStatsResonatorAttacked);
     }
 
+    /**
+     * @param pStatsResonatorAttacked
+     */
     @DELETE
     @Consumes("application/json")
     @Path("/")

@@ -48,6 +48,10 @@ public class CTerritoryService {
         return mCrudMethods.findWithNamedQuery(CTerritoryEntity.GET_ALL);
     }
 
+    /**
+     * @param pTerritory
+     * @return CTerritoryEntity
+     */
     @PUT
     @Consumes("application/json")
     @Path("/put")
@@ -55,6 +59,9 @@ public class CTerritoryService {
         return (CTerritoryEntity)mCrudMethods.update(pTerritory);
     }
 
+    /**
+     * @param pTerritory
+     */
     @DELETE
     @Consumes("application/json")
     @Path("/delete")

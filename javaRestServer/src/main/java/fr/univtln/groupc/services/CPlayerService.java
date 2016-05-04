@@ -24,7 +24,7 @@ public class CPlayerService {
 
     /**
      * @param pId
-     * @return
+     * @return CPlayerEntity
      */
     @GET
     @Produces("application/json")
@@ -34,7 +34,7 @@ public class CPlayerService {
     }
 
     /**
-     * @return
+     * @return List<CPlayerEntity>
      */
     @GET
     @Produces("application/json")
@@ -45,7 +45,7 @@ public class CPlayerService {
 
     /**
      * @param pPlayer
-     * @return
+     * @return CPlayerEntity
      */
     @PUT
     @Consumes("application/json")
@@ -55,6 +55,9 @@ public class CPlayerService {
         return (CPlayerEntity) mCrudMethods.update(pPlayer);
     }
 
+    /**
+     * @param pPlayer
+     */
     @DELETE
     @Consumes("application/json")
     @Path("/delete")

@@ -28,7 +28,7 @@ public class CPortalService {
 
     /**
      * @param pId
-     * @return
+     * @return CPortalEntity
      */
     @GET
     @Produces("application/json")
@@ -38,7 +38,7 @@ public class CPortalService {
     }
 
     /**
-     * @return
+     * @return List<CPortalEntity>
      */
     @GET
     @Produces("application/json")
@@ -47,6 +47,10 @@ public class CPortalService {
         return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
     }
 
+    /**
+     * @param pPortal
+     * @return CPortalEntity
+     */
     @PUT
     @Consumes("application/json")
     @Path("/put")
@@ -54,6 +58,10 @@ public class CPortalService {
         return (CPortalEntity)mCrudMethods.update(pPortal);
     }
 
+
+    /**
+     * @param pPortal
+     */
     @DELETE
     @Consumes("application/json")
     @Path("/delete")
