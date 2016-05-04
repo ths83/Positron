@@ -22,7 +22,7 @@ public class CLinkService {
     @Consumes("application/json")
     @Path("create")
     public void createLink(CLinkEntity pLink){
-        if (pLink.algoCreateLink(pLink.getmPortals().get(1),pLink.getmPortals().get(2))==true) {
+        if (pLink.algoCreateLink(pLink.getPortals().get(1),pLink.getPortals().get(2))==true) {
             mCrudMethods.create(pLink);
         }
     }
@@ -50,11 +50,11 @@ public class CLinkService {
      * @param pLink
      * @return
      */
-    @PUT
+
+    @DELETE
     @Consumes("application/json")
-    @Produces("application/json")
-    @Path("/update")
-    public CLinkEntity updateTeam(CLinkEntity pLink){
-        return (CLinkEntity) mCrudMethods.update(pLink);
+    @Path("/")
+    public void deleteLink(CLinkEntity pLink){
+        mCrudMethods.delete(CLinkEntity.class, pLink.getId());
     }
 }

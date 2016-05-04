@@ -22,7 +22,7 @@ public class CResonatorService {
     @POST
     @Consumes("application/json")
     @Path("create")
-    public void createBet(CResonatorEntity pResonator){
+    public void createResonator(CResonatorEntity pResonator){
         mCrudMethods.create(pResonator);
     }
 
@@ -33,7 +33,7 @@ public class CResonatorService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CResonatorEntity read(@PathParam("id") int pId){
+    public CResonatorEntity readResonator(@PathParam("id") int pId){
         System.out.println("dedans");
         return (CResonatorEntity)mCrudMethods.find(CResonatorEntity.class, pId);
     }
@@ -47,12 +47,16 @@ public class CResonatorService {
         return (List<CResonatorEntity>)mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
     }
 
-
+    @PUT
+    @Path("/")
+    public CResonatorEntity updateResonator(CResonatorEntity pResonator){
+        return (CResonatorEntity)mCrudMethods.update(pResonator);
+    }
 
     @DELETE
     @Consumes("application/json")
     @Path("/")
-    public void delete(CResonatorEntity pResonator){
+    public void deleteResonator(CResonatorEntity pResonator){
         mCrudMethods.delete(CResonatorEntity.class, pResonator.getId());
     }
 }

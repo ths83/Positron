@@ -22,7 +22,7 @@ public class CTerritoryService {
     @POST
     @Consumes("application/json")
     @Path("create")
-    public void createSkill(CTerritoryEntity pTerritory){
+    public void createTerritory(CTerritoryEntity pTerritory){
         mCrudMethods.create(pTerritory);
     }
 
@@ -33,7 +33,7 @@ public class CTerritoryService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CTerritoryEntity read(@PathParam("id") int pId){
+    public CTerritoryEntity readTerritory(@PathParam("id") int pId){
         System.out.println("dedans");
         return (CTerritoryEntity)mCrudMethods.find(CTerritoryEntity.class, pId);
     }
@@ -45,5 +45,19 @@ public class CTerritoryService {
     @Path("/all")
     public List<CTerritoryEntity> readAll(){
         return (List<CTerritoryEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
+    }
+
+    @PUT
+    @Consumes("application/json")
+    @Path("/")
+    public CTerritoryEntity updateTerritory(CTerritoryEntity pTerritory){
+        return (CTerritoryEntity)mCrudMethods.update(pTerritory);
+    }
+
+    @DELETE
+    @Consumes("application/json")
+    @Path("/")
+    public void deleteTerritory(CTerritoryEntity pTerritory){
+        mCrudMethods.delete(CTerritoryEntity.class, pTerritory.getId());
     }
 }
