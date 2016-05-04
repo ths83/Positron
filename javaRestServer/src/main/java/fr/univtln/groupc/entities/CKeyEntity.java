@@ -9,13 +9,14 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "t_key", schema = "positron")
-@NamedQueries(@NamedQuery(name = CKeyEntity.GET_ALL, query = "select k from CKeyEntity k"))
+@NamedQueries({@NamedQuery(name = CKeyEntity.GET_ALL, query = "select k from CKeyEntity k"),@NamedQuery(name = CKeyEntity.GET_KEY_BY_PORTAL, query = "select k from CKeyEntity k where k.mPortal=(select p from CPortalEntity p where p.mId=:id )")})
 public class CKeyEntity extends AObjectEntity {
     @ManyToOne
     @JoinColumn(name = "portal_fk")
     private CPortalEntity mPortal;
 
     public final static String GET_ALL = "Key.getAll";
+    public final static String GET_KEY_BY_PORTAL = "Key.getbyportal";
 
     public CKeyEntity(){}
 

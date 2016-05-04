@@ -4,7 +4,9 @@ import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
+import sun.rmi.runtime.Log;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
@@ -16,35 +18,37 @@ public class CAlgorithm {
 
 
     public static boolean detectFieldCollision(CPortalEntity pPortal, List<CFieldEntity> pListField) {
-        Iterator<CFieldEntity> mIterator = pListField.iterator();
+        Iterator<CFieldEntity> lIterator = pListField.iterator();
         double lDet[] = {0,0,0};
         int lI;
-        double mAx = 0, mBx = 0, mAy = 0, mBy = 0;
+        double lAx = 0, lBx = 0, lAy = 0, lBy = 0;
 
-        CFieldEntity mField;
+        CFieldEntity lField;
 
         // On parcours la liste des territoire et on verrifie que le Portail portail n'est pas à l'interrieur.
-        while (mIterator.hasNext()) {
-            mField = mIterator.next();
+        while (lIterator.hasNext()) {
+            lField = lIterator.next();
             lDet[0]=0;
             lDet[1]=0;
             lDet[2]=0;
 
             // Pour chaque territoire on calcule le déterminant pour chaque segment qui le constitue.
             for (lI = 0; lI < 3; lI++) {
-                mAx = mField.getLinks().get(lI).getPortals().get(0).getLong();
-                mAy = mField.getLinks().get(lI).getPortals().get(0).getLat();
+
+                lAx = lField.getmLinks().get(lI).getmPortals().get(0).getLong();
+                lAy = lField.getmLinks().get(lI).getmPortals().get(0).getLat();
 
                 if (lI != 2) {
 
-                    mBx = mField.getLinks().get(lI+1).getPortals().get(0).getLong();
-                    mBy = mField.getLinks().get(lI+1).getPortals().get(0).getLat();
+                    lBx = lField.getmLinks().get(lI+1).getmPortals().get(0).getLong();
+                    lBy = lField.getmLinks().get(lI+1).getmPortals().get(0).getLat();
                 } else {
-                    mBx = mField.getLinks().get(0).getPortals().get(0).getLong();
-                    mBy = mField.getLinks().get(0).getPortals().get(0).getLat();
+                    lBx = lField.getmLinks().get(0).getmPortals().get(0).getLong();
+                    lBy = lField.getmLinks().get(0).getmPortals().get(0).getLat();
                 }
 
-                lDet[lI] = ((mBx - mAx) * (pPortal.getLat() - mAy)) - ((mBy - mAy) * (pPortal.getLong() - mAx));
+                lDet[lI] = ((lBx - lAx) * (pPortal.getLat() - lAy)) - ((lBy - lAy) * (pPortal.getLong() - lAx));
+
 
             }
 
@@ -60,30 +64,35 @@ public class CAlgorithm {
     }
 
 
-    public static boolean detectLinkCollision(CLinkEntity mLinkToDo, List<CLinkEntity> mLinkList){
+    public static boolean detectLinkCollision(CLinkEntity pLinkToDo, List<CLinkEntity> pLinkList){
         
-        Iterator<CLinkEntity> mIteratorLink = mLinkList.iterator();
-        double mABx=0,mABy=0,mAP1y=0,mAP1x=0,mAP2y=0,mAP2x=0;
-        
-        double mP1X = mLinkToDo.getPortals().get(0).getLong();
-        double mP2X = mLinkToDo.getPortals().get(1).getLong();
-        double mP1Y = mLinkToDo.getPortals().get(0).getLat();
-        double mP2Y = mLinkToDo.getPortals().get(1).getLat();
-        
-        CLinkEntity mComparedLinks;
-        
-        while(mIteratorLink.hasNext()){
-            mComparedLinks = mIteratorLink.next();
-            mABx=mComparedLinks.getPortals().get(1).getLong()-mComparedLinks.getPortals().get(0).getLong();
-            mABy=mComparedLinks.getPortals().get(1).getLat()-mComparedLinks.getPortals().get(0).getLat();
-            mAP1x=mP1X-mComparedLinks.getPortals().get(0).getLong();
-            mAP1y=mP1Y-mComparedLinks.getPortals().get(0).getLat();
-            mAP2x=mP2X-mComparedLinks.getPortals().get(0).getLong();
-            mAP2y=mP2Y-mComparedLinks.getPortals().get(0).getLat();
 
-            if((mABx*mAP1y-mABy*mAP1x)*(mABx*mAP2y-mABy*mAP2x)<0){
+        Iterator<CLinkEntity> lIteratorLink = pLinkList.iterator();
+
+        double lABx=0,lABy=0,lAP1y=0,lAP1x=0,lAP2y=0,lAP2x=0;
+        
+        double lP1X = pLinkToDo.getmPortals().get(0).getLong();
+        double lP2X = pLinkToDo.getmPortals().get(1).getLong();
+        double lP1Y = pLinkToDo.getmPortals().get(0).getLat();
+        double lP2Y = pLinkToDo.getmPortals().get(1).getLat();
+
+        CLinkEntity lComparedLinks;
+
+        while(lIteratorLink.hasNext()){
+
+            lComparedLinks = lIteratorLink.next();
+
+            lABx=lComparedLinks.getmPortals().get(1).getLong()-lComparedLinks.getmPortals().get(0).getLong();
+            lABy=lComparedLinks.getmPortals().get(1).getLat()-lComparedLinks.getmPortals().get(0).getLat();
+            lAP1x=lP1X-lComparedLinks.getmPortals().get(0).getLong();
+            lAP1y=lP1Y-lComparedLinks.getmPortals().get(0).getLat();
+            lAP2x=lP2X-lComparedLinks.getmPortals().get(0).getLong();
+            lAP2y=lP2Y-lComparedLinks.getmPortals().get(0).getLat();
+
+            if((lABx*lAP1y-lABy*lAP1x)*(lABx*lAP2y-lABy*lAP2x)<0){
                 return false;
             }
+
 
         }
 
@@ -92,10 +101,11 @@ public class CAlgorithm {
 
 
 
-    public static boolean detectColision(CLinkEntity mCheckedLink,List<CLinkEntity> mLinkList,List<CFieldEntity> mFieldList){
-        if (CAlgorithm.detectFieldCollision(mCheckedLink.getPortals().get(0), mFieldList)) {
+
+    public static boolean detectColision(CLinkEntity pCheckedLink,List<CLinkEntity> pLinkList,List<CFieldEntity> pFieldList){
+        if (CAlgorithm.detectFieldCollision(pCheckedLink.getmPortals().get(0), pFieldList)) {
             System.out.println("Colision Territoire non détectée");
-            if(CAlgorithm.detectLinkCollision(mCheckedLink, mLinkList)){
+            if(CAlgorithm.detectLinkCollision(pCheckedLink, pLinkList)){
                 System.out.println("Colision Lien non détectée");
                 return true;
             }
@@ -103,6 +113,7 @@ public class CAlgorithm {
                 System.out.println("Colision Lien détectée");
                 return false;
             }
+
         }
         else{
             System.out.println("Colision Territoire détectée");
@@ -112,25 +123,89 @@ public class CAlgorithm {
     }
 
 
-    public static double[] calculateHeronFunction(double mTab[], int mValueToCalc){
+    public static double[] calculateHeronFunction(double pTab[], int pValueToCalc){
 
-        double pResult[] = new double[mValueToCalc];
-        double pPerimeterByTwo;
+        double lResult[] = new double[pValueToCalc];
+        double lPerimeterByTwo;
 
-        long pInit = System.currentTimeMillis();
-        for (int i = 2; i < mValueToCalc; i ++ ){
-            pPerimeterByTwo = (mTab[i-2] + mTab[i-1] + mTab[i]) / 2;
-            pResult[i] =Math.abs(Math.sqrt(pPerimeterByTwo * (pPerimeterByTwo - mTab[i-2])
-                    * (pPerimeterByTwo - mTab[i-1]) * (pPerimeterByTwo - mTab[i])));
+        long lInit = System.currentTimeMillis();
+        for (int i = 2; i < pValueToCalc; i ++ ){
+            lPerimeterByTwo = (pTab[i-2] + pTab[i-1] + pTab[i]) / 2;
+            lResult[i] =Math.abs(Math.sqrt(lPerimeterByTwo * (lPerimeterByTwo - pTab[i-2])
+                    * (lPerimeterByTwo - pTab[i-1]) * (lPerimeterByTwo - pTab[i])));
         }
-        System.out.println(System.currentTimeMillis()- pInit);
-        return pResult;
+        System.out.println(System.currentTimeMillis()- lInit);
+        return lResult;
     }
 
-    public static double[] calculateSinusLaw(double mTab[], int mValueToCalc){
+    public static double[] calculateSinusLaw(double pTab[], int pValueToCalc){
 
-        double[] pResult = new double[mValueToCalc];
-        return pResult;
+        double[] lResult = new double[pValueToCalc];
+        return lResult;
     }
+
+
+    public static List<Integer> detectInternalLink (CFieldEntity pFieldCreated,List<CLinkEntity> pLinkList){
+        List<Integer> lInternalLinkList = new ArrayList<Integer>();
+
+        double lPx=0,lPy=0,lFieldVector[][]={{0,0},{0,0},{0,0}},det[]={0,0,0},lLinkVector[][]={{0,0},{0,0},{0,0}};
+        int li=0,lu=0;
+
+
+        for(li=0;li<3;li++){
+            for(lu=0;lu<2;lu++){
+                if(li==2){
+
+                    if(lu==0){
+                        lFieldVector[li][lu]=pFieldCreated.getmLinks().get(li+1).getmPortals().get(0).getLong()-pFieldCreated.getmLinks().get(li).getmPortals().get(0).getLong();
+                    }
+                    else{
+                        lFieldVector[li][lu]=pFieldCreated.getmLinks().get(li+1).getmPortals().get(0).getLong()-pFieldCreated.getmLinks().get(li).getmPortals().get(0).getLat();
+                    }
+                }
+                else {
+                    if(lu==0){
+                        lFieldVector[li][lu]=pFieldCreated.getmLinks().get(li).getmPortals().get(0).getLong()-pFieldCreated.getmLinks().get(0).getmPortals().get(0).getLong();
+                    }
+                    else{
+                        lFieldVector[li][lu]=pFieldCreated.getmLinks().get(li).getmPortals().get(0).getLong()-pFieldCreated.getmLinks().get(0).getmPortals().get(0).getLat();
+                    }
+                }
+            }
+        }
+
+        for(CLinkEntity lLinkVerified : pLinkList){
+
+            if(lLinkVerified.getId()!= pFieldCreated.getmLinks().get(0).getId() && lLinkVerified.getId()!= pFieldCreated.getmLinks().get(1).getId() && lLinkVerified.getmId()!= pFieldCreated.getmLinks().get(2).getmId()) {
+
+                for (li = 0; li < 3; li++) {
+                    for (lu = 0; lu < 2; lu++) {
+                        if (lu == 0) {
+                            lLinkVector[li][lu] = lLinkVerified.getmPortals().get(0).getLong() - pFieldCreated.getmLinks().get(li).getmPortals().get(0).getLong();
+                        } else {
+                            lLinkVector[li][lu] = lLinkVerified.getmPortals().get(0).getLat() - pFieldCreated.getmLinks().get(li).getmPortals().get(0).getLat();
+                        }
+                    }
+                }
+
+
+                for (li = 0; li < 3; li++) {
+
+                    det[li] = lFieldVector[li][0] * lLinkVector[li][1] - lFieldVector[li][1] * lLinkVector[li][0];
+                }
+                System.out.println(det[0] + "   " + det[1] + "   " + det[2]);
+                if (det[0] + det[1] + det[2] != 0) {
+                    if (((det[0] <= 0 && det[1] <= 0 && det[2] <= 0) || (det[0] >= 0 && det[1] >= 0 && det[2] >= 0))) {
+                        lInternalLinkList.add(lLinkVerified.getId());
+                    }
+                }
+            }
+        }
+        return lInternalLinkList;
+
+    }
+
+
+
 
 }

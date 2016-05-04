@@ -50,7 +50,7 @@ public class CLinkService {
     }
 
     @PUT
-    @Path("/")
+    //@Path("/")
     public CLinkEntity updateResonator(CLinkEntity pLink){
         return mCrudMethods.update(pLink);
     }

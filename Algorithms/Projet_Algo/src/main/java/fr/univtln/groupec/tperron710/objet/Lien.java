@@ -27,4 +27,12 @@ public class Lien {
     public void setP2(Portail p2) {
         this.p2 = p2;
     }
+
+    @Override
+    public String toString() {
+        return "Lien{" +
+                "p1=" + p1 +
+                ", p2=" + p2 +
+                '}';
+    }
 }

@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "t_consumbale", schema = "positron")
+@Table(name = "t_consumable", schema = "positron")
 @NamedQueries(@NamedQuery(name = CConsumableEntity.GET_ALL, query = "select c from CConsumableEntity c"))
 public class CConsumableEntity extends AObjectEntity {
     @Column(name = "rarity")

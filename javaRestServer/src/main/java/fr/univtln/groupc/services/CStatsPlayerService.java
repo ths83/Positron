@@ -65,7 +65,7 @@ public class CStatsPlayerService {
      */
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    //@Path("/")
     public void delete(CStatsPlayer pStatsPlayer){
         mCrudMethods.delete(CStatsPlayer.class, pStatsPlayer.getmID());
     }

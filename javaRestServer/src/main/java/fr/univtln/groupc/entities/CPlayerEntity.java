@@ -41,7 +41,7 @@ public class CPlayerEntity implements Serializable {
     private List<CSkillEntity> mSkills;
     @OneToMany
     @JoinTable(schema = "positron")
-    private List<AObjectEntity> mObjects;
+    private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
 
     public final static String GET_ALL = "Player.getAll";
 
@@ -182,6 +182,10 @@ public class CPlayerEntity implements Serializable {
         mObjects = pObjects;
     }
 
+    public void addObjects(AObjectEntity o) {
+        mObjects.add(o);
+    }
+
     public static class CPlayerBuilder{
         private int mId;
         private String mNickName;
@@ -258,7 +262,7 @@ public class CPlayerEntity implements Serializable {
         public CPlayerEntity build(){
             return new CPlayerEntity(this);
         }
-
-
     }
+
+
 }

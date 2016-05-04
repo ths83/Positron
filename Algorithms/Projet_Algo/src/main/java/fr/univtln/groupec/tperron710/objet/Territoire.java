@@ -20,4 +20,11 @@ public class Territoire {
     public void setLP(List<Portail> LP) {
         this.LP = LP;
     }
+
+    @Override
+    public String toString() {
+        return "Territoire{" +
+                "LP=" + LP +
+                '}';
+    }
 }

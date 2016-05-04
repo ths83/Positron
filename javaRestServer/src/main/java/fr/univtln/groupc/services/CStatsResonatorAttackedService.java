@@ -62,7 +62,7 @@ public class CStatsResonatorAttackedService {
      */
     @DELETE
     @Consumes("application/json")
-    @Path("/")
+    //@Path("/")
     public void delete(CStatsResonatorAttacked pStatsResonatorAttacked){
         mCrudMethods.delete(CStatsResonatorAttacked.class, pStatsResonatorAttacked.getmId());
     }
