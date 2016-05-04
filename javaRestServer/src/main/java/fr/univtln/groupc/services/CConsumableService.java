@@ -53,7 +53,7 @@ public class CConsumableService {
     @DELETE
     @Path("/")
     public void delete(CConsumableEntity pConsumable){
-        return mCrudMethods.delete(CConsumableEntity.class, pConsumable.getId());
+        mCrudMethods.delete(CConsumableEntity.class, pConsumable.getId());
     }
 
 }
