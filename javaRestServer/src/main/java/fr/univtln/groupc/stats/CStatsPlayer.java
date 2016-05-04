@@ -65,6 +65,9 @@ public class CStatsPlayer {
 
     }
 
+    public CStatsPlayer() {
+    }
+
     public static class CStatsPlayerBuilder{
 
         private int mId;

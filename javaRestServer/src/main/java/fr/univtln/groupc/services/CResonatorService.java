@@ -47,7 +47,7 @@ public class CResonatorService {
         return (List<CResonatorEntity>)mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
     }
 
-    
+
 
     @DELETE
     @Consumes("application/json")
