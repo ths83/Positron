@@ -26,23 +26,23 @@ public class CTeamService {
 
     /**
      * @param pId
-     * @return
+     * @return CTeamEntity
      */
     @GET
     @Produces("application/json")
     @Path("/{id}")
     public CTeamEntity read(@PathParam("id") int pId){
-        return (CTeamEntity)mCrudMethods.find(CTeamEntity.class, pId);
+        return mCrudMethods.find(CTeamEntity.class, pId);
     }
 
     /**
-     * @return
+     * @return List<CTeamEntity>
      */
     @GET
     @Produces("application/json")
     @Path("/all")
     public List<CTeamEntity> readAll(){
-        return (List<CTeamEntity>)mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
+        return mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
     }
 
     @PUT

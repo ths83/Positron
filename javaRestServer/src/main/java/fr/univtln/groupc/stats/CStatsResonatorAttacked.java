@@ -3,15 +3,28 @@ package fr.univtln.groupc.stats;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 
+import javax.persistence.*;
+
 /**
  * Created by arouani277 on 02/05/16.
  */
+@Entity
+@Table(name = "t_stats_building_attacked", schema = "positron")
+@NamedQueries(@NamedQuery(name = CStatsResonatorAttacked.GET_ALL, query = "select p from CStatsResonatorAttacked p"))
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class CStatsResonatorAttacked extends AStatsAttacked{
+
+    @ManyToOne
     private CResonatorEntity mResonator;
+
+    public final static String GET_ALL = "StatsBuildingAttacked.getAll";
 
     public CStatsResonatorAttacked(CStatsResonatorAttackedBuilder pBuilder){
         super(pBuilder.mAttacker,pBuilder.mOwner, pBuilder.mCpt, pBuilder.mId);
         mResonator = pBuilder.mResonator;
+    }
+
+    public CStatsResonatorAttacked() {
     }
 
     public static class CStatsResonatorAttackedBuilder {
