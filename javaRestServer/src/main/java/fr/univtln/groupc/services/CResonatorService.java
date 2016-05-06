@@ -1,5 +1,6 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
@@ -7,6 +8,7 @@ import fr.univtln.groupc.entities.CSkillEntity;
 
 import javax.persistence.PostUpdate;
 import javax.ws.rs.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ import java.util.List;
 @Path("/resonators")
 public class CResonatorService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
 
     /**
      * @param pResonator
@@ -33,9 +36,17 @@ public class CResonatorService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CResonatorEntity readResonator(@PathParam("id") int pId){
+    public String readResonator(@PathParam("id") int pId){
         System.out.println("dedans");
-        return (CResonatorEntity)mCrudMethods.find(CResonatorEntity.class, pId);
+        //return (CResonatorEntity)mCrudMethods.find(CResonatorEntity.class, pId);
+        String lJsonValue = null;
+        CResonatorEntity lResonator = (CResonatorEntity)mCrudMethods.find(CResonatorEntity.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lResonator);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
     }
 
     /**
@@ -44,8 +55,16 @@ public class CResonatorService {
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CResonatorEntity> readAll(){
-        return mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
+    public String readAll(){
+        //return mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
+        String lJsonValue = null;
+        List<CResonatorEntity> lResonators = mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lResonators);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
     }
 
     /**
