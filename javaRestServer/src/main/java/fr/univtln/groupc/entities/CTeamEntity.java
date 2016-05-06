@@ -1,5 +1,7 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.owlike.genson.annotation.JsonIgnore;
 import com.owlike.genson.annotation.JsonProperty;
 
@@ -14,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_team", schema = "positron")
 @NamedQueries(@NamedQuery(name = CTeamEntity.GET_ALL, query = "select t from CTeamEntity t"))
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "mId")
 
 public class CTeamEntity implements Serializable {
 
@@ -27,7 +30,6 @@ public class CTeamEntity implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(schema = "positron")
-    @JsonIgnore
     private List<CPortalEntity> mPortals = new ArrayList<>();
 
     @Column(name = "color")
@@ -45,12 +47,10 @@ public class CTeamEntity implements Serializable {
         return mPlayers;
     }
 
-    @JsonProperty
     public void setPlayers(List<CPlayerEntity> pPlayers) {
         mPlayers = pPlayers;
     }
 
-    @JsonIgnore
     public List<CPortalEntity> getPortals() {
         return mPortals;
     }

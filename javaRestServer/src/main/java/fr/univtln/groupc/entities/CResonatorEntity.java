@@ -1,5 +1,8 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 /**
@@ -10,6 +13,8 @@ import javax.persistence.*;
 @Table(name = "t_resonator", schema = "positron")
 @NamedQueries(@NamedQuery(name = CResonatorEntity.GET_ALL, query = "select p from CResonatorEntity p"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "mId")
+
 public class CResonatorEntity extends ABuildingEntity {
     @ManyToOne
     @JoinColumn(name = "portal_fk")

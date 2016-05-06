@@ -1,6 +1,8 @@
 package fr.univtln.groupc.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.owlike.genson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -14,13 +16,12 @@ import java.util.List;
 @Entity
 @Table(name = "t_territory", schema = "positron")
 @NamedQueries(@NamedQuery(name = CTerritoryEntity.GET_ALL, query = "select p from CTerritoryEntity p"))
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class CTerritoryEntity {
     @Id
     @Column(name = "territory_id")
     private int mId;
     @OneToMany(mappedBy="mTerritory")
-    @JsonIgnore
     private List<CFieldEntity> mFields = new ArrayList<CFieldEntity>();
 
     public final static String GET_ALL = "Territory.getAll";
@@ -53,7 +54,6 @@ public class CTerritoryEntity {
         mId = pId;
     }
 
-    @JsonIgnore
     public List<CFieldEntity> getFields() {
         return mFields;
     }

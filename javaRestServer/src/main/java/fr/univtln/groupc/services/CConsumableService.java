@@ -1,10 +1,12 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import javax.ws.rs.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -32,8 +34,19 @@ public class CConsumableService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CConsumableEntity read(@PathParam("id") int pId){
-        return mCrudMethods.find(CConsumableEntity.class, pId);
+    public String read(@PathParam("id") int pId){
+
+        //return mCrudMethods.find(CConsumableEntity.class, pId);
+        ObjectMapper lMapper = new ObjectMapper();
+        String lJsonValue = null;
+        CConsumableEntity lConsumable = mCrudMethods.find(CConsumableEntity.class, pId);
+        try {
+            lJsonValue = lMapper.writeValueAsString(lConsumable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**
@@ -42,8 +55,18 @@ public class CConsumableService {
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CConsumableEntity> readAll(){
-        return mCrudMethods.findWithNamedQuery(CConsumableEntity.GET_ALL);
+    public String readAll(){
+        //return mCrudMethods.findWithNamedQuery(CConsumableEntity.GET_ALL);
+        ObjectMapper lMapper = new ObjectMapper();
+        String lJsonValue = null;
+        List<CConsumableEntity> lConsumables = mCrudMethods.findWithNamedQuery(CConsumableEntity.GET_ALL);
+        try {
+            lJsonValue = lMapper.writeValueAsString(lConsumables);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     @PUT

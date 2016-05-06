@@ -1,6 +1,8 @@
 package fr.univtln.groupc.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.owlike.genson.annotation.JsonIgnore;
 import com.owlike.genson.annotation.JsonProperty;
 
@@ -15,16 +17,16 @@ import java.util.List;
 @Entity
 @Table(name = "t_field", schema = "positron")
 @NamedQueries(@NamedQuery(name = CFieldEntity.GET_ALL, query = "select f from CFieldEntity f"))
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "mId")
+
 public class CFieldEntity {
     @Id
     @Column(name = "field_id")
     private int mId;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "territory_fk")
-    @JsonIgnore
     private CTerritoryEntity mTerritory;
     @OneToMany(mappedBy="mField")
-    @JsonIgnore
     private List<CLinkEntity> mLinks = new ArrayList<CLinkEntity>();
 
     public final static String GET_ALL = "Field.getAll";
@@ -67,12 +69,10 @@ public class CFieldEntity {
         mTerritory = pTerritory;
     }
 
-    @JsonIgnore
     public List<CLinkEntity> getLinks() {
         return mLinks;
     }
 
-    @JsonProperty
     public void setLinks(List<CLinkEntity> pLinks){
         mLinks = pLinks;
     }

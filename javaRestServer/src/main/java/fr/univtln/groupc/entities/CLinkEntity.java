@@ -1,6 +1,8 @@
 package fr.univtln.groupc.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.owlike.genson.annotation.JsonIgnore;
 import com.owlike.genson.annotation.JsonProperty;
 
@@ -15,17 +17,17 @@ import java.util.List;
 @Entity
 @Table(name = "t_link" , schema = "positron")
 @NamedQueries(@NamedQuery(name = CLinkEntity.GET_ALL, query = "select l from CLinkEntity l"))
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "mId")
+
 public class CLinkEntity implements Serializable {
     @Id
     @Column(name = "link_id")
     private int mId;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "field_fk")
-    @JsonIgnore
     private CFieldEntity mField;
     @ManyToMany
     @JoinTable(name = "portal_link",joinColumns=@JoinColumn(name="link_fk", referencedColumnName="link_id"),inverseJoinColumns=@JoinColumn(name="portal_fk", referencedColumnName="portal_id"),schema = "positron")
-    @JsonIgnore
     private List<CPortalEntity> mPortals  = new ArrayList<>();
 
     public final static String GET_ALL = "Link.getAll";
@@ -74,12 +76,10 @@ public class CLinkEntity implements Serializable {
     public void setId(int mId) {
         this.mId = mId;
     }
-    @JsonIgnore
     public List<CPortalEntity> getPortals() {
         return mPortals;
     }
 
-    @JsonProperty
     public void setPortals(List<CPortalEntity> pPortals) {
         mPortals = pPortals;
     }

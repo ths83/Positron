@@ -1,5 +1,7 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.owlike.genson.annotation.JsonIgnore;
 import com.owlike.genson.annotation.JsonProperty;
 
@@ -16,6 +18,8 @@ import java.util.List;
 @Entity
 @Table(name = "t_player", schema = "positron")
 @NamedQueries(@NamedQuery(name = CPlayerEntity.GET_ALL, query = "select p from CPlayerEntity p"))
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "mId")
+
 public class CPlayerEntity implements Serializable {
     @Id
     @Column(name = "id")
@@ -44,7 +48,6 @@ public class CPlayerEntity implements Serializable {
     private List<CSkillEntity> mSkills;
     @OneToMany
     @JoinTable(schema = "positron")
-    @JsonIgnore
     private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
 
     public final static String GET_ALL = "Player.getAll";
