@@ -1,9 +1,11 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CPlayerEntity;
 
 import javax.ws.rs.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -11,6 +13,8 @@ import java.util.List;
  */
 public class CPlayerService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
+
 
     /**
      * @param pPlayer
@@ -29,8 +33,16 @@ public class CPlayerService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CPlayerEntity readPlayer(@PathParam("id") int pId){
-        return (CPlayerEntity)mCrudMethods.find(CPlayerEntity.class, pId);
+    public String readPlayer(@PathParam("id") int pId){
+        //return (CPlayerEntity)mCrudMethods.find(CPlayerEntity.class, pId);
+        String lJsonValue = null;
+        CPlayerEntity lPlayer = (CPlayerEntity)mCrudMethods.find(CPlayerEntity.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lPlayer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
     }
 
     /**
@@ -39,8 +51,16 @@ public class CPlayerService {
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CPlayerEntity> readAll(){
-        return (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
+    public String readAll(){
+        //return (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
+        String lJsonValue = null;
+        List<CPlayerEntity> lPlayers = (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lPlayers);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
     }
 
     /**
