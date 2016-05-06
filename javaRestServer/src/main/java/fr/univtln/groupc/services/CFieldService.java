@@ -1,9 +1,11 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CFieldEntity;
 
 import javax.ws.rs.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -11,6 +13,7 @@ import java.util.List;
  */
 public class CFieldService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
 
     /**
      * @param pField
@@ -29,8 +32,17 @@ public class CFieldService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CFieldEntity read(@PathParam("id") int pId){
-        return (CFieldEntity)mCrudMethods.find(CFieldEntity.class, pId);
+    public String read(@PathParam("id") int pId){
+        //return (CFieldEntity)mCrudMethods.find(CFieldEntity.class, pId);
+        String lJsonValue = null;
+        CFieldEntity lField = (CFieldEntity)mCrudMethods.find(CFieldEntity.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lField);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**
@@ -39,8 +51,17 @@ public class CFieldService {
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CFieldEntity> readAll(){
-        return (List<CFieldEntity>)mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
+    public String readAll(){
+        //return (List<CFieldEntity>)mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
+        String lJsonValue = null;
+        List<CFieldEntity> lFields = (List<CFieldEntity>)mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lFields);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**
@@ -51,7 +72,7 @@ public class CFieldService {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("/update")
-    public CFieldEntity updateTeam(CFieldEntity pField){
+    public CFieldEntity updateField(CFieldEntity pField){
         return (CFieldEntity) mCrudMethods.update(pField);
     }
 
