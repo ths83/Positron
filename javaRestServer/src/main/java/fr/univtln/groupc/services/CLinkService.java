@@ -1,11 +1,13 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 
 import javax.ws.rs.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ import java.util.List;
 @Path("/links")
 public class CLinkService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
 
     /**
      * @param pLink
@@ -35,8 +38,17 @@ public class CLinkService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CLinkEntity read(@PathParam("id") int pId){
-        return (CLinkEntity)mCrudMethods.find(CLinkEntity.class, pId);
+    public String read(@PathParam("id") int pId){
+
+        //return (CLinkEntity)mCrudMethods.find(CLinkEntity.class, pId);
+        String lJsonValue = null;
+        CLinkEntity lLink = (CLinkEntity)mCrudMethods.find(CLinkEntity.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lLink);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
     }
 
     /**
@@ -45,13 +57,21 @@ public class CLinkService {
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CLinkEntity> readAll(){
-        return (List<CLinkEntity>)mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
+    public String readAll(){
+        //return (List<CLinkEntity>)mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
+        String lJsonValue = null;
+        List<CLinkEntity> lLinks = (List<CLinkEntity>)mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lLinks);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
     }
 
     @PUT
     //@Path("/")
-    public CLinkEntity updateResonator(CLinkEntity pLink){
+    public CLinkEntity updateLink(CLinkEntity pLink){
         return mCrudMethods.update(pLink);
     }
 
