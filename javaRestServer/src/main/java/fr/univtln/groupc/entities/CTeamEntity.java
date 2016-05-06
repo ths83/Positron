@@ -2,8 +2,7 @@ package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.owlike.genson.annotation.JsonIgnore;
-import com.owlike.genson.annotation.JsonProperty;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_team", schema = "positron")
 @NamedQueries(@NamedQuery(name = CTeamEntity.GET_ALL, query = "select t from CTeamEntity t"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "mId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class CTeamEntity implements Serializable {
 

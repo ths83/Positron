@@ -2,8 +2,7 @@ package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.owlike.genson.annotation.JsonIgnore;
-import com.owlike.genson.annotation.JsonProperty;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -180,12 +179,12 @@ public class CPlayerEntity implements Serializable {
         mEnergyMax = pEnergyMax;
     }
 
-    @JsonIgnore
+
     public List<AObjectEntity> getObjects() {
         return mObjects;
     }
 
-    @JsonProperty
+
     public void setObjects(List<AObjectEntity> pObjects) {
         mObjects = pObjects;
     }

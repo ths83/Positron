@@ -3,7 +3,7 @@ package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.owlike.genson.annotation.JsonIgnore;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
