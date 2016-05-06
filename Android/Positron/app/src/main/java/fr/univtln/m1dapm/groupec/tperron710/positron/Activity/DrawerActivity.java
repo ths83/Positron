@@ -1,4 +1,4 @@
-package fr.univtln.groupc.activities;
+package fr.univtln.m1dapm.groupec.tperron710.positron.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
