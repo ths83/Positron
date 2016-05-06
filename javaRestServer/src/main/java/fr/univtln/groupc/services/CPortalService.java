@@ -1,10 +1,12 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import javax.ws.rs.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,6 +17,8 @@ import java.util.List;
 public class CPortalService {
 
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
+
 
     /**
      * @param pPortal
@@ -34,8 +38,16 @@ public class CPortalService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CPortalEntity readPortal(@PathParam("id") int pId){
-        return (CPortalEntity)mCrudMethods.find(CPortalEntity.class, pId);
+    public String readPortal(@PathParam("id") int pId){
+        //return (CPortalEntity)mCrudMethods.find(CPortalEntity.class, pId);
+        String lJsonValue = null;
+        CPortalEntity lPortal = (CPortalEntity)mCrudMethods.find(CPortalEntity.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lPortal);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
     }
 
 
@@ -46,8 +58,16 @@ public class CPortalService {
     @GET
     @Produces("application/json")
     @Path("/teams/{id}")
-    public List<CPortalEntity> readPortalsByTeam(@PathParam("id") int pId){
-        return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_BY_TEAM, CQueryParameter.with("mId", pId).parameters());
+    public String readPortalsByTeam(@PathParam("id") int pId){
+        //return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_BY_TEAM, CQueryParameter.with("mId", pId).parameters());
+        String lJsonValue = null;
+        List<CPortalEntity> lPortals = (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_BY_TEAM, CQueryParameter.with("mId", pId).parameters());
+        try {
+            lJsonValue = mMapper.writeValueAsString(lPortals);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
     }
 
     /**
@@ -56,8 +76,16 @@ public class CPortalService {
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CPortalEntity> readAll(){
-        return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
+    public String readAll(){
+        //return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
+        String lJsonValue = null;
+        List<CPortalEntity> lPortals = (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lPortals);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
     }
 
     /**
