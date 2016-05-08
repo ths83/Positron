@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
-public class DrawerActivity extends AppCompatActivity {
+public class CDrawerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

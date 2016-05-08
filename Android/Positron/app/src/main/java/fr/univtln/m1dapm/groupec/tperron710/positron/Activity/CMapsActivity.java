@@ -12,7 +12,11 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.view.MenuInflater;
+import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,14 +28,20 @@ import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import fr.univtln.m1dapm.groupec.tperron710.positron.CRUD.CRUDGet;
-import fr.univtln.m1dapm.groupec.tperron710.positron.Entities.CPortal;
+import fr.univtln.m1dapm.groupec.tperron710.positron.Activity.Portals.CAttackPortals;
+import fr.univtln.m1dapm.groupec.tperron710.positron.CRUD.CCrudGet;
+import fr.univtln.m1dapm.groupec.tperron710.positron.Entities.CPortalAndroid;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
+public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
 
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
@@ -39,15 +49,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private LocationManager locationManager;
-    private CPortal portalMarker;
+    private CPortalAndroid portalMarker;
     private BitmapDescriptor bitmapDescriptor;
     private Circle circleMarker;
     private Circle userActionRadius;
     private LatLng latLng;
     private LatLng userLatLng;
+    private List<LatLng> tmpLink = new ArrayList<>();
+
+    private Marker melbourne;
+    private LatLng latLng2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Toolbar toolbar =   (Toolbar) findViewById(R.id.toolbar);
+        final Intent actionPortalIntent = new Intent(this, CAttackPortals.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -85,19 +101,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
                 bitmapDescriptor = BitmapDescriptorFactory.
-                        defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
-                portalMarker = new CPortal(mMap, latLng, bitmapDescriptor);
+                        defaultMarker(BitmapDescriptorFactory.HUE_RED);
+                portalMarker = new CPortalAndroid(mMap, latLng, bitmapDescriptor);
+                tmpLink.add(latLng);
             }
         });
 
         // ajout dun cercle lors  dun clic portail
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Toast.makeText(getBaseContext(),"test",Toast.LENGTH_SHORT).show();
+                // il s'agit uniquement de tsts d'affichage, je m'excuse par avance de la saleté du code
                 latLng = marker.getPosition();
+                latLng2 = new LatLng(latLng.latitude + 0.0001, latLng.longitude + 0.0001);
                 circleMarker = mMap.addCircle(new CircleOptions().center(latLng)
-                        .radius(20).fillColor(Color.BLUE).strokeColor(Color.RED));
+                        .radius(50).fillColor(Color.RED).strokeColor(Color.RED));
+                marker.setTitle("Niveau: 2, Vie : 55%");
+
+                melbourne = mMap.addMarker(new MarkerOptions()
+                        .position(latLng2)
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.multipirred)));
+
+                latLng2 = new LatLng(latLng.latitude + 0.0, latLng.longitude + 0.0001);
+                melbourne = mMap.addMarker(new MarkerOptions()
+                        .position(latLng2)
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.touramblue)));
+
+                latLng2 = new LatLng(latLng.latitude + 0.0, latLng.longitude - 0.0001);
+                melbourne = mMap.addMarker(new MarkerOptions()
+                        .position(latLng2)
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.touramblue)));
+
+
+                latLng2 = new LatLng(latLng.latitude - 0.0001, latLng.longitude + 0.0001);
+                melbourne = mMap.addMarker(new MarkerOptions()
+                        .position(latLng2)
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.tourred)));
+
+                latLng2 = new LatLng(latLng.latitude - 0.0001, latLng.longitude + 0.0);
+                melbourne = mMap.addMarker(new MarkerOptions()
+                        .position(latLng2)
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.camred)));
+
+                startActivity(actionPortalIntent);
+
                 return false;
             }
         });
@@ -114,7 +162,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     // methode pour recuperer un portail et afficher le string en toast lors du lancement de l'activite
     public String getPortal(String url,int portalId) throws ExecutionException,InterruptedException{
-        String result = new CRUDGet().execute(url + String.valueOf(portalId)).get();
+        String result = new CCrudGet().execute(url + String.valueOf(portalId)).get();
         Toast.makeText(getBaseContext(),result,Toast.LENGTH_LONG).show();
         return result;
     }
@@ -128,7 +176,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location) {
         userLatLng = new LatLng(location.getLatitude(),location.getLongitude());
-        userActionRadius = mMap.addCircle(new CircleOptions().center(userLatLng).radius(20).fillColor(Color.YELLOW));
+        userActionRadius = mMap.addCircle(new CircleOptions().center(userLatLng).radius(50).fillColor(Color.YELLOW));
     }
 
     @Override
@@ -147,6 +195,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent enableGpsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(enableGpsIntent);
     }
+
+    public void onLink(View view){
+        Object[] objects = tmpLink.toArray();
+        LatLng[] latLng1 = new LatLng[objects.length];
+
+        for (int i = 0 ; i < objects.length;i++){
+            latLng1[i] = (LatLng) objects[i];
+        }
+        PolygonOptions polylineOptions = new PolygonOptions().add(latLng1).fillColor(Color.RED);
+        mMap.addPolygon(polylineOptions);
+    }
+
 }
 
 

@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Positron</string>
     <string name="title_activity_maps">Map</string>
+    <string name="toHack">Pirater</string>
+    <string name="toAttack">Attaquer</string>
+    <string name="toPut">Poser</string>
+    <string name="toMaintain">Maintenir</string>
 </resources>

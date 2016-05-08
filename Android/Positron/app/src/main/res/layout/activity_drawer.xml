@@ -8,31 +8,45 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/colorPrimary"
-    tools:context="fr.univtln.m1dapm.groupec.tperron710.positron.Activity.DrawerActivity">
+    tools:context=".Activity.CDrawerActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+       <ImageView
+           android:layout_width="75sp"
+           android:layout_height="75sp"
+           android:background="@mipmap/drone"
+           android:layout_gravity="center"
+           />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="75sp"
+            android:layout_height="75sp"
+            android:background="@mipmap/radar"
+            android:layout_gravity="center"
+            android:layout_marginBottom="50sp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-        </LinearLayout>
+        <CheckedTextView
+            android:layout_width="65sp"
+            android:layout_height="65sp"
+            android:background="@mipmap/portail"
+            android:layout_gravity="center"/>
 
+        <CheckedTextView
+            android:layout_width="65sp"
+            android:layout_height="65sp"
+            android:background="@mipmap/drone"
+            android:layout_gravity="center"
+            />
+
+        <CheckedTextView
+            android:layout_width="65sp"
+            android:layout_height="65sp"
+            android:background="@mipmap/chat"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
