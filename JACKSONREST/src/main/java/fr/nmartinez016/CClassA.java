@@ -67,7 +67,7 @@ public class CClassA implements Serializable {
     public void addB(CClassB lB){
         mClassB.add(lB);
     }
-
+/*
     @Override
     public String toString() {
         return "CClassA{" +
@@ -75,7 +75,7 @@ public class CClassA implements Serializable {
                 ", mName='" + mName + '\'' +
                 ", mClassB=" + mClassB +
                 '}';
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

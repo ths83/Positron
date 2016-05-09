@@ -20,12 +20,22 @@ public class CServiceA {
     CCrudServiceBean<CClassA> lCrud = new CCrudServiceBean<CClassA>();
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(CClassA pA){
+    @Path("/salut")
+    public Response create(String lA){
+        System.out.println("salut");
 
-        URI createdURI = null;
+        ObjectMapper lMapper = new ObjectMapper();
+
+        CClassA pA = null;
+        System.out.println("ok ?");
+        try {
+            pA = lMapper.readValue(lA, CClassA.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("ok");
         lCrud.create(pA);
-        return Response.created(createdURI).entity(pA).build();
+        return Response.status(201).entity(lA).build();
     }
 
     @GET
@@ -46,6 +56,14 @@ public class CServiceA {
         }
 
         return retour;
+    }
+
+    @DELETE
+    @Path("/delete/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") int pId){
+        lCrud.delete(CClassA.class, pId);
+        return Response.status(200).build();
     }
 
 }

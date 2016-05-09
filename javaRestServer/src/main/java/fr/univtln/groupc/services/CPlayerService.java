@@ -5,36 +5,37 @@ import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CPlayerEntity;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 
 /**
  * Created by mpesnel786 on 03/05/16.
  */
+
+@Path("/players")
 public class CPlayerService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
 
 
-    /**
-     * @param pPlayer
-     */
     @POST
     @Consumes("application/json")
-    @Path("create")
-    public void createPlayer(CPlayerEntity pPlayer){
-        mCrudMethods.create(pPlayer);
+    public Response createPlayer(String pPlayerJson){
+        try {
+            CPlayerEntity lPlayer = mMapper.readValue(pPlayerJson, CPlayerEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.create(pPlayerJson);
+        return Response.status(201).entity(pPlayerJson).build();
     }
 
-    /**
-     * @param pId
-     * @return CPlayerEntity
-     */
     @GET
     @Produces("application/json")
     @Path("/{id}")
     public String readPlayer(@PathParam("id") int pId){
-        //return (CPlayerEntity)mCrudMethods.find(CPlayerEntity.class, pId);
         String lJsonValue = null;
         CPlayerEntity lPlayer = (CPlayerEntity)mCrudMethods.find(CPlayerEntity.class, pId);
         try {
@@ -45,14 +46,11 @@ public class CPlayerService {
         return lJsonValue;
     }
 
-    /**
-     * @return List<CPlayerEntity>
-     */
+
     @GET
     @Produces("application/json")
     @Path("/all")
     public String readAll(){
-        //return (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
         String lJsonValue = null;
         List<CPlayerEntity> lPlayers = (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
         try {
@@ -63,25 +61,27 @@ public class CPlayerService {
         return lJsonValue;
     }
 
-    /**
-     * @param pPlayer
-     * @return CPlayerEntity
-     */
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
     @Path("/update")
-    public CPlayerEntity updatePlayer(CPlayerEntity pPlayer){
-        return (CPlayerEntity) mCrudMethods.update(pPlayer);
+    public Response updatePlayer(String pPlayerJson){
+        CPlayerEntity lPlayer = null;
+        try {
+            lPlayer = mMapper.readValue(pPlayerJson, CPlayerEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lPlayer);
+        return Response.status(200).build();
     }
 
-    /**
-     * @param pPlayer
-     */
+
     @DELETE
     @Consumes("application/json")
-    @Path("/delete")
-    public void deletePlayer(CPlayerEntity pPlayer){
-        mCrudMethods.delete(CPlayerEntity.class, pPlayer.getId());
+    @Path("/delete/{id}")
+    public Response delete(@PathParam("id") int pId){
+        mCrudMethods.delete(CPlayerEntity.class, pId);
+        return Response.status(200).build();
     }
 }

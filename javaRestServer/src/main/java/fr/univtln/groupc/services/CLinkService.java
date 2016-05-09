@@ -1,12 +1,15 @@
 package fr.univtln.groupc.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.univtln.groupc.algorithm.CAlgorithm;
 import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,16 +22,31 @@ public class CLinkService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
 
-    /**
-     * @param pLink
-     */
+
     @POST
     @Consumes("application/json")
-    @Path("create")
-    public void createLink(CLinkEntity pLink){
-        if (pLink.algoCreateLink(pLink.getPortals().get(1),pLink.getPortals().get(2))==true) {
+    public Response createLink(String pLinkJson){
+        /*if (pLink.algoCreateLink(pLink.getPortals().get(1),pLink.getPortals().get(2))==true) {
             mCrudMethods.create(pLink);
+        }*/
+        CLinkEntity lLink = null;
+        List<CLinkEntity> lLinks = mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
+        List<CFieldEntity> lFields = mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
+        try {
+            lLink = mMapper.readValue(pLinkJson, CLinkEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        if (CAlgorithm.detectColision(lLink, lLinks, lFields)){
+            mCrudMethods.create(lLink);
+            return Response.status(201).entity(pLinkJson).build();
+        }
+        else{
+            return Response.status(500).build();
+            // erreur a costumiser
+        }
+
     }
 
     /**
@@ -40,7 +58,6 @@ public class CLinkService {
     @Path("/{id}")
     public String read(@PathParam("id") int pId){
 
-        //return (CLinkEntity)mCrudMethods.find(CLinkEntity.class, pId);
         String lJsonValue = null;
         CLinkEntity lLink = (CLinkEntity)mCrudMethods.find(CLinkEntity.class, pId);
         try {
@@ -56,9 +73,7 @@ public class CLinkService {
      */
     @GET
     @Produces("application/json")
-    @Path("/all")
     public String readAll(){
-        //return (List<CLinkEntity>)mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
         String lJsonValue = null;
         List<CLinkEntity> lLinks = (List<CLinkEntity>)mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
         try {
@@ -70,7 +85,6 @@ public class CLinkService {
     }
 
     @PUT
-    //@Path("/")
     public CLinkEntity updateLink(CLinkEntity pLink){
         return mCrudMethods.update(pLink);
     }

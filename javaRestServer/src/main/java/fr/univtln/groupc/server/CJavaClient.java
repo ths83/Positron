@@ -22,7 +22,7 @@ public class CJavaClient {
 
        // Client client = ClientBuilder.newClient();
 
-        CSkillEntity csk = new CSkillEntity.CSkillBuilder(5).cost(140).level(10).name("skillTest1").build();
+        CSkillEntity lSkill = new CSkillEntity.CSkillBuilder(5).cost(140).level(10).name("skillTest1").build();
 
         //webResource.path("skills/create").post(csk);
 

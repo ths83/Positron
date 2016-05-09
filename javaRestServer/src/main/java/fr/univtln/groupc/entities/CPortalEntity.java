@@ -34,7 +34,7 @@ public class CPortalEntity implements Serializable {
     private List<AObjectEntity> mObjects;
     @OneToMany
     @JoinTable(schema = "positron")
-    private List<CResonatorEntity> mResonators;
+    private List<CResonatorEntity> mResonators = new ArrayList<CResonatorEntity>();
     @ManyToMany(mappedBy = "mPortals")
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     @ManyToOne(cascade = CascadeType.ALL)

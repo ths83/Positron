@@ -6,6 +6,7 @@ import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,26 +20,26 @@ public class CConsumableService {
     private ObjectMapper mMapper = new ObjectMapper();
 
 
-    /**
-     * @param pConsumable
-     */
     @POST
     @Consumes("application/json")
     @Path("create")
-    public void createConsumable(CConsumableEntity pConsumable){
-        mCrudMethods.create(pConsumable);
+    public Response createConsumable(String pConsumableJson){
+        CConsumableEntity lConsumable = null;
+        try {
+            lConsumable = mMapper.readValue(pConsumableJson, CConsumableEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.create(lConsumable);
+        return Response.status(201).entity(pConsumableJson).build();
+
     }
 
-    /**
-     * @param pId
-     * @return CConsumableEntity
-     */
+
     @GET
     @Produces("application/json")
     @Path("/{id}")
     public String read(@PathParam("id") int pId){
-
-        //return mCrudMethods.find(CConsumableEntity.class, pId);
         String lJsonValue = null;
         CConsumableEntity lConsumable = mCrudMethods.find(CConsumableEntity.class, pId);
         try {
@@ -50,14 +51,10 @@ public class CConsumableService {
         return lJsonValue;
     }
 
-    /**
-     * @return CConsumableEntity
-     */
+
     @GET
     @Produces("application/json")
-    @Path("/all")
     public String readAll(){
-        //return mCrudMethods.findWithNamedQuery(CConsumableEntity.GET_ALL);
         String lJsonValue = null;
         List<CConsumableEntity> lConsumables = mCrudMethods.findWithNamedQuery(CConsumableEntity.GET_ALL);
         try {
@@ -69,22 +66,28 @@ public class CConsumableService {
         return lJsonValue;
     }
 
+
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("/put")
-    public CConsumableEntity update(CConsumableEntity pConsumable){
-        return mCrudMethods.update(pConsumable);
+    public Response update(String pConsumableJson){
+        CConsumableEntity lConsumable = null;
+        try {
+            lConsumable = mMapper.readValue(pConsumableJson, CConsumableEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lConsumable);
+        return Response.status(200).build();
+
     }
 
-    /**
-     * @param pConsumable
-     */
+
     @DELETE
     @Consumes("application/json")
-    @Path("/delete")
-    public void delete(CConsumableEntity pConsumable){
-        mCrudMethods.delete(CConsumableEntity.class, pConsumable.getId());
+    @Path("/{id}")
+    public void delete(@PathParam("id") int pId){
+        mCrudMethods.delete(CConsumableEntity.class, pId);
     }
 
 }

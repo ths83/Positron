@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_player", schema = "positron")
 @NamedQueries(@NamedQuery(name = CPlayerEntity.GET_ALL, query = "select p from CPlayerEntity p"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "mId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class CPlayerEntity implements Serializable {
     @Id

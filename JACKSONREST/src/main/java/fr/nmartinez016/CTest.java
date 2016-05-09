@@ -2,6 +2,9 @@ package fr.nmartinez016;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 
 import java.io.IOException;
 
@@ -12,7 +15,7 @@ public class CTest {
 
     public static void main(String[] args) {
         ObjectMapper lO = new ObjectMapper();
-        CClassA lA = new CClassA(17, "ja");
+        CClassA lA = new CClassA(28, "jaaatt28");
         CClassB lB = new CClassB(18, "jb");
         lA.addB(lB);
         lB.setmClassA(lA);
@@ -38,5 +41,12 @@ public class CTest {
         System.out.println("DESERIALIZE OK ");
         System.out.println(nvxA);
         System.out.println(nvxA.getmClassB());
+
+
+        Client c = Client.create();
+        WebResource mWebResource = c.resource(CServer.BASE_URI);
+
+        ClientResponse response = mWebResource.path("/classa/salut").accept("application/json").type("application/json").post(ClientResponse.class, lTest);
+        System.out.println(response.getStatus());
     }
 }

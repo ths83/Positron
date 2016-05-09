@@ -81,7 +81,7 @@ public class CSkillEntity implements Serializable{
     }
 
     public static class CSkillBuilder{
-        private int mId;
+        private final int mId;
         private String mName;
         private int mLevel;
         private int mCost;
