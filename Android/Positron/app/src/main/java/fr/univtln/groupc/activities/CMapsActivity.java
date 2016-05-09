@@ -1,4 +1,4 @@
-package fr.univtln.m1dapm.groupec.tperron710.positron.Activity;
+package fr.univtln.groupc.activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -43,9 +43,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import fr.univtln.m1dapm.groupec.tperron710.positron.Activity.Portals.CAttackPortals;
-import fr.univtln.m1dapm.groupec.tperron710.positron.CRUD.CCrudGet;
-import fr.univtln.m1dapm.groupec.tperron710.positron.Entities.Structures.CPortalAndroid;
+import fr.univtln.groupc.activities.portals.CAttackPortals;
+import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.rest.CCrudGet;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
@@ -58,7 +58,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
     private LocationManager locationManager;
-    private CPortalAndroid portalMarker;
+    private CPortalEntity portalMarker;
     private BitmapDescriptor bitmapDescriptor;
     private Circle circleMarker;
     private Circle userActionRadius;
@@ -111,7 +111,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             public void onMapClick(LatLng latLng) {
                 bitmapDescriptor = BitmapDescriptorFactory.
                         defaultMarker(BitmapDescriptorFactory.HUE_RED);
-                portalMarker = new CPortalAndroid(mMap, latLng, bitmapDescriptor);
+                //portalMarker = new CPortalEntity(mMap, latLng, bitmapDescriptor);
                 tmpLink.add(latLng);
             }
         });
@@ -230,7 +230,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
 
         try {
-            (List<CPortalEntity>)lPortals = lMapper.readValue(lPortalsJson, List.class);
+            lPortals = lMapper.readValue(lPortalsJson, List.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
