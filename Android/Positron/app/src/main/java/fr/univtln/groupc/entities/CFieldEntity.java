@@ -3,6 +3,9 @@ package fr.univtln.groupc.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by marti on 09/05/2016.
  */
@@ -22,9 +25,6 @@ public class CFieldEntity {
         mId = pBuilder.mId;
     }
 
-    public List<CLinkEntity> getLinks() {
-        return mLinks;
-    }
 
     public static class CFieldBuilder{
         private int mId;

@@ -1,16 +1,15 @@
 package fr.univtln.groupc.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.io.Serializable;
+
+
 
 /**
  * Created by arouani277 on 02/05/16.
  */
 
 
-public class CTurretEntity extends ABuildingEntity {
+public class CTurretEntity extends ABuildingEntity implements Serializable {
     private int mDamage;
     public final static String GET_ALL = "Turret.getAll";
 
