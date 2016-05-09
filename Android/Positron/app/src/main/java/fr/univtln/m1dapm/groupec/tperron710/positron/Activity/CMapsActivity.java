@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +19,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,6 +34,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -42,6 +51,8 @@ import fr.univtln.m1dapm.groupec.tperron710.positron.Entities.CPortalAndroid;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
+
+    public final static String apiURL = "http://localhost:9998";
 
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
@@ -205,6 +216,68 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
         PolygonOptions polylineOptions = new PolygonOptions().add(latLng1).fillColor(Color.RED);
         mMap.addPolygon(polylineOptions);
+    }
+
+    public List<CPortalEntity> getPortalsRest(){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = apiURL + "/portals";
+        String lPortalsJson = null;
+        List<CPortalEntity> lPortals = null;
+        try {
+            lPortalsJson = new RestGet().execute(lUrlString).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            (List<CPortalEntity>)lPortals = lMapper.readValue(lPortalsJson, List.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lPortals;
+    }
+
+    private class RestGet extends AsyncTask<String, String, String> {
+        public RestGet() {
+            super();
+        }
+        /*
+         * Permet de faire les GET de rest.
+         * On se connecte à l'URL et on recupere le json.
+         */
+
+        @Override
+        protected String doInBackground(String... params) {
+            String urlString = params[0]; // URL to call
+            String resultToDisplay = "";
+            InputStream in = null;
+            String json = "";
+
+            try {
+                URL url = new URL(urlString);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                in.close();
+                json = sb.toString();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return e.getMessage();
+            }
+            return json;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
     }
 
 }
