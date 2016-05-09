@@ -5,4 +5,11 @@
     <string name="toAttack">Attaquer</string>
     <string name="toPut">Poser</string>
     <string name="toMaintain">Maintenir</string>
+    <string name="title_activity_chack_poratls_view">CHackPoratlsView</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_chack_portals_view">CHackPortalsView</string>
+    <string name="title_activity_cmaintain_portals_view">CMaintainPortalsView</string>
+    <string name="title_activity_cput_portals_view">CPutPortalsView</string>
 </resources>

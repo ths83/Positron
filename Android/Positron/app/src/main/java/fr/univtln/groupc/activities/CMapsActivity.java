@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -43,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import fr.univtln.groupc.activities.portals.CAttackPortals;
+import fr.univtln.groupc.activities.portals.CAttackPortalsView;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.rest.CCrudGet;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
@@ -72,7 +73,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Toolbar toolbar =   (Toolbar) findViewById(R.id.toolbar);
-        final Intent actionPortalIntent = new Intent(this, CAttackPortals.class);
+        final Intent actionPortalIntent = new Intent(this, CAttackPortalsView.class);
+        List<CPortalEntity> cPortalEntities = getPortalsRest();
+        Log.d("t", cPortalEntities.toString());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
