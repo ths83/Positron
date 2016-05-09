@@ -49,7 +49,6 @@ public class CPlayerService {
 
     @GET
     @Produces("application/json")
-    @Path("/all")
     public String readAll(){
         String lJsonValue = null;
         List<CPlayerEntity> lPlayers = (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
@@ -64,7 +63,6 @@ public class CPlayerService {
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("/update")
     public Response updatePlayer(String pPlayerJson){
         CPlayerEntity lPlayer = null;
         try {
@@ -79,7 +77,7 @@ public class CPlayerService {
 
     @DELETE
     @Consumes("application/json")
-    @Path("/delete/{id}")
+    @Path("/{id}")
     public Response delete(@PathParam("id") int pId){
         mCrudMethods.delete(CPlayerEntity.class, pId);
         return Response.status(200).build();

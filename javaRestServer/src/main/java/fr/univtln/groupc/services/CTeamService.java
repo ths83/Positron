@@ -1,10 +1,13 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CTeamEntity;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -13,15 +16,20 @@ import java.util.List;
 @Path("/teams")
 public class CTeamService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
 
-    /**
-     * @param pTeam
-     */
     @POST
     @Consumes("application/json")
-    @Path("create")
-    public void createTeam(CTeamEntity pTeam){
-        mCrudMethods.create(pTeam);
+    public Response createTeam(String pTeamJson){
+        CTeamEntity lTeam = null;
+        try {
+            lTeam = mMapper.readValue(pTeamJson, CTeamEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.create(lTeam);
+        return Response.status(201).entity(pTeamJson).build();
+
     }
 
     /**
@@ -31,8 +39,17 @@ public class CTeamService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CTeamEntity read(@PathParam("id") int pId){
-        return mCrudMethods.find(CTeamEntity.class, pId);
+    public String read(@PathParam("id") int pId){
+        //return mCrudMethods.find(CTeamEntity.class, pId);
+        String lJsonValue = null;
+        CTeamEntity lTeam = mCrudMethods.find(CTeamEntity.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lTeam);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**
@@ -41,28 +58,39 @@ public class CTeamService {
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CTeamEntity> readAll(){
-        return mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
+    public String readAll(){
+        //return mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
+        String lJsonValue = null;
+        List<CTeamEntity> lTeams = mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lTeams);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
-    /**
-     * @param pTeam
-     * @return CTeamEntity
-     */
     @PUT
+    @Consumes("application/json")
     @Produces("application/json")
-    @Path("/put")
-    public CTeamEntity updateTeam(CTeamEntity pTeam){
-        return mCrudMethods.update(pTeam);
+    public Response update(String pTeamJson){
+        CTeamEntity lTeam = null;
+        try {
+            lTeam = mMapper.readValue(pTeamJson, CTeamEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lTeam);
+        return Response.status(200).build();
     }
 
-    /**
-     * @param pTeam
-     */
+
     @DELETE
     @Consumes("application/json")
-    @Path("/delete")
-    public void deleteTeam(CTeamEntity pTeam){
-        mCrudMethods.delete(CTeamEntity.class, pTeam.getId());
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int pId){
+        mCrudMethods.delete(CTeamEntity.class, pId);
+        return Response.status(200).build();
     }
 }

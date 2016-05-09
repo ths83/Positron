@@ -5,6 +5,7 @@ import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CKeyEntity;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -19,20 +20,20 @@ public class CKeyService {
     private ObjectMapper mMapper = new ObjectMapper();
 
 
-    /**
-     * @param pKey
-     */
     @POST
     @Consumes("application/json")
-    @Path("create")
-    public void createKey(CKeyEntity pKey){
-            mCrudMethods.create(pKey);
+    public Response createKey(String pKeyJson){
+        CKeyEntity lKey = null;
+        try {
+            lKey = mMapper.readValue(pKeyJson, CKeyEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.create(lKey);
+        return Response.status(201).entity(pKeyJson).build();
     }
 
-    /**
-     * @param pId
-     * @return CKeyEntity
-     */
+
     @GET
     @Produces("application/json")
     @Path("/{id}")
@@ -50,13 +51,10 @@ public class CKeyService {
         return lJsonValue;
     }
 
-    /**
-     * @return
-     */
+
     @GET
     @Produces("application/json")
     public String readAll(){
-        //return mCrudMethods.findWithNamedQuery(CKeyEntity.GET_ALL);
         String lJsonValue = null;
         List<CKeyEntity> lKeys = mCrudMethods.findWithNamedQuery(CKeyEntity.GET_ALL);
         try {
@@ -86,25 +84,27 @@ public class CKeyService {
         return lJsonValue;
     }
 
-    /**
-     * @param pKey
-     * @return CKeyEntity
-     */
+
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("/update")
-    public CKeyEntity updateTeam(CKeyEntity pKey){
-        return mCrudMethods.update(pKey);
+    public Response updateTeam(String pKeyJson){
+        CKeyEntity lKey = null;
+        try {
+            lKey = mMapper.readValue(pKeyJson, CKeyEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lKey);
+        return Response.status(200).build();
     }
 
-    /**
-     * @param pKey
-     */
+
     @DELETE
     @Consumes("application/json")
-    @Path("/delete")
-    public void delete(CKeyEntity pKey){
-        mCrudMethods.delete(CKeyEntity.class, pKey.getId());
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int pId){
+        mCrudMethods.delete(CKeyEntity.class, pId);
+        return Response.status(200).build();
     }
 }

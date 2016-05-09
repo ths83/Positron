@@ -22,7 +22,6 @@ public class CConsumableService {
 
     @POST
     @Consumes("application/json")
-    @Path("create")
     public Response createConsumable(String pConsumableJson){
         CConsumableEntity lConsumable = null;
         try {
@@ -79,15 +78,15 @@ public class CConsumableService {
         }
         mCrudMethods.update(lConsumable);
         return Response.status(200).build();
-
     }
 
 
     @DELETE
     @Consumes("application/json")
     @Path("/{id}")
-    public void delete(@PathParam("id") int pId){
+    public Response delete(@PathParam("id") int pId){
         mCrudMethods.delete(CConsumableEntity.class, pId);
+        return Response.status(200).build();
     }
 
 }

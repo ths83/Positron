@@ -23,7 +23,10 @@ public class CCrudMethods {
     }
 
     public  <T> T find(Class<T> type,Object id) {
-        return (T) this.em.find(type, id);
+        T t = this.em.find(type, id);
+        em.refresh(t);
+        //return (T) this.em.find(type, id);
+        return t;
     }
 
     public void delete(Class type,Object id) {

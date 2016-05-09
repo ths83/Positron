@@ -30,7 +30,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Activity.CMapsActivity"
+            android:name="fr.univtln.groupc.activities.CMapsActivity"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,14 +38,14 @@
 
             </intent-filter>
         </activity>
-        <activity android:name=".GoogleSignIn.CSignInActivity">
+        <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.CDrawerActivity" />
-        <activity android:name=".Activity.Portals.CAttackPortals"></activity>
+        <activity android:name="fr.univtln.groupc.activities.CDrawerActivity" />
+        <activity android:name="fr.univtln.groupc.activities.portals.CAttackPortals"></activity>
     </application>
 
 </manifest>

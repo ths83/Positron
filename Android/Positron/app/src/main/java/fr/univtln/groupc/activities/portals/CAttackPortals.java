@@ -1,4 +1,4 @@
-package fr.univtln.m1dapm.groupec.tperron710.positron.Activity.Portals;
+package fr.univtln.groupc.activities.portals;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

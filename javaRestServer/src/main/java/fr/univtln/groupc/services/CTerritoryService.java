@@ -1,10 +1,13 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CTerritoryEntity;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,15 +18,20 @@ import java.util.List;
 public class CTerritoryService {
 
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
 
-    /**
-     * @param pTerritory
-     */
     @POST
     @Consumes("application/json")
-    @Path("create")
-    public void createTerritory(CTerritoryEntity pTerritory){
-        mCrudMethods.create(pTerritory);
+    public Response createTerritory(String pTerritoryJson){
+        CTerritoryEntity lTerritory = null;
+        try {
+            lTerritory = mMapper.readValue(pTerritoryJson, CTerritoryEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.create(lTerritory);
+        return Response.status(201).entity(pTerritoryJson).build();
+
     }
 
     /**
@@ -33,9 +41,18 @@ public class CTerritoryService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CTerritoryEntity readTerritory(@PathParam("id") int pId){
-        System.out.println("dedans");
-        return (CTerritoryEntity)mCrudMethods.find(CTerritoryEntity.class, pId);
+    public String readTerritory(@PathParam("id") int pId){
+        //System.out.println("dedans");
+        //return (CTerritoryEntity)mCrudMethods.find(CTerritoryEntity.class, pId);
+        String lJsonValue = null;
+        CTerritoryEntity lTerritory = mCrudMethods.find(CTerritoryEntity.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lTerritory);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
 
     }
 
@@ -44,28 +61,39 @@ public class CTerritoryService {
      */
     @GET
     @Path("/all")
-    public List<CTerritoryEntity> readAll(){
-        return mCrudMethods.findWithNamedQuery(CTerritoryEntity.GET_ALL);
+    public String readAll(){
+        //return mCrudMethods.findWithNamedQuery(CTerritoryEntity.GET_ALL);
+        String lJsonValue = null;
+        List<CTerritoryEntity> lTerritories = mCrudMethods.findWithNamedQuery(CTerritoryEntity.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lTerritories);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
-    /**
-     * @param pTerritory
-     * @return CTerritoryEntity
-     */
     @PUT
     @Consumes("application/json")
-    @Path("/put")
-    public CTerritoryEntity updateTerritory(CTerritoryEntity pTerritory){
-        return (CTerritoryEntity)mCrudMethods.update(pTerritory);
+    @Produces("application/json")
+    public Response update(String pTerritoryJson){
+        CTerritoryEntity lTerritory = null;
+        try {
+            lTerritory = mMapper.readValue(pTerritoryJson, CTerritoryEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lTerritory);
+        return Response.status(200).build();
     }
 
-    /**
-     * @param pTerritory
-     */
+
     @DELETE
     @Consumes("application/json")
-    @Path("/delete")
-    public void deleteTerritory(CTerritoryEntity pTerritory){
-        mCrudMethods.delete(CTerritoryEntity.class, pTerritory.getId());
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int pId){
+        mCrudMethods.delete(CTerritoryEntity.class, pId);
+        return Response.status(200).build();
     }
 }

@@ -1,10 +1,13 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.stats.CStatsBuildingsAttacked;
 import fr.univtln.groupc.stats.CStatsPlayer;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -13,15 +16,21 @@ import java.util.List;
 @Path("/statsBuildingAttacked")
 public class CStatsBuildingAttackedService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
 
-    /**
-     * @param pStatsBuildingsAttacked
-     */
+    
     @POST
     @Consumes("application/json")
-    @Path("create")
-    public void createField(CStatsBuildingsAttacked pStatsBuildingsAttacked){
-        mCrudMethods.create(pStatsBuildingsAttacked);
+    public Response create(String pStatsBuildingsAttackedJson){
+        CStatsBuildingsAttacked lStatsBuildingsAttacked = null;
+        try {
+            lStatsBuildingsAttacked = mMapper.readValue(pStatsBuildingsAttackedJson, CStatsBuildingsAttacked.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.create(lStatsBuildingsAttacked);
+        return Response.status(201).entity(pStatsBuildingsAttackedJson).build();
+
     }
 
     /**
@@ -31,8 +40,17 @@ public class CStatsBuildingAttackedService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CStatsBuildingsAttacked read(@PathParam("id") int pId){
-        return mCrudMethods.find(CStatsBuildingsAttacked.class, pId);
+    public String read(@PathParam("id") int pId){
+        //return mCrudMethods.find(CStatsBuildingsAttacked.class, pId);
+        String lJsonValue = null;
+        CStatsBuildingsAttacked lStat = mCrudMethods.find(CStatsBuildingsAttacked.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lStat);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**
@@ -41,29 +59,40 @@ public class CStatsBuildingAttackedService {
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CStatsBuildingsAttacked> readAll(){
-        return mCrudMethods.findWithNamedQuery(CStatsBuildingsAttacked.GET_ALL);
+    public String readAll(){
+        //return mCrudMethods.findWithNamedQuery(CStatsBuildingsAttacked.GET_ALL);
+        String lJsonValue = null;
+        List<CStatsBuildingsAttacked> lStats = mCrudMethods.findWithNamedQuery(CStatsBuildingsAttacked.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lStats);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
-    /**
-     * @param pStatsBuildingsAttacked
-     * @return CStatsBuildingsAttacked
-     */
+    
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("/update")
-    public CStatsBuildingsAttacked updateTeam(CStatsBuildingsAttacked pStatsBuildingsAttacked){
-        return mCrudMethods.update(pStatsBuildingsAttacked);
+    public Response update(String pStatsBuildingsAttackedJson){
+        CStatsBuildingsAttacked lStatsBuildingsAttacked = null;
+        try {
+            lStatsBuildingsAttacked = mMapper.readValue(pStatsBuildingsAttackedJson, CStatsBuildingsAttacked.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lStatsBuildingsAttacked);
+        return Response.status(200).build();
     }
 
-    /**
-     * @param pStatsBuildingAttacked
-     */
+
     @DELETE
     @Consumes("application/json")
-    //@Path("/")
-    public void delete(CStatsBuildingsAttacked pStatsBuildingAttacked){
-        mCrudMethods.delete(CStatsBuildingsAttacked.class, pStatsBuildingAttacked.getmId());
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int pId){
+        mCrudMethods.delete(CStatsBuildingsAttacked.class, pId);
+        return Response.status(200).build();
     }
 }

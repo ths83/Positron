@@ -1,4 +1,4 @@
-package fr.univtln.m1dapm.groupec.tperron710.positron.Activity.Menu;
+package fr.univtln.groupc.activities;
 
 /**
  * Created by toms on 08/05/2016.
