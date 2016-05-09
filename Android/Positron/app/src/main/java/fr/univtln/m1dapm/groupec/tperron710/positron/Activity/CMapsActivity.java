@@ -12,9 +12,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.view.MenuInflater;
 import android.view.View;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -38,7 +36,7 @@ import java.util.concurrent.ExecutionException;
 
 import fr.univtln.m1dapm.groupec.tperron710.positron.Activity.Portals.CAttackPortals;
 import fr.univtln.m1dapm.groupec.tperron710.positron.CRUD.CCrudGet;
-import fr.univtln.m1dapm.groupec.tperron710.positron.Entities.CPortalAndroid;
+import fr.univtln.m1dapm.groupec.tperron710.positron.Entities.Structures.CPortalAndroid;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
