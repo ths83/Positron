@@ -3,27 +3,15 @@ package fr.univtln.groupc.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import javax.persistence.*;
+import java.io.Serializable;
 
 /**
- * Created by arouani277 on 26/04/16.
+ * Created by mpesnel786 on 09/05/16.
  */
-
-@Entity
-@Table(name = "t_resonator", schema = "positron")
-@NamedQueries(@NamedQuery(name = CResonatorEntity.GET_ALL, query = "select p from CResonatorEntity p"))
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
-public class CResonatorEntity extends ABuildingEntity {
-    @ManyToOne
-    @JoinColumn(name = "portal_fk")
+public class CResonatorEntity extends ABuildingEntity implements Serializable {
     private CPortalEntity mPortal;
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "owner_fk")
     private CPlayerEntity mOwner;
-
-    public final static String GET_ALL = "Resonator.getAll";
 
     public CResonatorEntity(CResonatorBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);

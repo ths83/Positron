@@ -1,29 +1,15 @@
 package fr.univtln.groupc.entities;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by nmartinez016 on 25/04/16.
+ * Created by mpesnel786 on 09/05/16.
  */
-
-@Entity
-@Table(name = "t_skill", schema = "positron")
-@NamedQueries({@NamedQuery(name = CSkillEntity.GET_ALL, query = "select p from CSkillEntity p"),
-@NamedQuery(name = CSkillEntity.GET_BY_LEVEL, query = "select s from CSkillEntity s where s.mLevel = :mLevel")})
 public class CSkillEntity implements Serializable{
-    @Id
-    @Column(name = "id")
     private int mId;
-    @Column(name = "name")
     private String mName;
-    @Column(name = "level")
     private int mLevel;
-    @Column(name = "cost")
     private int mCost;
-
-    public final static String GET_ALL = "Skill.getAll";
-    public final static String GET_BY_LEVEL = "Skill.getByLevel";
 
     public CSkillEntity(){}
 
@@ -105,5 +91,4 @@ public class CSkillEntity implements Serializable{
             return new CSkillEntity(this);
         }
     }
-
 }
