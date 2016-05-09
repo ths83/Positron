@@ -1,17 +1,11 @@
 package fr.univtln.groupc.entities;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
 /**
- * Created by marti on 02/05/2016.
+ * Created by marti on 09/05/2016.
  */
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "t_consumable", schema = "positron")
-@NamedQueries(@NamedQuery(name = CConsumableEntity.GET_ALL, query = "select c from CConsumableEntity c"))
-public class CConsumableEntity extends AObjectEntity implements Serializable {
-    @Column(name = "rarity")
+
+
+public class CConsumableEntity extends AObjectEntity {
     private int mRarity;
     public final static String GET_ALL = "consumable.getAll";
 

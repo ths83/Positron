@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +13,10 @@ import java.util.List;
  * Created by mpesnel786 on 26/04/16.
  */
 
-@Entity
-@Table(name = "t_territory", schema = "positron")
-@NamedQueries(@NamedQuery(name = CTerritoryEntity.GET_ALL, query = "select p from CTerritoryEntity p"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class CTerritoryEntity implements Serializable {
-    @Id
-    @Column(name = "territory_id")
+public class CTerritoryEntity {
+
     private int mId;
-    @OneToMany(mappedBy="mTerritory")
+
     private List<CFieldEntity> mFields = new ArrayList<CFieldEntity>();
 
     public final static String GET_ALL = "Territory.getAll";
