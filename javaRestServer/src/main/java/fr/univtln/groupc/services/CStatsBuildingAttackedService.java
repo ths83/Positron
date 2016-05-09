@@ -1,10 +1,12 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.stats.CStatsBuildingsAttacked;
 import fr.univtln.groupc.stats.CStatsPlayer;
 
 import javax.ws.rs.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ import java.util.List;
 @Path("/statsBuildingAttacked")
 public class CStatsBuildingAttackedService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
 
     /**
      * @param pStatsBuildingsAttacked
@@ -31,8 +34,17 @@ public class CStatsBuildingAttackedService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CStatsBuildingsAttacked read(@PathParam("id") int pId){
-        return mCrudMethods.find(CStatsBuildingsAttacked.class, pId);
+    public String read(@PathParam("id") int pId){
+        //return mCrudMethods.find(CStatsBuildingsAttacked.class, pId);
+        String lJsonValue = null;
+        CStatsBuildingsAttacked lStat = mCrudMethods.find(CStatsBuildingsAttacked.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lStat);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**
@@ -41,8 +53,17 @@ public class CStatsBuildingAttackedService {
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CStatsBuildingsAttacked> readAll(){
-        return mCrudMethods.findWithNamedQuery(CStatsBuildingsAttacked.GET_ALL);
+    public String readAll(){
+        //return mCrudMethods.findWithNamedQuery(CStatsBuildingsAttacked.GET_ALL);
+        String lJsonValue = null;
+        List<CStatsBuildingsAttacked> lStats = mCrudMethods.findWithNamedQuery(CStatsBuildingsAttacked.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lStats);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**

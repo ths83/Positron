@@ -1,11 +1,13 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CSkillEntity;
 
 import javax.ws.rs.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -14,6 +16,7 @@ import java.util.List;
 @Path("/skills")
 public class CSkillService{
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
 
     /**
      * @param pSkill
@@ -32,16 +35,34 @@ public class CSkillService{
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CSkillEntity readSkill(@PathParam("id") int pId){
-        System.out.println("dedans");
-        return (CSkillEntity)mCrudMethods.find(CSkillEntity.class, pId);
+    public String readSkill(@PathParam("id") int pId){
+        //System.out.println("dedans");
+        //return (CSkillEntity)mCrudMethods.find(CSkillEntity.class, pId);
+        String lJsonValue = null;
+        CSkillEntity lSkill = mCrudMethods.find(CSkillEntity.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lSkill);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     @GET
     @Produces("application/json")
     @Path("/level/{id}")
-    public List<CSkillEntity> readSkillByLevel(@PathParam("id") int pLevel){
-        return (List<CSkillEntity>)mCrudMethods.findWithNamedQuery(CSkillEntity.GET_BY_LEVEL, CQueryParameter.with("mLevel", pLevel).parameters());
+    public String readSkillByLevel(@PathParam("id") int pLevel){
+        //return (List<CSkillEntity>)mCrudMethods.findWithNamedQuery(CSkillEntity.GET_BY_LEVEL, CQueryParameter.with("mLevel", pLevel).parameters());
+        String lJsonValue = null;
+        List<CSkillEntity> lSkills = mCrudMethods.findWithNamedQuery(CSkillEntity.GET_BY_LEVEL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lSkills);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**
@@ -50,8 +71,17 @@ public class CSkillService{
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CPortalEntity> readAll(){
-        return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
+    public String readAll(){
+        //return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
+        String lJsonValue = null;
+        List<CSkillEntity> lSkills = mCrudMethods.findWithNamedQuery(CSkillEntity.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lSkills);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**
