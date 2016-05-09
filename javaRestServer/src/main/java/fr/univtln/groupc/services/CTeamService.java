@@ -6,6 +6,7 @@ import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CTeamEntity;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,14 +18,18 @@ public class CTeamService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
 
-    /**
-     * @param pTeam
-     */
     @POST
     @Consumes("application/json")
-    @Path("create")
-    public void createTeam(CTeamEntity pTeam){
-        mCrudMethods.create(pTeam);
+    public Response createTeam(String pTeamJson){
+        CTeamEntity lTeam = null;
+        try {
+            lTeam = mMapper.readValue(pTeamJson, CTeamEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.create(lTeam);
+        return Response.status(201).entity(pTeamJson).build();
+
     }
 
     /**
@@ -66,24 +71,26 @@ public class CTeamService {
         return lJsonValue;
     }
 
-    /**
-     * @param pTeam
-     * @return CTeamEntity
-     */
     @PUT
+    @Consumes("application/json")
     @Produces("application/json")
-    @Path("/put")
-    public CTeamEntity updateTeam(CTeamEntity pTeam){
-        return mCrudMethods.update(pTeam);
+    public Response update(String pTeamJson){
+        CTeamEntity lTeam = null;
+        try {
+            lTeam = mMapper.readValue(pTeamJson, CTeamEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lTeam);
+        return Response.status(200).build();
     }
 
-    /**
-     * @param pTeam
-     */
+
     @DELETE
     @Consumes("application/json")
-    @Path("/delete")
-    public void deleteTeam(CTeamEntity pTeam){
-        mCrudMethods.delete(CTeamEntity.class, pTeam.getId());
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int pId){
+        mCrudMethods.delete(CTeamEntity.class, pId);
+        return Response.status(200).build();
     }
 }

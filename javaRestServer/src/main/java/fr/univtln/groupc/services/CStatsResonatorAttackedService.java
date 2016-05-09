@@ -6,6 +6,7 @@ import fr.univtln.groupc.stats.CStatsBuildingsAttacked;
 import fr.univtln.groupc.stats.CStatsResonatorAttacked;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,14 +18,19 @@ public class CStatsResonatorAttackedService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
 
-    /**
-     * @param pStatsResonatorAttacked
-     */
+    
     @POST
     @Consumes("application/json")
-    @Path("create")
-    public void createField(CStatsResonatorAttacked pStatsResonatorAttacked){
-        mCrudMethods.create(pStatsResonatorAttacked);
+    public Response create(String pStatsResonatorAttackedJson){
+        CStatsResonatorAttacked lStatsResonatorAttacked = null;
+        try {
+            lStatsResonatorAttacked = mMapper.readValue(pStatsResonatorAttackedJson, CStatsResonatorAttacked.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.create(lStatsResonatorAttacked);
+        return Response.status(201).entity(pStatsResonatorAttackedJson).build();
+
     }
 
     /**
@@ -66,25 +72,27 @@ public class CStatsResonatorAttackedService {
         return lJsonValue;
     }
 
-    /**
-     * @param pStatsResonatorAttacked
-     * @return CStatsResonatorAttacked
-     */
+    
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("/update")
-    public CStatsResonatorAttacked updateTeam(CStatsResonatorAttacked pStatsResonatorAttacked){
-        return mCrudMethods.update(pStatsResonatorAttacked);
+    public Response update(String pStatsResonatorAttackedJson){
+        CStatsResonatorAttacked lStatsResonatorAttacked = null;
+        try {
+            lStatsResonatorAttacked = mMapper.readValue(pStatsResonatorAttackedJson, CStatsResonatorAttacked.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lStatsResonatorAttacked);
+        return Response.status(200).build();
     }
 
-    /**
-     * @param pStatsResonatorAttacked
-     */
+
     @DELETE
     @Consumes("application/json")
-    //@Path("/")
-    public void delete(CStatsResonatorAttacked pStatsResonatorAttacked){
-        mCrudMethods.delete(CStatsResonatorAttacked.class, pStatsResonatorAttacked.getmId());
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int pId){
+        mCrudMethods.delete(CStatsResonatorAttacked.class, pId);
+        return Response.status(200).build();
     }
 }

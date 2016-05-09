@@ -7,6 +7,7 @@ import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CSkillEntity;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
@@ -18,14 +19,19 @@ public class CSkillService{
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
 
-    /**
-     * @param pSkill
-     */
+    
     @POST
     @Consumes("application/json")
-    @Path("create")
-    public void createSkill(CSkillEntity pSkill){
-        mCrudMethods.create(pSkill);
+    public Response createSkill(String pSkillJson){
+        CSkillEntity lSkill = null;
+        try {
+            lSkill = mMapper.readValue(pSkillJson, CSkillEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.create(lSkill);
+        return Response.status(201).entity(pSkillJson).build();
+
     }
 
     /**
@@ -84,24 +90,27 @@ public class CSkillService{
         return lJsonValue;
     }
 
-    /**
-     * @param pSkill
-     * @return CSkillEntity
-     */
+    
     @PUT
     @Consumes("application/json")
-    @Path("/put")
-    public CSkillEntity updateSkill(CSkillEntity pSkill){
-        return (CSkillEntity)mCrudMethods.update(pSkill);
+    @Produces("application/json")
+    public Response update(String pSkillJson){
+        CSkillEntity lSkill = null;
+        try {
+            lSkill = mMapper.readValue(pSkillJson, CSkillEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lSkill);
+        return Response.status(200).build();
     }
 
-    /**
-     * @param pSkill
-     */
+
     @DELETE
     @Consumes("application/json")
-    @Path("/delete")
-    public void deleteSkill(CSkillEntity pSkill){
-        mCrudMethods.delete(CSkillEntity.class, pSkill);
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int pId){
+        mCrudMethods.delete(CSkillEntity.class, pId);
+        return Response.status(200).build();
     }
 }
