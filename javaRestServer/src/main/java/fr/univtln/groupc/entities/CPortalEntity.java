@@ -197,4 +197,21 @@ public class CPortalEntity implements Serializable {
                 ", mTeam=" + mTeam +
                 '}' + super.toString();
     }
+
+
+    public List<CPortalEntity> getOtherPortalsFromLinks(){
+        List<CPortalEntity> lPortals = new ArrayList<>();
+
+        for (CLinkEntity lLink : mLinks){
+            if(lLink.getmPortals().get(0) == this ){
+                // faut faire du mal à martinez
+                lPortals.add(lLink.getmPortals().get(1));
+            }
+            else{
+                // NTM
+            }
+        }
+
+        return lPortals;
+    }
 }
