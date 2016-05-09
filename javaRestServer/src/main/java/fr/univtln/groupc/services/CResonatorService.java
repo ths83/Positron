@@ -8,6 +8,7 @@ import fr.univtln.groupc.entities.CSkillEntity;
 
 import javax.persistence.PostUpdate;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,20 +20,21 @@ public class CResonatorService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
 
-    /**
-     * @param pResonator
-     */
+
     @POST
     @Consumes("application/json")
-    @Path("create")
-    public void createResonator(CResonatorEntity pResonator){
-        mCrudMethods.create(pResonator);
+    public Response createResonator(String pResonatorJson){
+        CResonatorEntity lResonator = null;
+        try {
+            lResonator = mMapper.readValue(pResonatorJson, CResonatorEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.create(lResonator);
+        return Response.status(201).entity(pResonatorJson).build();
     }
 
-    /**
-     * @param pId
-     * @return CResonatorEntity
-     */
+
     @GET
     @Produces("application/json")
     @Path("/{id}")
@@ -49,14 +51,10 @@ public class CResonatorService {
         return lJsonValue;
     }
 
-    /**
-     * @return List<CResonatorEntity>
-     */
+
     @GET
     @Produces("application/json")
-    @Path("/all")
     public String readAll(){
-        //return mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
         String lJsonValue = null;
         List<CResonatorEntity> lResonators = mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
         try {
@@ -67,23 +65,26 @@ public class CResonatorService {
         return lJsonValue;
     }
 
-    /**
-     * @param pResonator
-     * @return CResonatorEntity
-     */
+
     @PUT
-    @Path("/put")
-    public CResonatorEntity updateResonator(CResonatorEntity pResonator){
-        return mCrudMethods.update(pResonator);
+    @Consumes("application/json")
+    public Response updateResonator(String pResonatorJson){
+        CResonatorEntity lResonator = null;
+        try {
+            lResonator = mMapper.readValue(pResonatorJson, CResonatorEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lResonator);
+        return Response.status(200).build();
     }
 
-    /**
-     * @param pResonator
-     */
+
     @DELETE
     @Consumes("application/json")
-    @Path("/delete")
-    public void deleteResonator(CResonatorEntity pResonator){
-        mCrudMethods.delete(CResonatorEntity.class, pResonator.getId());
+    @Path("/{id}")
+    public Response deleteResonator(@PathParam("id") int pId){
+        mCrudMethods.delete(CResonatorEntity.class, pId);
+        return Response.status(200).build();
     }
 }

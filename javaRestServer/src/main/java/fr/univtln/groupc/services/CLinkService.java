@@ -49,10 +49,7 @@ public class CLinkService {
 
     }
 
-    /**
-     * @param pId
-     * @return CLinkEntity
-     */
+
     @GET
     @Produces("application/json")
     @Path("/{id}")
@@ -68,9 +65,7 @@ public class CLinkService {
         return lJsonValue;
     }
 
-    /**
-     * @return
-     */
+
     @GET
     @Produces("application/json")
     public String readAll(){
@@ -85,18 +80,24 @@ public class CLinkService {
     }
 
     @PUT
-    public CLinkEntity updateLink(CLinkEntity pLink){
-        return mCrudMethods.update(pLink);
+    @Consumes("application/json")
+    public Response updateLink(String pLinkJson){
+        CLinkEntity lLink = null;
+        try {
+            lLink = mMapper.readValue(pLinkJson, CLinkEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mCrudMethods.update(lLink);
+        return Response.status(200).build();
     }
 
-    /**
-     * @param pLink
-     * @return CLinkEntity
-     */
+
     @DELETE
     @Consumes("application/json")
-    @Path("/delete")
-    public void deleteLink(CLinkEntity pLink){
-        mCrudMethods.delete(CLinkEntity.class, pLink.getId());
+    @Path("/{id}")
+    public Response deleteLink(@PathParam("id") int pId){
+        mCrudMethods.delete(CLinkEntity.class, pId);
+        return Response.status(200).build();
     }
 }
