@@ -214,5 +214,37 @@ public class CAlgorithm {
 
 
 
+    public static List<CLinkEntity> detecteNewField(CLinkEntity pLinkCreated){
+        List<CLinkEntity> lLinkNewField = new ArrayList<>();
+        CPortalEntity lPortalVerified1= null,lPortalVerified2= null;
+        CPortalEntity lPortals[]={pLinkCreated.getmPortals().get(0),pLinkCreated.getmPortals().get(1)};
+
+
+
+        for(CLinkEntity lLinks : lPortals[0].getLinks()){
+           lPortalVerified1= getOtherPortalOfLink(lPortals[0],lLinks);
+           for(CLinkEntity lLinks2 : lPortals[1].getLinks()){
+               lPortalVerified2= getOtherPortalOfLink(lPortals[1],lLinks2);
+               if(lPortalVerified1 == lPortalVerified2){
+                   lLinkNewField.add(lLinks);
+                   lLinkNewField.add(lLinks2);
+               }
+
+           }
+        }
+        return lLinkNewField;
+    }
+
+
+    public static CPortalEntity getOtherPortalOfLink(CPortalEntity pPortalIn,CLinkEntity pLink){
+
+        if(pPortalIn != pLink.getPortals().get(0)){
+            return pLink.getPortals().get(0);
+        }
+        else {
+            return pLink.getPortals().get(1);
+        }
+
+    }
 
 }

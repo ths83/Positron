@@ -98,4 +98,5 @@ public class CLinkEntity implements Serializable {
     public List<CPortalEntity> getmPortals() {
         return mPortals;
     }
+
 }
