@@ -1,10 +1,12 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CTeamEntity;
 
 import javax.ws.rs.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ import java.util.List;
 @Path("/teams")
 public class CTeamService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
+    private ObjectMapper mMapper = new ObjectMapper();
 
     /**
      * @param pTeam
@@ -31,8 +34,17 @@ public class CTeamService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public CTeamEntity read(@PathParam("id") int pId){
-        return mCrudMethods.find(CTeamEntity.class, pId);
+    public String read(@PathParam("id") int pId){
+        //return mCrudMethods.find(CTeamEntity.class, pId);
+        String lJsonValue = null;
+        CTeamEntity lTeam = mCrudMethods.find(CTeamEntity.class, pId);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lTeam);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**
@@ -41,8 +53,17 @@ public class CTeamService {
     @GET
     @Produces("application/json")
     @Path("/all")
-    public List<CTeamEntity> readAll(){
-        return mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
+    public String readAll(){
+        //return mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
+        String lJsonValue = null;
+        List<CTeamEntity> lTeams = mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lTeams);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lJsonValue;
     }
 
     /**
