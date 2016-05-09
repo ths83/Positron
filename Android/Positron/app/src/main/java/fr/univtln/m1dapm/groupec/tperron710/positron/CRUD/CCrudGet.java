@@ -11,7 +11,7 @@ import java.util.HashMap;
 /**
  * Created by toms on 5/3/16.
  */
-public class CRUDGet extends AsyncTask<String,String,String> {
+public class CCrudGet extends AsyncTask<String,String,String> {
 
     @Override
     protected String doInBackground(String... params) {

@@ -18,12 +18,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import fr.univtln.m1dapm.groupec.tperron710.positron.Activity.MapsActivity;
+import fr.univtln.m1dapm.groupec.tperron710.positron.Activity.CMapsActivity;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
-public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class CSignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
-    private static final String TAG = "SignInActivity";
+    private static final String TAG = "CSignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final String AUTHENTIFICATION_SUCCESS_FRENCH = "Connexion établie !";
 
@@ -75,7 +75,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            mapIntent = new Intent(this,MapsActivity.class);
+            mapIntent = new Intent(this,CMapsActivity.class);
             startActivity(mapIntent);
             Toast.makeText(getBaseContext(),AUTHENTIFICATION_SUCCESS_FRENCH,Toast.LENGTH_SHORT).show();
             /*mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));

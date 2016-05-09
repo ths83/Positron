@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.logging.Logger;
 
 /**
  * Created by xdurbec066 on 02/05/16.
@@ -109,7 +110,6 @@ public abstract class Algo {
 
     public static List<Lien> detectInternalLink (Territoire pfieldCreated,List<Lien> pLinkList){
         List<Lien> lInternalLinkList = new ArrayList<Lien>();
-
         Iterator<Lien> lIteratorLinkList= pLinkList.iterator();
         double lPx=0,lPy=0,lFieldVector[][]={{0,0},{0,0},{0,0}},det[]={0,0,0},lLinkVector[][]={{0,0},{0,0},{0,0}};
         int li=0,lu=0;
