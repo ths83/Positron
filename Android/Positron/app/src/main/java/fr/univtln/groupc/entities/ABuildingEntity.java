@@ -1,28 +1,17 @@
 package fr.univtln.groupc.entities;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
 /**
- * Created by arouani277 on 25/04/16.
+ * Created by marti on 09/05/2016.
  */
-@Entity
-@Table(name = "t_building", schema = "positron")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class ABuildingEntity extends AObjectEntity implements Serializable {
-    @Column(name = "long")
+
+
+public class ABuildingEntity extends AObjectEntity {
     private double mLong;
-    @Column(name = "lat")
     private double mLat;
-    @Column(name = "lifetime")
     private int mLifeTime;
-    @Column(name = "radius")
     private int mRadius;
-    @Column(name = "level")
     private int mLevel;
-    @Column(name = "energy_max")
     private int mEnergyMax;
-    @Column(name = "energy")
     private int mEnergy;
 
     public ABuildingEntity(){

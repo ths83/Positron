@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by arouani277 on 26/04/16.
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "mId")
 
-public class CResonatorEntity extends ABuildingEntity {
+public class CResonatorEntity extends ABuildingEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "portal_fk")
     private CPortalEntity mPortal;

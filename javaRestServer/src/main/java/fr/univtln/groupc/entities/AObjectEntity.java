@@ -1,6 +1,7 @@
 package fr.univtln.groupc.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by arouani277 on 25/04/16.
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "t_object", schema = "positron")
 @NamedQueries(@NamedQuery(name = AObjectEntity.GET_OBJECT_BY_PLAYER, query = "select p.mObjects from CPlayerEntity p where p.mId=:id"))
-public abstract class AObjectEntity {
+public abstract class AObjectEntity implements Serializable {
     @Id
     @Column(name = "id")
     private int mId;

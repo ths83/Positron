@@ -1,32 +1,17 @@
 package fr.univtln.groupc.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by mpesnel786 on 26/04/16.
+ * Created by marti on 09/05/2016.
  */
 
-@Entity
-@Table(name = "t_field", schema = "positron")
-@NamedQueries(@NamedQuery(name = CFieldEntity.GET_ALL, query = "select f from CFieldEntity f"))
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
-public class CFieldEntity implements Serializable {
-    @Id
-    @Column(name = "field_id")
+public class CFieldEntity {
     private int mId;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "territory_fk")
     private CTerritoryEntity mTerritory;
-    @OneToMany(mappedBy="mField")
     private List<CLinkEntity> mLinks = new ArrayList<CLinkEntity>();
 
     public final static String GET_ALL = "Field.getAll";
@@ -37,7 +22,7 @@ public class CFieldEntity implements Serializable {
         mId = pBuilder.mId;
     }
 
-    public List<CLinkEntity> getmLinks() {
+    public List<CLinkEntity> getLinks() {
         return mLinks;
     }
 
