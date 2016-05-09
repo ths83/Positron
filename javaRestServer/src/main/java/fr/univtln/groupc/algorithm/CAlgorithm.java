@@ -54,6 +54,7 @@ public class CAlgorithm {
 
             // Si tout les déterminant sont du même signe, le point est dans le territoire et on renvoie faux.
             if((lDet[0]<0 && lDet[1]<0 && lDet[2]<0) ||(lDet[0]>0 && lDet[1]>0 && lDet[2]>0)){
+
                 return false;
             }
         }
@@ -89,10 +90,14 @@ public class CAlgorithm {
             lAP2x=lP2X-lComparedLinks.getmPortals().get(0).getLong();
             lAP2y=lP2Y-lComparedLinks.getmPortals().get(0).getLat();
 
-            if((lABx*lAP1y-lABy*lAP1x)*(lABx*lAP2y-lABy*lAP2x)<0){
-                return false;
-            }
+            if((lABx*lAP1y-lABy*lAP1x)*(lABx*lAP2y-lABy*lAP2x)<0) {
 
+                if ((lABy * lAP1x - lABx * lAP1y) * (lABy * lAP2x - lABx * lAP2y) < 0) {
+
+                    return false;
+
+                }
+            }
 
         }
 
@@ -116,6 +121,7 @@ public class CAlgorithm {
 
         }
         else{
+            
             System.out.println("Colision Territoire détectée");
             return false;
 
@@ -137,6 +143,7 @@ public class CAlgorithm {
         System.out.println(System.currentTimeMillis()- lInit);
         return lResult;
     }
+
 
     public static double[] calculateSinusLaw(double pTab[], int pValueToCalc){
 
