@@ -19,7 +19,7 @@ import java.util.List;
 @NamedQueries(@NamedQuery(name = CFieldEntity.GET_ALL, query = "select f from CFieldEntity f"))
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
-public class CFieldEntity implements Serializable {
+public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
     @Id
     @Column(name = "field_id")
     private int mId;
@@ -43,10 +43,18 @@ public class CFieldEntity implements Serializable {
 
     public static class CFieldBuilder{
         private int mId;
+        private List<CLinkEntity> mLinks = new ArrayList<CLinkEntity>();
+
 
         public CFieldBuilder(int pId) {
             mId = pId;
         }
+
+        public CFieldBuilder links(List<CLinkEntity> pLinks){
+            mLinks = pLinks;
+            return this;
+        }
+
 
         public CFieldEntity build(){
             return new CFieldEntity((this));
@@ -85,5 +93,28 @@ public class CFieldEntity implements Serializable {
     public void delLinks(CLinkEntity pLink){
         mLinks.remove(pLink);
         pLink.setField(null);
+    }
+
+    @Override
+    public int compareTo(CFieldEntity pFieldCompared) {
+        double lSizeOfThis=0,lSizeOfCompared=0;
+
+        for(int li=0;li<3;li++){
+            lSizeOfThis=getLinks().get(li).getSize();
+            lSizeOfCompared=pFieldCompared.getLinks().get(li).getSize();
+        }
+
+        if(lSizeOfThis>lSizeOfCompared){
+          return 1;
+        }
+        else{
+            if (lSizeOfThis<lSizeOfCompared){
+                return -1;
+            }
+            else {
+                return 0;
+            }
+
+        }
     }
 }
