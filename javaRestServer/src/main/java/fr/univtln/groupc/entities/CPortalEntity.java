@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "t_portal" , schema = "positron")
 @NamedQueries({@NamedQuery(name = CPortalEntity.GET_ALL, query = "select p from CPortalEntity p"),
 @NamedQuery(name = CPortalEntity.GET_BY_TEAM, query = "select p from CPortalEntity p where p.mTeam = (select t from CTeamEntity t where t.mId = :mId)")})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "portalId", scope = CPortalEntity.class)
 
 public class CPortalEntity implements Serializable {
     @Id
@@ -63,9 +63,9 @@ public class CPortalEntity implements Serializable {
         private double mLat;
         private double mLong;
         private int mRadius;
-        private List<AObjectEntity> mObjects;
-        private List<CResonatorEntity> mResonators;
-        public List<CLinkEntity> mLinks;
+        private List<AObjectEntity> mObjects = new ArrayList<>();
+        private List<CResonatorEntity> mResonators = new ArrayList<>();
+        public List<CLinkEntity> mLinks = new ArrayList<>();
         private CTeamEntity mTeam;
 
         public CPortalBuilder(int pId){
@@ -112,11 +112,11 @@ public class CPortalEntity implements Serializable {
         }
     }
 
-    public int getId() {
+    public int getPortalId() {
         return mId;
     }
 
-    public void setId(int pId) {
+    public void setPortalId(int pId) {
         mId = pId;
     }
 
@@ -193,25 +193,10 @@ public class CPortalEntity implements Serializable {
                 ", mRadius=" + mRadius +
                 ", mObjects=" + mObjects +
                 ", mResonators=" + mResonators +
-                ", mLinks=" + mLinks +
                 ", mTeam=" + mTeam +
                 '}' + super.toString();
     }
 
 
-    public List<CPortalEntity> getOtherPortalsFromLinks(){
-        List<CPortalEntity> lPortals = new ArrayList<>();
 
-        for (CLinkEntity lLink : mLinks){
-            if(lLink.getmPortals().get(0) == this ){
-                // faut faire du mal à martinez
-                lPortals.add(lLink.getmPortals().get(1));
-            }
-            else{
-                // NTM
-            }
-        }
-
-        return lPortals;
-    }
 }

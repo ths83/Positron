@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_link" , schema = "positron")
 @NamedQueries(@NamedQuery(name = CLinkEntity.GET_ALL, query = "select l from CLinkEntity l"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "mId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "linkId", scope = CLinkEntity.class)
 
 public class CLinkEntity implements Serializable {
     @Id
@@ -45,7 +45,7 @@ public class CLinkEntity implements Serializable {
         return "CLinkEntity{" +
                 "mId=" + mId +
                 ", mField=" + mField +
-                ", mPortals=" + mPortals +
+                "; mPortals= " + mPortals +
                 '}';
     }
 
@@ -67,11 +67,11 @@ public class CLinkEntity implements Serializable {
         }
     }
 
-    public int getId() {
+    public int getLinkId() {
         return mId;
     }
 
-    public void setId(int mId) {
+    public void setLinkId(int mId) {
         this.mId = mId;
     }
     public List<CPortalEntity> getPortals() {
@@ -103,13 +103,13 @@ public class CLinkEntity implements Serializable {
 
 
     // Renvoie le carré de la distance
-    public double getSize(){
+    public double findSize(){
         double lSize = 0, lLat=0, lLong=0;
 
         lLat=getmPortals().get(1).getLat()-getmPortals().get(0).getLat();
         lLong=getmPortals().get(1).getLong()-getmPortals().get(0).getLong();
 
-        lSize=Math.sqrt(lLat*lLat*lLong*lLong);
+        lSize=Math.sqrt(lLat * lLat * lLong * lLong);
         return lSize;
     }
 }
