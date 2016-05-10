@@ -5,7 +5,7 @@ package fr.univtln.groupc.entities;
  */
 
 
-public class ABuildingEntity extends AObjectEntity {
+public abstract class ABuildingEntity extends AObjectEntity {
     private double mLong;
     private double mLat;
     private int mLifeTime;
