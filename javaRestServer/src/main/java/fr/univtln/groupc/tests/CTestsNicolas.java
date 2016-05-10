@@ -51,10 +51,10 @@ public class CTestsNicolas {
         lPlayer1.addSkill(lSkill6);
 
         lCrud.create(lPlayer1);
-
+/*
         CPlayerEntity lPlayerGotten = lCrud.find(CPlayerEntity.class, 1);
         System.out.println(lPlayerGotten);
-
+*/
         CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(1).latitude(250.2).longitude(283.1).team(lTeam1).build();
         CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2).latitude(112.6).longitude(48.35).team(lTeam2).build();
 
@@ -70,6 +70,7 @@ public class CTestsNicolas {
         lCrud.create(lPortal4);
         lCrud.create(lPortal5);
         lCrud.create(lPortal6);
+
     }
 
 

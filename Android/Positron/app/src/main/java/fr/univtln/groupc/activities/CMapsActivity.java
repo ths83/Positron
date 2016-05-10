@@ -73,14 +73,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private LatLng test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-<<<<<<< HEAD
-
-=======
-        Toolbar toolbar =   (Toolbar) findViewById(R.id.toolbar);
-        final Intent actionPortalIntent = new Intent(this, CAttackPortalsView.class);
-        //List<CPortalEntity> cPortalEntities = getPortalsRest();
-        //Log.d("t", cPortalEntities.toString());
->>>>>>> d3fcb84e245ee05f0b08c6b7158563f47ab6cf1d
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         Toolbar toolbar =   (Toolbar) findViewById(R.id.toolbar);
@@ -132,13 +124,22 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // test
         // portal display with REST
-        CPortalEntity lPortal1 = new CCrudGet().getPortalByIdRest();
+        /*CPortalEntity lPortal1 = new CCrudGet().getPortalByIdRest();
         test = new LatLng(lPortal1.getLat(), lPortal1.getLong());
         Log.d("test", "t " + lPortal1.toString());
         mMap.addMarker(new MarkerOptions()
                 .position(test)
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu))); */
 
+        // test v2.0 with CPortal list
+        List<CPortalEntity> lPortal1 = new CCrudGet().getPortalsRest();
+        Log.d("test","f " + lPortal1.toString());
+        for (CPortalEntity p : lPortal1){
+            test = new LatLng(p.getLat(),p.getLong());
+            mMap.addMarker(new MarkerOptions()
+                    .position(test)
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
+        }
         // Location Service
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);

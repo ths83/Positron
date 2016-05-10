@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by marti on 09/05/2016.
  */
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CPortalEntity.class)
 public class CPortalEntity implements Serializable{
     private int mId;
     private double mLat;
