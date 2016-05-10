@@ -27,9 +27,10 @@
             <-<property name="javax.persistence.jdbc.password" value="groupc"/>
             <property name="javax.persistence.jdbc.password" value="ludivine"/>-->
 
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+            <!--test machine bobby-->
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/postgres"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
-            <property name="javax.persistence.jdbc.password" value="password"/>
+            <property name="javax.persistence.jdbc.password" value="groupc"/>
 
             <!-- Les options de générations des tables -->
             <property name="eclipselink.ddl-generation.output-mode" value="both"/>
