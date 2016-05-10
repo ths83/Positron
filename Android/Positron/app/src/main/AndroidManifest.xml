@@ -36,19 +36,16 @@
             android:name="fr.univtln.groupc.activities.CMapsActivity"
             android:label="@string/title_activity_maps" >
 
+            <intent-filter>
+                <action android:name="ANDROID.INTENT.ACTION.MAIN" />
+                <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity" >
-<<<<<<< HEAD
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-=======
 
->>>>>>> 5bac4fde7544d9d7b7affa228c7d570355be517c
         </activity>
         <activity android:name="fr.univtln.groupc.activities.CDrawerActivity" />
-        <activity android:name="fr.univtln.groupc.activities.portals.CAttackPortals" />
+
         <activity
             android:name="fr.univtln.groupc.activities.portals.CHackPortalsView"
             android:label="@string/title_activity_chack_portals_view" >

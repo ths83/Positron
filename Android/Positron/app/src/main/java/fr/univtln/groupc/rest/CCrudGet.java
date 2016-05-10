@@ -24,7 +24,7 @@ import fr.univtln.groupc.entities.CPortalEntity;
  */
 public class CCrudGet extends AsyncTask<String,String,String> {
 
-    public final static String apiURL = "http://10.42.1.58:9998";
+    public final static String apiURL = "http://10.9.185.57:9998";
 
     /*
          * Permet de faire les GET de rest.
@@ -62,12 +62,14 @@ public class CCrudGet extends AsyncTask<String,String,String> {
         String lUrlString = apiURL + "/portals";
         Log.d("test", "->-> " + lUrlString);
         String lPortalsJson = null;
-        List lPortals = null;
+        List<CPortalEntity> lPortals = null;
         try {
-            Log.d("test","1");
+            Log.d("test","50");
             lPortalsJson = new CCrudGet().execute(lUrlString).get();
+            Log.d("test", "62");
+            Log.d("test", " -> " + lPortalsJson);
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
-            Log.d("test", String.valueOf(lPortals));
+            Log.d("test", "_>>" + lPortals.get(0).getId());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
