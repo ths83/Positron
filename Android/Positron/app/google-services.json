@@ -1,64 +1,33 @@
 {
   "project_info": {
-    "project_number": "1044374787172",
-    "project_id": "positive-tuner-129909"
+    "project_number": "265197110037",
+    "project_id": "t-diagram-130723"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1044374787172:android:df7524831c20dfd4",
-        "android_client_info": {
-          "package_name": "fr.univtln.tperron710.Sign_In"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1044374787172-i2hk8tpkl2p7tj301fd8gbrvucdfkhss.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyARax67oB1fGHlJbhb84NwcbWZJ6brb0NQ"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 1
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1044374787172:android:fbd1addba90fcf05",
+        "mobilesdk_app_id": "1:265197110037:android:fbd1addba90fcf05",
         "android_client_info": {
           "package_name": "fr.univtln.m1dapm.groupec.tperron710.positron"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1044374787172-0eg6l7g1i5evpn1rk53508qtgbq2ln0q.apps.googleusercontent.com",
+          "client_id": "265197110037-d7ac4hc6irr9ts4v83dh9nrkvulm99ss.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "fr.univtln.m1dapm.groupec.tperron710.positron",
-            "certificate_hash": "0442BAA44AEAA5E4299FF5FF852AB25EE42B9D05"
+            "certificate_hash": "9CBCD7F23DF86743CB19C3FD08513880C6D21C54"
           }
         },
         {
-          "client_id": "1044374787172-i2hk8tpkl2p7tj301fd8gbrvucdfkhss.apps.googleusercontent.com",
+          "client_id": "265197110037-g3p3kkf1qn83plqdir9j7gpq5p6m87up.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyARax67oB1fGHlJbhb84NwcbWZJ6brb0NQ"
+          "current_key": "AIzaSyDNqeHVDU-v41pFp1v5C9aajW29eWMXtN4"
         }
       ],
       "services": {

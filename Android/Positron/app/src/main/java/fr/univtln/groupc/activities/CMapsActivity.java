@@ -73,7 +73,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private LatLng test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
 
+=======
+        Toolbar toolbar =   (Toolbar) findViewById(R.id.toolbar);
+        final Intent actionPortalIntent = new Intent(this, CAttackPortalsView.class);
+        //List<CPortalEntity> cPortalEntities = getPortalsRest();
+        //Log.d("t", cPortalEntities.toString());
+>>>>>>> d3fcb84e245ee05f0b08c6b7158563f47ab6cf1d
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         Toolbar toolbar =   (Toolbar) findViewById(R.id.toolbar);

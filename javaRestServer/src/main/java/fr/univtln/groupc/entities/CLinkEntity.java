@@ -99,4 +99,17 @@ public class CLinkEntity implements Serializable {
         return mPortals;
     }
 
+
+
+
+    // Renvoie le carré de la distance
+    public double getSize(){
+        double lSize = 0, lLat=0, lLong=0;
+
+        lLat=getmPortals().get(1).getLat()-getmPortals().get(0).getLat();
+        lLong=getmPortals().get(1).getLong()-getmPortals().get(0).getLong();
+
+        lSize=Math.sqrt(lLat*lLat*lLong*lLong);
+        return lSize;
+    }
 }

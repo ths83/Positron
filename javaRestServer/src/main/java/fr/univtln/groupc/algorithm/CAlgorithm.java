@@ -214,7 +214,7 @@ public class CAlgorithm {
 
 
 
-    public static List<CLinkEntity> detecteNewField(CLinkEntity pLinkCreated){
+    public static List<CLinkEntity> detecteNewFields(CLinkEntity pLinkCreated){
         List<CLinkEntity> lLinkNewField = new ArrayList<>();
         CPortalEntity lPortalVerified1= null,lPortalVerified2= null;
         CPortalEntity lPortals[]={pLinkCreated.getmPortals().get(0),pLinkCreated.getmPortals().get(1)};
@@ -228,6 +228,7 @@ public class CAlgorithm {
                if(lPortalVerified1 == lPortalVerified2){
                    lLinkNewField.add(lLinks);
                    lLinkNewField.add(lLinks2);
+                   lLinkNewField.add(pLinkCreated);
                }
 
            }
@@ -235,7 +236,7 @@ public class CAlgorithm {
         return lLinkNewField;
     }
 
-
+    // A voir où le metre entre Algo,Portail et Lien
     public static CPortalEntity getOtherPortalOfLink(CPortalEntity pPortalIn,CLinkEntity pLink){
 
         if(pPortalIn != pLink.getPortals().get(0)){
