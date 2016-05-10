@@ -32,24 +32,15 @@
         <activity
             android:name="fr.univtln.groupc.activities.CMapsActivity"
             android:label="@string/title_activity_maps" >
+        </activity>
+        <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-
-            </intent-filter>
-        </activity>
         <activity android:name="fr.univtln.groupc.activities.CDrawerActivity" />
         <activity android:name="fr.univtln.groupc.activities.portals.CAttackPortals" />
-        <activity
-            android:name="fr.univtln.groupc.activities.portals.CHackPoratlsView"
-            android:label="@string/title_activity_chack_poratls_view" >
-        </activity>
         <activity
             android:name="fr.univtln.groupc.activities.portals.CHackPortalsView"
             android:label="@string/title_activity_chack_portals_view" >
