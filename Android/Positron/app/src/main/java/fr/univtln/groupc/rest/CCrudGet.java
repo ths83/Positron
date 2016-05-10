@@ -1,45 +1,114 @@
 package fr.univtln.groupc.rest;
 
 import android.os.AsyncTask;
+import android.util.Log;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import fr.univtln.groupc.entities.CPortalEntity;
 
 /**
  * Created by toms on 5/3/16.
  */
 public class CCrudGet extends AsyncTask<String,String,String> {
 
+    public final static String apiURL = "http://10.9.185.52:9998";
+
+    /*
+         * Permet de faire les GET de rest.
+         * On se connecte à l'URL et on recupere le json.
+         */
+
     @Override
     protected String doInBackground(String... params) {
-        BufferedInputStream br = null;
-        HashMap<String,String> resultToDisplay = null;
-        String result = null;
-        URL url = null;
+        String urlString = params[0]; // URL to call
+        String resultToDisplay = "";
+        InputStream in = null;
+        String json = "";
 
-        // HTTP Get
         try {
-            url = new URL(params[0]);
+            URL url = new URL(urlString);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.connect();
+            in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            in.close();
+            json = sb.toString();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+        return json;
+    }
 
-            InputStream inputStream = urlConnection.getInputStream();
-
-            result = InputStreamOperations.InputStreamToString(inputStream);
-            System.out.println(result);
-
-        } catch (Exception e ) {
+    public List<CPortalEntity> getPortalsRest(){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = apiURL + "/portals";
+        Log.d("test", "->-> " + lUrlString);
+        String lPortalsJson = null;
+        List lPortals = null;
+        try {
+            Log.d("test","1");
+            lPortalsJson = new CCrudGet().execute(lUrlString).get();
+            lPortals = (List<CPortalEntity>)lMapper.readValue(lPortalsJson,new TypeReference<List<CPortalEntity>>(){});
+            Log.d("test", String.valueOf(lPortals));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        // je retourne l'url pour vérifier si c'est pas un pb d'url, aucun soucis de ce cote la chez moi
-        return ( "Valeur de retour du GET : \n" + url);
-
-        // pour voir si il y a un résultat
-        // il retourne null pour l'instant, je compte bien le vaincre ;)
-        // return ( "Valeur de retour du GET : \n" + result);
-
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("hello" + lPortals);
+        return lPortals;
     }
+
+    public CPortalEntity getPortalByIdRest(){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = apiURL + "/portals/1";
+        Log.d("test", "->-> " + lUrlString);
+        String lPortalJson = null;
+        CPortalEntity lPortal = null;
+        try {
+            Log.d("test", "salut ?");
+            lPortalJson = new CCrudGet().execute(lUrlString).get();
+            Log.d("test", lPortalJson);
+            System.out.println(" -> la dedans ?");
+            lPortal = lMapper.readValue(lPortalJson, CPortalEntity.class);
+            System.out.println("-> !");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(lPortal);
+        return lPortal;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+    }
+
 }
