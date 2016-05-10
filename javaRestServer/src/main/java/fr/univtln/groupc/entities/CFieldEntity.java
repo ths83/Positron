@@ -2,6 +2,7 @@ package fr.univtln.groupc.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -37,6 +38,7 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
         mId = pBuilder.mId;
     }
 
+    @JsonIgnore
     public List<CLinkEntity> getmLinks() {
         return mLinks;
     }

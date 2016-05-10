@@ -32,7 +32,7 @@ public class CLinkService {
         /*if (pLink.algoCreateLink(pLink.getPortals().get(1),pLink.getPortals().get(2))==true) {
             mCrudMethods.create(pLink);
         }*/
-        CLinkEntity lLink = null;
+        CLinkEntity lLink = null;/*
         List<CLinkEntity> lLinkStorageField = new ArrayList<>();
         List<CLinkEntity> lLinkListField =new ArrayList<>();
         List<CFieldEntity> lListFieldToCreate = new ArrayList<>();
@@ -68,7 +68,16 @@ public class CLinkService {
         else{
             return Response.status(500).build();
             // erreur a costumiser
+        }*/
+        try {
+            lLink = mMapper.readValue(pLinkJson, CLinkEntity.class);
+            System.out.println(lLink);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        mCrudMethods.create(lLink);
+        return Response.status(201).entity(pLinkJson).build();
 
     }
 

@@ -28,6 +28,7 @@ public class CPortalService {
         CPortalEntity lPortal = null;
         try {
             lPortal = mMapper.readValue(pPortalJson, CPortalEntity.class);
+            System.out.println("portal -> " + lPortal);
         } catch (IOException e) {
             e.printStackTrace();
         }

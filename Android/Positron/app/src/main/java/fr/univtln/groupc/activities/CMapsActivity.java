@@ -124,13 +124,22 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // test
         // portal display with REST
-        CPortalEntity lPortal1 = new CCrudGet().getPortalByIdRest();
+        /*CPortalEntity lPortal1 = new CCrudGet().getPortalByIdRest();
         test = new LatLng(lPortal1.getLat(), lPortal1.getLong());
         Log.d("test", "t " + lPortal1.toString());
         mMap.addMarker(new MarkerOptions()
                 .position(test)
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu))); */
 
+        // test v2.0 with CPortal list
+        List<CPortalEntity> lPortal1 = new CCrudGet().getPortalsRest();
+        Log.d("test","f " + lPortal1.toString());
+        for (CPortalEntity p : lPortal1){
+            test = new LatLng(p.getLat(),p.getLong());
+            mMap.addMarker(new MarkerOptions()
+                    .position(test)
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
+        }
         // Location Service
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
