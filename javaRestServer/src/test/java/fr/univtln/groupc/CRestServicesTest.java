@@ -23,10 +23,17 @@ public class CRestServicesTest extends TestCase {
     public void testPostTeamService() throws Exception {
         CTeamEntity lTeamToPost = new CTeamEntity.CTeamBuilder(150).color("vert").build();
         String lJsonTeam = mMapper.writeValueAsString(lTeamToPost);
-        ClientResponse lResponse = mWebResource.path("/teams").type("application/json").accept("application/json").post(ClientResponse.class, lTeamToPost);
+        ClientResponse lResponse = mWebResource.path("/teams").type("application/json").accept("application/json").post(ClientResponse.class, lJsonTeam);
         assertEquals(lResponse.getStatus(), 201);
     }
 
+    public void testDeleteTeamService() throws Exception {
+        //String lJsonTeam = mMapper.writeValueAsString(lTeamToPost);
+        mWebResource.path("/teams").type("application/json").accept("application/json").delete();
+        //assertEquals(lResponse.getStatus(), 200);
+    }
+
+/*
     public void testGetByIdTeamService() throws Exception {
         CTeamEntity lTeamGotten = mMapper.readValue(mWebResource.path("/teams/150").accept("application/json").type("application/json").get(String.class), CTeamEntity.class);
         assertEquals(lTeamGotten.getId(), 150);
@@ -39,6 +46,9 @@ public class CRestServicesTest extends TestCase {
         ClientResponse lResponse = mWebResource.path("players/create").type("application/json").accept("application/json").post(ClientResponse.class, lPlayerToPost);
         assertEquals(lResponse.getStatus(), 201);
     }
+*/
+
+
 /*
     public void testGetByIdPlayerService() throws Exception {
         CPlayerEntity lPlayerGotten = mMapper.readValue(mWebResource.path("players/1").get(String.class), CPlayerEntity.class);

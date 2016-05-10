@@ -28,7 +28,7 @@
             <property name="javax.persistence.jdbc.password" value="ludivine"/>-->
 
             <!--test machine bobby-->
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/postgres"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://89.234.183.3:5432/postgres"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="groupc"/>
 
