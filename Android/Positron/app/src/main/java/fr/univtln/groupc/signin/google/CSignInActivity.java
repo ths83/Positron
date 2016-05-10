@@ -89,6 +89,7 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
             });
         }
     }
+    
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -2,6 +2,7 @@ package fr.univtln.groupc.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -37,6 +38,7 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
         mId = pBuilder.mId;
     }
 
+    @JsonIgnore
     public List<CLinkEntity> getmLinks() {
         return mLinks;
     }
@@ -100,8 +102,8 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
         double lSizeOfThis=0,lSizeOfCompared=0;
 
         for(int li=0;li<3;li++){
-            lSizeOfThis=getLinks().get(li).findSize();
-            lSizeOfCompared=pFieldCompared.getLinks().get(li).findSize();
+            lSizeOfThis=getLinks().get(li).getSize();
+            lSizeOfCompared=pFieldCompared.getLinks().get(li).getSize();
         }
 
         if(lSizeOfThis>lSizeOfCompared){

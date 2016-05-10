@@ -13,9 +13,9 @@ import java.util.List;
  * Created by nmartinez016 on 25/04/16.
  */
 @Entity
-@Table(name = "t_team", schema = "positron")
+@Table(name = "t_team")
 @NamedQueries(@NamedQuery(name = CTeamEntity.GET_ALL, query = "select t from CTeamEntity t"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CTeamEntity.class)
 
 public class CTeamEntity implements Serializable {
 

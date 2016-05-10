@@ -38,22 +38,26 @@ public class CLinkService {
         List<CFieldEntity> lListFieldToCreate = new ArrayList<>();
         List<CLinkEntity> lLinks = mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
         List<CFieldEntity> lFields = mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
-        System.out.println("pLinkJson = = = " + pLinkJson);
+        //System.out.println("pLinkJson = = = " + pLinkJson);
 
         try {
             lLink = mMapper.readValue(pLinkJson, CLinkEntity.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("llink ->->-> " + lLink);
-        System.out.println("Pre-Detection CrossLink");
+       // System.out.println("llink ->->-> " + lLink);
+        //System.out.println("Pre-Detection CrossLink");
+
+
         if (CAlgorithm.detectColision(lLink, lLinks, lFields)){
-            System.out.println("Detection succesfull");
+            System.out.println("Detection succesfull" + "COUCOU");
+            System.out.println(lLink);
             mCrudMethods.create(lLink);
 
+/*
             System.out.println("Pre-Detection Field");
             lLinkListField = CAlgorithm.detecteNewFields(lLink);
-            System.out.println("ListeLinkField = "+lLinkListField);
+            //System.out.println("ListeLinkField = "+lLinkListField);
 
             for(int li=0;li<lLinkListField.size();li+=3){
 
@@ -62,13 +66,16 @@ public class CLinkService {
                 }
                lListFieldToCreate.add( new CFieldEntity.CFieldBuilder(0).links(lLinkStorageField).build() );
             }
-            System.out.println("Pre-Trie");
+
+            System.out.println("Pre trie: "+lListFieldToCreate);
             Collections.sort(lListFieldToCreate);
+            System.out.println("Aprés trie: " + lListFieldToCreate);
             System.out.println("Pre-CreationField");
+
             for(CFieldEntity lField : lListFieldToCreate){
                 mCrudMethods.create(lField);
             }
-
+*/
             return Response.status(201).entity(pLinkJson).build();
         }
         else{
@@ -76,6 +83,7 @@ public class CLinkService {
             return Response.status(500).build();
             // erreur a costumiser
         }
+
 
     }
 

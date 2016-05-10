@@ -1,6 +1,7 @@
 package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -17,7 +18,9 @@ import java.util.List;
 @Table(name = "t_portal" , schema = "positron")
 @NamedQueries({@NamedQuery(name = CPortalEntity.GET_ALL, query = "select p from CPortalEntity p"),
 @NamedQuery(name = CPortalEntity.GET_BY_TEAM, query = "select p from CPortalEntity p where p.mTeam = (select t from CTeamEntity t where t.mId = :mId)")})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "portalId", scope = CPortalEntity.class)
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CPortalEntity.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class CPortalEntity implements Serializable {
     @Id
@@ -112,11 +115,11 @@ public class CPortalEntity implements Serializable {
         }
     }
 
-    public int getPortalId() {
+    public int getId() {
         return mId;
     }
 
-    public void setPortalId(int pId) {
+    public void setId(int pId) {
         mId = pId;
     }
 
@@ -193,10 +196,10 @@ public class CPortalEntity implements Serializable {
                 ", mRadius=" + mRadius +
                 ", mObjects=" + mObjects +
                 ", mResonators=" + mResonators +
+                //", mLinks=" + mLinks +
                 ", mTeam=" + mTeam +
                 '}' + super.toString();
     }
-
 
 
 }
