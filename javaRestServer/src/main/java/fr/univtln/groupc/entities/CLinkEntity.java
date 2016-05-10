@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_link" , schema = "positron")
 @NamedQueries(@NamedQuery(name = CLinkEntity.GET_ALL, query = "select l from CLinkEntity l"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "mId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class CLinkEntity implements Serializable {
     @Id
