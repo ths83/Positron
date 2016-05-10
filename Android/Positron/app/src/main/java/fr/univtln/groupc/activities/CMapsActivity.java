@@ -54,7 +54,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
-    public static final String PORTALS_URL = "http://localhost:9998/portals/";
+    //public static final String PORTALS_URL = "http://localhost:9998/portals/";
 
     private GoogleMap mMap;
     private LocationManager locationManager;
@@ -124,13 +124,13 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // test
         // portal display with REST
-        /*CPortalEntity lPortal1 = new CCrudGet().getPortalByIdRest();
+       /* CPortalEntity lPortal1 = new CCrudGet().getPortalByIdRest();
         test = new LatLng(lPortal1.getLat(), lPortal1.getLong());
         Log.d("test", "t " + lPortal1.toString());
         mMap.addMarker(new MarkerOptions()
                 .position(test)
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu))); */
-
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
+*/
         // test v2.0 with CPortal list
         List<CPortalEntity> lPortal1 = new CCrudGet().getPortalsRest();
         Log.d("test","f " + lPortal1.toString());

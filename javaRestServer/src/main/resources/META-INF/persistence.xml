@@ -21,21 +21,8 @@
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/><!--
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://89.234.183.3:5432/postgres"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
-<<<<<<< HEAD
-            <property name="javax.persistence.jdbc.password" value="groupc"/>-->
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/postgres"/>
-            <property name="javax.persistence.jdbc.user" value="postgres"/>
-            <property name="javax.persistence.jdbc.password" value="groupc"/>
-            <!--<property name="javax.persistence.jdbc.password" value="ludivine"/>-->
-=======
-            <property name="javax.persistence.jdbc.password" value="groupc"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
-            <property name="javax.persistence.jdbc.user" value="postgres"/>
-            <-<property name="javax.persistence.jdbc.password" value="groupc"/>
-            <property name="javax.persistence.jdbc.password" value="ludivine"/>-->
->>>>>>> 5bac4fde7544d9d7b7affa228c7d570355be517c
 
-            <!--test machine bobby-->
+            <!-test machine bobby-->
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/postgres"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="groupc"/>
