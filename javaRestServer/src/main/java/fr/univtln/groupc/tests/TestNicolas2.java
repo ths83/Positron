@@ -33,7 +33,11 @@ public class TestNicolas2 {
         List<CPortalEntity> lPortals = null;
 
         ObjectMapper lMapper = new ObjectMapper();
-        lPortals = fromJSON(new TypeReference<List<CPortalEntity>>() {}, lJson);
+        try {
+            lPortals = lMapper.readValue(lJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //lPortals = lMapper.readValue(lJson, List.class);
         System.out.println(lPortals);
 
