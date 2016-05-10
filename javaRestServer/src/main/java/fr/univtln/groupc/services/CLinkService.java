@@ -11,6 +11,9 @@ import fr.univtln.groupc.entities.CResonatorEntity;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,8 +33,12 @@ public class CLinkService {
             mCrudMethods.create(pLink);
         }*/
         CLinkEntity lLink = null;
+        List<CLinkEntity> lLinkStorageField = new ArrayList<>();
+        List<CLinkEntity> lLinkListField =new ArrayList<>();
+        List<CFieldEntity> lListFieldToCreate = new ArrayList<>();
         List<CLinkEntity> lLinks = mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
         List<CFieldEntity> lFields = mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
+
         try {
             lLink = mMapper.readValue(pLinkJson, CLinkEntity.class);
         } catch (IOException e) {
@@ -40,6 +47,22 @@ public class CLinkService {
 
         if (CAlgorithm.detectColision(lLink, lLinks, lFields)){
             mCrudMethods.create(lLink);
+            lLinkListField = CAlgorithm.detecteNewFields(lLink);
+
+            for(int li=0;li<lLinkListField.size();li+=3){
+
+                for(int lu=0;lu<3;lu++){
+                    lLinkStorageField.add(lLinkListField.get(lu+li));
+                }
+               lListFieldToCreate.add( new CFieldEntity.CFieldBuilder(0).links(lLinkStorageField).build() );
+            }
+
+            Collections.sort(lListFieldToCreate);
+
+            for(CFieldEntity lField : lListFieldToCreate){
+                //TO DO Create Field
+                mCrudMethods.create(lField);
+            }
             return Response.status(201).entity(pLinkJson).build();
         }
         else{

@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -51,8 +52,6 @@ import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
 
-    public final static String apiURL = "http://localhost:9998";
-
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
     public static final String PORTALS_URL = "http://localhost:9998/portals/";
@@ -69,16 +68,43 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private Marker melbourne;
     private LatLng latLng2;
+    private Object[] cPortals = new Object[6];
 
+    private LatLng test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
+
+=======
         Toolbar toolbar =   (Toolbar) findViewById(R.id.toolbar);
         final Intent actionPortalIntent = new Intent(this, CAttackPortalsView.class);
         //List<CPortalEntity> cPortalEntities = getPortalsRest();
         //Log.d("t", cPortalEntities.toString());
+>>>>>>> d3fcb84e245ee05f0b08c6b7158563f47ab6cf1d
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        Toolbar toolbar =   (Toolbar) findViewById(R.id.toolbar);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        //List<CPortalEntity> cPortalEntities =  getPortalsRest();
+        //Log.d("test","f" + cPortalEntities.toString());
+
+       /* for (int i = 0;i < cPortalEntities.size();i++){
+            cPortals[i] = cPortalEntities.get(i);
+        }*/
+
+/*        CPortalEntity[] cPortalEntities1 = new CPortalEntity[6];
+        for (int j = 0;j < cPortalEntities1.length; j++){
+            cPortalEntities1[j] = (CPortalEntity) cPortals[j];
+        }*/
+
+        /*for (CPortalEntity n : cPortalEntities) {
+            test = new LatLng(n.getLat(), n.getLong());
+            mMap.addMarker(new MarkerOptions()
+                    .position(test)
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.tourred)));
+        }*/
+
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -102,13 +128,22 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(12f));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(8f));
+
+        // test
+        // portal display with REST
+        CPortalEntity lPortal1 = new CCrudGet().getPortalByIdRest();
+        test = new LatLng(lPortal1.getLat(), lPortal1.getLong());
+        Log.d("test", "t " + lPortal1.toString());
+        mMap.addMarker(new MarkerOptions()
+                .position(test)
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
 
         // Location Service
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
 
-        // creation dun portail lors dun clic sur lecran
+        // portal created with user click
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -119,12 +154,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
-        // ajout dun cercle lors  dun clic portail
+        // portal action radius when click on it
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
             @Override
             public boolean onMarkerClick(Marker marker) {
-                // il s'agit uniquement de tsts d'affichage, je m'excuse par avance de la saleté du code
+                // tests d'affichage lors d'un clic portail, affichage objets liés
                 latLng = marker.getPosition();
                 latLng2 = new LatLng(latLng.latitude + 0.0001, latLng.longitude + 0.0001);
                 circleMarker = mMap.addCircle(new CircleOptions().center(latLng)
@@ -156,39 +191,23 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                         .position(latLng2)
                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.camred)));
 
-                startActivity(actionPortalIntent);
-
                 return false;
             }
         });
-
-        // init portal from database, ca fonctionne pas pour l'instant
-        try {
-            getPortal(PORTALS_URL,1);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
-    // methode pour recuperer un portail et afficher le string en toast lors du lancement de l'activite
-    public String getPortal(String url,int portalId) throws ExecutionException,InterruptedException{
-        String result = new CCrudGet().execute(url + String.valueOf(portalId)).get();
-        Toast.makeText(getBaseContext(),result,Toast.LENGTH_LONG).show();
-        return result;
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
     }
 
-    // cercle pour l'utilisateur, initialisation lors du changement de position de celui-ci
+    // user action radius when new position is detected
     @Override
     public void onLocationChanged(Location location) {
         userLatLng = new LatLng(location.getLatitude(),location.getLongitude());
         userActionRadius = mMap.addCircle(new CircleOptions().center(userLatLng).radius(50).fillColor(Color.YELLOW));
+        Toast.makeText(getBaseContext(), userLatLng.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -208,6 +227,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         startActivity(enableGpsIntent);
     }
 
+    // only some tests
     public void onLink(View view){
         Object[] objects = tmpLink.toArray();
         LatLng[] latLng1 = new LatLng[objects.length];
@@ -217,68 +237,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
         PolygonOptions polylineOptions = new PolygonOptions().add(latLng1).fillColor(Color.RED);
         mMap.addPolygon(polylineOptions);
-    }
-
-    public List<CPortalEntity> getPortalsRest(){
-        ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = apiURL + "/portals";
-        String lPortalsJson = null;
-        List<CPortalEntity> lPortals = null;
-        try {
-            lPortalsJson = new RestGet().execute(lUrlString).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            lPortals = lMapper.readValue(lPortalsJson, List.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return lPortals;
-    }
-
-    private class RestGet extends AsyncTask<String, String, String> {
-        public RestGet() {
-            super();
-        }
-        /*
-         * Permet de faire les GET de rest.
-         * On se connecte à l'URL et on recupere le json.
-         */
-
-        @Override
-        protected String doInBackground(String... params) {
-            String urlString = params[0]; // URL to call
-            String resultToDisplay = "";
-            InputStream in = null;
-            String json = "";
-
-            try {
-                URL url = new URL(urlString);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in), 8);
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                in.close();
-                json = sb.toString();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                return e.getMessage();
-            }
-            return json;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
     }
 
 }
