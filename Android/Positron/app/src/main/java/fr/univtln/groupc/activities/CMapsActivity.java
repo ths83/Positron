@@ -74,8 +74,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         Toolbar toolbar =   (Toolbar) findViewById(R.id.toolbar);
         final Intent actionPortalIntent = new Intent(this, CAttackPortalsView.class);
-        List<CPortalEntity> cPortalEntities = getPortalsRest();
-        Log.d("t", cPortalEntities.toString());
+        //List<CPortalEntity> cPortalEntities = getPortalsRest();
+        //Log.d("t", cPortalEntities.toString());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
