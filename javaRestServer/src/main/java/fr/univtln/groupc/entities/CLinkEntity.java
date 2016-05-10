@@ -2,6 +2,8 @@ package fr.univtln.groupc.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -15,8 +17,8 @@ import java.util.List;
 @Entity
 @Table(name = "t_link" , schema = "positron")
 @NamedQueries(@NamedQuery(name = CLinkEntity.GET_ALL, query = "select l from CLinkEntity l"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CLinkEntity.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CLinkEntity implements Serializable {
     @Id
     @Column(name = "link_id")
@@ -86,6 +88,7 @@ public class CLinkEntity implements Serializable {
         return mField;
     }
 
+
     public void setField(CFieldEntity pField) {
         mField = pField;
     }
@@ -95,19 +98,17 @@ public class CLinkEntity implements Serializable {
         return(b);
     }
 
-    public List<CPortalEntity> getmPortals() {
-        return mPortals;
-    }
 
 
 
 
     // Renvoie le carré de la distance
+    @JsonIgnore
     public double getSize(){
         double lSize = 0, lLat=0, lLong=0;
 
-        lLat=getmPortals().get(1).getLat()-getmPortals().get(0).getLat();
-        lLong=getmPortals().get(1).getLong()-getmPortals().get(0).getLong();
+        lLat=getPortals().get(1).getLat()-getPortals().get(0).getLat();
+        lLong=getPortals().get(1).getLong()-getPortals().get(0).getLong();
 
         lSize=Math.sqrt(lLat*lLat*lLong*lLong);
         return lSize;
