@@ -1,5 +1,5 @@
 CREATE TABLE positron.t_object (id INTEGER NOT NULL, DTYPE VARCHAR(31), name VARCHAR(255), PRIMARY KEY (id))
-CREATE TABLE positron.t_building (id INTEGER NOT NULL, energy INTEGER, energy_max INTEGER, lat FLOAT, level INTEGER, lifetime INTEGER, long FLOAT, radius INTEGER, PRIMARY KEY (id))
+CREATE TABLE positron.t_building (id INTEGER NOT NULL, energy INTEGER, energy_max INTEGER, lat FLOAT, level INTEGER, lifetime INTEGER, long FLOAT, radius INTEGER, MDAMAGE INTEGER, PRIMARY KEY (id))
 CREATE TABLE positron.t_portal (portal_id INTEGER NOT NULL, latitude FLOAT, longitude FLOAT, radius INTEGER, team_fk INTEGER, PRIMARY KEY (portal_id))
 CREATE TABLE positron.t_field (field_id INTEGER NOT NULL, territory_fk INTEGER, PRIMARY KEY (field_id))
 CREATE TABLE positron.t_player (id INTEGER NOT NULL, bag_size INTEGER, email VARCHAR(255), energy INTEGER, energy_max INTEGER, mLatitude FLOAT, longitude FLOAT, nickname VARCHAR(255), xp INTEGER, team INTEGER, PRIMARY KEY (id))

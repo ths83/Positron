@@ -125,7 +125,7 @@ public class CRestServicesTest extends TestCase {
         assertEquals(clientResponse.getStatus(), 200);
     }
     // Tests CRUD CSkillService
-
+/*
     public void testPostSkillService() throws Exception {
 
         CSkillEntity lSkillEntity = new CSkillEntity.CSkillBuilder(1).cost(5).level(10).name("rogue").build();
@@ -143,7 +143,7 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/skills/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-
+*/
     // Tests CRUD CConsumableService OFF
 /*
     public void testPostConsumableService() throws Exception {
@@ -167,7 +167,7 @@ public class CRestServicesTest extends TestCase {
 */
 
     // Tests CRUD CTurrentService OFF
-/*
+
     public void testPostCTurretService() throws Exception {
 
         CTurretEntity lTurretPost = new CTurretEntity
@@ -189,7 +189,7 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/turrets/150").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-*/
+
 
 
 /*
