@@ -19,46 +19,51 @@ public class CAlgorithm {
 
     public static boolean detectFieldCollision(CPortalEntity pPortal, List<CFieldEntity> pListField) {
         Iterator<CFieldEntity> lIterator = pListField.iterator();
-        double lDet[] = {0,0,0};
-        int lI;
+        double lDet[] = {0, 0, 0};
+        int li;
         double lAx = 0, lBx = 0, lAy = 0, lBy = 0;
 
         CFieldEntity lField;
-
+        System.out.println(pListField);
         // On parcours la liste des territoire et on verrifie que le Portail portail n'est pas à l'interrieur.
+       if(pListField != null){
         while (lIterator.hasNext()) {
+
             lField = lIterator.next();
-            lDet[0]=0;
-            lDet[1]=0;
-            lDet[2]=0;
+            lDet[0] = 0;
+            lDet[1] = 0;
+            lDet[2] = 0;
+
+            System.out.println("Lfield= " + pListField.get(0));
 
             // Pour chaque territoire on calcule le déterminant pour chaque segment qui le constitue.
-            for (lI = 0; lI < 3; lI++) {
+            for (li = 0; li < 3; li++) {
+                System.out.println("For li:" + li);
+                lAx = lField.getmLinks().get(li).getPortals().get(0).getLong();
+                System.out.println("lAx =" + lAx);
+                lAy = lField.getmLinks().get(li).getPortals().get(0).getLat();
 
-                lAx = lField.getmLinks().get(lI).getPortals().get(0).getLong();
-                lAy = lField.getmLinks().get(lI).getPortals().get(0).getLat();
+                if (li != 2) {
 
-                if (lI != 2) {
-
-                    lBx = lField.getmLinks().get(lI+1).getPortals().get(0).getLong();
-                    lBy = lField.getmLinks().get(lI+1).getPortals().get(0).getLat();
+                    lBx = lField.getmLinks().get(li + 1).getPortals().get(0).getLong();
+                    lBy = lField.getmLinks().get(li + 1).getPortals().get(0).getLat();
                 } else {
                     lBx = lField.getmLinks().get(0).getPortals().get(0).getLong();
                     lBy = lField.getmLinks().get(0).getPortals().get(0).getLat();
                 }
 
-                lDet[lI] = ((lBx - lAx) * (pPortal.getLat() - lAy)) - ((lBy - lAy) * (pPortal.getLong() - lAx));
+                lDet[li] = ((lBx - lAx) * (pPortal.getLat() - lAy)) - ((lBy - lAy) * (pPortal.getLong() - lAx));
 
 
             }
 
             // Si tout les déterminant sont du même signe, le point est dans le territoire et on renvoie faux.
-            if((lDet[0]<0 && lDet[1]<0 && lDet[2]<0) ||(lDet[0]>0 && lDet[1]>0 && lDet[2]>0)){
+            if ((lDet[0] < 0 && lDet[1] < 0 && lDet[2] < 0) || (lDet[0] > 0 && lDet[1] > 0 && lDet[2] > 0)) {
 
                 return false;
             }
         }
-
+    }
         // Si on sort de la boucle c'est que le point n'est dans aucun territoire.
         return true;
 

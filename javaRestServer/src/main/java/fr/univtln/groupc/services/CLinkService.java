@@ -47,14 +47,14 @@ public class CLinkService {
         }
        // System.out.println("llink ->->-> " + lLink);
         //System.out.println("Pre-Detection CrossLink");
-
+        System.out.println("lFields Clink: "+lFields.get(0).getLinks());
 
         if (CAlgorithm.detectColision(lLink, lLinks, lFields)){
-            System.out.println("Detection succesfull" + "COUCOU");
-            System.out.println(lLink);
-            mCrudMethods.create(lLink);
+            System.out.println("Detection succesfull \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
 
+            mCrudMethods.create(lLink);
 /*
+
             System.out.println("Pre-Detection Field");
             lLinkListField = CAlgorithm.detecteNewFields(lLink);
             //System.out.println("ListeLinkField = "+lLinkListField);
@@ -64,7 +64,7 @@ public class CLinkService {
                 for(int lu=0;lu<3;lu++){
                     lLinkStorageField.add(lLinkListField.get(lu+li));
                 }
-               lListFieldToCreate.add( new CFieldEntity.CFieldBuilder(0).links(lLinkStorageField).build() );
+               lListFieldToCreate.add( new CFieldEntity.CFieldBuilder(456).links(lLinkStorageField).build() );
             }
 
             System.out.println("Pre trie: "+lListFieldToCreate);
@@ -73,6 +73,7 @@ public class CLinkService {
             System.out.println("Pre-CreationField");
 
             for(CFieldEntity lField : lListFieldToCreate){
+                System.out.println("!!!!"+lField+"!!!!");
                 mCrudMethods.create(lField);
             }
 */
@@ -81,7 +82,7 @@ public class CLinkService {
         else{
             System.out.println("Detection Faild");
             return Response.status(500).build();
-            // erreur a costumiser
+         // erreur a costumiser
         }
 
 
