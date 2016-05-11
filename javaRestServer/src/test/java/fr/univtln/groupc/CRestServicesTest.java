@@ -28,8 +28,7 @@ public class CRestServicesTest extends TestCase {
         CTeamEntity lTeamToPost = new CTeamEntity.CTeamBuilder(150).color("vert").build();
         String lJsonTeam = mMapper.writeValueAsString(lTeamToPost);
         ClientResponse lResponse = mWebResource.path("/teams").type("application/json").accept("application/json").post(ClientResponse.class, lJsonTeam);
-<<<<<<< HEAD
-=======
+
         assertEquals(lResponse.getStatus(), 201);
     }
 
@@ -115,7 +114,7 @@ public class CRestServicesTest extends TestCase {
 
         String lJsonTeam = mMapper.writeValueAsString(lPLayerPost);
         ClientResponse lResponse = mWebResource.path("/players").type("application/json").accept("application/json").post(ClientResponse.class, lJsonTeam);
->>>>>>> f783e1318a2e52804e4678bff64c58d436826606
+
         assertEquals(lResponse.getStatus(), 201);
     }
 
@@ -170,4 +169,5 @@ public class CRestServicesTest extends TestCase {
 
         assertEquals(lResponse.getStatus(), 200);
     }
+*/
 }

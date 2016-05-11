@@ -88,7 +88,7 @@ public class TestNicolas2 {
         System.out.println(lPortalGotten);
         System.out.println(lPortalGotten.getLinks());
 
-        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(79).portals(lList2_3).build();
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(80).portals(lList2_3).build();
 
         String lJsonLinkToPost = null;
         try {
