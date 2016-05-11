@@ -4,7 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -18,7 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
+
 
 /**
  * Created by toms on 5/3/16.
@@ -61,14 +65,15 @@ public class CCrudGet extends AsyncTask<String,String,String> {
 
     public List<CPortalEntity> getPortalsRest(){
         ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         String lUrlString = apiURL + "/portals";
         Log.d("test", "->-> " + lUrlString);
         String lPortalsJson = null;
         List<CPortalEntity> lPortals = null;
         try {
-            Log.d("test","50");
+            Log.d("test","get portals :");
             lPortalsJson = new CCrudGet().execute(lUrlString).get();
-            Log.d("test", "62");
             Log.d("test", " -> " + lPortalsJson);
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
             //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
@@ -85,6 +90,34 @@ public class CCrudGet extends AsyncTask<String,String,String> {
         //System.out.println("hello" + lPortals);
         return lPortals;
     }
+
+    public List<CPlayerEntity> getPlayersRest(){
+        ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String lUrlString = apiURL + "/players";
+        Log.d("test", "->-> " + lUrlString);
+        String lPlayersJson = null;
+        List<CPlayerEntity> lPlayers = null;
+        try {
+            Log.d("test","get players");
+            lPlayersJson = new CCrudGet().execute(lUrlString).get();
+            Log.d("test", " -> " + lPlayersJson);
+            lPlayers = lMapper.readValue(lPlayersJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPlayerEntity.class));
+            //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
+
+            Log.d("test", "_>>" + lPlayers.get(0).getId());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        //System.out.println("hello" + lPortals);
+        return lPlayers;
+    }
+
 
     public CPortalEntity getPortalByIdRest(){
         ObjectMapper lMapper = new ObjectMapper();

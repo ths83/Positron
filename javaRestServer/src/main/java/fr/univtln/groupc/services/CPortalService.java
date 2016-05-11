@@ -19,9 +19,6 @@ public class CPortalService {
 
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
-
-
-
     @POST
     @Consumes("application/json")
     public Response createPortal(String pPortalJson){

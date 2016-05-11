@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 import fr.univtln.groupc.entities.*;
 import fr.univtln.groupc.server.CServer;
 import junit.framework.TestCase;
@@ -28,8 +27,7 @@ public class CRestServicesTest extends TestCase {
         CTeamEntity lTeamToPost = new CTeamEntity.CTeamBuilder(150).color("vert").build();
         String lJsonTeam = mMapper.writeValueAsString(lTeamToPost);
         ClientResponse lResponse = mWebResource.path("/teams").type("application/json").accept("application/json").post(ClientResponse.class, lJsonTeam);
-<<<<<<< HEAD
-=======
+
         assertEquals(lResponse.getStatus(), 201);
     }
 
@@ -37,7 +35,7 @@ public class CRestServicesTest extends TestCase {
         CTeamEntity cTeamEntity = mMapper.readValue(mWebResource.path("teams/150").get(String.class), CTeamEntity.class);
         assertEquals(cTeamEntity.getColor(), "vert");
     }
-
+/*
     public void testDeleteTeamService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/teams/150").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
@@ -115,7 +113,6 @@ public class CRestServicesTest extends TestCase {
 
         String lJsonTeam = mMapper.writeValueAsString(lPLayerPost);
         ClientResponse lResponse = mWebResource.path("/players").type("application/json").accept("application/json").post(ClientResponse.class, lJsonTeam);
->>>>>>> f783e1318a2e52804e4678bff64c58d436826606
         assertEquals(lResponse.getStatus(), 201);
     }
 
@@ -141,15 +138,11 @@ public class CRestServicesTest extends TestCase {
         ClientResponse lResponse = mWebResource.path("players").type("application/json").accept("application/json").post(ClientResponse.class, lJsonPlayer);
         assertEquals(lResponse.getStatus(), 201);
     }
-<<<<<<< HEAD
 
-
-=======
 */
 
 
 /*
->>>>>>> f783e1318a2e52804e4678bff64c58d436826606
     public void testGetByIdPlayerService() throws Exception {
         CPlayerEntity lPlayerGotten = mMapper.readValue(mWebResource.path("players/50").get(String.class), CPlayerEntity.class);
         // need post method first
@@ -169,5 +162,5 @@ public class CRestServicesTest extends TestCase {
         ClientResponse lResponse = mWebResource.path("/players").accept("application/json").type("application/json").put(ClientResponse.class, lPlayerJson);
 
         assertEquals(lResponse.getStatus(), 200);
-    }
+    }*/
 }

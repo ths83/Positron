@@ -1,22 +1,14 @@
 package fr.univtln.groupc;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import fr.univtln.groupc.entities.CPlayerEntity;
-import fr.univtln.groupc.server.CServer;
 import junit.framework.TestCase;
 
 /**
- * Created by marti on 10/05/2016.
+ * Created by marti on 11/05/2016.
  */
-public class CPlayerServiceTest extends TestCase{
-    Client mClient = Client.create();
-    WebResource mWebResource = mClient.resource(CServer.BASE_URI);
-    ObjectMapper mMapper = new ObjectMapper();
+public class CPlayerServiceTest extends TestCase {
 
-    public void testPostPlayer() throws Exception {
-        CPlayerEntity lPlayerToPost = new CPlayerEntity.CPlayerBuilder(150).build();
-        mWebResource.path("/players").post();
+    public void testName() throws Exception {
+        assertEquals("1", "1");
+
     }
 }

@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import fr.univtln.groupc.activities.portals.CAttackPortalsView;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.rest.CCrudGet;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
@@ -133,15 +134,24 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
 */
         // test v2.0 with CPortal list
+        /*
         List<CPortalEntity> lPortal1 = new CCrudGet().getPortalsRest();
-        //Log.d("test","\n ->tostring ? " + lPortal1.toString());
         for (CPortalEntity p : lPortal1){
             Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
             test = new LatLng(p.getLat(),p.getLong());
             mMap.addMarker(new MarkerOptions()
                     .position(test)
                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
+        }*/
+        List<CPlayerEntity> lPlayers = new CCrudGet().getPlayersRest();
+        for (CPlayerEntity lPlayer : lPlayers){
+            Log.d("test", "- > + " + lPlayer.getNickName());
         }
+        List<CPortalEntity> lPortals = new CCrudGet().getPortalsRest();
+        for (CPortalEntity lPortal : lPortals){
+            Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
+        }
+
         // Location Service
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);

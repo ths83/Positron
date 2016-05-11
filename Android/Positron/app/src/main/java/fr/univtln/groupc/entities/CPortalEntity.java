@@ -1,6 +1,7 @@
 package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.io.Serializable;
@@ -10,8 +11,13 @@ import java.util.List;
 /**
  * Created by marti on 09/05/2016.
  */
+
+
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CPortalEntity.class)
-public class CPortalEntity implements Serializable{
+@JsonIgnoreProperties(ignoreUnknown = true)
+
+public class CPortalEntity implements Serializable {
+
     private int mId;
     private double mLat;
     private double mLong;
@@ -20,6 +26,9 @@ public class CPortalEntity implements Serializable{
     private List<CResonatorEntity> mResonators = new ArrayList<CResonatorEntity>();
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     private CTeamEntity mTeam;
+
+    public final static String GET_ALL = "Portal.getAll";
+    public final static String GET_BY_TEAM = "Portal.getByTeam";
 
     public CPortalEntity(){}
 
@@ -40,9 +49,9 @@ public class CPortalEntity implements Serializable{
         private double mLat;
         private double mLong;
         private int mRadius;
-        private List<AObjectEntity> mObjects;
-        private List<CResonatorEntity> mResonators;
-        public List<CLinkEntity> mLinks;
+        private List<AObjectEntity> mObjects = new ArrayList<>();
+        private List<CResonatorEntity> mResonators = new ArrayList<>();
+        public List<CLinkEntity> mLinks = new ArrayList<>();
         private CTeamEntity mTeam;
 
         public CPortalBuilder(int pId){
@@ -170,25 +179,10 @@ public class CPortalEntity implements Serializable{
                 ", mRadius=" + mRadius +
                 ", mObjects=" + mObjects +
                 ", mResonators=" + mResonators +
-                ", mLinks=" + mLinks +
+                //", mLinks=" + mLinks +
                 ", mTeam=" + mTeam +
                 '}' + super.toString();
     }
 
 
-    public List<CPortalEntity> getOtherPortalsFromLinks(){
-        List<CPortalEntity> lPortals = new ArrayList<>();
-
-        for (CLinkEntity lLink : mLinks){
-            if(lLink.getmPortals().get(0) == this ){
-                // faut faire du mal à martinez
-                lPortals.add(lLink.getmPortals().get(1));
-            }
-            else{
-                // NTM
-            }
-        }
-
-        return lPortals;
-    }
 }

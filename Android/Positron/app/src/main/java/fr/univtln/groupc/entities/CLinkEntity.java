@@ -1,6 +1,8 @@
 package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.io.Serializable;
@@ -10,11 +12,17 @@ import java.util.List;
 /**
  * Created by mpesnel786 on 09/05/16.
  */
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class CLinkEntity implements Serializable{
+
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CLinkEntity.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class CLinkEntity implements Serializable {
+
     private int mId;
     private CFieldEntity mField;
     private List<CPortalEntity> mPortals  = new ArrayList<>();
+
+    public final static String GET_ALL = "Link.getAll";
 
     public CLinkEntity() {}
 
@@ -31,7 +39,7 @@ public class CLinkEntity implements Serializable{
         return "CLinkEntity{" +
                 "mId=" + mId +
                 ", mField=" + mField +
-                //", mPortals=" + mPortals +
+                "; mPortals= " + mPortals +
                 '}';
     }
 
@@ -60,6 +68,7 @@ public class CLinkEntity implements Serializable{
     public void setId(int mId) {
         this.mId = mId;
     }
+
     public List<CPortalEntity> getPortals() {
         return mPortals;
     }
@@ -72,6 +81,7 @@ public class CLinkEntity implements Serializable{
         return mField;
     }
 
+
     public void setField(CFieldEntity pField) {
         mField = pField;
     }
@@ -81,7 +91,20 @@ public class CLinkEntity implements Serializable{
         return(b);
     }
 
-    public List<CPortalEntity> getmPortals() {
-        return mPortals;
+
+
+
+
+    // Renvoie le carré de la distance
+
+    @JsonIgnore
+    public double getSize(){
+        double lSize = 0, lLat=0, lLong=0;
+
+        lLat=getPortals().get(1).getLat()-getPortals().get(0).getLat();
+        lLong=getPortals().get(1).getLong()-getPortals().get(0).getLong();
+
+        lSize=Math.sqrt(lLat * lLat * lLong * lLong);
+        return lSize;
     }
 }
