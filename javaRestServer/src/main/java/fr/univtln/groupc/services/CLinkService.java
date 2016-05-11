@@ -37,7 +37,8 @@ public class CLinkService {
         List<CLinkEntity> lLinkListField =new ArrayList<>();
         List<CFieldEntity> lListFieldToCreate = new ArrayList<>();
         List<CLinkEntity> lLinks = mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
-        List<CFieldEntity> lFields = mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
+        List<CFieldEntity> lFields =mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
+        System.out.println("Lfields: "+lFields);
         //System.out.println("pLinkJson = = = " + pLinkJson);
 
         try {
@@ -46,14 +47,13 @@ public class CLinkService {
             e.printStackTrace();
         }
        // System.out.println("llink ->->-> " + lLink);
-        //System.out.println("Pre-Detection CrossLink");
-        System.out.println("lFields Clink: "+lFields.get(0).getLinks());
+        System.out.println("Pre-Detection CrossLink");
 
         if (CAlgorithm.detectColision(lLink, lLinks, lFields)){
             System.out.println("Detection succesfull \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
 
             mCrudMethods.create(lLink);
-/*
+
 
             System.out.println("Pre-Detection Field");
             lLinkListField = CAlgorithm.detecteNewFields(lLink);
@@ -73,10 +73,13 @@ public class CLinkService {
             System.out.println("Pre-CreationField");
 
             for(CFieldEntity lField : lListFieldToCreate){
-                System.out.println("!!!!"+lField+"!!!!");
+                System.out.println("!!!!" + lField + "!!!!");
                 mCrudMethods.create(lField);
+                for (CLinkEntity lLinkInField : lField.getLinks()){
+                    mCrudMethods.update(lLinkInField);
+                }
             }
-*/
+
             return Response.status(201).entity(pLinkJson).build();
         }
         else{

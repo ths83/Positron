@@ -27,7 +27,7 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "territory_fk")
     private CTerritoryEntity mTerritory;
-    @OneToMany(mappedBy="mField")
+    @OneToMany(mappedBy="mField",  cascade = CascadeType.MERGE)
     private List<CLinkEntity> mLinks = new ArrayList<CLinkEntity>();
 
     public final static String GET_ALL = "Field.getAll";
@@ -36,6 +36,10 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
 
     public CFieldEntity(CFieldBuilder pBuilder){
         mId = pBuilder.mId;
+        mLinks = pBuilder.mLinks;
+        for (CLinkEntity lLink : mLinks){
+            lLink.setField(this);
+        }
     }
 
     @JsonIgnore
@@ -95,6 +99,15 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
     public void delLinks(CLinkEntity pLink){
         mLinks.remove(pLink);
         pLink.setField(null);
+    }
+
+    @Override
+    public String toString() {
+        return "CFieldEntity{" +
+                "mId=" + mId/*+
+                ", mTerritory=" + mTerritory +
+                ", mLinks=" + mLinks */+
+                '}';
     }
 
     @Override

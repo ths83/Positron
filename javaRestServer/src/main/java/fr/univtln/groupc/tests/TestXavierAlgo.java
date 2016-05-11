@@ -14,9 +14,9 @@ import java.util.List;
 public class TestXavierAlgo {
 
     public static void main(String[] args) {
-        CPortalEntity lP1 = new CPortalEntity.CPortalBuilder(123).latitude(1.0).longitude(1.0).build();
-        CPortalEntity lP2 = new CPortalEntity.CPortalBuilder(234).latitude(2.0).longitude(2.0).build();
-        CPortalEntity lP3 = new CPortalEntity.CPortalBuilder(345).latitude(1.0).longitude(2.0).build();
+        CPortalEntity lP1 = new CPortalEntity.CPortalBuilder(123).latitude(10.1).longitude(10.2).build();
+        CPortalEntity lP2 = new CPortalEntity.CPortalBuilder(234).latitude(20.10).longitude(20.20).build();
+        CPortalEntity lP3 = new CPortalEntity.CPortalBuilder(345).latitude(10.30).longitude(20.30).build();
 
         List<CPortalEntity> lPortals1 = new ArrayList<>();
         lPortals1.add(lP1);
@@ -50,13 +50,25 @@ public class TestXavierAlgo {
             System.out.println("Croisement");
         }
 
-        CPortalEntity lPA = new CPortalEntity.CPortalBuilder(666).latitude(0.0).longitude(0.5).build();
-        CPortalEntity lPB = new CPortalEntity.CPortalBuilder(6660).latitude(2.0).longitude(0.5).build();
+        CPortalEntity lPA = new CPortalEntity.CPortalBuilder(666).latitude(10.0).longitude(30.2).build();
+        CPortalEntity lPB = new CPortalEntity.CPortalBuilder(6660).latitude(10.6).longitude(20.450).build();
 
         List<CPortalEntity> lPortalsA = new ArrayList<>();
         lPortalsA.add(lPA);
         lPortalsA.add(lPB);
+
         CLinkEntity lLA = new CLinkEntity.CLinkBuilder(129).portals(lPortalsA).build();
+
+
+        lFiels.add(new CFieldEntity.CFieldBuilder(123).links(lLinks).build() );
+        System.out.println("Links :"+lLinks);
+        System.out.println("Vision Lfield= " + lFiels + "\nLinksField:" + lFiels.get(0) + "\n");
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//        System.out.println("\n CA BUG LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: "+lFiels.get(0).getLinks().get(0)+"\n" );
+///////////////////////////////////////////////////////////////////////////////////
+
 
         if(CAlgorithm.detectColision(lLA,lLinks,lFiels)) {
             System.out.println("Pas de croisement");
@@ -64,6 +76,39 @@ public class TestXavierAlgo {
         else{
             System.out.println("Croisement");
         }
+        CPortalEntity PG1=new CPortalEntity.CPortalBuilder(1001).latitude(0.102).longitude(0.101).build();
+
+        CPortalEntity PG2=new CPortalEntity.CPortalBuilder(1002).latitude(1002).longitude(0.103).build();
+
+        CPortalEntity PG3=new CPortalEntity.CPortalBuilder(1003).latitude(0.104).longitude(1003).build();
+
+        List<CPortalEntity> PortalGRos1 = new ArrayList<>();
+        PortalGRos1.add(PG1);
+        PortalGRos1.add(PG2);
+
+        List<CPortalEntity> PortalGRos2 = new ArrayList<>();
+        PortalGRos2.add(PG2);
+        PortalGRos2.add(PG3);
+
+        List<CPortalEntity> PortalGRos3 = new ArrayList<>();
+        PortalGRos3.add(PG3);
+        PortalGRos3.add(PG2);
+
+
+
+        List<CLinkEntity> GrosFieldLink = new ArrayList<>();
+        GrosFieldLink.add(new CLinkEntity.CLinkBuilder(100).portals(PortalGRos1).build());
+        GrosFieldLink.add(new CLinkEntity.CLinkBuilder(200).portals(PortalGRos2).build());
+        GrosFieldLink.add(new CLinkEntity.CLinkBuilder(300).portals(PortalGRos3).build());
+
+        lLinks.add(GrosFieldLink.get(0));
+        lLinks.add(GrosFieldLink.get(1));
+        lLinks.add(GrosFieldLink.get(2));
+        CFieldEntity GroField = new CFieldEntity.CFieldBuilder(4000).links(GrosFieldLink).build();
+
+        System.out.println(("WOOT :\n "+lLinks));
+
+        System.out.println(" \n\n\nListe de lien a suprimer:" + CAlgorithm.detectInternalLink(GroField, lLinks));
 
     }
 

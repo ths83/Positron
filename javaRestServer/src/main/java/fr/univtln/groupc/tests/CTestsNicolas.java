@@ -3,6 +3,9 @@ package fr.univtln.groupc.tests;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by arouani277 on 02/05/16.
  */
@@ -70,6 +73,31 @@ public class CTestsNicolas {
         lCrud.create(lPortal4);
         lCrud.create(lPortal5);
         lCrud.create(lPortal6);
+
+        CPortalEntity lPortalDeTest1 = new CPortalEntity.CPortalBuilder(77).longitude(200).latitude(200).build();
+        CPortalEntity lPortalDeTest2 = new CPortalEntity.CPortalBuilder(78).longitude(300).latitude(300).build();
+        CPortalEntity lPortalDeTest3 = new CPortalEntity.CPortalBuilder(79).longitude(200).latitude(300).build();
+
+        List<CPortalEntity> lList1_2 = new ArrayList<>();
+        lList1_2.add(lPortalDeTest1);
+        lList1_2.add(lPortalDeTest2);
+
+        List<CPortalEntity> lList1_3 = new ArrayList<>();
+        lList1_3.add(lPortalDeTest1);
+        lList1_3.add(lPortalDeTest3);
+
+        List<CPortalEntity> lList2_3 = new ArrayList<>();
+        lList2_3.add(lPortalDeTest2);
+        lList2_3.add(lPortalDeTest3);
+
+        CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder(77).portals(lList1_2).build();
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(78).portals(lList1_3).build();
+
+        lCrud.create(lPortalDeTest1);
+        lCrud.create(lPortalDeTest2);
+        lCrud.create(lPortalDeTest3);
+        lCrud.create(lLink1);
+        lCrud.create(lLink2);
 
     }
 
