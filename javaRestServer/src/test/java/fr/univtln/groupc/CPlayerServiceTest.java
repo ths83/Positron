@@ -15,8 +15,4 @@ public class CPlayerServiceTest extends TestCase{
     WebResource mWebResource = mClient.resource(CServer.BASE_URI);
     ObjectMapper mMapper = new ObjectMapper();
 
-    public void testPostPlayer() throws Exception {
-        CPlayerEntity lPlayerToPost = new CPlayerEntity.CPlayerBuilder(150).build();
-        mWebResource.path("/players").post();
-    }
 }

@@ -32,9 +32,10 @@ public class CTeamService {
 
     }
 
+
     /**
      * @param pId
-     * @return CTeamEntity
+     * @return lJsonValue
      */
     @GET
     @Produces("application/json")
