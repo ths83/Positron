@@ -76,7 +76,6 @@ public class CSkillService{
      */
     @GET
     @Produces("application/json")
-    @Path("/all")
     public String readAll(){
         //return (List<CPortalEntity>)mCrudMethods.findWithNamedQuery(CPortalEntity.GET_ALL);
         String lJsonValue = null;

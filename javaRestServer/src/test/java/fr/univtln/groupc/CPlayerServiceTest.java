@@ -9,6 +9,5 @@ public class CPlayerServiceTest extends TestCase {
 
     public void testName() throws Exception {
         assertEquals("1", "1");
-
     }
 }

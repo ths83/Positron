@@ -8,6 +8,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -70,21 +75,29 @@ public class CCrudGet extends AsyncTask<String,String,String> {
         String lUrlString = apiURL + "/portals";
         Log.d("test", "->-> " + lUrlString);
         String lPortalsJson = null;
-        List<CPortalEntity> lPortals = null;
+        List<CPortalEntity> lPortals = new ArrayList<>();
         try {
             Log.d("test","get portals :");
             lPortalsJson = new CCrudGet().execute(lUrlString).get();
             Log.d("test", " -> " + lPortalsJson);
-            lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+            //lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
             //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
+
+            JSONArray lArray = new JSONArray(lPortalsJson);
+            for (int i = 0; i < lArray.length(); i++){
+                JSONObject lPortalObject = lArray.getJSONObject(i);
+                int lPortalId = lPortalObject.optInt("id");
+                double lPortalLong = lPortalObject.optDouble("long");
+                double lPortalLat = lPortalObject.optDouble("lat");
+                lPortals.add(new CPortalEntity.CPortalBuilder(lPortalId).latitude(lPortalLat).longitude(lPortalLong).build());
+            }
 
             Log.d("test", "_>>" + lPortals.get(0).getId());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         //System.out.println("hello" + lPortals);
@@ -104,7 +117,6 @@ public class CCrudGet extends AsyncTask<String,String,String> {
             Log.d("test", " -> " + lPlayersJson);
             lPlayers = lMapper.readValue(lPlayersJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPlayerEntity.class));
             //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
-
             Log.d("test", "_>>" + lPlayers.get(0).getId());
         } catch (InterruptedException e) {
             e.printStackTrace();

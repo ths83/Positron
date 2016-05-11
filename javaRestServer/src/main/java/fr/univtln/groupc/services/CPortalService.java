@@ -19,6 +19,7 @@ public class CPortalService {
 
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
+
     @POST
     @Consumes("application/json")
     public Response createPortal(String pPortalJson){
@@ -34,7 +35,6 @@ public class CPortalService {
 
     }
 
-
     @GET
     @Produces("application/json")
     @Path("/{id}")
@@ -48,7 +48,6 @@ public class CPortalService {
         }
         return lJsonValue;
     }
-
 
     /*
      * Liste tous les portails appartenant a une team
@@ -82,7 +81,6 @@ public class CPortalService {
         return lJsonValue;
     }
 
-
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
@@ -96,8 +94,6 @@ public class CPortalService {
         mCrudMethods.update(lPortal);
         return Response.status(200).build();
     }
-
-
 
     @DELETE
     @Consumes("application/json")

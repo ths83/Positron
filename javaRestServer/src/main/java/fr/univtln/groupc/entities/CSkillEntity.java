@@ -12,6 +12,7 @@ import java.io.Serializable;
 @NamedQueries({@NamedQuery(name = CSkillEntity.GET_ALL, query = "select p from CSkillEntity p"),
 @NamedQuery(name = CSkillEntity.GET_BY_LEVEL, query = "select s from CSkillEntity s where s.mLevel = :mLevel")})
 public class CSkillEntity implements Serializable{
+
     @Id
     @Column(name = "id")
     private int mId;

@@ -12,11 +12,11 @@ import javax.persistence.*;
 public class AStatsAttacked {
 
     @ManyToOne
-    @Column(name = "owner")
+    @JoinColumn(name = "owner")
     private CPlayerEntity mOwner;
 
     @ManyToOne
-    @Column(name = "attacker")
+    @JoinColumn(name = "attacker")
     private CPlayerEntity mAttacker;
 
     @Id

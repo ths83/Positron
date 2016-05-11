@@ -1,8 +1,15 @@
 package fr.univtln.groupc.tests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.*;
+import fr.univtln.groupc.server.CServer;
 
 import javax.ws.rs.HEAD;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +17,8 @@ import java.util.List;
  * Created by arouani277 on 02/05/16.
  */
 public class CTestsBoby {
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+/*
         CTurretEntity c1 = new CTurretEntity
                 .CTurretBuilder(78678687).level(10).damage(10).lifeTime(1111)
                 .energy(150).energyMax(200).latitude(10.5)
@@ -45,6 +52,26 @@ public class CTestsBoby {
 
         CSkillEntity csk = new CSkillEntity.CSkillBuilder(5).cost(140).level(10).name("ntm").build();
         System.out.println(csk.toString());
+*/
+        Client c = Client.create();
+        WebResource mWebResource = c.resource(CServer.BASE_URI);
+        ObjectMapper mMapper = new ObjectMapper();
+
+        CTeamEntity lTeamToPost = new CTeamEntity.CTeamBuilder(150).color("vert").build();
+        String lJsonTeam = mMapper.writeValueAsString(lTeamToPost);
+        ClientResponse lResponse = mWebResource.path("/teams").type("application/json").accept("application/json").post(ClientResponse.class, lJsonTeam);
+
+        CTeamEntity cTeamEntity = mMapper.readValue(mWebResource.path("teams/150").get(String.class), CTeamEntity.class);
+        System.out.println(cTeamEntity.toString());
+
+
+        CTurretEntity lTurretPost = new CTurretEntity
+                .CTurretBuilder(151).level(10).build();
+        String lJsonTurret = mMapper.writeValueAsString(lTurretPost);
+
+        lResponse = mWebResource.path("/turrets").type("application/json").accept("application/json").post(ClientResponse.class, lJsonTurret);
+        System.out.println(lResponse.getStatus());
+
 
     }
 }

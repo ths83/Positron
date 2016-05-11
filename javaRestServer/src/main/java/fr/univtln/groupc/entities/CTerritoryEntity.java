@@ -36,9 +36,15 @@ public class CTerritoryEntity implements Serializable {
 
     public static class CTerritoryBuilder{
         private int mId;
+        private List<CFieldEntity> mFields = new ArrayList<CFieldEntity>();
 
         public CTerritoryBuilder(int pId) {
             mId = pId;
+        }
+
+        public CTerritoryBuilder fields(List<CFieldEntity> pFields) {
+            mFields = pFields;
+            return this;
         }
 
         public CTerritoryEntity build(){
