@@ -31,7 +31,7 @@ public class CLinkEntity implements Serializable{
         return "CLinkEntity{" +
                 "mId=" + mId +
                 ", mField=" + mField +
-                ", mPortals=" + mPortals +
+                //", mPortals=" + mPortals +
                 '}';
     }
 

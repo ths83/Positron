@@ -23,12 +23,13 @@ public class CPlayerService {
     @POST
     @Consumes("application/json")
     public Response createPlayer(String pPlayerJson){
+        CPlayerEntity lPlayer = null;
         try {
-            CPlayerEntity lPlayer = mMapper.readValue(pPlayerJson, CPlayerEntity.class);
+            lPlayer = mMapper.readValue(pPlayerJson, CPlayerEntity.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mCrudMethods.create(pPlayerJson);
+        mCrudMethods.create(lPlayer);
         return Response.status(201).entity(pPlayerJson).build();
     }
 

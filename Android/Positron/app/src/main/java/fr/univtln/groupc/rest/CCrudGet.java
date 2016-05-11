@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -24,7 +25,8 @@ import fr.univtln.groupc.entities.CPortalEntity;
  */
 public class CCrudGet extends AsyncTask<String,String,String> {
 
-    public final static String apiURL = "http://10.9.185.57:9998";
+    //public final static String apiURL = "http://10.9.185.57:9998";
+    public final static String apiURL = "http://10.21.174.206:9998";
 
     /*
          * Permet de faire les GET de rest.
@@ -69,6 +71,8 @@ public class CCrudGet extends AsyncTask<String,String,String> {
             Log.d("test", "62");
             Log.d("test", " -> " + lPortalsJson);
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+            //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
+
             Log.d("test", "_>>" + lPortals.get(0).getId());
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -78,7 +82,7 @@ public class CCrudGet extends AsyncTask<String,String,String> {
         catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("hello" + lPortals);
+        //System.out.println("hello" + lPortals);
         return lPortals;
     }
 
