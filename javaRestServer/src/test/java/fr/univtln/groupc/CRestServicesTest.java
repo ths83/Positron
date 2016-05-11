@@ -167,7 +167,7 @@ public class CRestServicesTest extends TestCase {
 */
 
     // Tests CRUD CTurrentService OFF
-
+/*
     public void testPostCTurretService() throws Exception {
 
         CTurretEntity lTurretPost = new CTurretEntity
@@ -189,7 +189,7 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/turrets/150").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-
+*/
 
 
 /*
