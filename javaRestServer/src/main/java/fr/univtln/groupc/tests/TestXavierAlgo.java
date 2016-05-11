@@ -76,11 +76,11 @@ public class TestXavierAlgo {
         else{
             System.out.println("Croisement");
         }
-        CPortalEntity PG1=new CPortalEntity.CPortalBuilder(1001).latitude(0.102).longitude(0.101).build();
+        CPortalEntity PG1=new CPortalEntity.CPortalBuilder(1001).latitude(1.02).longitude(1.01).build();
 
-        CPortalEntity PG2=new CPortalEntity.CPortalBuilder(1002).latitude(1002).longitude(0.103).build();
+        CPortalEntity PG2=new CPortalEntity.CPortalBuilder(1002).latitude(1002).longitude(1.03).build();
 
-        CPortalEntity PG3=new CPortalEntity.CPortalBuilder(1003).latitude(0.104).longitude(1003).build();
+        CPortalEntity PG3=new CPortalEntity.CPortalBuilder(1003).latitude(1.04).longitude(1003).build();
 
         List<CPortalEntity> PortalGRos1 = new ArrayList<>();
         PortalGRos1.add(PG1);
@@ -106,8 +106,10 @@ public class TestXavierAlgo {
         lLinks.add(GrosFieldLink.get(2));
         CFieldEntity GroField = new CFieldEntity.CFieldBuilder(4000).links(GrosFieldLink).build();
 
-        System.out.println(("WOOT :\n "+lLinks));
-
+        for(CLinkEntity lL : lLinks) {
+            System.out.println(("Liste : " + lL.getId() ));
+        }
+        System.out.println("\n");
         System.out.println(" \n\n\nListe de lien a suprimer:" + CAlgorithm.detectInternalLink(GroField, lLinks));
 
     }

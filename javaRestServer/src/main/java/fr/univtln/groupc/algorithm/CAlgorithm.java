@@ -208,18 +208,22 @@ public class CAlgorithm {
 
             if(lLinkVerified.getId()!= pFieldCreated.getmLinks().get(0).getId() && lLinkVerified.getId()!= pFieldCreated.getmLinks().get(1).getId() && lLinkVerified.getId()!= pFieldCreated.getmLinks().get(2).getId()) {
 
-                for (li = 0; li < 3; li++) {
+                for (li = 0; li < 2; li++) {
                     for (lu = 0; lu < 2; lu++) {
                         if (lu == 0) {
                             lLinkVector[li][lu] = lLinkVerified.getPortals().get(0).getLong() - pFieldCreated.getmLinks().get(li).getPortals().get(0).getLong();
+                            System.out.println("Verified Portail: "+lLinkVerified.getPortals().get(0).getLong()+" - created "+pFieldCreated.getmLinks().get(li).getPortals().get(0).getLong());
+                            System.out.println("lVec "+lLinkVector[li][lu]);
                         } else {
                             lLinkVector[li][lu] = lLinkVerified.getPortals().get(0).getLat() - pFieldCreated.getmLinks().get(li).getPortals().get(0).getLat();
+                            System.out.println("Verified Portail: "+lLinkVerified.getPortals().get(0).getLat()+" - created "+pFieldCreated.getmLinks().get(li).getPortals().get(0).getLat());
+                            System.out.println("lVec "+lLinkVector[li][lu]);
                         }
                     }
                 }
 
 
-                for (li = 0; li < 3; li++) {
+                for (li = 0; li < 2; li++) {
 
                     det[li] = lFieldVector[li][0] * lLinkVector[li][1] - lFieldVector[li][1] * lLinkVector[li][0];
                 }

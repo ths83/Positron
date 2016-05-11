@@ -77,6 +77,8 @@ public class CLinkService {
                 mCrudMethods.create(lField);
                 for (CLinkEntity lLinkInField : lField.getLinks()){
                     mCrudMethods.update(lLinkInField);
+                    // Ligne pour suprimer un id
+                    //mCrudMethods.delete(CLinkEntity.class,ID);
                 }
             }
 
