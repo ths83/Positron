@@ -63,7 +63,7 @@ public class CRestServicesTest extends TestCase {
         resonators.add(cr);
         */
         CPortalEntity lPortalPost = new CPortalEntity.CPortalBuilder(150).latitude(10).longitude(5.2).build();
-        mJson= mMapper.writeValueAsString(lPortalPost);
+        mJson = mMapper.writeValueAsString(lPortalPost);
         lResponse = mWebResource.path("/portals").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
     }
@@ -120,7 +120,9 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/territories/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-    // Tests CRUD StatsBuildingAttackedService
+}
+    /*
+    // Tests CRUD StatsBuildingAttackedService OFF
 
     public void testPostStatsBuildingAttackedService() throws Exception {
 
@@ -142,7 +144,7 @@ public class CRestServicesTest extends TestCase {
     }
 
 }
-
+*/
 
     // Tests CRUD CSkillService OFF
 /*
