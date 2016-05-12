@@ -101,6 +101,7 @@ public class TestNicolas2 {
         ClientResponse lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
 
 
+        //creation d'un autre field et supression de l'autre
 
     }
 }

@@ -53,6 +53,7 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
 
 
         public CFieldBuilder(int pId) {
+
             mId = pId;
         }
 

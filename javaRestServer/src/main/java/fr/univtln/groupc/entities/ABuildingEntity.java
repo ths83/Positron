@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "t_building", schema = "positron")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
 @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
 public class ABuildingEntity extends AObjectEntity implements Serializable {

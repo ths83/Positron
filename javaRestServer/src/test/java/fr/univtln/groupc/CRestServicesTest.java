@@ -9,6 +9,9 @@ import fr.univtln.groupc.server.CServer;
 import fr.univtln.groupc.stats.CStatsBuildingsAttacked;
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by marti on 06/05/2016.
  */
@@ -30,6 +33,7 @@ public class CRestServicesTest extends TestCase {
 
     public void testGetTeamService() throws Exception {
         CTeamEntity lTeamEntity = mMapper.readValue(mWebResource.path("teams/150").get(String.class), CTeamEntity.class);
+        System.out.println(lTeamEntity);
         assertEquals(lTeamEntity.getColor(), "vert");
     }
 
@@ -44,7 +48,7 @@ public class CRestServicesTest extends TestCase {
     public void testPostPortalService() throws Exception {
         // ne marche pas avec des dépendances...
 
-        /*
+
         CTurretEntity c1 = new CTurretEntity
                 .CTurretBuilder(78678687).level(10).damage(10).lifeTime(1111)
                 .energy(150).energyMax(200).latitude(10.5)
@@ -61,8 +65,9 @@ public class CRestServicesTest extends TestCase {
 
         List<CResonatorEntity> resonators = new ArrayList<CResonatorEntity>();
         resonators.add(cr);
-        */
-        CPortalEntity lPortalPost = new CPortalEntity.CPortalBuilder(150).latitude(10).longitude(5.2).build();
+
+
+        CPortalEntity lPortalPost = new CPortalEntity.CPortalBuilder(150).latitude(10).longitude(5.2).resonators(resonators).build();
         mJson = mMapper.writeValueAsString(lPortalPost);
         lResponse = mWebResource.path("/portals").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
@@ -89,6 +94,8 @@ public class CRestServicesTest extends TestCase {
 
         assertEquals(lResponse.getStatus(), 201);
     }
+
+
 
     public void testGetPlayerService() throws Exception {
         CPlayerEntity lPlayerEntity = mMapper.readValue(mWebResource.path("/players/78678").get(String.class), CPlayerEntity.class);
@@ -120,7 +127,7 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/territories/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-}
+
     /*
     // Tests CRUD StatsBuildingAttackedService OFF
 
@@ -150,19 +157,19 @@ public class CRestServicesTest extends TestCase {
 /*
     public void testPostSkillService() throws Exception {
 
-        CSkillEntity lSkillEntity = new CSkillEntity.CSkillBuilder(1).cost(5).level(10).name("rogue").build();
-        String lJsonEntity= mMapper.writeValueAsString(lSkillEntity);
-        lResponse = mWebResource.path("/skills").type("application/json").accept("application/json").post(ClientResponse.class, lSkillEntity);
+        CSkillEntity lSkillEntity = new CSkillEntity.CSkillBuilder(66).cost(5).level(10).name("rogue").build();
+        mJson = mMapper.writeValueAsString(lSkillEntity);
+        lResponse = mWebResource.path("/skills").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
     }
 
     public void testGetSkillService() throws Exception {
-        CSkillEntity lSkillEntity = mMapper.readValue(mWebResource.path("/skills/1").get(String.class), CSkillEntity.class);
+        CSkillEntity lSkillEntity = mMapper.readValue(mWebResource.path("/skills/66").get(String.class), CSkillEntity.class);
         assertEquals(lSkillEntity.getId(), 1);
     }
 
     public void testDeleteSkillService() throws Exception {
-        ClientResponse clientResponse = mWebResource.path("/skills/1").type("application/json").accept("application/json").delete(ClientResponse.class);
+        ClientResponse clientResponse = mWebResource.path("/skills/66").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
 */
@@ -253,6 +260,4 @@ public class CRestServicesTest extends TestCase {
         assertEquals(lResponse.getStatus(), 200);
     }*/
 
-
-
-
+}

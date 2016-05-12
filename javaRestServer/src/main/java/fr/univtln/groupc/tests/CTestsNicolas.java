@@ -14,8 +14,16 @@ public class CTestsNicolas {
     public static void main(String[] args) {
         CCrudMethods lCrud = new CCrudMethods();
         CTeamEntity lTeam1 = new CTeamEntity.CTeamBuilder(1).color("red").build();
+
         CPlayerEntity lPlayer1 = new CPlayerEntity.CPlayerBuilder(1).email("martinez1nicolas@gmail.com")
-        .nickname("nicolas").team(lTeam1).bagSize(15).longitude(5.75).latitude(43.133).xp(280).energy(180).energyMax(230).build();
+        .nickname("nicolas").team(lTeam1).bagSize(15).longitude(6.016560).latitude(43.136466).xp(280).energy(180).energyMax(230).build();
+
+        CPlayerEntity lPlayer2 = new CPlayerEntity.CPlayerBuilder(2).email("martinez1nicolas@gmail.com")
+                .nickname("martinez").team(lTeam1).bagSize(15).longitude(6.020808).latitude(43.136434).xp(280).energy(180).energyMax(230).build();
+
+        CPlayerEntity lPlayer3 = new CPlayerEntity.CPlayerBuilder(3).email("martinez1nicolas@gmail.com")
+                .nickname("martinez").team(lTeam1).bagSize(15).longitude(6.017719).latitude(43.137476).xp(280).energy(180).energyMax(230).build();
+
         System.out.println(lTeam1);
         System.out.println(lPlayer1);
         CTeamEntity lTeam2 = new CTeamEntity.CTeamBuilder(2).color("blue").build();
@@ -33,6 +41,8 @@ public class CTestsNicolas {
         lCrud.create(lTeam1);
         System.out.println("team 1 persistee");
         lCrud.create(lPlayer1);
+        lCrud.create(lPlayer2);
+        lCrud.create(lPlayer3);
         System.out.println("team 2 persistee");
 
         lCrud.create(lTeam2);
@@ -58,14 +68,13 @@ public class CTestsNicolas {
         CPlayerEntity lPlayerGotten = lCrud.find(CPlayerEntity.class, 1);
         System.out.println(lPlayerGotten);
 */
-        CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(1).latitude(43.1748).longitude(5.6045).team(lTeam1).build();
-        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2).latitude(43.1263).longitude(5.5845).team(lTeam2).build();
+        CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(1).latitude(43.137274).longitude(6.015640).team(lTeam1).build();
+        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2).latitude(43.137274).longitude(6.016558).team(lTeam1).build();
+        CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(3).latitude(43.136577).longitude(6.016223).team(lTeam1).build();
 
-        CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(3).latitude(43.1863).longitude(6.0021).team(lTeam1).build();
-        CPortalEntity lPortal4 = new CPortalEntity.CPortalBuilder(4).latitude(43.1957).longitude(5.7852).team(lTeam2).build();
-
-        CPortalEntity lPortal5 = new CPortalEntity.CPortalBuilder(5).latitude(43.1958).longitude(5.8932).team(lTeam1).build();
-        CPortalEntity lPortal6 = new CPortalEntity.CPortalBuilder(6).latitude(43.1879).longitude(5.9781).team(lTeam2).build();
+        CPortalEntity lPortal4 = new CPortalEntity.CPortalBuilder(4).latitude(43.137136).longitude(6.018718).team(lTeam2).build();
+        CPortalEntity lPortal5 = new CPortalEntity.CPortalBuilder(5).latitude(43.137261).longitude(6.019610).team(lTeam2).build();
+        CPortalEntity lPortal6 = new CPortalEntity.CPortalBuilder(6).latitude(43.137261).longitude(6.019477).team(lTeam2).build();
 
         lCrud.create(lPortal1);
         lCrud.create(lPortal2);

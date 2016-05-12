@@ -11,6 +11,7 @@ import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.server.CServer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,56 +21,187 @@ import java.util.List;
 public class CTestXavier {
 
     public static void main(String[] args) {
-        Client c = Client.create();
-        WebResource mWebResource = c.resource(CServer.BASE_URI);
-        ObjectMapper mMapper = new ObjectMapper();
-        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 
         CCrudMethods lCrud = new CCrudMethods();
 
-        CPortalEntity lP1 = new CPortalEntity.CPortalBuilder(123).latitude(1.0).longitude(1.0).build();
-        CPortalEntity lP2 = new CPortalEntity.CPortalBuilder(234).latitude(2.0).longitude(2.0).build();
-        CPortalEntity lP3 = new CPortalEntity.CPortalBuilder(345).latitude(1.0).longitude(2.0).build();
+        Client c = Client.create();
+        WebResource webResource = c.resource(CServer.BASE_URI);
+        String lJson = webResource.path("/portals").get(String.class);
+        List<CPortalEntity> lPortals = null;
 
-        List<CPortalEntity> lPortals1 = new ArrayList<>();
-        lPortals1.add(lP1);
-        lPortals1.add(lP2);
-
-        List<CPortalEntity> lPortals2 = new ArrayList<>();
-        lPortals2.add(lP2);
-        lPortals2.add(lP3);
-
-
-        CLinkEntity lL1= new CLinkEntity.CLinkBuilder(123).portals(lPortals1).build();
-        CLinkEntity lL2= new CLinkEntity.CLinkBuilder(124).portals(lPortals2).build();
-
-
-        lCrud.create(lP1);
-        lCrud.create(lP2);
-        lCrud.create(lP3);
-        lCrud.create(lL1);
-        lCrud.create(lL2);
-
-
-        List<CPortalEntity> lPortals3 = new ArrayList<>();
-        lPortals3.add(lP1);
-        lPortals3.add(lP3);
-        CLinkEntity lL3= new CLinkEntity.CLinkBuilder(123).portals(lPortals3).build();
-        System.out.println(lL3);
-
-        //lCrud.create(lL3);
-
-        String lLinkJson = null;
+        ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         try {
-            lLinkJson = mMapper.writeValueAsString(lL3);
+            lPortals = lMapper.readValue(lJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //lPortals = lMapper.readValue(lJson, List.class);
+        System.out.println(lPortals);
+
+        for (CPortalEntity lPort : lPortals){
+            System.out.println(lPort.getId());
+        }
+
+        CPortalEntity lPortalDeTest1 = new CPortalEntity.CPortalBuilder(1000).longitude(1000).latitude(2000).build();
+        CPortalEntity lPortalDeTest2 = new CPortalEntity.CPortalBuilder(1001).longitude(3001).latitude(2002).build();
+        CPortalEntity lPortalDeTest3 = new CPortalEntity.CPortalBuilder(1002).longitude(2001).latitude(110).build();
+  /*      CPortalEntity lPortalDeTest4 = new CPortalEntity.CPortalBuilder(1003).longitude(1002).latitude(1201).build();
+        CPortalEntity lPortalDeTest5 = new CPortalEntity.CPortalBuilder(1004).longitude(801).latitude(602).build();
+        CPortalEntity lPortalDeTest6 = new CPortalEntity.CPortalBuilder(1005).longitude(1201).latitude(604).build();
+*/
+        CPortalEntity lPortalDeTest4 = new CPortalEntity.CPortalBuilder(1010).longitude(10020).latitude(12010).build();
+        CPortalEntity lPortalDeTest5 = new CPortalEntity.CPortalBuilder(1011).longitude(8010).latitude(6020).build();
+        CPortalEntity lPortalDeTest6 = new CPortalEntity.CPortalBuilder(1012).longitude(12010).latitude(6040).build();
+
+        CPortalEntity lPortalDeTest7 = new CPortalEntity.CPortalBuilder(1020).longitude(100300).latitude(120300).build();
+        CPortalEntity lPortalDeTest8 = new CPortalEntity.CPortalBuilder(1021).longitude(100200).latitude(120100).build();
+        CPortalEntity lPortalDeTest9 = new CPortalEntity.CPortalBuilder(1030).longitude(80100).latitude(60200).build();
+        CPortalEntity lPortalDeTest10 = new CPortalEntity.CPortalBuilder(1031).longitude(120100).latitude(60400).build();
+
+
+        lCrud.create(lPortalDeTest1);
+        lCrud.create(lPortalDeTest2);
+        lCrud.create(lPortalDeTest3);
+        lCrud.create(lPortalDeTest4);
+        lCrud.create(lPortalDeTest5);
+        lCrud.create(lPortalDeTest6);
+        lCrud.create(lPortalDeTest7);
+        lCrud.create(lPortalDeTest8);
+        lCrud.create(lPortalDeTest9);
+        lCrud.create(lPortalDeTest10);
+
+        List<CPortalEntity> lList1_1 = new ArrayList<>();
+        lList1_1.add(lPortalDeTest1);
+        lList1_1.add(lPortalDeTest2);
+
+        List<CPortalEntity> lList1_2 = new ArrayList<>();
+        lList1_2.add(lPortalDeTest2);
+        lList1_2.add(lPortalDeTest3);
+
+        List<CPortalEntity> lList1_3 = new ArrayList<>();
+        lList1_3.add(lPortalDeTest3);
+        lList1_3.add(lPortalDeTest1);
+
+        List<CPortalEntity> lList2_1 = new ArrayList<>();
+        lList2_1.add(lPortalDeTest4);
+        lList2_1.add(lPortalDeTest5);
+
+        List<CPortalEntity> lList2_2 = new ArrayList<>();
+        lList2_2.add(lPortalDeTest5);
+        lList2_2.add(lPortalDeTest6);
+
+        List<CPortalEntity> lList2_3 = new ArrayList<>();
+        lList2_3.add(lPortalDeTest6);
+        lList2_3.add(lPortalDeTest4);
+
+        List<CPortalEntity> lList3_1 = new ArrayList<>();
+        lList2_1.add(lPortalDeTest7);
+        lList2_1.add(lPortalDeTest8);
+
+        List<CPortalEntity> lList4_2 = new ArrayList<>();
+        lList2_2.add(lPortalDeTest9);
+        lList2_2.add(lPortalDeTest10);
+
+        CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder(101).portals(lList1_1).build();
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(102).portals(lList1_2).build();
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(103).portals(lList1_3).build();
+        CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder(111).portals(lList2_1).build();
+        CLinkEntity lLink5 = new CLinkEntity.CLinkBuilder(112).portals(lList2_2).build();
+        CLinkEntity lLink6 = new CLinkEntity.CLinkBuilder(113).portals(lList2_3).build();
+        CLinkEntity lLink7 = new CLinkEntity.CLinkBuilder(120).portals(lList2_2).build();
+        CLinkEntity lLink8 = new CLinkEntity.CLinkBuilder(130).portals(lList2_3).build();
+
+
+
+
+        String lJsonLinkToPost = null;
+
+
+        System.out.println("Creation lien 1");
+        try {
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink1);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println(lLinkJson);
-        ClientResponse lResponse = mWebResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lLinkJson);
+
+        ClientResponse lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
+/*
+        /////////////////////////////////////
+        System.out.println("Creation lien 7");
+        try {
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink7);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
 
 
+        /////////////////////////////////////
+        System.out.println("Creation lien 8");
+        try {
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink8);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
+
+        /////////////////////////////////////
+        System.out.println("Creation lien 2");
+        try {
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink2);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
+        /////////////////////////////////////
+        System.out.println("Creation lien 3");
+        try {
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink3);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
+        ///////////////////////////////////////
+        System.out.println("Creation lien 4");
+        try {
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink4);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
+
+        ////////////////////////////////////
+        System.out.println("Creation lien 5");
+        try {
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink5);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
+        ////////////////////////////////////
+        System.out.println("Creation lien 6 & Field");
+        try {
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink6);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
+*/
 
     }
+
 
 }
