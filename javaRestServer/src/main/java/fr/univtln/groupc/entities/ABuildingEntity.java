@@ -1,5 +1,8 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,6 +12,9 @@ import java.io.Serializable;
 @Entity
 @Table(name = "t_building", schema = "positron")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
+@JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
 public class ABuildingEntity extends AObjectEntity implements Serializable {
     @Column(name = "long")
     private double mLong;

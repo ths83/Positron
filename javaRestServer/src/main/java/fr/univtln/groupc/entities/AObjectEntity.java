@@ -1,6 +1,8 @@
 package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,8 +14,11 @@ import java.io.Serializable;
 @Entity
 @Table(name = "t_object", schema = "positron")
 @NamedQueries(@NamedQuery(name = AObjectEntity.GET_OBJECT_BY_PLAYER, query = "select p.mObjects from CPlayerEntity p where p.mId=:id"))
-@JsonSubTypes({@JsonSubTypes.Type(value = ABuildingEntity.class, name = "building"),
-@JsonSubTypes.Type(value = CConsumableEntity.class, name = "consumable")})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
+        @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity"),
+@JsonSubTypes.Type(value = CConsumableEntity.class, name = "CConsumableEntity"),
+@JsonSubTypes.Type(value = CKeyEntity.class, name = "CKeyEntity")})
 public abstract class AObjectEntity implements Serializable {
     @Id
     @Column(name = "id")
