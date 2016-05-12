@@ -88,6 +88,7 @@ public class CPlayerEntity implements Serializable {
                 ", mEnergyMax=" + mEnergyMax +
                 ", mTeam=" + mTeam +
                 ", mSkills=" + mSkills +
+                ", mObjects=" + mObjects +
                 '}';
     }
 
