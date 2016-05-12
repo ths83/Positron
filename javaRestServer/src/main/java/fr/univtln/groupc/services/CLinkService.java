@@ -67,14 +67,15 @@ public class CLinkService {
                lListFieldToCreate.add( new CFieldEntity.CFieldBuilder(456).links(lLinkStorageField).build() );
             }
 
-            System.out.println("Pre trie: "+lListFieldToCreate);
+            //System.out.println("Pre trie: "+lListFieldToCreate);
             Collections.sort(lListFieldToCreate);
-            System.out.println("Aprés trie: " + lListFieldToCreate);
+            //System.out.println("Aprés trie: " + lListFieldToCreate);
             System.out.println("Pre-CreationField");
 
             for(CFieldEntity lField : lListFieldToCreate){
                 System.out.println("!!!!" + lField + "!!!!");
                 mCrudMethods.create(lField);
+
                 for (CLinkEntity lLinkInField : lField.getLinks()){
                     mCrudMethods.update(lLinkInField);
                     // Ligne pour suprimer un id
