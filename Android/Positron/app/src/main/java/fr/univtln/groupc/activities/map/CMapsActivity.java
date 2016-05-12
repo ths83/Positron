@@ -21,7 +21,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -32,7 +31,9 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.rest.CCrudGet;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -41,7 +42,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
     //public static final String PORTALS_URL = "http://localhost:9998/portals/";
-    public static final String apiUrl = "http://10.0.3.2:9998";
+    //public static final String apiUrl = "http://10.0.3.2:9998";
 
     private GoogleMap mMap;
     private LocationManager mLocationManager;
@@ -54,7 +55,13 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private List<LatLng> mTmpLink = new ArrayList<>();
 
     private Marker mMarkerPortalAttr;
+    private LatLng mMarkerUserSelected;
     private LatLng mLatLng2;
+
+    private List<CResonatorEntity> mClickPortalResonator;
+    private List<AObjectEntity> mClickPortalObject;
+    private String mResonatorString;
+    private String mObjectString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +94,18 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(8f));
 
-        
+
 
         // Portals from database with REST
-        List<CPortalEntity> lPortals = new CCrudGet().getPortalsRest();
+        final List<CPortalEntity> lPortals = new CCrudGet().getPortalsRest();
         Log.d("test", "salut : -> " + lPortals.size());
         for (CPortalEntity lPortal : lPortals){
             Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(lPortal.getLat(),lPortal.getLong()))
+                    .title(lPortal.getObjects().toString()));
         }
+        //Toast.makeText(getBaseContext(),lPortals.toString(),Toast.LENGTH_LONG).show();
 
         // Location Service
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -116,7 +127,38 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
             @Override
             public boolean onMarkerClick(Marker marker) {
-                // display tests for portals attr
+
+                // new tests with objects
+                for (CPortalEntity lPortal : lPortals){
+                    Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
+                    mMarkerUserSelected = new LatLng(lPortal.getLat(),lPortal.getLong());
+                    if (mMarkerUserSelected.equals(marker.getPosition())){
+                        mClickPortalResonator = lPortal.getResonators();
+                        mClickPortalObject = lPortal.getObjects();
+                        Log.d("test", "-> test");
+                        //mResonatorString += mClickPortalObject.toString();
+                        // resonators
+                        /*for (CResonatorEntity lR : mClickPortalResonator){
+                            //Log.d("test", "-> test2");
+                            mResonatorString += lR.toString();
+                            //Log.d("test", "-> " + lR.toString());
+                        }*/
+                        // objets
+                        for (AObjectEntity lA : mClickPortalObject){
+
+                            mObjectString += lA.toString();
+                            Log.d("test", "- > " + lA.toString());
+
+                        }
+                        Log.d("test", "-> test3");
+                        Toast.makeText(getBaseContext(),/*mResonatorString + " " +*/ mObjectString,Toast.LENGTH_LONG).show();
+                        //Log.d("test", "-> " + /*mResonatorString + " " + */mObjectString);
+
+                    }
+
+                }
+
+                /*// display tests for portals attr
                 mLatLng = marker.getPosition();
                 mLatLng2 = new LatLng(mLatLng.latitude + 0.0001, mLatLng.longitude + 0.0001);
                 mCircleMarker = mMap.addCircle(new CircleOptions().center(mLatLng)
@@ -146,7 +188,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 mLatLng2 = new LatLng(mLatLng.latitude - 0.0001, mLatLng.longitude + 0.0);
                 mMarkerPortalAttr = mMap.addMarker(new MarkerOptions()
                         .position(mLatLng2)
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.camred)));
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.camred)));*/
 
                 return false;
             }
