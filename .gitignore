@@ -4,7 +4,6 @@ target/
 .settings/
 Thumbs.db
 
-<<<<<<< HEAD
 # built application files
 *.apk
 *.ap_
