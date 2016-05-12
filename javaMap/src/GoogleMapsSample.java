@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -15,50 +17,59 @@ https://developers.google.com/maps/documentation/static-maps/
 */
 
 public class GoogleMapsSample {
-    public static void main(String[] args) throws IOException {
-        JFrame test = new JFrame("Google Maps");
+
+    public static void generateMap(JFrame test, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals){
 
         try {
             String imageUrl =
                     // Lien api pour pouvoir afficher la map
                     "https://maps.googleapis.com/maps/api/staticmap?" +
+                            // centrage map
+                            "center=43.136436,6.018022&zoom=16&" +
+                            // taille fenêtre
+                            "size=600x600&";
 
-                    // centrage map
-                    "center=43.136436,6.018022&zoom=16&" +
+            // joueurs team bleu
+            for (String player : pBluePlayers) {
+                imageUrl = imageUrl + "markers=size:tiny%7Ccolor:blue%7Clabel:P%7C"+player+"&";
+            }
 
-                    // taille fenêtre
-                    "size=600x600&" +
+            // joueurs team rouge
+            for (String player : pRedPlayers) {
+                imageUrl = imageUrl + "markers=size:tiny%7Ccolor:red%7Clabel:P%7C"+player+"&";
+            }
 
-                    // joueurs team bleu
-                    "markers=size:tiny%7Ccolor:blue%7Clabel:P%7C43.136466,6.016560&" +
-                    "markers=size:tiny%7Ccolor:blue%7Clabel:P%7C43.137476,6.017719&" +
+            // portails capturés team bleu
+            for (String portal : pBluePortals) {
+                imageUrl = imageUrl + "markers=color:blue%7Clabel:P%7C"+portal+"&";
+            }
 
-                    // joueurs team rouge
-                    "markers=size:tiny%7Ccolor:red%7Clabel:P%7C43.136434,6.020808&" +
+            // portails capturés team rouge
+            for (String portal : pRedPortals) {
+                imageUrl = imageUrl + "markers=color:red%7Clabel:P%7C"+portal+"&";
+            }
 
-                    // portails capturés team bleu
-                    "markers=color:blue%7Clabel:P%7C43.137274,6.015640&" +
-                    "markers=color:blue%7Clabel:P%7C43.137290,6.016558&" +
-                    "markers=color:blue%7Clabel:P%7C43.136577,6.016223&" +
-
+            imageUrl = imageUrl +
                     // On relie les portails bleu
-                    "path=color:0x0000ff|weight:5|43.137274,6.015640|43.137290,6.016558&"+
-                    "path=color:0x0000ff|weight:5|43.137290,6.016558|43.136577,6.016223&"+
-                    "path=color:0x0000ff|weight:5|43.137274,6.015640|43.136577,6.016223&"+
-
-                    // portails capturés team rouge
-                    "markers=color:red%7Clabel:P%7C43.137136,6.018718&" +
-                    "markers=color:red%7Clabel:P%7C43.137261,6.019610&" +
-                    "markers=color:red%7Clabel:P%7C43.136444,6.019477&" +
-
+                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(0)+"|"+pBluePortals.get(1)+"&"+
+                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(1)+"|"+pBluePortals.get(0)+"&"+
+                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(1)+"|"+pBluePortals.get(2)+"&"+
+                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(2)+"|"+pBluePortals.get(1)+"&"+
+                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(0)+"|"+pBluePortals.get(2)+"&"+
+                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(2)+"|"+pBluePortals.get(0)+"&"+
 
                     // On relie les portails rouge
-                    "path=color:0xff0000|weight:5|43.137136,6.018718|43.137261,6.019610&"+
-                    "path=color:0xff0000|weight:5|43.136444,6.019477|43.137136,6.018718&"+
-                    "path=color:0xff0000|weight:5|43.137261,6.019610|43.136444,6.019477&"+
 
-                    // API Key
-                    "maptype=roadmap&key=AIzaSyDFJqyWFbnya88SCV5Ezsrfnq9DEIVdT5c\n";
+                    "path=color:0xff0000|weight:5|"+pRedPortals.get(0)+"|"+pRedPortals.get(1)+"&"+
+                    "path=color:0xff0000|weight:5|"+pRedPortals.get(1)+"|"+pRedPortals.get(0)+"&"+
+                    "path=color:0xff0000|weight:5|"+pRedPortals.get(1)+"|"+pRedPortals.get(2)+"&"+
+                    "path=color:0xff0000|weight:5|"+pRedPortals.get(2)+"|"+pRedPortals.get(1)+"&"+
+                    "path=color:0xff0000|weight:5|"+pRedPortals.get(0)+"|"+pRedPortals.get(2)+"&";
+
+
+            // API Key
+            String Key = "maptype=roadmap&key=AIzaSyDFJqyWFbnya88SCV5Ezsrfnq9DEIVdT5c\n";
+            imageUrl = imageUrl + Key;
 
             // image dans laquelle on va afficher la map
             String destinationFile = "image.jpg";
@@ -98,9 +109,38 @@ public class GoogleMapsSample {
                         "Are you sure to close this window?", "Really Closing?",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                    test.dispose();
                     System.exit(0);
                 }
             }
         });
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        JFrame test = new JFrame("Google Maps");
+
+        List<String> bluePlayers = new ArrayList();
+        bluePlayers.add("43.136466,6.016560");
+        bluePlayers.add("43.137476,6.017719");
+
+        List<String> redPlayers = new ArrayList();
+        redPlayers.add("43.136434,6.020808");
+        redPlayers.add("43.136434,6.020777");
+        redPlayers.add("43.137290,6.016552");
+
+        List<String> bluePortals = new ArrayList();
+        bluePortals.add("43.137274,6.015640");
+        bluePortals.add("43.137290,6.016558");
+        bluePortals.add("43.136577,6.016223");
+
+
+        List<String> redPortals = new ArrayList();
+        redPortals.add("43.137136,6.018718");
+        redPortals.add("43.137261,6.019610");
+        redPortals.add("43.136444,6.019477");
+
+        GoogleMapsSample.generateMap(test, bluePlayers, redPlayers, bluePortals, redPortals);
+
     }
 }
