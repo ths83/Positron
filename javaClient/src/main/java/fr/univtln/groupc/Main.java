@@ -148,7 +148,7 @@ public class Main {
         JFrame test = new JFrame("Google Maps");
 
         // Rest Requests
-        System.out.println("salut bg");
+        System.out.println("main");
         Client c = Client.create();
         WebResource webResource = c.resource(CServer.BASE_URI);
         String lJson = webResource.path("/portals").get(String.class);

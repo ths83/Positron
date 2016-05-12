@@ -59,11 +59,11 @@ public class CTestsNicolas {
         System.out.println(lPlayerGotten);
 */
         CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(1).latitude(43.137274).longitude(6.015640).team(lTeam1).build();
-        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2).latitude(43.137274).longitude(6.016558).team(lTeam2).build();
+        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2).latitude(43.137274).longitude(6.016558).team(lTeam1).build();
         CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(3).latitude(43.136577).longitude(6.016223).team(lTeam1).build();
 
         CPortalEntity lPortal4 = new CPortalEntity.CPortalBuilder(4).latitude(43.137136).longitude(6.018718).team(lTeam2).build();
-        CPortalEntity lPortal5 = new CPortalEntity.CPortalBuilder(5).latitude(43.137261).longitude(6.019610).team(lTeam1).build();
+        CPortalEntity lPortal5 = new CPortalEntity.CPortalBuilder(5).latitude(43.137261).longitude(6.019610).team(lTeam2).build();
         CPortalEntity lPortal6 = new CPortalEntity.CPortalBuilder(6).latitude(43.137261).longitude(6.019477).team(lTeam2).build();
 
         lCrud.create(lPortal1);
