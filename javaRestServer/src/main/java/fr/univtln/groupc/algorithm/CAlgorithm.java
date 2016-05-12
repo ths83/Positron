@@ -22,11 +22,13 @@ public class CAlgorithm {
         double lDet[] = {0, 0, 0};
         int li;
         double lAx = 0, lBx = 0, lAy = 0, lBy = 0;
-
+        System.out.println("Detection colision field en cours ....");
         CFieldEntity lField;
         System.out.println(pListField);
+
         // On parcours la liste des territoire et on verrifie que le Portail portail n'est pas à l'interrieur.
-       if(pListField != null){
+
+
         while (lIterator.hasNext()) {
 
             lField = lIterator.next();
@@ -34,12 +36,13 @@ public class CAlgorithm {
             lDet[1] = 0;
             lDet[2] = 0;
 
-            System.out.println("Lfield= " + pListField.get(0));
 
             // Pour chaque territoire on calcule le déterminant pour chaque segment qui le constitue.
             for (li = 0; li < 3; li++) {
                 System.out.println("For li:" + li);
+                System.out.println("Lfield: "+lField.getmLinks());
                 lAx = lField.getmLinks().get(li).getPortals().get(0).getLong();
+
                 System.out.println("lAx =" + lAx);
                 lAy = lField.getmLinks().get(li).getPortals().get(0).getLat();
 
@@ -63,7 +66,8 @@ public class CAlgorithm {
                 return false;
             }
         }
-    }
+
+
         // Si on sort de la boucle c'est que le point n'est dans aucun territoire.
         return true;
 
@@ -173,9 +177,11 @@ public class CAlgorithm {
         double lPx=0,lPy=0,lFieldVector[][]={{0,0},{0,0},{0,0}},det[]={0,0,0},lLinkVector[][]={{0,0},{0,0},{0,0}};
         int li=0,lu=0;
 
+        System.out.println("lFielde[0][0] ="+ pFieldCreated.getmLinks().get(1).getPortals().get(0).getLong()+" - "+pFieldCreated.getmLinks().get(0).getPortals().get(0).getLong());
 
-        for(li=0;li<3;li++){
+        for(li=0;li<2;li++){
             for(lu=0;lu<2;lu++){
+
                 if(li==2){
 
                     if(lu==0){
@@ -193,31 +199,40 @@ public class CAlgorithm {
                         lFieldVector[li][lu]=pFieldCreated.getmLinks().get(li).getPortals().get(0).getLong()-pFieldCreated.getmLinks().get(0).getPortals().get(0).getLat();
                     }
                 }
+                System.out.println("lFieldVector["+li+"]["+lu+"] = "+lFieldVector[li][lu]);
             }
+
         }
 
         for(CLinkEntity lLinkVerified : pLinkList){
 
             if(lLinkVerified.getId()!= pFieldCreated.getmLinks().get(0).getId() && lLinkVerified.getId()!= pFieldCreated.getmLinks().get(1).getId() && lLinkVerified.getId()!= pFieldCreated.getmLinks().get(2).getId()) {
 
-                for (li = 0; li < 3; li++) {
+                for (li = 0; li < 2; li++) {
                     for (lu = 0; lu < 2; lu++) {
                         if (lu == 0) {
                             lLinkVector[li][lu] = lLinkVerified.getPortals().get(0).getLong() - pFieldCreated.getmLinks().get(li).getPortals().get(0).getLong();
+                            System.out.println("Verified Portail: "+lLinkVerified.getPortals().get(0).getLong()+" - created "+pFieldCreated.getmLinks().get(li).getPortals().get(0).getLong());
+                            System.out.println("lVec "+lLinkVector[li][lu]);
                         } else {
                             lLinkVector[li][lu] = lLinkVerified.getPortals().get(0).getLat() - pFieldCreated.getmLinks().get(li).getPortals().get(0).getLat();
+                            System.out.println("Verified Portail: "+lLinkVerified.getPortals().get(0).getLat()+" - created "+pFieldCreated.getmLinks().get(li).getPortals().get(0).getLat());
+                            System.out.println("lVec "+lLinkVector[li][lu]);
                         }
                     }
                 }
 
 
-                for (li = 0; li < 3; li++) {
+                for (li = 0; li < 2; li++) {
 
                     det[li] = lFieldVector[li][0] * lLinkVector[li][1] - lFieldVector[li][1] * lLinkVector[li][0];
                 }
                 System.out.println(det[0] + "   " + det[1] + "   " + det[2]);
                 if (det[0] + det[1] + det[2] != 0) {
+
                     if (((det[0] <= 0 && det[1] <= 0 && det[2] <= 0) || (det[0] >= 0 && det[1] >= 0 && det[2] >= 0))) {
+                        System.out.println("On inejecte le Lien:");
+                        System.out.println("On inejecte le Lien:"+lLinkVerified.getId());
                         lInternalLinkList.add(lLinkVerified.getId());
                     }
                 }
@@ -226,7 +241,6 @@ public class CAlgorithm {
         return lInternalLinkList;
 
     }
-
 
 
     public static List<CLinkEntity> detecteNewFields(CLinkEntity pLinkCreated){
