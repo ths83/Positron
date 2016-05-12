@@ -1,5 +1,6 @@
 package fr.univtln.groupc;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
@@ -50,18 +51,53 @@ public class CSerializationTest extends TestCase {
         assertTrue("deserialisation object into consumable : OK", lDeserializedObject != null);
     }
 
+    public void testDeserializeAObjectEntityIntoCKeyEntity() throws Exception {
+        String lSerializedJsonObject = null;
+        AObjectEntity lDeserializedObject = null;
+        AObjectEntity lObject = new CKeyEntity.CKeyBuilder(1).name("le consommable").build();
+        lSerializedJsonObject = mMapper.writeValueAsString(lObject);
+        System.out.println("object serialized :\n" + lSerializedJsonObject);
+        lDeserializedObject = mMapper.readValue(lSerializedJsonObject, AObjectEntity.class);
+        System.out.println("object deserialized :\n" + lDeserializedObject);
+        assertTrue("deserialisation object into consumable : OK", lDeserializedObject != null);
+    }
+
+    public void testDeserializeListOfAObjectEntitiesContainingOnlyConsumables() throws Exception {
+        String lSerializedList = null;
+        AObjectEntity lConsumable1 = new CConsumableEntity.CConsumableBuilder(1).rarity(2).name("le consommable 1").build();
+        AObjectEntity lConsumable2 = new CConsumableEntity.CConsumableBuilder(2).rarity(3).name("le consommable 2").build();
+
+        List<AObjectEntity> lDeserializedList = new ArrayList<>();
+        List<AObjectEntity> lObjects = new ArrayList<>();
+        //CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(1).damage(15).level(12).name("la tourelle").build();
+        lObjects.add(lConsumable1);
+        lObjects.add(lConsumable2);
+        //lObjects.add(lTurret);
+        System.out.println("objects : \n" + lObjects);
+        //lSerializedList = mMapper.writeValueAsString(lObjects);
+        lSerializedList = mMapper.writerWithType(new TypeReference<List<AObjectEntity>>() {}).writeValueAsString(lObjects);
+        System.out.println("objects serialized\n" + lSerializedList);
+        lDeserializedList = mMapper.readValue(lSerializedList, mMapper.getTypeFactory().constructCollectionType(List.class, AObjectEntity.class));
+        System.out.println("objects deserialized\n" + lDeserializedList);
+        assertFalse(lDeserializedList == null);
+
+    }
+
+
     public void testDeserializeListOfAObjectEntitiesIntoTheSubclassMatching() throws Exception {
         String lSerializedList = null;
         List<AObjectEntity> lDeserializedList = new ArrayList<>();
         List<AObjectEntity> lObjects = new ArrayList<>();
-        CKeyEntity lKey = new CKeyEntity.CKeyBuilder(1).name("la clef").build();
-        CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder(1).rarity(3).name("le consommable").build();
+        AObjectEntity lKey = new CKeyEntity.CKeyBuilder(1).name("la clef").build();
+        AObjectEntity lConsumable = new CConsumableEntity.CConsumableBuilder(1).rarity(3).name("le consommable").build();
         //CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(1).damage(15).level(12).name("la tourelle").build();
         lObjects.add(lKey);
         lObjects.add(lConsumable);
         //lObjects.add(lTurret);
         System.out.println("objects : \n" + lObjects);
-        lSerializedList = mMapper.writeValueAsString(lObjects);
+        //lSerializedList = mMapper.writeValueAsString(lObjects);
+        lSerializedList = mMapper.writerWithType(new TypeReference<List<AObjectEntity>>() {}).writeValueAsString(lObjects);
+
         System.out.println("objects serialized\n" + lSerializedList);
         lDeserializedList = mMapper.readValue(lSerializedList, mMapper.getTypeFactory().constructCollectionType(List.class, AObjectEntity.class));
         System.out.println("objects deserialized\n" + lDeserializedList);
