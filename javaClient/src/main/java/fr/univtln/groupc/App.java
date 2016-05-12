@@ -1,5 +1,6 @@
 package fr.univtln.groupc;
 
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,6 +8,14 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.server.CServer;
 
 import javax.swing.*;
 
@@ -130,7 +139,26 @@ public class App {
         JFrame test = new JFrame("Google Maps");
 
         // Rest Requests
+        System.out.println("salut bg");
+        Client c = Client.create();
+        WebResource webResource = c.resource(CServer.BASE_URI);
+        String lJson = webResource.path("/portals").get(String.class);
+        List<CPortalEntity> lPortals = null;
 
+        ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+
+        try {
+            lPortals = lMapper.readValue(lJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (CPortalEntity cPortalEntity : lPortals){
+            System.out.println(cPortalEntity.toString());
+        }
+        /*
+        System.out.println("que se passe t il?");
         List<String> bluePlayers = new ArrayList();
         bluePlayers.add("43.136466,6.016560");
         bluePlayers.add("43.137476,6.017719");
@@ -151,6 +179,6 @@ public class App {
         redPortals.add("43.136444,6.019477");
 
         App.generateMap(test, bluePlayers, redPlayers, bluePortals, redPortals);
-
+*/
     }
 }
