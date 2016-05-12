@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -154,10 +155,6 @@ public class App {
             e.printStackTrace();
         }
 
-        for (CPortalEntity cPortalEntity : lPortals){
-            System.out.println(cPortalEntity.toString());
-        }
-        /*
         System.out.println("que se passe t il?");
         List<String> bluePlayers = new ArrayList();
         bluePlayers.add("43.136466,6.016560");
@@ -169,15 +166,33 @@ public class App {
         redPlayers.add("43.137290,6.016552");
 
         List<String> bluePortals = new ArrayList();
-        bluePortals.add("43.137274,6.015640");
-        bluePortals.add("43.137290,6.016558");
-        bluePortals.add("43.136577,6.016223");
-
         List<String> redPortals = new ArrayList();
         redPortals.add("43.137136,6.018718");
         redPortals.add("43.137261,6.019610");
         redPortals.add("43.136444,6.019477");
 
+        String redPortal;
+        String bluePortal;
+
+
+        for (CPortalEntity cPortalEntity : lPortals) {
+
+            if (cPortalEntity.getTeam() != null) {
+
+                if (Objects.equals(cPortalEntity.getTeam().getColor(), "red")) {
+
+                    redPortal = String.valueOf(cPortalEntity.getLat()) + "," + String.valueOf(cPortalEntity.getLong());
+                    redPortals.add(redPortal);
+                    System.out.println("ok");
+                } else if (Objects.equals(cPortalEntity.getTeam().getColor(), "red")) {
+                    bluePortal = String.valueOf(cPortalEntity.getLat()) + "," + String.valueOf(cPortalEntity.getLong());
+                    bluePortals.add(bluePortal);
+                }
+            }
+        }
+    }
+
+/*
         App.generateMap(test, bluePlayers, redPlayers, bluePortals, redPortals);
 */
     }
