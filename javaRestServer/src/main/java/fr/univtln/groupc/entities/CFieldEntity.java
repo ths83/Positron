@@ -22,6 +22,7 @@ import java.util.List;
 
 public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
     @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "field_id")
     private int mId;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -53,6 +54,7 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
 
 
         public CFieldBuilder(int pId) {
+
             mId = pId;
         }
 
