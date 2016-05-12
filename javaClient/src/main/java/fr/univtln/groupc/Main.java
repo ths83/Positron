@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.server.CServer;
 
@@ -28,10 +30,10 @@ https://developers.google.com/maps/documentation/static-maps/
 
 public class Main {
 
-    public static void generateMap(final JFrame test, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals) {
+    public static void generateMap(final JFrame pFest, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals) {
 
         try {
-            String imageUrl =
+            String lImageUrl =
                     // Lien api pour pouvoir afficher la map
                     "https://maps.googleapis.com/maps/api/staticmap?" +
                             // centrage map
@@ -42,160 +44,164 @@ public class Main {
             if (pBluePlayers != null) {
                 // joueurs team bleu
                 for (String player : pBluePlayers) {
-                    imageUrl = imageUrl + "markers=size:tiny%7Ccolor:blue%7Clabel:P%7C" + player + "&";
+                    lImageUrl = lImageUrl + "markers=size:tiny%7Ccolor:blue%7Clabel:P%7C" + player + "&";
                 }
             }
 
             if (pRedPlayers != null) {
                 // joueurs team rouge
                 for (String player : pRedPlayers) {
-                    imageUrl = imageUrl + "markers=size:tiny%7Ccolor:red%7Clabel:P%7C" + player + "&";
+                    lImageUrl = lImageUrl + "markers=size:tiny%7Ccolor:red%7Clabel:P%7C" + player + "&";
                 }
             }
 
             if (pBluePortals != null) {
                 // portails capturés team bleu
                 for (String portal : pBluePortals) {
-                    imageUrl = imageUrl + "markers=color:blue%7Clabel:P%7C" + portal + "&";
+                    System.out.println("add portail bleu lien" + portal);
+                    lImageUrl = lImageUrl + "markers=color:blue%7Clabel:P%7C" + portal + "&";
                 }
-                /*
-                imageUrl = imageUrl +
-                        // On relie les portails bleu
-                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(0) + "|" + pBluePortals.get(1) + "&" +
-                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(1) + "|" + pBluePortals.get(0) + "&" +
-                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(1) + "|" + pBluePortals.get(2) + "&" +
-                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(2) + "|" + pBluePortals.get(1) + "&" +
-                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(0) + "|" + pBluePortals.get(2) + "&" +
-                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(2) + "|" + pBluePortals.get(0) + "&";
-
-
-            */
             }
+
             if (pRedPortals != null) {
                 // portails capturés team rouge
                 for (String portal : pRedPortals) {
-                    imageUrl = imageUrl + "markers=color:red%7Clabel:P%7C" + portal + "&";
+                    System.out.println("add portail rouge au lien" + portal);
+                    lImageUrl = lImageUrl + "markers=color:red%7Clabel:P%7C" + portal + "&";
                 }
-                /*
-                // On relie les portails rouge
-                imageUrl = imageUrl +
-                        "path=color:0xff0000|weight:5|" + pRedPortals.get(0) + "|" + pRedPortals.get(1) + "&" +
-                        "path=color:0xff0000|weight:5|" + pRedPortals.get(1) + "|" + pRedPortals.get(0) + "&" +
-                        "path=color:0xff0000|weight:5|" + pRedPortals.get(1) + "|" + pRedPortals.get(2) + "&" +
-                        "path=color:0xff0000|weight:5|" + pRedPortals.get(2) + "|" + pRedPortals.get(1) + "&" +
-                        "path=color:0xff0000|weight:5|" + pRedPortals.get(0) + "|" + pRedPortals.get(2) + "&";
-                */
             }
 
 
-            // API Key
-            String Key = "maptype=roadmap&key=AIzaSyDFJqyWFbnya88SCV5Ezsrfnq9DEIVdT5c\n";
-            imageUrl = imageUrl + Key;
+            // API lKey
+            String lKey = "maptype=roadmap&key=AIzaSyDFJqyWFbnya88SCV5Ezsrfnq9DEIVdT5c\n";
+            lImageUrl = lImageUrl + lKey;
 
+            System.out.println(lImageUrl);
             // image dans laquelle on va afficher la map
-            String destinationFile = "image.jpg";
+            String lDestinationFile = "image.jpg";
 
-            String str = destinationFile;
-            URL url = new URL(imageUrl);
-            InputStream is = url.openStream();
-            OutputStream os = new FileOutputStream(destinationFile);
+            String lStr = lDestinationFile;
+            URL lUrl = new URL(lImageUrl);
+            InputStream lIs = lUrl.openStream();
+            OutputStream lOs = new FileOutputStream(lDestinationFile);
 
-            byte[] b = new byte[2048];
-            int length;
+            byte[] lB = new byte[2048];
+            int lLength;
 
-            // Ecris le contenu de la map généré via l'api is dans la nouvelle image os
-            while ((length = is.read(b)) != -1) {
-                os.write(b, 0, length);
+            // Ecris le contenu de la map généré via l'api lIs dans la nouvelle image lOs
+            while ((lLength = lIs.read(lB)) != -1) {
+                lOs.write(lB, 0, lLength);
             }
 
-            is.close();
-            os.close();
+            lIs.close();
+            lOs.close();
+
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }
 
         // une fois l'image os généré, on l'ajoute à un JLabel afin de l'afficher dans notre IHM
-        test.add(new JLabel(new ImageIcon((new ImageIcon("image.jpg")).getImage().getScaledInstance(630, 600,
+        pFest.add(new JLabel(new ImageIcon((new ImageIcon("image.jpg")).getImage().getScaledInstance(630, 600,
                 java.awt.Image.SCALE_SMOOTH))));
 
-        test.setVisible(true);
-        test.pack();
+        pFest.setVisible(true);
+        pFest.pack();
 
         // Demande de confirmation avant de fermer la fenêtre et tuer l'application
-        test.addWindowListener(new java.awt.event.WindowAdapter() {
+        pFest.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (JOptionPane.showConfirmDialog(test,
+                if (JOptionPane.showConfirmDialog(pFest,
                         "Are you sure to close this window?", "Really Closing?",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                    test.dispose();
+                    pFest.dispose();
                     System.exit(0);
                 }
             }
         });
     }
 
+
     public static void main(String[] args) throws IOException {
+
         JFrame test = new JFrame("Google Maps");
 
         // Rest Requests
-        System.out.println("salut bg");
+        System.out.println("main");
         Client c = Client.create();
         WebResource webResource = c.resource(CServer.BASE_URI);
         String lJson = webResource.path("/portals").get(String.class);
-        List<CPortalEntity> lPortals = null;
 
         ObjectMapper lMapper = new ObjectMapper();
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
+        lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+
+        List<CPortalEntity> lPortals = null;
+        List<CPlayerEntity> lPlayers = null;
+        ArrayList<String> lBluePortals = new ArrayList<String>();
+        ArrayList<String> lRedPortals = new ArrayList<String>();
+        ArrayList<String> lBluePlayers = new ArrayList<String>();
+        ArrayList<String> lRedPlayers = new ArrayList<String>();
 
         try {
             lPortals = lMapper.readValue(lJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+            lPlayers = lMapper.readValue(lJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPlayerEntity.class));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        ArrayList<String> bluePortals = new ArrayList<String>();
-        ArrayList<String> redPortals = new ArrayList<String>();
-
-        System.out.println("que se passe t il?");
-        ArrayList<String> bluePlayers = new ArrayList<String>();
-        bluePlayers.add("43.136466,6.016560");
-        bluePlayers.add("43.137476,6.017719");
-
-        ArrayList<String> redPlayers = new ArrayList<String>();
-        redPlayers.add("43.136434,6.020808");
-        redPlayers.add("43.136434,6.020777");
-        redPlayers.add("43.137290,6.016552");
-
         String redPortal;
         String bluePortal;
+        String redPlayer;
+        String bluePlayer;
 
+        // Récuperation des joueurs présents dans la BD via REST
+        for (CPlayerEntity lPlayerEntity : lPlayers){
+            if (lPlayerEntity.getTeam() != null){
+                if (Objects.equals(lPlayerEntity.getTeam().getColor(),"red")){
+                    redPlayer = String.valueOf(lPlayerEntity.getLat()) + "," + String.valueOf(lPlayerEntity.getLong());
+                    lRedPlayers.add(redPlayer);
+                    System.out.println("player rouge");
+                    System.out.println(redPlayer);
+                }
+                else if (Objects.equals(lPlayerEntity.getTeam().getColor(), "blue")) {
+                    bluePlayer = String.valueOf(lPlayerEntity.getLat()) + "," + String.valueOf(lPlayerEntity.getLong());
+                    lBluePlayers.add(bluePlayer);
+                    System.out.println("playerbleu");
+                    System.out.println(bluePlayer);
+                }
+            }
+        }
 
-        for (CPortalEntity cPortalEntity : lPortals) {
+        // Récuperation des portails présents dans la BD via REST
+        for (CPortalEntity lPortalEntity : lPortals) {
 
-            if (cPortalEntity.getTeam() != null) {
+            if (lPortalEntity.getTeam() != null) {
 
-                if (Objects.equals(cPortalEntity.getTeam().getColor(), "red")) {
-                    redPortal = String.valueOf(cPortalEntity.getLat()) + "," + String.valueOf(cPortalEntity.getLong());
-                    redPortals.add(redPortal);
+                if (Objects.equals(lPortalEntity.getTeam().getColor(), "red")) {
+                    redPortal = String.valueOf(lPortalEntity.getLat()) + "," + String.valueOf(lPortalEntity.getLong());
+                    lRedPortals.add(redPortal);
+                    System.out.println("portal rouge");
                     System.out.println(redPortal);
                     }
 
-                else if (Objects.equals(cPortalEntity.getTeam().getColor(), "red")) {
-                    bluePortal = String.valueOf(cPortalEntity.getLat()) + "," + String.valueOf(cPortalEntity.getLong());
-                    bluePortals.add(bluePortal);
+                else if (Objects.equals(lPortalEntity.getTeam().getColor(), "blue")) {
+                    bluePortal = String.valueOf(lPortalEntity.getLat()) + "," + String.valueOf(lPortalEntity.getLong());
+                    lBluePortals.add(bluePortal);
+                    System.out.println("portal bleu");
                     System.out.println(bluePortal);
                 }
             }
         }
 
-        redPortals.add("43.1748,5.6045");
-        redPortals.add("43.1863,6.0021");
-        redPortals.add("43.1958,5.8932");
 
-        Main.generateMap(test, bluePlayers, redPlayers, bluePortals, redPortals);
+        Main.generateMap(test, lBluePlayers, lRedPlayers, lBluePortals, lRedPortals);
     }
 
 

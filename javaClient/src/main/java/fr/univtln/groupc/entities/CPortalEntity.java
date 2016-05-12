@@ -3,6 +3,8 @@ package fr.univtln.groupc.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
 import javax.persistence.*;
@@ -37,6 +39,7 @@ public class CPortalEntity implements Serializable {
     private List<AObjectEntity> mObjects;
     @OneToMany
     @JoinTable(schema = "positron")
+    //@JsonSerialize(using = )
     private List<CResonatorEntity> mResonators = new ArrayList<CResonatorEntity>();
     @ManyToMany(mappedBy = "mPortals")
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();

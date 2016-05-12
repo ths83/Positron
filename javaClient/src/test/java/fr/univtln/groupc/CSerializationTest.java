@@ -7,6 +7,18 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.*;
 import fr.univtln.groupc.server.CServer;
+import junit.framework.TestCase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import fr.univtln.groupc.entities.*;
+import fr.univtln.groupc.server.CServer;
 import org.junit.Test;
 import junit.framework.TestCase;
 
