@@ -1,9 +1,7 @@
 package fr.univtln.groupc.signin.google;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +19,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 
-import fr.univtln.groupc.activities.CMapsActivity;
+import fr.univtln.groupc.activities.map.CMapsActivity;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CSignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
@@ -30,8 +28,8 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
     private static final int RC_SIGN_IN = 9001;
     private static final String AUTHENTIFICATION_SUCCESS_FRENCH = "Connexion établie !";
 
-    private Intent mapIntent;
-    private Button mapButtonLauncher;
+    private Intent mMapIntent;
+    private Button mMapButtonLauncher;
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
@@ -41,11 +39,11 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mapButtonLauncher = (Button) findViewById(R.id.sign_in_button);
+        mMapButtonLauncher = (Button) findViewById(R.id.sign_in_button);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions lGso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
@@ -53,11 +51,15 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
         // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, lGso)
                 .build();
-
     }
 
+
+    /**
+     * method applied to connexion button
+     * @param view
+     */
     public void onClick(View view){
         switch (view.getId()) {
             case R.id.sign_in_button:
@@ -67,21 +69,24 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
         }
     }
 
+    /**
+     * ask connexion to Google API
+     */
     private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        Intent lSignInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(lSignInIntent, RC_SIGN_IN);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        OptionalPendingResult<GoogleSignInResult> optPenRes = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if (optPenRes.isDone()) {
+        OptionalPendingResult<GoogleSignInResult> lOptPenRes = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        if (lOptPenRes.isDone()) {
             Log.d(TAG, "Yayy!");
-            GoogleSignInResult result = optPenRes.get();
-            handleSignInResult(result);
+            GoogleSignInResult lResult = lOptPenRes.get();
+            handleSignInResult(lResult);
         } else {
-            optPenRes.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+            lOptPenRes.setResultCallback(new ResultCallback<GoogleSignInResult>() {
                 @Override
                 public void onResult(GoogleSignInResult googleSignInResult) {
                     handleSignInResult(googleSignInResult);
@@ -91,27 +96,27 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
     }
     
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
+    public void onActivityResult(int pRequestCode, int pResultCode, Intent pData) {
+        super.onActivityResult(pRequestCode, pResultCode, pData);
+        if (pRequestCode == RC_SIGN_IN) {
+            GoogleSignInResult lResult = Auth.GoogleSignInApi.getSignInResultFromIntent(pData);
+            handleSignInResult(lResult);
         }
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(ConnectionResult pConnectionResult) {
     }
 
-    private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
-        if (result.isSuccess()) {
+    private void handleSignInResult(GoogleSignInResult pResult) {
+        Log.d(TAG, "handleSignInResult:" + pResult.isSuccess());
+        if (pResult.isSuccess()) {
             Toast.makeText(getApplicationContext(), "Authentification succeded !",Toast.LENGTH_LONG).show();
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            mapIntent = new Intent(this,CMapsActivity.class);
+            GoogleSignInAccount lAcct = pResult.getSignInAccount();
+            mMapIntent = new Intent(this,CMapsActivity.class);
             // on lance la map
-            startActivity(mapIntent);
+            startActivity(mMapIntent);
             Toast.makeText(getBaseContext(),AUTHENTIFICATION_SUCCESS_FRENCH,Toast.LENGTH_SHORT).show();
             /*mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             updateUI(true);*/
