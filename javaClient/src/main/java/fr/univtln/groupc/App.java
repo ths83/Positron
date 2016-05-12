@@ -1,4 +1,5 @@
-import java.awt.event.WindowEvent;
+package fr.univtln.groupc;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,9 +17,9 @@ https://developers.google.com/maps/documentation/static-maps/
 
 */
 
-public class GoogleMapsSample {
+public class App {
 
-    public static void generateMap(JFrame test, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals){
+    public static void generateMap(final JFrame test, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals){
 
         try {
             String imageUrl =
@@ -29,42 +30,51 @@ public class GoogleMapsSample {
                             // taille fenêtre
                             "size=600x600&";
 
-            // joueurs team bleu
-            for (String player : pBluePlayers) {
-                imageUrl = imageUrl + "markers=size:tiny%7Ccolor:blue%7Clabel:P%7C"+player+"&";
+            if (pBluePlayers!=null) {
+                // joueurs team bleu
+                for (String player : pBluePlayers) {
+                    imageUrl = imageUrl + "markers=size:tiny%7Ccolor:blue%7Clabel:P%7C" + player + "&";
+                }
             }
 
-            // joueurs team rouge
-            for (String player : pRedPlayers) {
-                imageUrl = imageUrl + "markers=size:tiny%7Ccolor:red%7Clabel:P%7C"+player+"&";
+            if (pRedPlayers!=null) {
+                // joueurs team rouge
+                for (String player : pRedPlayers) {
+                    imageUrl = imageUrl + "markers=size:tiny%7Ccolor:red%7Clabel:P%7C" + player + "&";
+                }
             }
 
-            // portails capturés team bleu
-            for (String portal : pBluePortals) {
-                imageUrl = imageUrl + "markers=color:blue%7Clabel:P%7C"+portal+"&";
+            if (pBluePortals!=null) {
+                // portails capturés team bleu
+                for (String portal : pBluePortals) {
+                    imageUrl = imageUrl + "markers=color:blue%7Clabel:P%7C" + portal + "&";
+                }
+                imageUrl = imageUrl +
+                        // On relie les portails bleu
+                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(0) + "|" + pBluePortals.get(1) + "&" +
+                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(1) + "|" + pBluePortals.get(0) + "&" +
+                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(1) + "|" + pBluePortals.get(2) + "&" +
+                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(2) + "|" + pBluePortals.get(1) + "&" +
+                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(0) + "|" + pBluePortals.get(2) + "&" +
+                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(2) + "|" + pBluePortals.get(0) + "&" ;
+
             }
 
-            // portails capturés team rouge
-            for (String portal : pRedPortals) {
-                imageUrl = imageUrl + "markers=color:red%7Clabel:P%7C"+portal+"&";
+            if (pRedPortals!=null) {
+                // portails capturés team rouge
+                for (String portal : pRedPortals) {
+                    imageUrl = imageUrl + "markers=color:red%7Clabel:P%7C" + portal + "&";
+                }
+                // On relie les portails rouge
+                imageUrl = imageUrl +
+                        "path=color:0xff0000|weight:5|"+pRedPortals.get(0)+"|"+pRedPortals.get(1)+"&"+
+                        "path=color:0xff0000|weight:5|"+pRedPortals.get(1)+"|"+pRedPortals.get(0)+"&"+
+                        "path=color:0xff0000|weight:5|"+pRedPortals.get(1)+"|"+pRedPortals.get(2)+"&"+
+                        "path=color:0xff0000|weight:5|"+pRedPortals.get(2)+"|"+pRedPortals.get(1)+"&"+
+                        "path=color:0xff0000|weight:5|"+pRedPortals.get(0)+"|"+pRedPortals.get(2)+"&";
+
             }
 
-            imageUrl = imageUrl +
-                    // On relie les portails bleu
-                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(0)+"|"+pBluePortals.get(1)+"&"+
-                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(1)+"|"+pBluePortals.get(0)+"&"+
-                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(1)+"|"+pBluePortals.get(2)+"&"+
-                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(2)+"|"+pBluePortals.get(1)+"&"+
-                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(0)+"|"+pBluePortals.get(2)+"&"+
-                    "path=color:0x0000ff|weight:5|"+pBluePortals.get(2)+"|"+pBluePortals.get(0)+"&"+
-
-                    // On relie les portails rouge
-
-                    "path=color:0xff0000|weight:5|"+pRedPortals.get(0)+"|"+pRedPortals.get(1)+"&"+
-                    "path=color:0xff0000|weight:5|"+pRedPortals.get(1)+"|"+pRedPortals.get(0)+"&"+
-                    "path=color:0xff0000|weight:5|"+pRedPortals.get(1)+"|"+pRedPortals.get(2)+"&"+
-                    "path=color:0xff0000|weight:5|"+pRedPortals.get(2)+"|"+pRedPortals.get(1)+"&"+
-                    "path=color:0xff0000|weight:5|"+pRedPortals.get(0)+"|"+pRedPortals.get(2)+"&";
 
 
             // API Key
@@ -116,9 +126,10 @@ public class GoogleMapsSample {
         });
     }
 
-
     public static void main(String[] args) throws IOException {
         JFrame test = new JFrame("Google Maps");
+
+        // Rest Requests
 
         List<String> bluePlayers = new ArrayList();
         bluePlayers.add("43.136466,6.016560");
@@ -134,13 +145,12 @@ public class GoogleMapsSample {
         bluePortals.add("43.137290,6.016558");
         bluePortals.add("43.136577,6.016223");
 
-
         List<String> redPortals = new ArrayList();
         redPortals.add("43.137136,6.018718");
         redPortals.add("43.137261,6.019610");
         redPortals.add("43.136444,6.019477");
 
-        GoogleMapsSample.generateMap(test, bluePlayers, redPlayers, bluePortals, redPortals);
+        App.generateMap(test, bluePlayers, redPlayers, bluePortals, redPortals);
 
     }
 }
