@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "t_object", schema = "positron")
 @NamedQueries(@NamedQuery(name = AObjectEntity.GET_OBJECT_BY_PLAYER, query = "select p.mObjects from CPlayerEntity p where p.mId=:id"))
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 @JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
         @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity"),
 @JsonSubTypes.Type(value = CConsumableEntity.class, name = "CConsumableEntity"),

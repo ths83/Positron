@@ -56,8 +56,10 @@ public class Main {
             if (pBluePortals != null) {
                 // portails capturés team bleu
                 for (String portal : pBluePortals) {
+                    System.out.println("add portail bleu lien" + portal);
                     imageUrl = imageUrl + "markers=color:blue%7Clabel:P%7C" + portal + "&";
                 }
+
                 /*
                 imageUrl = imageUrl +
                         // On relie les portails bleu
@@ -70,12 +72,15 @@ public class Main {
 
 
             */
+
             }
             if (pRedPortals != null) {
                 // portails capturés team rouge
                 for (String portal : pRedPortals) {
+                    System.out.println("add portail rouge au lien" + portal);
                     imageUrl = imageUrl + "markers=color:red%7Clabel:P%7C" + portal + "&";
                 }
+
                 /*
                 // On relie les portails rouge
                 imageUrl = imageUrl +
@@ -85,6 +90,7 @@ public class Main {
                         "path=color:0xff0000|weight:5|" + pRedPortals.get(2) + "|" + pRedPortals.get(1) + "&" +
                         "path=color:0xff0000|weight:5|" + pRedPortals.get(0) + "|" + pRedPortals.get(2) + "&";
                 */
+
             }
 
 
@@ -92,6 +98,7 @@ public class Main {
             String Key = "maptype=roadmap&key=AIzaSyDFJqyWFbnya88SCV5Ezsrfnq9DEIVdT5c\n";
             imageUrl = imageUrl + Key;
 
+            System.out.println(imageUrl);
             // image dans laquelle on va afficher la map
             String destinationFile = "image.jpg";
 
@@ -141,7 +148,7 @@ public class Main {
         JFrame test = new JFrame("Google Maps");
 
         // Rest Requests
-        System.out.println("salut bg");
+        System.out.println("main");
         Client c = Client.create();
         WebResource webResource = c.resource(CServer.BASE_URI);
         String lJson = webResource.path("/portals").get(String.class);
@@ -159,20 +166,25 @@ public class Main {
         ArrayList<String> bluePortals = new ArrayList<String>();
         ArrayList<String> redPortals = new ArrayList<String>();
 
-        System.out.println("que se passe t il?");
         ArrayList<String> bluePlayers = new ArrayList<String>();
+        /*
         bluePlayers.add("43.136466,6.016560");
-        bluePlayers.add("43.137476,6.017719");
+        bluePlayers.add("43.137476,6.017719");*/
 
         ArrayList<String> redPlayers = new ArrayList<String>();
+        /*
         redPlayers.add("43.136434,6.020808");
         redPlayers.add("43.136434,6.020777");
-        redPlayers.add("43.137290,6.016552");
+        redPlayers.add("43.137290,6.016552");*/
 
         String redPortal;
         String bluePortal;
 
+        // exemples de portails prédefinis
+        bluePortals.add("43.137274,6.015640");
+        redPortals.add("43.137290,6.016558");
 
+        // Récuperation des portails présents dans la BD via REST
         for (CPortalEntity cPortalEntity : lPortals) {
 
             if (cPortalEntity.getTeam() != null) {
@@ -180,20 +192,18 @@ public class Main {
                 if (Objects.equals(cPortalEntity.getTeam().getColor(), "red")) {
                     redPortal = String.valueOf(cPortalEntity.getLat()) + "," + String.valueOf(cPortalEntity.getLong());
                     redPortals.add(redPortal);
+                    System.out.println("portal rouge");
                     System.out.println(redPortal);
                     }
 
-                else if (Objects.equals(cPortalEntity.getTeam().getColor(), "red")) {
+                else if (Objects.equals(cPortalEntity.getTeam().getColor(), "blue")) {
                     bluePortal = String.valueOf(cPortalEntity.getLat()) + "," + String.valueOf(cPortalEntity.getLong());
                     bluePortals.add(bluePortal);
+                    System.out.println("portal bleu");
                     System.out.println(bluePortal);
                 }
             }
         }
-
-        redPortals.add("43.1748,5.6045");
-        redPortals.add("43.1863,6.0021");
-        redPortals.add("43.1958,5.8932");
 
         Main.generateMap(test, bluePlayers, redPlayers, bluePortals, redPortals);
     }
