@@ -154,7 +154,7 @@ public class CRestServicesTest extends TestCase {
 */
 
     // Tests CRUD CSkillService OFF
-
+/*
     public void testPostSkillService() throws Exception {
 
         CSkillEntity lSkillEntity = new CSkillEntity.CSkillBuilder(66).cost(5).level(10).name("rogue").build();
@@ -172,7 +172,7 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/skills/66").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-
+*/
     // Tests CRUD CConsumableService OFF
 /*
     public void testPostConsumableService() throws Exception {
