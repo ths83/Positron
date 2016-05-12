@@ -76,8 +76,6 @@ public class CAlgorithm {
         Iterator<CLinkEntity> lIteratorLink = pLinkList.iterator();
         double lABx=0,lABy=0,lAP1y=0,lAP1x=0,lAP2y=0,lAP2x=0;
 
-        System.out.println("-> taille : " + pLinkToDo.getPortals().size());
-        System.out.println("-> null ? " + pLinkToDo.getPortals() == null);
         double lP1X = pLinkToDo.getPortals().get(0).getLong();
         double lP2X = pLinkToDo.getPortals().get(1).getLong();
         double lP1Y = pLinkToDo.getPortals().get(0).getLat();
@@ -226,7 +224,7 @@ public class CAlgorithm {
 
                     det[li] = lFieldVector[li][0] * lLinkVector[li][1] - lFieldVector[li][1] * lLinkVector[li][0];
                 }
-                System.out.println(det[0] + "   " + det[1] + "   " + det[2]);
+            //    System.out.println(det[0] + "   " + det[1] + "   " + det[2]);
                 if (det[0] + det[1] + det[2] != 0) {
 
                     if (((det[0] <= 0 && det[1] <= 0 && det[2] <= 0) || (det[0] >= 0 && det[1] >= 0 && det[2] >= 0))) {
@@ -246,7 +244,9 @@ public class CAlgorithm {
         CPortalEntity lPortalVerified1= null,lPortalVerified2= null;
         CPortalEntity lPortals[]={pLinkCreated.getPortals().get(0),pLinkCreated.getPortals().get(1)};
 
-
+        System.out.println("\nDETECTE NEW FIELD => Liste Link lié :"+pLinkCreated.getPortals().get(0).getLinks()+"\n");
+        System.out.println("\nDETECTE NEW FIELD => Liste Link lié 2 :"+pLinkCreated.getPortals().get(0).getLinks() + "\n")
+        ;
 
         for(CLinkEntity lLinks : lPortals[0].getLinks()){
            lPortalVerified1= getOtherPortalOfLink(lPortals[0],lLinks);

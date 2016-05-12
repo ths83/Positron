@@ -37,7 +37,7 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
     public CFieldEntity() {}
 
     public CFieldEntity(CFieldBuilder pBuilder){
-        //mId = pBuilder.mId;
+        mId = pBuilder.mId;
         mLinks = pBuilder.mLinks;
         for (CLinkEntity lLink : mLinks){
             lLink.setField(this);

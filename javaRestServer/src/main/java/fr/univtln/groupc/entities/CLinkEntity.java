@@ -46,10 +46,10 @@ public class CLinkEntity implements Serializable {
     @Override
     public String toString() {
         return "CLinkEntity{" +
-                "mId=" + mId +
+                "mId=" + mId /*+
                 ", mField=" + mField +
                 "; mPortals= " + mPortals +
-                '}';
+                */+'}';
     }
 
     public static class CLinkBuilder{
