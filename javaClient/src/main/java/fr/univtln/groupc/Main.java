@@ -13,7 +13,6 @@ import java.util.Objects;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.server.CServer;
@@ -27,9 +26,9 @@ https://developers.google.com/maps/documentation/static-maps/
 
 */
 
-public class App {
+public class Main {
 
-    public static void generateMap(final JFrame test, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals){
+    public static void generateMap(final JFrame test, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals) {
 
         try {
             String imageUrl =
@@ -40,25 +39,26 @@ public class App {
                             // taille fenêtre
                             "size=600x600&";
 
-            if (pBluePlayers!=null) {
+            if (pBluePlayers != null) {
                 // joueurs team bleu
                 for (String player : pBluePlayers) {
                     imageUrl = imageUrl + "markers=size:tiny%7Ccolor:blue%7Clabel:P%7C" + player + "&";
                 }
             }
 
-            if (pRedPlayers!=null) {
+            if (pRedPlayers != null) {
                 // joueurs team rouge
                 for (String player : pRedPlayers) {
                     imageUrl = imageUrl + "markers=size:tiny%7Ccolor:red%7Clabel:P%7C" + player + "&";
                 }
             }
 
-            if (pBluePortals!=null) {
+            if (pBluePortals != null) {
                 // portails capturés team bleu
                 for (String portal : pBluePortals) {
                     imageUrl = imageUrl + "markers=color:blue%7Clabel:P%7C" + portal + "&";
                 }
+                /*
                 imageUrl = imageUrl +
                         // On relie les portails bleu
                         "path=color:0x0000ff|weight:5|" + pBluePortals.get(0) + "|" + pBluePortals.get(1) + "&" +
@@ -66,25 +66,26 @@ public class App {
                         "path=color:0x0000ff|weight:5|" + pBluePortals.get(1) + "|" + pBluePortals.get(2) + "&" +
                         "path=color:0x0000ff|weight:5|" + pBluePortals.get(2) + "|" + pBluePortals.get(1) + "&" +
                         "path=color:0x0000ff|weight:5|" + pBluePortals.get(0) + "|" + pBluePortals.get(2) + "&" +
-                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(2) + "|" + pBluePortals.get(0) + "&" ;
+                        "path=color:0x0000ff|weight:5|" + pBluePortals.get(2) + "|" + pBluePortals.get(0) + "&";
 
+
+            */
             }
-
-            if (pRedPortals!=null) {
+            if (pRedPortals != null) {
                 // portails capturés team rouge
                 for (String portal : pRedPortals) {
                     imageUrl = imageUrl + "markers=color:red%7Clabel:P%7C" + portal + "&";
                 }
+                /*
                 // On relie les portails rouge
                 imageUrl = imageUrl +
-                        "path=color:0xff0000|weight:5|"+pRedPortals.get(0)+"|"+pRedPortals.get(1)+"&"+
-                        "path=color:0xff0000|weight:5|"+pRedPortals.get(1)+"|"+pRedPortals.get(0)+"&"+
-                        "path=color:0xff0000|weight:5|"+pRedPortals.get(1)+"|"+pRedPortals.get(2)+"&"+
-                        "path=color:0xff0000|weight:5|"+pRedPortals.get(2)+"|"+pRedPortals.get(1)+"&"+
-                        "path=color:0xff0000|weight:5|"+pRedPortals.get(0)+"|"+pRedPortals.get(2)+"&";
-
+                        "path=color:0xff0000|weight:5|" + pRedPortals.get(0) + "|" + pRedPortals.get(1) + "&" +
+                        "path=color:0xff0000|weight:5|" + pRedPortals.get(1) + "|" + pRedPortals.get(0) + "&" +
+                        "path=color:0xff0000|weight:5|" + pRedPortals.get(1) + "|" + pRedPortals.get(2) + "&" +
+                        "path=color:0xff0000|weight:5|" + pRedPortals.get(2) + "|" + pRedPortals.get(1) + "&" +
+                        "path=color:0xff0000|weight:5|" + pRedPortals.get(0) + "|" + pRedPortals.get(2) + "&";
+                */
             }
-
 
 
             // API Key
@@ -128,7 +129,7 @@ public class App {
                 if (JOptionPane.showConfirmDialog(test,
                         "Are you sure to close this window?", "Really Closing?",
                         JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
                     test.dispose();
                     System.exit(0);
                 }
@@ -155,21 +156,18 @@ public class App {
             e.printStackTrace();
         }
 
+        ArrayList<String> bluePortals = new ArrayList<String>();
+        ArrayList<String> redPortals = new ArrayList<String>();
+
         System.out.println("que se passe t il?");
-        List<String> bluePlayers = new ArrayList();
+        ArrayList<String> bluePlayers = new ArrayList<String>();
         bluePlayers.add("43.136466,6.016560");
         bluePlayers.add("43.137476,6.017719");
 
-        List<String> redPlayers = new ArrayList();
+        ArrayList<String> redPlayers = new ArrayList<String>();
         redPlayers.add("43.136434,6.020808");
         redPlayers.add("43.136434,6.020777");
         redPlayers.add("43.137290,6.016552");
-
-        List<String> bluePortals = new ArrayList();
-        List<String> redPortals = new ArrayList();
-        redPortals.add("43.137136,6.018718");
-        redPortals.add("43.137261,6.019610");
-        redPortals.add("43.136444,6.019477");
 
         String redPortal;
         String bluePortal;
@@ -180,20 +178,26 @@ public class App {
             if (cPortalEntity.getTeam() != null) {
 
                 if (Objects.equals(cPortalEntity.getTeam().getColor(), "red")) {
-
                     redPortal = String.valueOf(cPortalEntity.getLat()) + "," + String.valueOf(cPortalEntity.getLong());
                     redPortals.add(redPortal);
-                    System.out.println("ok");
-                } else if (Objects.equals(cPortalEntity.getTeam().getColor(), "red")) {
+                    System.out.println(redPortal);
+                    }
+
+                else if (Objects.equals(cPortalEntity.getTeam().getColor(), "red")) {
                     bluePortal = String.valueOf(cPortalEntity.getLat()) + "," + String.valueOf(cPortalEntity.getLong());
                     bluePortals.add(bluePortal);
+                    System.out.println(bluePortal);
                 }
             }
         }
+
+        redPortals.add("43.1748,5.6045");
+        redPortals.add("43.1863,6.0021");
+        redPortals.add("43.1958,5.8932");
+
+        Main.generateMap(test, bluePlayers, redPlayers, bluePortals, redPortals);
     }
 
-/*
-        App.generateMap(test, bluePlayers, redPlayers, bluePortals, redPortals);
-*/
-    }
+
+
 }
