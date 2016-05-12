@@ -194,14 +194,14 @@ public class CPortalEntity implements Serializable {
     public String toString() {
         return "CPortalEntity{" +
                 "mId=" + mId +
-                ", mLat=" + mLat +
+                /*", mLat=" + mLat +
                 ", mLong=" + mLong +
                 ", mRadius=" + mRadius +
                 ", mObjects=" + mObjects +
                 ", mResonators=" + mResonators +
                 //", mLinks=" + mLinks +
                 ", mTeam=" + mTeam +
-                '}' + super.toString();
+                */'}' + super.toString();
     }
 
 

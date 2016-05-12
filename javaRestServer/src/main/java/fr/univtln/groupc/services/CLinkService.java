@@ -32,6 +32,7 @@ public class CLinkService {
         /*if (pLink.algoCreateLink(pLink.getPortals().get(1),pLink.getPortals().get(2))==true) {
             mCrudMethods.create(pLink);
         }*/
+
         CLinkEntity lLink = null;
         List<Integer> lListIDLinktoDestoy = new ArrayList<>();
         List<CLinkEntity> lLinkStorageField = new ArrayList<>();
@@ -39,64 +40,77 @@ public class CLinkService {
         List<CFieldEntity> lListFieldToCreate = new ArrayList<>();
         List<CLinkEntity> lLinks = mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
         List<CFieldEntity> lFields =mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
-        System.out.println("Lfields: "+lFields);
+
         //System.out.println("pLinkJson = = = " + pLinkJson);
+        System.out.println("\n Lien existant : "+lLinks+"\n");
 
         try {
             lLink = mMapper.readValue(pLinkJson, CLinkEntity.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("jajaja : " + lLink);
+
+        System.out.println("////////////////////////////////// ID: "+lLink.getId() +" ////////////////////////////////////////////");
+        System.out.println("Portail déjà lié: "+lLink.getPortals());
+        System.out.println("Field existant: "+lFields);
+
        // System.out.println("llink ->->-> " + lLink);
         System.out.println("Pre-Detection CrossLink");
 
         if (CAlgorithm.detectColision(lLink, lLinks, lFields)){
-            System.out.println("Detection succesfull");// \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
+            System.out.println("Aucune colision détecter");// \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
 
             mCrudMethods.create(lLink);
 
 
             System.out.println("Pre-Detection Field");
+
             lLinkListField = CAlgorithm.detecteNewFields(lLink);
             //System.out.println("ListeLinkField = "+lLinkListField);
 
-            for(int li=0;li<lLinkListField.size();li+=3){
+           if(lLinkListField.size()>0) {
+               System.out.println(lLinkListField.size()/3+" field à créer");
 
-                for(int lu=0;lu<3;lu++){
-                    lLinkStorageField.add(lLinkListField.get(lu+li));
-                }
-               lListFieldToCreate.add( new CFieldEntity.CFieldBuilder(111).links(lLinkStorageField).build() );
+               for (int li = 0; li < lLinkListField.size(); li += 3) {
+
+                   for (int lu = 0; lu < 2; lu++) {
+                       lLinkStorageField.add(lLinkListField.get(lu + li));
+                   }
+                   lListFieldToCreate.add(new CFieldEntity.CFieldBuilder(64).links(lLinkStorageField).build());
+               }
+
+               //System.out.println("Pre trie: "+lListFieldToCreate);
+               Collections.sort(lListFieldToCreate);
+               System.out.println("Aprés trie: " + lListFieldToCreate);
+               System.out.println("Pre-CreationField");
+
+               for (CFieldEntity lField : lListFieldToCreate) {
+                   System.out.println("Field créer: " + lField.getId() + "  et Lien:" + lField.getLinks());
+                  // mCrudMethods.create(lField);
+                   for (CLinkEntity lLinkInField : lField.getLinks()) {
+                      // mCrudMethods.update(lLinkInField);
+                   }
+
+                   // Ligne pour suprimer un id
+                   lListIDLinktoDestoy = CAlgorithm.detectInternalLink(lField, lLinks);
+                   System.out.println("Lien à détruire :" + lListIDLinktoDestoy);
+                   for (Integer lID : lListIDLinktoDestoy) {
+                       System.out.println("Lien " + lID + " détruit");
+                       mCrudMethods.delete(CLinkEntity.class, lID);
+                   }
+               }
+           }
+            else{
+               System.out.println("Pas de field à créer");
             }
 
-            //System.out.println("Pre trie: "+lListFieldToCreate);
-            Collections.sort(lListFieldToCreate);
-            //System.out.println("Aprés trie: " + lListFieldToCreate);
-            System.out.println("Pre-CreationField");
-
-            for(CFieldEntity lField : lListFieldToCreate) {
-                System.out.println("!!!!" + lField + "!!!!");
-                mCrudMethods.create(lField);
-                for (CLinkEntity lLinkInField : lField.getLinks()) {
-                    mCrudMethods.update(lLinkInField);
-                }
-
-                // Ligne pour suprimer un id
-                lListIDLinktoDestoy = CAlgorithm.detectInternalLink(lField, lLinks);
-                System.out.println("Lien à détruire :" +lListIDLinktoDestoy);
-                for (Integer lID : lListIDLinktoDestoy) {
-                    System.out.println("Lien "+lID+" détruit");
-                    mCrudMethods.delete(CLinkEntity.class,lID);
-                }
-            }
-
-            System.out.println("//////////////////////////////////////////////////////////////////////////////////////////");
+            System.out.println("///////////////////////////////////////////////////////////////////////////////////////////");
 
             return Response.status(201).entity(pLinkJson).build();
         }
         else{
             System.out.println("Detection Failed");
-            System.out.println("//////////////////////////////////////////////////////////////////////////////////////////");
+            System.out.println("///////////////////////////////////////////////////////////////////////////////////////////");
 
             return Response.status(500).build();
          // erreur a costumiser

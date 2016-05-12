@@ -14,8 +14,16 @@ public class CTestsNicolas {
     public static void main(String[] args) {
         CCrudMethods lCrud = new CCrudMethods();
         CTeamEntity lTeam1 = new CTeamEntity.CTeamBuilder(1).color("red").build();
+
         CPlayerEntity lPlayer1 = new CPlayerEntity.CPlayerBuilder(1).email("martinez1nicolas@gmail.com")
-        .nickname("nicolas").team(lTeam1).bagSize(15).longitude(5.75).latitude(43.133).xp(280).energy(180).energyMax(230).build();
+        .nickname("nicolas").team(lTeam1).bagSize(15).longitude(6.016560).latitude(43.136466).xp(280).energy(180).energyMax(230).build();
+
+        CPlayerEntity lPlayer2 = new CPlayerEntity.CPlayerBuilder(2).email("martinez1nicolas@gmail.com")
+                .nickname("martinez").team(lTeam1).bagSize(15).longitude(6.020808).latitude(43.136434).xp(280).energy(180).energyMax(230).build();
+
+        CPlayerEntity lPlayer3 = new CPlayerEntity.CPlayerBuilder(3).email("martinez1nicolas@gmail.com")
+                .nickname("martinez").team(lTeam1).bagSize(15).longitude(6.017719).latitude(43.137476).xp(280).energy(180).energyMax(230).build();
+
         System.out.println(lTeam1);
         System.out.println(lPlayer1);
         CTeamEntity lTeam2 = new CTeamEntity.CTeamBuilder(2).color("blue").build();
@@ -33,6 +41,8 @@ public class CTestsNicolas {
         lCrud.create(lTeam1);
         System.out.println("team 1 persistee");
         lCrud.create(lPlayer1);
+        lCrud.create(lPlayer2);
+        lCrud.create(lPlayer3);
         System.out.println("team 2 persistee");
 
         lCrud.create(lTeam2);
