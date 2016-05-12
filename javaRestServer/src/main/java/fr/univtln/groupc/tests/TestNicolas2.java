@@ -37,6 +37,7 @@ public class TestNicolas2 {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         //lPortals = lMapper.readValue(lJson, List.class);
         System.out.println(lPortals);
 
