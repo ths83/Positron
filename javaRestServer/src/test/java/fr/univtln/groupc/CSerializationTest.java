@@ -2,6 +2,7 @@ package fr.univtln.groupc;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.*;
@@ -103,5 +104,56 @@ public class CSerializationTest extends TestCase {
         System.out.println("objects deserialized\n" + lDeserializedList);
         assertFalse(lDeserializedList == null);
 
+    }
+
+    public void testSerializationOfPortal() throws Exception {
+        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        List<CResonatorEntity> lResonators = new ArrayList<>();
+        CResonatorEntity lResonator1 = new CResonatorEntity.CResonatorBuilder(1).build();
+        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder(2).build();
+        lResonators.add(lResonator1);
+        lResonators.add(lResonator2);
+        CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(1).longitude(120.0).latitude(110).resonators(lResonators).build();
+        String lSerializedPortal = mMapper.writeValueAsString(lPortal);
+        System.out.println(lSerializedPortal);
+        CPortalEntity lPortalGotten = mMapper.readValue(lSerializedPortal, CPortalEntity.class);
+        System.out.println(lPortalGotten);
+    }
+
+    public void testSerializationOfListOfPortals() throws Exception {
+        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        List<CResonatorEntity> lResonators = new ArrayList<>();
+        List<CPortalEntity> lPortals = new ArrayList<>();
+        CResonatorEntity lResonator1 = new CResonatorEntity.CResonatorBuilder(1).build();
+        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder(2).build();
+        lResonators.add(lResonator1);
+        lResonators.add(lResonator2);
+        CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(1).longitude(120.0).latitude(110).resonators(lResonators).build();
+        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2).longitude(50.1).latitude(78.2).build();
+        lPortals.add(lPortal);
+        lPortals.add(lPortal2);
+        String lSerializedPortal = mMapper.writeValueAsString(lPortals);
+        System.out.println(lSerializedPortal);
+        List<CPortalEntity> lPortalsGotten = mMapper.readValue(lSerializedPortal, mMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+        System.out.println(lPortalsGotten);
+
+    }
+
+    public void testDeserializeListOfPortalsFromGetAllRest() throws Exception {
+        Client c = Client.create();
+        WebResource lWebResource = c.resource(CServer.BASE_URI);
+        String lJson = lWebResource.path("/portals").accept("application/json").type("application/json").get(String.class);
+        System.out.println(lJson + "\n");
+        List<CPortalEntity> lPortals = mMapper.readValue(lJson, mMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+        System.out.println(lPortals);
+    }
+
+    public void testSerializationOfPortalWithAListOfObjects() throws Exception {
+        CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(1).build();
+        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2).build();
+        List<CPortalEntity> lList = new ArrayList<>();
+        lList.add(lPortal1);
+        lList.add(lPortal2);
+        String lSerializedList = null;
     }
 }
