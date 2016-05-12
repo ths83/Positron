@@ -65,3 +65,5 @@ ALTER TABLE positron.t_stats_player_t_key ADD CONSTRAINT FK_t_stats_player_t_key
 ALTER TABLE positron.t_stats_player_t_resonator ADD CONSTRAINT FK_t_stats_player_t_resonator_mResonatorsBuilt_id FOREIGN KEY (mResonatorsBuilt_id) REFERENCES positron.t_object (id)
 ALTER TABLE positron.t_stats_player_t_resonator ADD CONSTRAINT FK_t_stats_player_t_resonator_CStatsPlayer_MID FOREIGN KEY (CStatsPlayer_MID) REFERENCES positron.t_stats_player (MID)
 ALTER TABLE positron.t_stats_player_t_resonator ADD CONSTRAINT FK_t_stats_player_t_resonator_mResonatorsDestroyed_id FOREIGN KEY (mResonatorsDestroyed_id) REFERENCES positron.t_object (id)
+CREATE TABLE SEQUENCE (SEQ_NAME VARCHAR(50) NOT NULL, SEQ_COUNT DECIMAL(38), PRIMARY KEY (SEQ_NAME))
+INSERT INTO SEQUENCE(SEQ_NAME, SEQ_COUNT) values ('SEQ_GEN', 0)

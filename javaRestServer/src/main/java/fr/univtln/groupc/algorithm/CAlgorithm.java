@@ -76,6 +76,8 @@ public class CAlgorithm {
         Iterator<CLinkEntity> lIteratorLink = pLinkList.iterator();
         double lABx=0,lABy=0,lAP1y=0,lAP1x=0,lAP2y=0,lAP2x=0;
 
+        System.out.println("-> taille : " + pLinkToDo.getPortals().size());
+        System.out.println("-> null ? " + pLinkToDo.getPortals() == null);
         double lP1X = pLinkToDo.getPortals().get(0).getLong();
         double lP2X = pLinkToDo.getPortals().get(1).getLong();
         double lP1Y = pLinkToDo.getPortals().get(0).getLat();
@@ -85,31 +87,36 @@ public class CAlgorithm {
         CLinkEntity lComparedLinks;
 
 
-        while(lIteratorLink.hasNext()){
+        while(lIteratorLink.hasNext()) {
 
 
             lComparedLinks = lIteratorLink.next();
 
 
-            lABx=lComparedLinks.getPortals().get(1).getLong()-lComparedLinks.getPortals().get(0).getLong();
-            lABy=lComparedLinks.getPortals().get(1).getLat()-lComparedLinks.getPortals().get(0).getLat();
-            lAP1x=lP1X-lComparedLinks.getPortals().get(0).getLong();
-            lAP1y=lP1Y-lComparedLinks.getPortals().get(0).getLat();
-            lAP2x=lP2X-lComparedLinks.getPortals().get(0).getLong();
-            lAP2y=lP2Y-lComparedLinks.getPortals().get(0).getLat();
-
-            if((lABx*lAP1y-lABy*lAP1x)*(lABx*lAP2y-lABy*lAP2x)<0) {
-
-                if ((lABy * lAP1x - lABx * lAP1y) * (lABy * lAP2x - lABx * lAP2y) < 0) {
-
-
-                    return false;
-
-                }
+            lABx = lComparedLinks.getPortals().get(1).getLong() - lComparedLinks.getPortals().get(0).getLong();
+            lABy = lComparedLinks.getPortals().get(1).getLat() - lComparedLinks.getPortals().get(0).getLat();
+            lAP1x = lP1X - lComparedLinks.getPortals().get(0).getLong();
+            lAP1y = lP1Y - lComparedLinks.getPortals().get(0).getLat();
+            lAP2x = lP2X - lComparedLinks.getPortals().get(0).getLong();
+            lAP2y = lP2Y - lComparedLinks.getPortals().get(0).getLat();
+            //
+            if ((lABx * lAP1y - lABy * lAP1x) ==0 && (lABx * lAP2y - lABy * lAP2x)==0) {
+                        return false;
             }
+            //
+            else {
+                if ((lABx * lAP1y - lABy * lAP1x) * (lABx * lAP2y - lABy * lAP2x) < 0) {
 
+                    if ((lABy * lAP1x - lABx * lAP1y) * (lABy * lAP2x - lABx * lAP2y) < 0) {
+
+
+                        return false;
+
+                    }
+                }
+
+            }
         }
-
         return true;
     }
 
