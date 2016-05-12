@@ -1,5 +1,7 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,6 +12,7 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "t_consumable", schema = "positron")
 @NamedQueries(@NamedQuery(name = CConsumableEntity.GET_ALL, query = "select c from CConsumableEntity c"))
+//@JsonDeserialize(as = CConsumableEntity.class)
 public class CConsumableEntity extends AObjectEntity implements Serializable {
     @Column(name = "rarity")
     private int mRarity;

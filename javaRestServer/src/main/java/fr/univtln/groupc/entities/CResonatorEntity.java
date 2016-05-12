@@ -2,6 +2,7 @@ package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 @NamedQueries(@NamedQuery(name = CResonatorEntity.GET_ALL, query = "select p from CResonatorEntity p"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
+//@JsonDeserialize(as = CResonatorEntity.class)
 public class CResonatorEntity extends ABuildingEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "portal_fk")
