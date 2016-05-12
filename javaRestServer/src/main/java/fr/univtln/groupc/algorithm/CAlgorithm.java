@@ -39,11 +39,7 @@ public class CAlgorithm {
 
             // Pour chaque territoire on calcule le déterminant pour chaque segment qui le constitue.
             for (li = 0; li < 3; li++) {
-                System.out.println("For li:" + li);
-                System.out.println("Lfield: "+lField.getmLinks());
                 lAx = lField.getmLinks().get(li).getPortals().get(0).getLong();
-
-                System.out.println("lAx =" + lAx);
                 lAy = lField.getmLinks().get(li).getPortals().get(0).getLat();
 
                 if (li != 2) {
@@ -177,7 +173,6 @@ public class CAlgorithm {
         double lPx=0,lPy=0,lFieldVector[][]={{0,0},{0,0},{0,0}},det[]={0,0,0},lLinkVector[][]={{0,0},{0,0},{0,0}};
         int li=0,lu=0;
 
-        System.out.println("lFielde[0][0] ="+ pFieldCreated.getmLinks().get(1).getPortals().get(0).getLong()+" - "+pFieldCreated.getmLinks().get(0).getPortals().get(0).getLong());
 
         for(li=0;li<2;li++){
             for(lu=0;lu<2;lu++){
@@ -199,7 +194,7 @@ public class CAlgorithm {
                         lFieldVector[li][lu]=pFieldCreated.getmLinks().get(li).getPortals().get(0).getLong()-pFieldCreated.getmLinks().get(0).getPortals().get(0).getLat();
                     }
                 }
-                System.out.println("lFieldVector["+li+"]["+lu+"] = "+lFieldVector[li][lu]);
+
             }
 
         }
@@ -212,12 +207,9 @@ public class CAlgorithm {
                     for (lu = 0; lu < 2; lu++) {
                         if (lu == 0) {
                             lLinkVector[li][lu] = lLinkVerified.getPortals().get(0).getLong() - pFieldCreated.getmLinks().get(li).getPortals().get(0).getLong();
-                            System.out.println("Verified Portail: "+lLinkVerified.getPortals().get(0).getLong()+" - created "+pFieldCreated.getmLinks().get(li).getPortals().get(0).getLong());
-                            System.out.println("lVec "+lLinkVector[li][lu]);
                         } else {
                             lLinkVector[li][lu] = lLinkVerified.getPortals().get(0).getLat() - pFieldCreated.getmLinks().get(li).getPortals().get(0).getLat();
-                            System.out.println("Verified Portail: "+lLinkVerified.getPortals().get(0).getLat()+" - created "+pFieldCreated.getmLinks().get(li).getPortals().get(0).getLat());
-                            System.out.println("lVec "+lLinkVector[li][lu]);
+
                         }
                     }
                 }
@@ -231,8 +223,7 @@ public class CAlgorithm {
                 if (det[0] + det[1] + det[2] != 0) {
 
                     if (((det[0] <= 0 && det[1] <= 0 && det[2] <= 0) || (det[0] >= 0 && det[1] >= 0 && det[2] >= 0))) {
-                        System.out.println("On inejecte le Lien:");
-                        System.out.println("On inejecte le Lien:"+lLinkVerified.getId());
+
                         lInternalLinkList.add(lLinkVerified.getId());
                     }
                 }

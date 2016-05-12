@@ -1,5 +1,7 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -14,7 +16,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "t_turret", schema = "positron")
 @NamedQueries(@NamedQuery(name = CTurretEntity.GET_ALL, query = "select p from CTurretEntity p"))
-
+//@JsonDeserialize(as = CTurretEntity.class)
 public class CTurretEntity extends ABuildingEntity implements Serializable {
     private int mDamage;
     public final static String GET_ALL = "Turret.getAll";
