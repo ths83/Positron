@@ -113,6 +113,4 @@ public class TestXavierAlgo {
         System.out.println(" \n\n\nListe de lien a suprimer:" + CAlgorithm.detectInternalLink(GroField, lLinks));
 
     }
-
-
 }

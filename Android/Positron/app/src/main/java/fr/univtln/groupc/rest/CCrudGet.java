@@ -3,8 +3,10 @@ package fr.univtln.groupc.rest;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -68,7 +70,7 @@ public class CCrudGet extends AsyncTask<String,String,String> {
         return json;
     }
 
-    public List<CPortalEntity> getPortalsRest(){
+    public List<CPortalEntity> getPortalsRestv2(){
         ObjectMapper lMapper = new ObjectMapper();
         lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
@@ -77,22 +79,61 @@ public class CCrudGet extends AsyncTask<String,String,String> {
         String lPortalsJson = null;
         List<CPortalEntity> lPortals = new ArrayList<>();
         try {
-            Log.d("test","get portals :");
             lPortalsJson = new CCrudGet().execute(lUrlString).get();
-            Log.d("test", " -> " + lPortalsJson);
-            //lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
-            //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
-
             JSONArray lArray = new JSONArray(lPortalsJson);
+            Log.d("test", "nombre de tour : " + lArray.length());
+            Log.d("test", "jsonarray : \n" + lArray);/*
             for (int i = 0; i < lArray.length(); i++){
+                Log.d("test", "tour de boucle : " + i);
+                Log.d("test", "-> " + lArray.getJSONObject(i));
                 JSONObject lPortalObject = lArray.getJSONObject(i);
+                Log.d("test", "la1 ?");
                 int lPortalId = lPortalObject.optInt("id");
+                Log.d("test", "la2 ?");
                 double lPortalLong = lPortalObject.optDouble("long");
                 double lPortalLat = lPortalObject.optDouble("lat");
-                lPortals.add(new CPortalEntity.CPortalBuilder(lPortalId).latitude(lPortalLat).longitude(lPortalLong).build());
-            }
+                CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(lPortalId).latitude(lPortalLat).longitude(lPortalLong).build();
+                Log.d("test", lPortal.toString());
+                lPortals.add(lPortal);
+                Log.d("test", "taille_prov : " + lPortals.size());
+            }*/
+            Log.d("test", "get 0");
+            JSONObject lPortalObject0 = lArray.getJSONObject(0);
+            Log.d("test", "get 1");
+            JSONObject lPortalObject1 = lArray.getJSONObject(1);
+            Log.d("test", "get 2");
+            JSONObject lPortalObject2 = lArray.getJSONObject(2);
+            Log.d("test", "get 3");
+            JSONObject lPortalObject3 = lArray.getJSONObject(3);
+            Log.d("test", "get 4");
+            JSONObject lPortalObject4 = lArray.getJSONObject(4);
+            Log.d("test", "get 5");
+            JSONObject lPortalObject5 = lArray.getJSONObject(5);
+            Log.d("test", "get 6");
+            JSONObject lPortalObject6 = lArray.getJSONObject(6);
 
-            Log.d("test", "_>>" + lPortals.get(0).getId());
+            CPortalEntity lPortal0 = new CPortalEntity.CPortalBuilder(lPortalObject0.optInt("id")).latitude(lPortalObject0.optDouble("lat")).longitude(lPortalObject0.optDouble("long")).build();
+            Log.d("test", "portal 0 : " + lPortal0);
+            CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(lPortalObject1.optInt("id")).latitude(lPortalObject1.optDouble("lat")).longitude(lPortalObject1.optDouble("long")).build();
+            Log.d("test", "portal 1");
+            CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(lPortalObject2.optInt("id")).latitude(lPortalObject2.optDouble("lat")).longitude(lPortalObject2.optDouble("long")).build();
+            Log.d("test", "portal 2");
+            CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(lPortalObject3.optInt("id")).latitude(lPortalObject3.optDouble("lat")).longitude(lPortalObject3.optDouble("long")).build();
+            Log.d("test", "portal 3");
+            CPortalEntity lPortal4 = new CPortalEntity.CPortalBuilder(lPortalObject4.optInt("id")).latitude(lPortalObject4.optDouble("lat")).longitude(lPortalObject4.optDouble("long")).build();
+            Log.d("test", "portal 4");
+            CPortalEntity lPortal5 = new CPortalEntity.CPortalBuilder(lPortalObject5.optInt("id")).latitude(lPortalObject5.optDouble("lat")).longitude(lPortalObject5.optDouble("long")).build();
+            Log.d("test", "portal 5");
+            CPortalEntity lPortal6 = new CPortalEntity.CPortalBuilder(lPortalObject6.optInt("id")).latitude(lPortalObject6.optDouble("lat")).longitude(lPortalObject6.optDouble("long")).build();
+            Log.d("test", "portal 6");
+            lPortals.add(lPortal0);
+            lPortals.add(lPortal1);
+            lPortals.add(lPortal2);
+            lPortals.add(lPortal3);
+            lPortals.add(lPortal4);
+            lPortals.add(lPortal5);
+            lPortals.add(lPortal6);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -100,7 +141,46 @@ public class CCrudGet extends AsyncTask<String,String,String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.d("test", " ! salut tu vas bien !");
+        return lPortals;
+    }
+
+    public List<CPortalEntity> getPortalsRest(){
+        ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
+        lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+        String lUrlString = apiURL + "/portals";
+        Log.d("test", "->-> " + lUrlString);
+        String lPortalsJson = null;
+        List<CPortalEntity> lPortals = new ArrayList<>();
+        JSONObject lPortalObject = null;
+        try {
+            Log.d("test","get portals :");
+            lPortalsJson = new CCrudGet().execute(lUrlString).get();
+            //Log.d("test", " -> " + lPortalsJson);
+            lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+            //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
+            Log.d("test", "deserialized!!");
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //System.out.println("hello" + lPortals);
+        Log.d("test", lPortals.toString());
         return lPortals;
     }
 
@@ -114,10 +194,10 @@ public class CCrudGet extends AsyncTask<String,String,String> {
         try {
             Log.d("test","get players");
             lPlayersJson = new CCrudGet().execute(lUrlString).get();
-            Log.d("test", " -> " + lPlayersJson);
+            //Log.d("test", " -> " + lPlayersJson);
             lPlayers = lMapper.readValue(lPlayersJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPlayerEntity.class));
             //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
-            Log.d("test", "_>>" + lPlayers.get(0).getId());
+            //Log.d("test", "_>>" + lPlayers.get(0).getId());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

@@ -142,12 +142,13 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             mMap.addMarker(new MarkerOptions()
                     .position(test)
                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
-        }*/
+        }
         List<CPlayerEntity> lPlayers = new CCrudGet().getPlayersRest();
         for (CPlayerEntity lPlayer : lPlayers){
             Log.d("test", "- > + " + lPlayer.getNickName());
-        }
+        }*/
         List<CPortalEntity> lPortals = new CCrudGet().getPortalsRest();
+        Log.d("test", "salut : -> " + lPortals.size());
         for (CPortalEntity lPortal : lPortals){
             Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
         }

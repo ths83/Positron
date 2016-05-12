@@ -12,6 +12,7 @@ import java.util.List;
  * Created by nmartinez016 on 25/04/16.
  */
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CTeamEntity.class)
 public class CTeamEntity implements Serializable {
 
     private int mId;
@@ -21,6 +22,8 @@ public class CTeamEntity implements Serializable {
     private List<CPortalEntity> mPortals = new ArrayList<>();
 
     private String mColor;
+
+    public CTeamEntity(){}
 
     public int getId() {
         return mId;
@@ -60,7 +63,6 @@ public class CTeamEntity implements Serializable {
 
     public final static String GET_ALL = "Team.getAll";
 
-    public CTeamEntity(){}
 
     public CTeamEntity(CTeamBuilder pBuilder){
         mId = pBuilder.mId;
