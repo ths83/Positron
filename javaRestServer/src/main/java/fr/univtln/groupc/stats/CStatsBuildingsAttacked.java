@@ -1,5 +1,6 @@
 package fr.univtln.groupc.stats;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 
@@ -10,8 +11,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_stats_building_attacked", schema = "positron")
-@NamedQueries(@NamedQuery(name = CStatsPlayer.GET_ALL, query = "select p from CStatsPlayer p"))
+@NamedQueries(@NamedQuery(name = CStatsBuildingsAttacked.GET_ALL, query = "select p from CStatsBuildingsAttacked p"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonDeserialize(as = CStatsBuildingsAttacked.class)
+
 public class CStatsBuildingsAttacked extends AStatsAttacked {
 
     @ManyToOne

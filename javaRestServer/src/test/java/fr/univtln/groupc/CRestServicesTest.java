@@ -96,7 +96,6 @@ public class CRestServicesTest extends TestCase {
     }
 
 
-
     public void testGetPlayerService() throws Exception {
         CPlayerEntity lPlayerEntity = mMapper.readValue(mWebResource.path("/players/78678").get(String.class), CPlayerEntity.class);
         assertEquals(lPlayerEntity.getEmail(), "bobz@z.fr");
@@ -128,9 +127,9 @@ public class CRestServicesTest extends TestCase {
         assertEquals(clientResponse.getStatus(), 200);
     }
 
-    /*
-    // Tests CRUD StatsBuildingAttackedService OFF
 
+    // Tests CRUD StatsBuildingAttackedService OFF
+/*
     public void testPostStatsBuildingAttackedService() throws Exception {
 
         CStatsBuildingsAttacked lStatsBuildingsAttacked = new CStatsBuildingsAttacked.CStatsBuildingsAttackedBuilder(0).cpt(51).build();
@@ -153,8 +152,8 @@ public class CRestServicesTest extends TestCase {
 }
 */
 
-    // Tests CRUD CSkillService OFF
-/*
+    // Tests CRUD CSkillService Rouani Azedine
+
     public void testPostSkillService() throws Exception {
 
         CSkillEntity lSkillEntity = new CSkillEntity.CSkillBuilder(66).cost(5).level(10).name("rogue").build();
@@ -165,14 +164,14 @@ public class CRestServicesTest extends TestCase {
 
     public void testGetSkillService() throws Exception {
         CSkillEntity lSkillEntity = mMapper.readValue(mWebResource.path("/skills/66").get(String.class), CSkillEntity.class);
-        assertEquals(lSkillEntity.getId(), 1);
+        assertEquals(lSkillEntity.getId(), 66);
     }
 
     public void testDeleteSkillService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/skills/66").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-*/
+
     // Tests CRUD CConsumableService OFF
 /*
     public void testPostConsumableService() throws Exception {
