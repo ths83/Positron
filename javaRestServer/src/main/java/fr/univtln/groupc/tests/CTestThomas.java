@@ -22,6 +22,9 @@ public class CTestThomas {
         CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2001).latitude(43.1948).longitude(5.6045).build();
         CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(2002).latitude(42.1948).longitude(6.6045).build();
 
+        CTeamEntity lAtom = new CTeamEntity.CTeamBuilder(1).color("red").build();
+        CTeamEntity lXenom = new CTeamEntity.CTeamBuilder(2).color("blue").build();
+
         lPortalLinked.add(lPortal);
         lPortalLinked.add(lPortal2);
 
@@ -60,6 +63,12 @@ public class CTestThomas {
         lLink2.setField(lField);
         lLink3.setField(lField);
 
+        lPortal.setTeam(lAtom);
+        lPortal2.setTeam(lAtom);
+        lPortal3.setTeam(lAtom);
+
+        lCrud.create(lAtom);
+        lCrud.create(lXenom);
         lCrud.create(lResonator);
         lCrud.create(lPortal);
         lCrud.create(lPortal2);

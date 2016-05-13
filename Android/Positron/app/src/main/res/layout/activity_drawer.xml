@@ -15,14 +15,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-       <ImageView
+       <ImageButton
            android:layout_width="75sp"
            android:layout_height="75sp"
            android:background="@mipmap/drone"
            android:layout_gravity="center"
            />
 
-        <ImageView
+        <ImageButton
             android:layout_width="75sp"
             android:layout_height="75sp"
             android:background="@mipmap/radar"
@@ -47,6 +47,22 @@
             android:layout_height="65sp"
             android:background="@mipmap/chat"
             android:layout_gravity="center" />
+
+        <Button
+            android:id="@+id/bzoomin"
+            android:layout_width="65sp"
+            android:layout_height="65sp"
+            android:layout_gravity="center"
+            android:textSize="28sp"
+            android:text="+" />
+        <Button
+            android:id="@+id/bzoomout"
+            android:layout_width="65sp"
+            android:layout_height="65sp"
+            android:layout_gravity="center"
+            android:textSize="23sp"
+            android:textAlignment="center"
+            android:text="—" />
 
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
