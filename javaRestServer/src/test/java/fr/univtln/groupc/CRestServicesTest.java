@@ -173,7 +173,7 @@ public class CRestServicesTest extends TestCase {
     }
 
     // Tests CRUD CConsumableService OFF
-/*
+
     public void testPostConsumableService() throws Exception {
 
         CConsumableEntity lConsumableEntity = new CConsumableEntity.CConsumableBuilder(1).name("bob").rarity(5).build();
@@ -192,7 +192,7 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/consumables/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-*/
+
 
     // Tests CRUD CTurrentService OFF
 /*
