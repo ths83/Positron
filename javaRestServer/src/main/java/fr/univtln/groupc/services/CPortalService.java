@@ -80,6 +80,7 @@ public class CPortalService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("json ->\n" + lJsonValue);
         return lJsonValue;
     }
 

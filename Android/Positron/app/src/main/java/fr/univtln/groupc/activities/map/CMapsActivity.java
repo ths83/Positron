@@ -32,9 +32,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univtln.groupc.entities.AObjectEntity;
+import fr.univtln.groupc.entities.CFieldEntity;
+import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
-import fr.univtln.groupc.rest.CCrudGet;
+import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
@@ -61,8 +63,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private List<CResonatorEntity> mClickPortalResonator;
     private List<AObjectEntity> mClickPortalObject;
+    private List<CLinkEntity> mClickLink;
+    private CFieldEntity mField;
     private String mResonatorString;
     private String mObjectString;
+    private String mLinkObjectString;
+    private String mFieldString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +102,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap.animateCamera(CameraUpdateFactory.zoomTo(8f));
 
 
-
         // Portals from database with REST
-        final List<CPortalEntity> lPortals = new CCrudGet().getPortalsRest();
+        final List<CPortalEntity> lPortals = new CRestGet().getPortalsRest();
         Log.d("test", "salut : -> " + lPortals.size());
         for (CPortalEntity lPortal : lPortals){
             Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
@@ -106,7 +111,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     .position(new LatLng(lPortal.getLat(),lPortal.getLong()))
                     .title(lPortal.getObjects().toString()));
         }
-        //Toast.makeText(getBaseContext(),lPortals.toString(),Toast.LENGTH_LONG).show();
 
         // Location Service
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -123,37 +127,40 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         });*/
 
-        // portal action radius when click on it
+        // Portal action radius when click on it
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
             @Override
             public boolean onMarkerClick(Marker marker) {
 
-                // new tests with objects
+                // New tests with objects
                 for (CPortalEntity lPortal : lPortals){
                     Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
                     mMarkerUserSelected = new LatLng(lPortal.getLat(),lPortal.getLong());
                     if (mMarkerUserSelected.equals(marker.getPosition())){
                         mClickPortalResonator = lPortal.getResonators();
                         mClickPortalObject = lPortal.getObjects();
-                        Log.d("test", "-> test");
+                        mClickLink = lPortal.getLinks();
                         mResonatorString += mClickPortalObject.toString();
                         // resonators
                         for (CResonatorEntity lR : mClickPortalResonator){
-                            Log.d("test", "-> test2");
                             mResonatorString += lR.toString();
                             Log.d("test", "-> " + lR.toString());
                         }
-                        // ojets
+                        // objets
                         for (AObjectEntity lA : mClickPortalObject){
 
                             mObjectString += lA.toString();
                             Log.d("test", "- > " + lA.toString());
 
                         }
-                        Log.d("test", "-> test3");
-                        Toast.makeText(getBaseContext(),/*mResonatorString + " " +*/ mObjectString,Toast.LENGTH_LONG).show();
-                        Log.d("test", "-> " + /*mResonatorString + " " + */mObjectString);
+                        // links
+                        for (CLinkEntity lL : mClickLink){
+                            mLinkObjectString += lL.toString();
+                            Log.d("test", "-> " + lL.toString());
+                        }
+                        Toast.makeText(getBaseContext(),/*mResonatorString + " " +*/ mObjectString + mLinkObjectString,Toast.LENGTH_LONG).show();
+                        Log.d("test", "-> " + /*mResonatorString + " " + */mObjectString + "link " + mLinkObjectString);
 
                     }
 
@@ -200,8 +207,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
     }
-
-
 
     // user action radius when new position is detected
     @Override

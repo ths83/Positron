@@ -86,6 +86,15 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
     }
 
     @Override
+    public String toString() {
+        return "CFieldEntity{" +
+                "mId=" + mId +
+                /*", mTerritory=" + mTerritory +
+                */", mLinks=" + mLinks +
+                '}';
+    }
+
+    @Override
     public int compareTo(CFieldEntity pFieldCompared) {
         double lSizeOfThis=0,lSizeOfCompared=0;
 
