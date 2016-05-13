@@ -42,7 +42,7 @@ public class CLinkService {
         List<CFieldEntity> lFields =mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
 
         //System.out.println("pLinkJson = = = " + pLinkJson);
-        System.out.println("\n Lien existant : "+lLinks+"\n");
+       // System.out.println("\n Lien existant : "+lLinks+"\n");
 
         try {
             lLink = mMapper.readValue(pLinkJson, CLinkEntity.class);
@@ -53,8 +53,8 @@ public class CLinkService {
         System.out.println("////////////////////////////////// ID: "+lLink.getId() +" ////////////////////////////////////////////");
         System.out.println("Portail déjà lié: "+lLink.getPortals());
         System.out.println("Field existant: "+lFields);
-
        // System.out.println("llink ->->-> " + lLink);
+
         System.out.println("Pre-Detection CrossLink");
 
         if (CAlgorithm.detectColision(lLink, lLinks, lFields)){
@@ -68,27 +68,21 @@ public class CLinkService {
             lLinkListField = CAlgorithm.detecteNewFields(lLink);
             //System.out.println("ListeLinkField = "+lLinkListField);
 
+            //
            if(lLinkListField.size()>0) {
                System.out.println(lLinkListField.size()/3+" field à créer");
 
-               for (int li = 0; li < lLinkListField.size(); li += 3) {
+               lListFieldToCreate=CAlgorithm.convertLinkListToFieldList(lLinkListField);
 
-                   for (int lu = 0; lu < 2; lu++) {
-                       lLinkStorageField.add(lLinkListField.get(lu + li));
-                   }
-                   lListFieldToCreate.add(new CFieldEntity.CFieldBuilder(64).links(lLinkStorageField).build());
-               }
 
-               //System.out.println("Pre trie: "+lListFieldToCreate);
-               Collections.sort(lListFieldToCreate);
                System.out.println("Aprés trie: " + lListFieldToCreate);
                System.out.println("Pre-CreationField");
 
                for (CFieldEntity lField : lListFieldToCreate) {
-                   System.out.println("Field créer: " + lField.getId() + "  et Lien:" + lField.getLinks());
-                  // mCrudMethods.create(lField);
+                   System.out.println("Field créer: ID = " + lField.getId() + "  et Lien:" + lField.getLinks());
+                   mCrudMethods.create(lField);
                    for (CLinkEntity lLinkInField : lField.getLinks()) {
-                      // mCrudMethods.update(lLinkInField);
+                       mCrudMethods.update(lLinkInField);
                    }
 
                    // Ligne pour suprimer un id
@@ -109,7 +103,7 @@ public class CLinkService {
             return Response.status(201).entity(pLinkJson).build();
         }
         else{
-            System.out.println("Detection Failed");
+            System.out.println("Creation annuler");
             System.out.println("///////////////////////////////////////////////////////////////////////////////////////////");
 
             return Response.status(500).build();

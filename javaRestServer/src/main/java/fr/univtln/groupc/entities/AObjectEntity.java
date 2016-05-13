@@ -19,6 +19,7 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity"),
 @JsonSubTypes.Type(value = CConsumableEntity.class, name = "CConsumableEntity"),
 @JsonSubTypes.Type(value = CKeyEntity.class, name = "CKeyEntity")})
+
 public abstract class AObjectEntity implements Serializable {
     @Id
     @Column(name = "id")
