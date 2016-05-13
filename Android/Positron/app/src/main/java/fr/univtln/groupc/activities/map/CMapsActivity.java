@@ -41,6 +41,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
+    public final static float MAX_ZOOM_MAP = 17f;
     //public static final String PORTALS_URL = "http://localhost:9998/portals/";
     //public static final String apiUrl = "http://10.0.3.2:9998";
 
@@ -136,14 +137,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                         mClickPortalResonator = lPortal.getResonators();
                         mClickPortalObject = lPortal.getObjects();
                         Log.d("test", "-> test");
-                        //mResonatorString += mClickPortalObject.toString();
+                        mResonatorString += mClickPortalObject.toString();
                         // resonators
-                        /*for (CResonatorEntity lR : mClickPortalResonator){
-                            //Log.d("test", "-> test2");
+                        for (CResonatorEntity lR : mClickPortalResonator){
+                            Log.d("test", "-> test2");
                             mResonatorString += lR.toString();
-                            //Log.d("test", "-> " + lR.toString());
-                        }*/
-                        // objets
+                            Log.d("test", "-> " + lR.toString());
+                        }
+                        // ojets
                         for (AObjectEntity lA : mClickPortalObject){
 
                             mObjectString += lA.toString();
@@ -152,7 +153,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                         }
                         Log.d("test", "-> test3");
                         Toast.makeText(getBaseContext(),/*mResonatorString + " " +*/ mObjectString,Toast.LENGTH_LONG).show();
-                        //Log.d("test", "-> " + /*mResonatorString + " " + */mObjectString);
+                        Log.d("test", "-> " + /*mResonatorString + " " + */mObjectString);
 
                     }
 
@@ -229,6 +230,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         Intent enableGpsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(enableGpsIntent);
     }
+
 
     /**
      * some links tests between portals

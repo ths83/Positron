@@ -20,7 +20,7 @@ public class CTestThomas {
         CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(10).build();
         CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder(11).build();
         CKeyEntity lKey = new CKeyEntity.CKeyBuilder(500).build();
-        CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(500).build();
+        CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(600).build();
         CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder(200).build();
 
         lResonatorEntityList.add(lResonator);
