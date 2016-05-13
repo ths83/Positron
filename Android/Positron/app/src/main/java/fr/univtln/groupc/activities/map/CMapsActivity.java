@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -15,6 +17,8 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -75,14 +79,30 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Button b= (Button) findViewById(R.id.bzoomout);
-        b.setOnClickListener(new View.OnClickListener() {
+        Button buttonZoomOut= (Button) findViewById(R.id.bzoomout);
+        Button buttonZoomIn= (Button) findViewById(R.id.bzoomin);
+        buttonZoomOut.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (mMap.getCameraPosition().zoom >= 15.5) {
+                if (mMap.getCameraPosition().zoom >= 17) {
                     // Zoom like normal
                     mMap.animateCamera(CameraUpdateFactory.zoomOut());
+                } else {
+                    // Do whatever you want if user went too far
+                    Log.d("test", "impossible de dézoomer");
+                }
+            }
+
+        });
+
+        buttonZoomIn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mMap.getCameraPosition().zoom < 18.5) {
+                    // Zoom like normal
+                    mMap.animateCamera(CameraUpdateFactory.zoomIn());
                 } else {
                     // Do whatever you want if user went too far
                     Log.d("test", "impossible de dézoomer");
@@ -110,7 +130,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         //mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 16.6));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 17.5));
         mMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
 
@@ -130,8 +150,26 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             LatLng test = new LatLng(p.getLat(), p.getLong());
             if (p.getTeam() == null) {
                 mMap.addMarker(new MarkerOptions()
-                        .position(test)
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailic)));
+                        .position(test).title(Integer.toString(p.getId()))
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailic))).setSnippet(Integer.toString(p.getId()));
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                    @Override
+                    public View getInfoWindow(Marker marker) {
+                        return null;
+                    }
+
+                    @Override
+                    public View getInfoContents(Marker marker) {
+                        Context context = getApplicationContext();
+                        LinearLayout info = new LinearLayout(context);
+                        info.setOrientation(LinearLayout.VERTICAL);
+                        TextView snip=new TextView(context);
+                        snip.setTextColor(Color.BLUE);
+                        snip.setText(marker.getSnippet());
+                        info.addView(snip);
+                        return info;
+                    }
+                });
             } else {
                 if (p.getTeam().getColor().equals("bleu")) {
                     mMap.addMarker(new MarkerOptions()
