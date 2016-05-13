@@ -1,5 +1,6 @@
 package fr.univtln.groupc.stats;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import fr.univtln.groupc.entities.CPlayerEntity;
 
 import javax.persistence.*;
@@ -9,6 +10,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_stats_attacked", schema = "positron")
+@JsonSubTypes({@JsonSubTypes.Type(value = CStatsBuildingsAttacked.class, name = "CStatsBuildingsAttacked"),
+        @JsonSubTypes.Type(value = CStatsResonatorAttacked.class, name = "CStatsResonatorAttacked")})
+
 public class AStatsAttacked {
 
     @ManyToOne

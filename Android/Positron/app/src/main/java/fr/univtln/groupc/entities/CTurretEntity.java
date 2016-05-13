@@ -98,8 +98,8 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "CTurretEntity{" +
+        return super.toString() + "CTurretEntity{" +
                 "mDamage=" + mDamage +
-                '}'+super.toString();
+                '}';
     }
 }

@@ -25,6 +25,13 @@ public class CKeyEntity extends AObjectEntity {
         mPortal = pPortal;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "CKeyEntity{" +
+                "mPortal=" + mPortal +
+                '}';
+    }
+
     public static class CKeyBuilder{
         int mId;
         String mName;
@@ -48,14 +55,7 @@ public class CKeyEntity extends AObjectEntity {
             return new CKeyEntity(this);
         }
 
-        @Override
-        public String toString() {
-            return "CKeyBuilder{" +
-                    "mId=" + mId +
-                    ", mName='" + mName + '\'' +
-                    ", mPortal=" + mPortal +
-                    '}';
-        }
+
     }
 
 }

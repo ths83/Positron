@@ -34,7 +34,9 @@ public class CCrudGet extends AsyncTask<String,String,String> {
     //public final static String API_URL = "http://10.9.185.57:9998";
     //public final static String API_URL = "http://10.21.174.206:9998";
     //thom' home
-    public final static String API_URL = "http://192.168.1.83:9998";
+    //public final static String API_URL = "http://192.168.1.83:9998";
+    // wifi
+    public final static String API_URL = "http://192.168.43.44:9998";
 
     @Override
     protected String doInBackground(String... params) {
@@ -83,6 +85,9 @@ public class CCrudGet extends AsyncTask<String,String,String> {
             //Log.d("test", " -> " + lPortalsJson);
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
             //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
+            //Log.d("test", "objects numero 1 ->\n" + lPortals.get(0).getObjects().get(0));
+            //Log.d("test", "objects numero 2 ->\n" + lPortals.get(0).getObjects().get(1));
+
             Log.d("test", "deserialized!!");
 
         } catch (InterruptedException e) {
@@ -100,7 +105,7 @@ public class CCrudGet extends AsyncTask<String,String,String> {
             e.printStackTrace();
         }
         //System.out.println("hello" + lPortals);
-        Log.d("test", lPortals.toString());
+        //Log.d("test", lPortals.toString());
         return lPortals;
     }
 
@@ -121,7 +126,6 @@ public class CCrudGet extends AsyncTask<String,String,String> {
             //Log.d("test", " -> " + lPlayersJson);
             lPlayers = lMapper.readValue(lPlayersJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPlayerEntity.class));
             //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
-            //Log.d("test", "_>>" + lPlayers.get(0).getId());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

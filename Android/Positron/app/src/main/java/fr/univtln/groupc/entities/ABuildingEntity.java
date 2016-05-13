@@ -1,10 +1,16 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Created by marti on 09/05/2016.
  */
 
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
+        @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
 public abstract class ABuildingEntity extends AObjectEntity {
     private double mLong;
     private double mLat;
