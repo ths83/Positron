@@ -47,6 +47,15 @@ public class CKeyEntity extends AObjectEntity {
         public CKeyEntity build(){
             return new CKeyEntity(this);
         }
+
+        @Override
+        public String toString() {
+            return "CKeyBuilder{" +
+                    "mId=" + mId +
+                    ", mName='" + mName + '\'' +
+                    ", mPortal=" + mPortal +
+                    '}';
+        }
     }
 
 }

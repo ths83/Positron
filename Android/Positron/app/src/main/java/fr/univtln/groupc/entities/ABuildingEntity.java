@@ -32,7 +32,7 @@ public abstract class ABuildingEntity extends AObjectEntity {
 
     @Override
     public String toString() {
-        return super.toString() + "ABuildingEntity{" +
+        return  super.toString() + "ABuildingEntity{" +
                 "mLong=" + mLong +
                 ", mLat=" + mLat +
                 ", mLifeTime=" + mLifeTime +

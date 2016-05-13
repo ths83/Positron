@@ -108,11 +108,6 @@ public class CTestsNicolas {
         lCrud.create(lLink1);
         lCrud.create(lLink2);
 
-        CFieldEntity lField1 = new CFieldEntity.CFieldBuilder(47).build();
-        CFieldEntity lField2 = new CFieldEntity.CFieldBuilder(78).build();
-        lCrud.create(lField1);
-        lCrud.create(lField2);
-
     }
 
 

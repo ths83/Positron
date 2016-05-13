@@ -148,12 +148,18 @@ public class CSerializationTest extends TestCase {
         System.out.println(lPortals);
     }
 
-    public void testSerializationOfPortalWithAListOfObjects() throws Exception {
-        CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(1).build();
-        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2).build();
-        List<CPortalEntity> lList = new ArrayList<>();
-        lList.add(lPortal1);
-        lList.add(lPortal2);
+    public void testSerializationOfPlayerWithAListOfObjects() throws Exception {
+        List<AObjectEntity> lObjects = new ArrayList<>();
+        AObjectEntity lObject = new CConsumableEntity.CConsumableBuilder(1).name("le bon consommable").build();
+        AObjectEntity lObject2 = new CKeyEntity.CKeyBuilder(2).build();
+        lObjects.add(lObject);
+        lObjects.add(lObject2);
+        CPlayerEntity lPlayer = new CPlayerEntity.CPlayerBuilder(1).nickname("nicolas").objects(lObjects).build();
         String lSerializedList = null;
+        lSerializedList = mMapper.writeValueAsString(lPlayer);
+        CPlayerEntity lPlayerDeserialized = mMapper.readValue(lSerializedList, CPlayerEntity.class);
+        System.out.println(lPlayerDeserialized);
     }
+
+
 }
