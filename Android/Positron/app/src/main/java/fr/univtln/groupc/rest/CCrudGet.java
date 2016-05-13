@@ -85,6 +85,9 @@ public class CCrudGet extends AsyncTask<String,String,String> {
             //Log.d("test", " -> " + lPortalsJson);
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
             //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
+            Log.d("test", "objects numero 1 ->\n" + lPortals.get(0).getObjects().get(0));
+            Log.d("test", "objects numero 2 ->\n" + lPortals.get(0).getObjects().get(1));
+
             Log.d("test", "deserialized!!");
 
         } catch (InterruptedException e) {
@@ -123,7 +126,6 @@ public class CCrudGet extends AsyncTask<String,String,String> {
             //Log.d("test", " -> " + lPlayersJson);
             lPlayers = lMapper.readValue(lPlayersJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPlayerEntity.class));
             //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
-            Log.d("test", "objects ->" + lPlayers.get(0).getObjects());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

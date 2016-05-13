@@ -37,6 +37,11 @@ public class CKeyEntity extends AObjectEntity implements Serializable {
         mPortal = pPortal;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "CKeyEntity{ mPortal : " + mPortal +"}";
+    }
+
     public static class CKeyBuilder{
         int mId;
         String mName;
