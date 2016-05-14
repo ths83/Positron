@@ -39,8 +39,8 @@ public class CRestServicesTest extends TestCase {
 
 
     public void testDeleteTeamService() throws Exception {
-        ClientResponse lclientResponse = mWebResource.path("/teams/150").type("application/json").accept("application/json").delete(ClientResponse.class);
-        assertEquals(lclientResponse.getStatus(), 200);
+        ClientResponse lClientResponse = mWebResource.path("/teams/150").type("application/json").accept("application/json").delete(ClientResponse.class);
+        assertEquals(lClientResponse.getStatus(), 200);
     }
 
     // Tests CRUD CPortalService
@@ -49,25 +49,25 @@ public class CRestServicesTest extends TestCase {
         // ne marche pas avec des dépendances...
 
 
-        CTurretEntity c1 = new CTurretEntity
+        CTurretEntity lTurret = new CTurretEntity
                 .CTurretBuilder(78678687).level(10).damage(10).lifeTime(1111)
                 .energy(150).energyMax(200).latitude(10.5)
-                .longitude(11.2).name("c1").radius(100).build();
+                .longitude(11.2).name("t1").radius(100).build();
 
-        CResonatorEntity cr = new CResonatorEntity.CResonatorBuilder(78687678).energy(100)
+        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(78687678).energy(100)
                 .latitude(10.5).energyMax(200)
                 .level(9).longitude(5.2).name("cr")
                 .radius(54).build();
 
         List<AObjectEntity> objects = new ArrayList();
-        objects.add(c1);
-        objects.add(cr);
+        objects.add(lTurret);
+        objects.add(lResonator);
 
-        List<CResonatorEntity> resonators = new ArrayList<CResonatorEntity>();
-        resonators.add(cr);
+        List<CResonatorEntity> lResonators = new ArrayList<CResonatorEntity>();
+        lResonators.add(lResonator);
 
 
-        CPortalEntity lPortalPost = new CPortalEntity.CPortalBuilder(150).latitude(10).longitude(5.2).resonators(resonators).build();
+        CPortalEntity lPortalPost = new CPortalEntity.CPortalBuilder(150).latitude(10).longitude(5.2).resonators(lResonators).build();
         mJson = mMapper.writeValueAsString(lPortalPost);
         lResponse = mWebResource.path("/portals").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
@@ -87,9 +87,9 @@ public class CRestServicesTest extends TestCase {
 
     public void testPostPlayerService() throws Exception {
 
-        CPlayerEntity lcPlayerEntity = new CPlayerEntity.CPlayerBuilder(78678).email("bobz@z.fr").build();
+        CPlayerEntity lPlayerEntity = new CPlayerEntity.CPlayerBuilder(78678).email("bobz@z.fr").build();
 
-        mJson = mMapper.writeValueAsString(lcPlayerEntity);
+        mJson = mMapper.writeValueAsString(lPlayerEntity);
         lResponse = mWebResource.path("/players").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
 
         assertEquals(lResponse.getStatus(), 201);
@@ -126,6 +126,14 @@ public class CRestServicesTest extends TestCase {
     public void testDeleteTerritoryService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/territories/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
+    }
+
+    public void testGetByNamePlayerService() throws Exception {
+        CPlayerEntity lPlayer = null;
+        String lJsonPlayer = mWebResource.path("/players/name/nicolas").type("application/json").accept("application/json").get(String.class);
+        lPlayer = mMapper.readValue(lJsonPlayer, CPlayerEntity.class);
+        System.out.println(lPlayer);
+        assertEquals(lPlayer.getNickName(), "nicolas");
     }
 
     /*
