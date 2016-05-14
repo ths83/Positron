@@ -4,12 +4,12 @@ import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
-import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 /**
  * Created by xdurbec066 on 03/05/16.
@@ -58,7 +58,7 @@ public class CAlgorithm {
 
             // Si tout les déterminant sont du même signe, le point est dans le territoire et on renvoie faux.
             if ((lDet[0] < 0 && lDet[1] < 0 && lDet[2] < 0) || (lDet[0] > 0 && lDet[1] > 0 && lDet[2] > 0)) {
-
+                System.out.println("Field causant la colision: ");
                 return false;
             }
         }
@@ -70,58 +70,52 @@ public class CAlgorithm {
     }
 
 
+
+
     public static boolean detectLinkCollision(CLinkEntity pLinkToDo, List<CLinkEntity> pLinkList){
-        
-
-        Iterator<CLinkEntity> lIteratorLink = pLinkList.iterator();
-        double lABx=0,lABy=0,lAP1y=0,lAP1x=0,lAP2y=0,lAP2x=0;
-
         double lP1X = pLinkToDo.getPortals().get(0).getLong();
         double lP2X = pLinkToDo.getPortals().get(1).getLong();
         double lP1Y = pLinkToDo.getPortals().get(0).getLat();
         double lP2Y = pLinkToDo.getPortals().get(1).getLat();
-
-
-        CLinkEntity lComparedLinks;
-
-
-        while(lIteratorLink.hasNext()) {
-
-
-            lComparedLinks = lIteratorLink.next();
-
-
-            lABx = lComparedLinks.getPortals().get(1).getLong() - lComparedLinks.getPortals().get(0).getLong();
-            lABy = lComparedLinks.getPortals().get(1).getLat() - lComparedLinks.getPortals().get(0).getLat();
-            lAP1x = lP1X - lComparedLinks.getPortals().get(0).getLong();
-            lAP1y = lP1Y - lComparedLinks.getPortals().get(0).getLat();
-            lAP2x = lP2X - lComparedLinks.getPortals().get(0).getLong();
-            lAP2y = lP2Y - lComparedLinks.getPortals().get(0).getLat();
-            //
-            if ((lABx * lAP1y - lABy * lAP1x) ==0 && (lABx * lAP2y - lABy * lAP2x)==0) {
-                        return false;
-            }
-            //
-            else {
-                if ((lABx * lAP1y - lABy * lAP1x) * (lABx * lAP2y - lABy * lAP2x) < 0) {
-
-                    if ((lABy * lAP1x - lABx * lAP1y) * (lABy * lAP2x - lABx * lAP2y) < 0) {
-
-
-                        return false;
-
-                    }
-                }
-
+        int lCount = 0;
+        for (CLinkEntity lLink : pLinkList){
+            if (detectCollisionBetween2Links(lP1X, lP1Y, lP2X, lP2Y, lLink)){
+                return false;
             }
         }
         return true;
     }
 
+    public static boolean detectCollisionBetween2Links(double lP1X,double lP1Y,double lP2X,double lP2Y,CLinkEntity lComparedLink){
+        double lABx=0,lABy=0,lAP1y=0,lAP1x=0,lAP2y=0,lAP2x=0;
+        lABx = lComparedLink.getPortals().get(1).getLong() - lComparedLink.getPortals().get(0).getLong();
+        lABy = lComparedLink.getPortals().get(1).getLat() - lComparedLink.getPortals().get(0).getLat();
+        lAP1x = lP1X - lComparedLink.getPortals().get(0).getLong();
+        lAP1y = lP1Y - lComparedLink.getPortals().get(0).getLat();
+        lAP2x = lP2X - lComparedLink.getPortals().get(0).getLong();
+        lAP2y = lP2Y - lComparedLink.getPortals().get(0).getLat();
+        //
+        if ((lABx * lAP1y - lABy * lAP1x) ==0 && (lABx * lAP2y - lABy * lAP2x)==0) {
+            return true;
+        }
+        //
+        else {
+            if ((lABx * lAP1y - lABy * lAP1x) * (lABx * lAP2y - lABy * lAP2x) < 0) {
+
+                if ((lABy * lAP1x - lABx * lAP1y) * (lABy * lAP2x - lABx * lAP2y) < 0) {
 
 
+                    return true;
+
+                }
+            }
+
+        }
+        return false;
+    }
 
     public static boolean detectColision(CLinkEntity pCheckedLink,List<CLinkEntity> pLinkList,List<CFieldEntity> pFieldList){
+
 
         System.out.println("Detection de colision en cours....");
         if    (CAlgorithm.detectLinkCollision(pCheckedLink, pLinkList)) {
@@ -177,7 +171,7 @@ public class CAlgorithm {
 
         double lPx=0,lPy=0,lFieldVector[][]={{0,0},{0,0},{0,0}},det[]={0,0,0},lLinkVector[][]={{0,0},{0,0},{0,0}};
         int li=0,lu=0;
-
+        System.out.println( "FieldCreated =" +pFieldCreated);
 
         for(li=0;li<2;li++){
             for(lu=0;lu<2;lu++){
@@ -230,6 +224,7 @@ public class CAlgorithm {
                     if (((det[0] <= 0 && det[1] <= 0 && det[2] <= 0) || (det[0] >= 0 && det[1] >= 0 && det[2] >= 0))) {
 
                         lInternalLinkList.add(lLinkVerified.getId());
+
                     }
                 }
             }
@@ -243,10 +238,6 @@ public class CAlgorithm {
         List<CLinkEntity> lLinkNewField = new ArrayList<>();
         CPortalEntity lPortalVerified1= null,lPortalVerified2= null;
         CPortalEntity lPortals[]={pLinkCreated.getPortals().get(0),pLinkCreated.getPortals().get(1)};
-
-        System.out.println("\nDETECTE NEW FIELD => Liste Link lié :"+pLinkCreated.getPortals().get(0).getLinks()+"\n");
-        System.out.println("\nDETECTE NEW FIELD => Liste Link lié 2 :"+pLinkCreated.getPortals().get(0).getLinks() + "\n")
-        ;
 
         for(CLinkEntity lLinks : lPortals[0].getLinks()){
            lPortalVerified1= getOtherPortalOfLink(lPortals[0],lLinks);
@@ -272,6 +263,25 @@ public class CAlgorithm {
         else {
             return pLink.getPortals().get(1);
         }
+
+    }
+
+    public static List<CFieldEntity> convertLinkListToFieldList(List<CLinkEntity> lLinkListToExtracte){
+       List<CFieldEntity> lListFieldToCreate = new ArrayList<>();
+
+
+        for (int li = 0; li < lLinkListToExtracte.size(); li += 3) {
+            List<CLinkEntity> lLinkListToCreate= new ArrayList<>();
+
+            for (int lu = 0; lu < 3; lu++) {
+               lLinkListToCreate.add(lLinkListToExtracte.get(lu + li));
+            }
+            lListFieldToCreate.add(new CFieldEntity.CFieldBuilder(64).links(lLinkListToCreate).build());
+        }
+
+        Collections.sort(lListFieldToCreate);
+        return lListFieldToCreate;
+
 
     }
 
