@@ -51,8 +51,7 @@ public class CAlgorithm {
                     lBy = lField.getmLinks().get(0).getPortals().get(0).getLat();
                 }
 
-                lDet[li] = ((lBx - lAx) * (pPortal.getLat() - lAy)) - ((lBy - lAy) * (pPortal.getLong() - lAx));
-
+                lDet[li] = calculDetermiant((lBx-lAx),(lBy-lAy),(pPortal.getLong()-lAx),(pPortal.getLat()-lAy));
 
             }
 
@@ -77,7 +76,7 @@ public class CAlgorithm {
         double lP2X = pLinkToDo.getPortals().get(1).getLong();
         double lP1Y = pLinkToDo.getPortals().get(0).getLat();
         double lP2Y = pLinkToDo.getPortals().get(1).getLat();
-        int lCount = 0;
+
         for (CLinkEntity lLink : pLinkList){
             if (detectCollisionBetween2Links(lP1X, lP1Y, lP2X, lP2Y, lLink)){
                 return false;
@@ -86,24 +85,35 @@ public class CAlgorithm {
         return true;
     }
 
-    public static boolean detectCollisionBetween2Links(double lP1X,double lP1Y,double lP2X,double lP2Y,CLinkEntity lComparedLink){
-        double lABx=0,lABy=0,lAP1y=0,lAP1x=0,lAP2y=0,lAP2x=0;
+    public static boolean detectCollisionBetween2Links(double pP1X,double pP1Y,double pP2X,double pP2Y,CLinkEntity lComparedLink){
+        double lABx=0,lABy=0,lAP1y=0,lAP1x=0,lAP2y=0,lAP2x=0,lP1P2x=0,lP1P2y=0,lP1Ax=0,lP1Ay=0,lP1Bx=0,lP1By=0;
+
         lABx = lComparedLink.getPortals().get(1).getLong() - lComparedLink.getPortals().get(0).getLong();
         lABy = lComparedLink.getPortals().get(1).getLat() - lComparedLink.getPortals().get(0).getLat();
-        lAP1x = lP1X - lComparedLink.getPortals().get(0).getLong();
-        lAP1y = lP1Y - lComparedLink.getPortals().get(0).getLat();
-        lAP2x = lP2X - lComparedLink.getPortals().get(0).getLong();
-        lAP2y = lP2Y - lComparedLink.getPortals().get(0).getLat();
-        //
-        if ((lABx * lAP1y - lABy * lAP1x) ==0 && (lABx * lAP2y - lABy * lAP2x)==0) {
+        lAP1x = pP1X - lComparedLink.getPortals().get(0).getLong();
+        lAP1y = pP1Y - lComparedLink.getPortals().get(0).getLat();
+        lAP2x = pP2X - lComparedLink.getPortals().get(0).getLong();
+        lAP2y = pP2Y - lComparedLink.getPortals().get(0).getLat();
+
+        lP1P2x = pP2X-pP1X;
+        lP1P2y = pP2Y-pP1Y;
+        lP1Ax = lComparedLink.getPortals().get(0).getLong() - pP1X;
+        lP1Ay = lComparedLink.getPortals().get(0).getLat() - pP1Y;
+        lP1Bx = lComparedLink.getPortals().get(1).getLong() - pP1X;
+        lP1By = lComparedLink.getPortals().get(1).getLat() - pP1Y;
+
+
+        if ((calculDetermiant(lABx,lABy,lAP1x,lAP1y)) ==0 && (calculDetermiant(lABx,lABy,lAP2x,lAP2y))==0) {
+            System.out.println("Lien déjà existant");
             return true;
         }
         //
         else {
-            if ((lABx * lAP1y - lABy * lAP1x) * (lABx * lAP2y - lABy * lAP2x) < 0) {
-
-                if ((lABy * lAP1x - lABx * lAP1y) * (lABy * lAP2x - lABx * lAP2y) < 0) {
-
+            System.out.println("Lien non existant");
+            if ((calculDetermiant(lABx,lABy,lAP1x,lAP1y)) * (calculDetermiant(lABx,lABy,lAP2x,lAP2y)) < 0) {
+                System.out.println("Croisement A vers B");
+                if (calculDetermiant(lP1P2x,lP1P2y,lP1Ax,lP1Ay) * calculDetermiant(lP1P2x,lP1P2y,lP1Bx,lP1By) < 0) {
+                    System.out.println("Croisement B vers A");
 
                     return true;
 
@@ -216,7 +226,7 @@ public class CAlgorithm {
 
                 for (li = 0; li < 2; li++) {
 
-                    det[li] = lFieldVector[li][0] * lLinkVector[li][1] - lFieldVector[li][1] * lLinkVector[li][0];
+                    det[li] = calculDetermiant(lFieldVector[li][0],lFieldVector[li][1],lLinkVector[li][0],lLinkVector[li][1]);
                 }
             //    System.out.println(det[0] + "   " + det[1] + "   " + det[2]);
                 if (det[0] + det[1] + det[2] != 0) {
@@ -285,4 +295,14 @@ public class CAlgorithm {
 
     }
 
+
+
+    public static double calculDetermiant(double pABx,double pABy,double pACx,double pACy){
+        double lDet = pABx * pACy - pABy * pACx;
+        return lDet;
+
+    }
+
 }
+
+

@@ -27,13 +27,15 @@ public class CLinkEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "field_fk")
     private CFieldEntity mField;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "t_portal_link",joinColumns=@JoinColumn(name="link_fk", referencedColumnName="link_id"),inverseJoinColumns=@JoinColumn(name="portal_fk", referencedColumnName="portal_id"),schema = "positron")
     private List<CPortalEntity> mPortals  = new ArrayList<>();
 
     public final static String GET_ALL = "Link.getAll";
 
-    public CLinkEntity() {}
+    public CLinkEntity() {
+        mPortals = new ArrayList<>();
+    }
 
     public CLinkEntity(CLinkBuilder pBuilder) {
         mId = pBuilder.mId;
@@ -46,10 +48,10 @@ public class CLinkEntity implements Serializable {
     @Override
     public String toString() {
         return "CLinkEntity{" +
-                "mId=" + mId /*+
-                ", mField=" + mField +
+                "mId=" + mId +
+                //", mField=" + mField +
                 "; mPortals= " + mPortals +
-                */+'}';
+                +'}';
     }
 
     public static class CLinkBuilder{
@@ -61,7 +63,9 @@ public class CLinkEntity implements Serializable {
         }
 
         public CLinkBuilder portals(List<CPortalEntity> pPortals){
-            mPortals = pPortals;
+
+                mPortals = pPortals;
+
             return this;
         }
 
