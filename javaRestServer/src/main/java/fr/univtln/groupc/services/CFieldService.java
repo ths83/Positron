@@ -12,10 +12,11 @@ import java.util.List;
 /**
  * Created by mpesnel786 on 03/05/16.
  */
+@Path("/fields")
+
 public class CFieldService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
-
 
     @POST
     @Consumes("application/json")
@@ -36,7 +37,7 @@ public class CFieldService {
     @Path("/{id}")
     public String read(@PathParam("id") int pId){
         String lJsonValue = null;
-        CFieldEntity lField = (CFieldEntity)mCrudMethods.find(CFieldEntity.class, pId);
+        CFieldEntity lField = mCrudMethods.find(CFieldEntity.class, pId);
         try {
             lJsonValue = mMapper.writeValueAsString(lField);
         } catch (IOException e) {
@@ -77,6 +78,7 @@ public class CFieldService {
 
     @DELETE
     @Consumes("application/json")
+    @Path("/{id}")
     public Response delete(@PathParam("id") int pId)
     {
         mCrudMethods.delete(CFieldEntity.class, pId);
