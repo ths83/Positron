@@ -16,7 +16,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "t_player", schema = "positron")
-@NamedQueries(@NamedQuery(name = CPlayerEntity.GET_ALL, query = "select p from CPlayerEntity p"))
+@NamedQueries({@NamedQuery(name = CPlayerEntity.GET_ALL, query = "select p from CPlayerEntity p"),
+@NamedQuery(name = CPlayerEntity.GET_BY_NAME, query = "select p from CPlayerEntity p where p.mNickName = :mNickName")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class CPlayerEntity implements Serializable {
@@ -50,6 +51,7 @@ public class CPlayerEntity implements Serializable {
     private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
 
     public final static String GET_ALL = "Player.getAll";
+    public final static String GET_BY_NAME = "Player.getByName";
 
     public CPlayerEntity(){}
 

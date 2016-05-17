@@ -12,6 +12,18 @@ import java.util.Set;
 public class CCrudMethods {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("NewPersistenceUnit");
     EntityManager em = emf.createEntityManager();
+
+    public <T> T persist(T t){
+        EntityTransaction transac = em.getTransaction();
+        transac.begin();
+        this.em.persist(t);
+        this.em.flush();
+        this.em.refresh(t);
+        transac.commit();
+        return t;
+    }
+
+
     public  <T> T create(T t) {
         EntityTransaction transac = em.getTransaction();
         transac.begin();

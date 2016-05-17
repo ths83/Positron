@@ -27,8 +27,8 @@ public class CLinkEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "field_fk")
     private CFieldEntity mField;
-    @ManyToMany
-    @JoinTable(name = "portal_link",joinColumns=@JoinColumn(name="link_fk", referencedColumnName="link_id"),inverseJoinColumns=@JoinColumn(name="portal_fk", referencedColumnName="portal_id"),schema = "positron")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "t_portal_link",joinColumns=@JoinColumn(name="link_fk", referencedColumnName="link_id"),inverseJoinColumns=@JoinColumn(name="portal_fk", referencedColumnName="portal_id"),schema = "positron")
     private List<CPortalEntity> mPortals  = new ArrayList<>();
 
     public final static String GET_ALL = "Link.getAll";

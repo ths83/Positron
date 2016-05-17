@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.*;
 import fr.univtln.groupc.server.CServer;
 import fr.univtln.groupc.stats.CStatsBuildingsAttacked;
@@ -39,8 +40,8 @@ public class CRestServicesTest extends TestCase {
 
 
     public void testDeleteTeamService() throws Exception {
-        ClientResponse lclientResponse = mWebResource.path("/teams/150").type("application/json").accept("application/json").delete(ClientResponse.class);
-        assertEquals(lclientResponse.getStatus(), 200);
+        ClientResponse lClientResponse = mWebResource.path("/teams/150").type("application/json").accept("application/json").delete(ClientResponse.class);
+        assertEquals(lClientResponse.getStatus(), 200);
     }
 
     // Tests CRUD CPortalService
@@ -49,25 +50,25 @@ public class CRestServicesTest extends TestCase {
         // ne marche pas avec des dépendances...
 
 
-        CTurretEntity c1 = new CTurretEntity
+        CTurretEntity lTurret = new CTurretEntity
                 .CTurretBuilder(78678687).level(10).damage(10).lifeTime(1111)
                 .energy(150).energyMax(200).latitude(10.5)
-                .longitude(11.2).name("c1").radius(100).build();
+                .longitude(11.2).name("t1").radius(100).build();
 
-        CResonatorEntity cr = new CResonatorEntity.CResonatorBuilder(78687678).energy(100)
+        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(78687678).energy(100)
                 .latitude(10.5).energyMax(200)
                 .level(9).longitude(5.2).name("cr")
                 .radius(54).build();
 
         List<AObjectEntity> objects = new ArrayList();
-        objects.add(c1);
-        objects.add(cr);
+        objects.add(lTurret);
+        objects.add(lResonator);
 
-        List<CResonatorEntity> resonators = new ArrayList<CResonatorEntity>();
-        resonators.add(cr);
+        List<CResonatorEntity> lResonators = new ArrayList<CResonatorEntity>();
+        lResonators.add(lResonator);
 
 
-        CPortalEntity lPortalPost = new CPortalEntity.CPortalBuilder(150).latitude(10).longitude(5.2).resonators(resonators).build();
+        CPortalEntity lPortalPost = new CPortalEntity.CPortalBuilder(150).latitude(10).longitude(5.2).resonators(lResonators).build();
         mJson = mMapper.writeValueAsString(lPortalPost);
         lResponse = mWebResource.path("/portals").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
@@ -87,9 +88,9 @@ public class CRestServicesTest extends TestCase {
 
     public void testPostPlayerService() throws Exception {
 
-        CPlayerEntity lcPlayerEntity = new CPlayerEntity.CPlayerBuilder(78678).email("bobz@z.fr").build();
+        CPlayerEntity lPlayerEntity = new CPlayerEntity.CPlayerBuilder(78678).email("bobz@z.fr").build();
 
-        mJson = mMapper.writeValueAsString(lcPlayerEntity);
+        mJson = mMapper.writeValueAsString(lPlayerEntity);
         lResponse = mWebResource.path("/players").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
 
         assertEquals(lResponse.getStatus(), 201);
@@ -127,6 +128,16 @@ public class CRestServicesTest extends TestCase {
         assertEquals(clientResponse.getStatus(), 200);
     }
 
+    public void testGetByNamePlayerService() throws Exception {
+        CPlayerEntity lPlayer = null;
+        String lJsonPlayer = mWebResource.path("/players/name/nicolas").type("application/json").accept("application/json").get(String.class);
+        lPlayer = mMapper.readValue(lJsonPlayer, CPlayerEntity.class);
+        System.out.println(lPlayer);
+        assertEquals(lPlayer.getNickName(), "nicolas");
+    }
+
+    /*
+    // Tests CRUD StatsBuildingAttackedService OFF
 
     // Tests CRUD StatsBuildingAttackedService OFF
 /*
@@ -259,4 +270,54 @@ public class CRestServicesTest extends TestCase {
         assertEquals(lResponse.getStatus(), 200);
     }*/
 
+    public void testPostLinkServiceWhen3rdOfAFieldToCreate() throws Exception {
+        CCrudMethods lCrud = new CCrudMethods();
+        String lLink1Json = null;
+        String lLink2Json = null;
+        String lLink3Json = null;
+        CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(700).longitude(150).latitude(150).build();
+        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(701).longitude(450).latitude(152).build();
+        CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(702).longitude(300).latitude(400).build();
+        List<CPortalEntity> lPortals1_2 = new ArrayList<>();
+        lPortals1_2.add(lPortal1);
+        lPortals1_2.add(lPortal2);
+
+        List<CPortalEntity> lPortals1_3 = new ArrayList<>();
+        lPortals1_3.add(lPortal1);
+        lPortals1_3.add(lPortal3);
+
+        List<CPortalEntity> lPortals2_3 = new ArrayList<>();
+        lPortals2_3.add(lPortal2);
+        lPortals2_3.add(lPortal3);
+
+        System.out.println("print 1");
+        lCrud.create(lPortal1);
+        System.out.println("print 2");
+        lCrud.create(lPortal2);
+        System.out.println("print 3");
+        lCrud.create(lPortal3);
+
+        CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder(800).portals(lPortals1_2).build();
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(801).portals(lPortals1_3).build();
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(802).portals(lPortals2_3).build();
+
+
+        System.out.println("print 4");
+        lLink1Json = mMapper.writeValueAsString(lLink1);
+
+        //mWebResource.path("/links").accept("application/json").type("application/json").post(lLink1Json);
+        lCrud.create(lLink1);
+        System.out.println("print 5");
+        lLink2Json = mMapper.writeValueAsString(lLink2);
+
+        //mWebResource.path("/links").accept("application/json").type("application/json").post(lLink2Json);
+        lCrud.create(lLink2);
+        System.out.println("print 6");
+        lLink3Json = mMapper.writeValueAsString(lLink3);
+
+        mWebResource.path("/links").accept("application/json").type("application/json").post(lLink3Json);
+
+
+
+    }
 }
