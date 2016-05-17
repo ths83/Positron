@@ -47,8 +47,6 @@ public class CRestServicesTest extends TestCase {
     // Tests CRUD CPortalService
 
     public void testPostPortalService() throws Exception {
-        // ne marche pas avec des dépendances...
-
 
         CTurretEntity lTurret = new CTurretEntity
                 .CTurretBuilder(78678687).level(10).damage(10).lifeTime(1111)
@@ -122,11 +120,13 @@ public class CRestServicesTest extends TestCase {
         CTerritoryEntity lTerritoryEntity = mMapper.readValue(mWebResource.path("/territories/1").get(String.class), CTerritoryEntity.class);
         assertEquals(lTerritoryEntity.getId(), 1);
     }
+/* On n'a pas besoin de supprimer des territoires
 
     public void testDeleteTerritoryService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/territories/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
+    */
 /*
     public void testGetByNamePlayerService() throws Exception {
         CPlayerEntity lPlayer = null;
@@ -136,8 +136,6 @@ public class CRestServicesTest extends TestCase {
         assertEquals(lPlayer.getNickName(), "nicolas");
     }
 */
-    /*
-    // Tests CRUD StatsBuildingAttackedService OFF
 
     // Tests CRUD StatsBuildingAttackedService OFF
 /*
@@ -159,10 +157,7 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/statsBuildingAttacked/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-
-}
 */
-
     // Tests CRUD CSkillService Rouani Azedine
 
     public void testPostSkillService() throws Exception {
@@ -242,7 +237,7 @@ public class CRestServicesTest extends TestCase {
         CLinkEntity lLinkEntity = new CLinkEntity.CLinkBuilder(1).portals(lPortals).build();
         ArrayList<CLinkEntity> lLinks = new ArrayList<>();
         lLinks.add(lLinkEntity);
-        CFieldEntity lFieldEntity = new CFieldEntity.CFieldBuilder(2).links(lLinks).build();
+        CFieldEntity lFieldEntity = new CFieldEntity.CFieldBuilder(2).links(lLinks).territory(lTerritoryEntity).build();
         // TODO : FIX WITH territory(lTerritoryEntity) class
 
         mJson = mMapper.writeValueAsString(lFieldEntity);
@@ -260,6 +255,24 @@ public class CRestServicesTest extends TestCase {
         assertEquals(clientResponse.getStatus(), 200);
     }
 
+    public void testPostKeyService() throws Exception {
+        CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(700).longitude(150).latitude(150).build();
+
+        CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder(1).name("key1").portal(lPortal1).build();
+        mJson = mMapper.writeValueAsString(lKeyEntity);
+        ClientResponse lResponse = mWebResource.path("/keys").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
+        assertEquals(lResponse.getStatus(), 201);
+    }
+
+    public void testGetKeyService() throws Exception {
+        CKeyEntity lKeyEntity = mMapper.readValue(mWebResource.path("/keys/1").get(String.class), CKeyEntity.class);
+        assertEquals(lKeyEntity.getId(), 1);
+    }
+
+    public void testKeyFieldService() throws Exception {
+        ClientResponse clientResponse = mWebResource.path("/keys/1").type("application/json").accept("application/json").delete(ClientResponse.class);
+        assertEquals(clientResponse.getStatus(), 200);
+    }
 /*
     public void testGetByIdTeamService() throws Exception {
         CTeamEntity lTeamGotten = mMapper.readValue(mWebResource.path("/teams/150").accept("application/json").type("application/json").get(String.class), CTeamEntity.class);
@@ -298,7 +311,7 @@ public class CRestServicesTest extends TestCase {
 
         assertEquals(lResponse.getStatus(), 200);
     }*/
-
+/*
     public void testPostLinkServiceWhen3rdOfAFieldToCreate() throws Exception {
         CCrudMethods lCrud = new CCrudMethods();
         String lLink1Json = null;
@@ -346,8 +359,7 @@ public class CRestServicesTest extends TestCase {
         lLink3Json = mMapper.writeValueAsString(lLink3);
 
         mWebResource.path("/links").accept("application/json").type("application/json").post(lLink3Json);
+        }
+*/
 
-
-
-    }
 }
