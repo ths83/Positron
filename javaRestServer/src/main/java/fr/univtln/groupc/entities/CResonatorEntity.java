@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "t_resonator", schema = "positron")
-@NamedQueries(@NamedQuery(name = CResonatorEntity.GET_ALL, query = "select p from CResonatorEntity p"))
+@NamedQueries({@NamedQuery(name = CResonatorEntity.GET_ALL, query = "select r from CResonatorEntity r"),@NamedQuery(name = CResonatorEntity.GET_RESONATOR_BY_PORTAL, query = "select r from CResonatorEntity r  where r.mPortal = (select p from CPortalEntity p where p.mId = :mId)"),@NamedQuery(name = CResonatorEntity.GET_RESONATOR_BY_PORTAL_AND_TEAM, query = "select r from CResonatorEntity r  where r.mPortal = (select p from CPortalEntity p where p.mId = :mId) and r.mOwner = (select o from CPlayerEntity o where o.mTeam = ( select t from CTeamEntity t where t.mId=:mId2))")})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 //@JsonDeserialize(as = CResonatorEntity.class)
@@ -26,6 +26,8 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
     private CPlayerEntity mOwner;
 
     public final static String GET_ALL = "Resonator.getAll";
+    public final static String GET_RESONATOR_BY_PORTAL = "Resonator.getResonatorsByPortal";
+    public final static String GET_RESONATOR_BY_PORTAL_AND_TEAM = "Resonator.getResonatorsByPortalAndTeam";
 
     public CResonatorEntity(CResonatorBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);

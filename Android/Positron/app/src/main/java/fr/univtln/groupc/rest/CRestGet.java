@@ -24,6 +24,7 @@ import java.util.concurrent.ExecutionException;
 
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.CResonatorEntity;
 
 
 /**
@@ -32,12 +33,13 @@ import fr.univtln.groupc.entities.CPortalEntity;
 public class CRestGet extends AsyncTask<String,String,String> {
 
     //public final static String API_URL = "http://10.9.185.57:9998";
+    //public final static String API_URL = "http://10.9.185.55:9998";
     //public final static String API_URL = "http://10.21.174.206:9998";
     //thom' home
     //public final static String API_URL = "http://192.168.1.83:9998";
     // wifi
-    public final static String API_URL = "http://192.168.43.44:9998";
-    //public final static String API_URL = "http://192.168.1.71:9998";
+    //public final static String API_URL = "http://192.168.43.44:9998";
+    public final static String API_URL = "http://192.168.1.71:9998";
 
     @Override
     protected String doInBackground(String... params) {
@@ -168,6 +170,90 @@ public class CRestGet extends AsyncTask<String,String,String> {
 
         System.out.println(lPortal);
         return lPortal;
+    }
+
+
+    public List<CResonatorEntity> getResonatorsByPortalRest(int pId){
+        ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
+        lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+        String lUrlString = API_URL + "/resonators" + "/portals" + Integer.toString(pId);
+        Log.d("test", "->-> " + lUrlString);
+        String lResonatorsJson = null;
+        List<CResonatorEntity> lResonators = new ArrayList<>();
+        JSONObject lPortalObject = null;
+        try {
+            Log.d("test","get Resonators by Portals :");
+            lResonatorsJson = new CRestGet().execute(lUrlString).get();
+            //Log.d("test", " -> " + lPortalsJson);
+            lResonators = lMapper.readValue(lResonatorsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CResonatorEntity.class));
+            //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
+            //Log.d("test", "objects numero 1 ->\n" + lPortals.get(0).getObjects().get(0));
+            //Log.d("test", "objects numero 2 ->\n" + lPortals.get(0).getObjects().get(1));
+
+            Log.d("test", "deserialized!!");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //System.out.println("hello" + lPortals);
+        Log.d("test", lResonators.toString());
+        return lResonators;
+    }
+
+
+    public List<CResonatorEntity> getResonatorsByPortalAndTeamRest(int pId1,int pId2){
+        ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
+        lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+        String lUrlString = API_URL + "/resonators" + "portals" + "/teams" + Integer.toString(pId1) + Integer.toString(pId2);
+        Log.d("test", "->-> " + lUrlString);
+        String lResonatorsJson = null;
+        List<CResonatorEntity> lResonators = new ArrayList<>();
+        JSONObject lPortalObject = null;
+        try {
+            Log.d("test","get Resonators by Portals :");
+            lResonatorsJson = new CRestGet().execute(lUrlString).get();
+            //Log.d("test", " -> " + lPortalsJson);
+            lResonators = lMapper.readValue(lResonatorsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CResonatorEntity.class));
+            //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
+            //Log.d("test", "objects numero 1 ->\n" + lPortals.get(0).getObjects().get(0));
+            //Log.d("test", "objects numero 2 ->\n" + lPortals.get(0).getObjects().get(1));
+
+            Log.d("test", "deserialized!!");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //System.out.println("hello" + lPortals);
+        Log.d("test", lResonators.toString());
+        return lResonators;
     }
 
     @Override

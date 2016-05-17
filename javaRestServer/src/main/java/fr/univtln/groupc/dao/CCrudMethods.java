@@ -75,6 +75,19 @@ public class CCrudMethods {
         return query.getResultList();
     }
 
+    public List findWithNamedQuery(String namedQueryName, Map parameters, int i, int j) {
+        Set<Map.Entry> rawParameters = parameters.entrySet();
+        Query query = this.em.createNamedQuery(namedQueryName);
+        if(i > 0)
+            query.setMaxResults(i);
+        if(j > 0)
+            query.setMaxResults(j);
+        for (Map.Entry entry : rawParameters) {
+            query.setParameter((String)entry.getKey(), entry.getValue());
+        }
+        return query.getResultList();
+    }
+
     public List findWithNamedQuery(String namedQueryName, Map parameters){
         return findWithNamedQuery(namedQueryName, parameters, 0);
     }
