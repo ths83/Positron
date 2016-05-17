@@ -88,6 +88,7 @@ public class CAlgorithm {
 
     public static boolean detectCollisionBetween2Links(double lP1X,double lP1Y,double lP2X,double lP2Y,CLinkEntity lComparedLink){
         double lABx=0,lABy=0,lAP1y=0,lAP1x=0,lAP2y=0,lAP2x=0;
+
         lABx = lComparedLink.getPortals().get(1).getLong() - lComparedLink.getPortals().get(0).getLong();
         lABy = lComparedLink.getPortals().get(1).getLat() - lComparedLink.getPortals().get(0).getLat();
         lAP1x = lP1X - lComparedLink.getPortals().get(0).getLong();
@@ -96,6 +97,7 @@ public class CAlgorithm {
         lAP2y = lP2Y - lComparedLink.getPortals().get(0).getLat();
         //
         if ((lABx * lAP1y - lABy * lAP1x) ==0 && (lABx * lAP2y - lABy * lAP2x)==0) {
+            System.out.println("Lien déjà existant");
             return true;
         }
         //
