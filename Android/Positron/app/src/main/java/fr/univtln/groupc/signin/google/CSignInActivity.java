@@ -82,7 +82,7 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
         super.onStart();
         OptionalPendingResult<GoogleSignInResult> lOptPenRes = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (lOptPenRes.isDone()) {
-            Log.d(TAG, "Yayy!");
+            Toast.makeText(getApplicationContext(), "Authentification succeded !",Toast.LENGTH_LONG).show();
             GoogleSignInResult lResult = lOptPenRes.get();
             handleSignInResult(lResult);
         } else {
@@ -111,9 +111,11 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
     private void handleSignInResult(GoogleSignInResult pResult) {
         Log.d(TAG, "handleSignInResult:" + pResult.isSuccess());
         if (pResult.isSuccess()) {
-            Toast.makeText(getApplicationContext(), "Authentification succeded !",Toast.LENGTH_LONG).show();
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount lAcct = pResult.getSignInAccount();
+            String idToken = lAcct.getIdToken();
+            // Show signed-in UI.
+            Log.d(TAG, "idToken:" + idToken);
             mMapIntent = new Intent(this,CMapsActivity.class);
             // on lance la map
             startActivity(mMapIntent);
@@ -121,7 +123,6 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
             /*mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             updateUI(true);*/
         } else {
-            Toast.makeText(getApplicationContext(), "Authentification failed !",Toast.LENGTH_LONG).show();
             // Signed out, show unauthenticated UI.
             //updateUI(false);
         }

@@ -37,6 +37,7 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
     public CFieldEntity(CFieldBuilder pBuilder){
         mId = pBuilder.mId;
         mLinks = pBuilder.mLinks;
+        mTerritory = pBuilder.mTerritory;
         for (CLinkEntity lLink : mLinks){
             lLink.setField(this);
         }
@@ -50,11 +51,15 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
     public static class CFieldBuilder{
         private int mId;
         private List<CLinkEntity> mLinks = new ArrayList<CLinkEntity>();
-
+        private CTerritoryEntity mTerritory;
 
         public CFieldBuilder(int pId) {
-
             mId = pId;
+        }
+
+        public CFieldBuilder territory(CTerritoryEntity pTerritory){
+            mTerritory = pTerritory;
+            return this;
         }
 
         public CFieldBuilder links(List<CLinkEntity> pLinks){
