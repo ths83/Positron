@@ -4,9 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.maps.android.ui.IconGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,24 +135,32 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap = mapFragment.getMap();
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        //mMap.getUiSettings().setZoomGesturesEnabled(true);
-        //mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(false);
+        mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 17.5));
-        /*mMap.setOnMyLocationChangeListener(myLocationChangeListener);*/
+        mMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
 
         // Portals from database with REST
         final List<CPortalEntity> lPortals = new CRestGet().getPortalsRest();
         for (CPortalEntity p : lPortals) {
             Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
+            List<CResonatorEntity> lReso1 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),1);
+            List<CResonatorEntity> lReso2 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),2);
+            p.attributeTeam(lReso1,lReso2);
             LatLng test = new LatLng(p.getLat(), p.getLong());
+            IconGenerator tc =new IconGenerator(this);
+            tc.setTextAppearance(R.style.iconGenText);
             if (p.getTeam() == null) {
+                tc.setBackground(getResources().getDrawable(R.mipmap.portneutral));
+                Bitmap bp=tc.makeIcon(Integer.toString(p.getId()));
                 mMap.addMarker(new MarkerOptions()
                         .position(test).title(Integer.toString(p.getId()))
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailic))).setSnippet(Integer.toString(p.getId()));
-                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                        .icon(BitmapDescriptorFactory.fromBitmap(bp)));
+                        //.setSnippet(Integer.toString(p.getId()));
+               /* mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                     @Override
                     public View getInfoWindow(Marker marker) {
                         return null;
@@ -166,17 +177,22 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                         info.addView(snip);
                         return info;
                     }
-                });
+                });*/
             } else {
                 if (p.getTeam().getColor().equals("blue")) {
+                    tc.setBackground(getResources().getDrawable(R.mipmap.portblue));
+                    //tc.setTextAppearance(R.style.iconGenText);
+                    Bitmap bp=tc.makeIcon(Integer.toString(p.getId()));
                     mMap.addMarker(new MarkerOptions()
-                            .position(test)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
+                            .position(test).title(Integer.toString(p.getId())).icon(BitmapDescriptorFactory.fromBitmap(bp)));
                 }
                 if (p.getTeam().getColor().equals("red")) {
+                    tc.setBackground(getResources().getDrawable(R.mipmap.portred));
+                    //tc.setTextAppearance(R.style.iconGenText);
+                    Bitmap bp=tc.makeIcon(Integer.toString(p.getId()));
                     mMap.addMarker(new MarkerOptions()
-                            .position(test)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailrouge)));
+                            .position(test).title(Integer.toString(p.getId()))
+                            .icon(BitmapDescriptorFactory.fromBitmap(bp)));
                 }
             }
         }
@@ -212,9 +228,19 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
             @Override
             public boolean onMarkerClick(Marker marker) {
+                //List<CResonatorEntity> lResonators = new CRestGet().getResonatorsByPortalRest(Integer.getInteger(marker.getTitle()));
+                //for (CResonatorEntity resonator : lResonators) {
+                  //  if (resonator.getOwner().getTeam().equals("red")){
 
-                // New tests with objects
-                for (CPortalEntity lPortal : lPortals){
+                    //}
+
+                //}
+                return false;
+            }
+        });
+
+                    // New tests with objects
+                /*for (CPortalEntity lPortal : lPortals){
                     Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
                     mMarkerUserSelected = new LatLng(lPortal.getLat(),lPortal.getLong());
                     if (mMarkerUserSelected.equals(marker.getPosition())){
@@ -239,12 +265,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             mLinkObjectString += lL.toString();
                             Log.d("test", "-> " + lL.toString());
                         }
-                        Toast.makeText(getBaseContext(),/*mResonatorString + " " +*/ mObjectString + mLinkObjectString,Toast.LENGTH_LONG).show();
-                        Log.d("test", "-> " + /*mResonatorString + " " + */mObjectString + "link " + mLinkObjectString);
+                        Toast.makeText(getBaseContext(),/*mResonatorString + " " +*/ //mObjectString + mLinkObjectString,Toast.LENGTH_LONG).show();
+                    // Log.d("test", "-> " + /*mResonatorString + " " + */mObjectString + "link " + mLinkObjectString);
 
-                    }
+                    //}
 
-                }
+                    //}
 
                 /*// display tests for portals attr
                 mLatLng = marker.getPosition();
@@ -278,9 +304,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                         .position(mLatLng2)
                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.camred)));*/
 
-                return false;
-            }
-        });
+                    /*return false;
+        });*/
+
     }
 
     private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {

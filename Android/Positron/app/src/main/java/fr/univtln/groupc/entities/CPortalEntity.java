@@ -153,6 +153,24 @@ public class CPortalEntity implements Serializable {
         }
     }
 
+    public void attributeTeam(List<CResonatorEntity> pResonators1,List<CResonatorEntity> pResonators2) {
+        int lLevel1 = 0;
+        int lLevel2 = 0;
+        for (CResonatorEntity resonator : pResonators1) {
+            lLevel1 = lLevel1 + resonator.getLevel();
+        }
+        for (CResonatorEntity resonator : pResonators1) {
+            lLevel2 = lLevel2 + resonator.getLevel();
+        }
+        if (lLevel1>lLevel2){
+            setTeam(pResonators1.get(0).getOwner().getTeam());
+        }
+        if (lLevel2>lLevel1){
+            setTeam(pResonators2.get(0).getOwner().getTeam());
+        }
+    }
+
+
     public List<CResonatorEntity> getResonators(){
         return mResonators;
     }

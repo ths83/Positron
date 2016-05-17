@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by xdurbec066 on 11/05/16.
  */
-public class CAlgorithmeTest  extends TestCase{
+public class CAlgorithmeTest  extends TestCase {
 
     public void testCrossingDetectionWith2LinksWhereCrossingOne() throws Exception {
 
@@ -23,6 +23,7 @@ public class CAlgorithmeTest  extends TestCase{
         CPortalEntity lp5 =  new CPortalEntity.CPortalBuilder(3001).latitude(40).longitude(29).build();
         CPortalEntity lp6 =  new CPortalEntity.CPortalBuilder(3002).latitude(41).longitude(30).build();
 
+
         List<CPortalEntity> lLP1 = new ArrayList<>();
         lLP1.add(lp1);
         lLP1.add(lp2);
@@ -35,25 +36,27 @@ public class CAlgorithmeTest  extends TestCase{
         lLP3.add(lp5);
         lLP3.add(lp6);
 
-        CLinkEntity lL1= new CLinkEntity.CLinkBuilder(100).portals(lLP1).build();
-        CLinkEntity lL2= new CLinkEntity.CLinkBuilder(200).portals(lLP2).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP1).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP2).build();
         CLinkEntity lL3= new CLinkEntity.CLinkBuilder(300).portals(lLP3).build();
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
         lListL1.add(lL2);
         lListL1.add(lL3);
 
+
         assertFalse(CAlgorithm.detectLinkCollision(lL1, lListL1));
     }
 
+
     public void testCrossingDetectionWith2LinksWhereCrossingBoth() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(10).longitude(11).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(20).longitude(10).build();
-        CPortalEntity lp3 =  new CPortalEntity.CPortalBuilder(2001).latitude(15).longitude(7).build();
-        CPortalEntity lp4 =  new CPortalEntity.CPortalBuilder(2002).latitude(16).longitude(13).build();
-        CPortalEntity lp5 =  new CPortalEntity.CPortalBuilder(3001).latitude(17).longitude(19).build();
-        CPortalEntity lp6 =  new CPortalEntity.CPortalBuilder(3002).latitude(19).longitude(2).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(10).longitude(11).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(20).longitude(10).build();
+        CPortalEntity lp3 = new CPortalEntity.CPortalBuilder(2001).latitude(15).longitude(7).build();
+        CPortalEntity lp4 = new CPortalEntity.CPortalBuilder(2002).latitude(16).longitude(13).build();
+        CPortalEntity lp5 = new CPortalEntity.CPortalBuilder(3001).latitude(17).longitude(19).build();
+        CPortalEntity lp6 = new CPortalEntity.CPortalBuilder(3002).latitude(19).longitude(2).build();
 
         List<CPortalEntity> lLP1 = new ArrayList<>();
         lLP1.add(lp1);
@@ -67,9 +70,9 @@ public class CAlgorithmeTest  extends TestCase{
         lLP3.add(lp5);
         lLP3.add(lp6);
 
-        CLinkEntity lL1= new CLinkEntity.CLinkBuilder(100).portals(lLP1).build();
-        CLinkEntity lL2= new CLinkEntity.CLinkBuilder(200).portals(lLP2).build();
-        CLinkEntity lL3= new CLinkEntity.CLinkBuilder(300).portals(lLP3).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP1).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP2).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP3).build();
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
         lListL1.add(lL2);
@@ -80,12 +83,13 @@ public class CAlgorithmeTest  extends TestCase{
 
     public void testCrossingDetectionWith2LinksWhereCrossingNone() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(10).longitude(11).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(20).longitude(10).build();
-        CPortalEntity lp3 =  new CPortalEntity.CPortalBuilder(2001).latitude(8).longitude(12).build();
-        CPortalEntity lp4 =  new CPortalEntity.CPortalBuilder(2002).latitude(7).longitude(9).build();
-        CPortalEntity lp5 =  new CPortalEntity.CPortalBuilder(3001).latitude(25).longitude(19).build();
-        CPortalEntity lp6 =  new CPortalEntity.CPortalBuilder(3002).latitude(22).longitude(2).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(10).longitude(11).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(20).longitude(10).build();
+        CPortalEntity lp3 = new CPortalEntity.CPortalBuilder(2001).latitude(8).longitude(12).build();
+        CPortalEntity lp4 = new CPortalEntity.CPortalBuilder(2002).latitude(7).longitude(9).build();
+        CPortalEntity lp5 = new CPortalEntity.CPortalBuilder(3001).latitude(25).longitude(19).build();
+        CPortalEntity lp6 = new CPortalEntity.CPortalBuilder(3002).latitude(22).longitude(2).build();
+
 
         List<CPortalEntity> lLP1 = new ArrayList<>();
         lLP1.add(lp1);
@@ -99,9 +103,9 @@ public class CAlgorithmeTest  extends TestCase{
         lLP3.add(lp5);
         lLP3.add(lp6);
 
-        CLinkEntity lL1= new CLinkEntity.CLinkBuilder(100).portals(lLP1).build();
-        CLinkEntity lL2= new CLinkEntity.CLinkBuilder(200).portals(lLP2).build();
-        CLinkEntity lL3= new CLinkEntity.CLinkBuilder(300).portals(lLP3).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP1).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP2).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP3).build();
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
         lListL1.add(lL2);
@@ -112,16 +116,16 @@ public class CAlgorithmeTest  extends TestCase{
 
     public void testCrossingDetectionWithNoneField() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(10).longitude(11).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(20).longitude(10).build();
-        CPortalEntity lp3 =  new CPortalEntity.CPortalBuilder(1003).latitude(8).longitude(12).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(10).longitude(11).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(20).longitude(10).build();
+        CPortalEntity lp3 = new CPortalEntity.CPortalBuilder(1003).latitude(8).longitude(12).build();
 
-        CPortalEntity lp4 =  new CPortalEntity.CPortalBuilder(2001).latitude(20).longitude(21).build();
-        CPortalEntity lp5 =  new CPortalEntity.CPortalBuilder(2002).latitude(23).longitude(32).build();
-        CPortalEntity lp6 =  new CPortalEntity.CPortalBuilder(2003).latitude(31).longitude(33).build();
+        CPortalEntity lp4 = new CPortalEntity.CPortalBuilder(2001).latitude(20).longitude(21).build();
+        CPortalEntity lp5 = new CPortalEntity.CPortalBuilder(2002).latitude(23).longitude(32).build();
+        CPortalEntity lp6 = new CPortalEntity.CPortalBuilder(2003).latitude(31).longitude(33).build();
 
-        CPortalEntity lp7 =  new CPortalEntity.CPortalBuilder(3001).latitude(40).longitude(50).build();
-        CPortalEntity lp8 =  new CPortalEntity.CPortalBuilder(3002).latitude(41).longitude(30).build();
+        CPortalEntity lp7 = new CPortalEntity.CPortalBuilder(3001).latitude(40).longitude(50).build();
+        CPortalEntity lp8 = new CPortalEntity.CPortalBuilder(3002).latitude(41).longitude(30).build();
 
 
         List<CPortalEntity> lLP11 = new ArrayList<>();
@@ -154,15 +158,15 @@ public class CAlgorithmeTest  extends TestCase{
         lLP31.add(lp8);
 
 
-        CLinkEntity lL1= new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
-        CLinkEntity lL2= new CLinkEntity.CLinkBuilder(200).portals(lLP12).build();
-        CLinkEntity lL3= new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP12).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
 
-        CLinkEntity lL4= new CLinkEntity.CLinkBuilder(400).portals(lLP21).build();
-        CLinkEntity lL5= new CLinkEntity.CLinkBuilder(500).portals(lLP22).build();
-        CLinkEntity lL6= new CLinkEntity.CLinkBuilder(600).portals(lLP23).build();
+        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder(400).portals(lLP21).build();
+        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder(500).portals(lLP22).build();
+        CLinkEntity lL6 = new CLinkEntity.CLinkBuilder(600).portals(lLP23).build();
 
-        CLinkEntity lL7= new CLinkEntity.CLinkBuilder(700).portals(lLP31).build();
+        CLinkEntity lL7 = new CLinkEntity.CLinkBuilder(700).portals(lLP31).build();
 
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
@@ -179,21 +183,21 @@ public class CAlgorithmeTest  extends TestCase{
         lListField.add(new CFieldEntity.CFieldBuilder(10).links(lListL1).build());
         lListField.add(new CFieldEntity.CFieldBuilder(20).links(lListL2).build());
 
-        assertTrue("Test OK", CAlgorithm.detectFieldCollision(lL7.getPortals().get(0),lListField ));
+        assertTrue("Test OK", CAlgorithm.detectFieldCollision(lL7.getPortals().get(0), lListField));
     }
 
     public void testCrossingDetectionInOneField() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(100).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(50).longitude(51).build();
-        CPortalEntity lp3 =  new CPortalEntity.CPortalBuilder(1003).latitude(3).longitude(2).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(100).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(50).longitude(51).build();
+        CPortalEntity lp3 = new CPortalEntity.CPortalBuilder(1003).latitude(3).longitude(2).build();
 
-        CPortalEntity lp4 =  new CPortalEntity.CPortalBuilder(2001).latitude(101).longitude(300).build();
-        CPortalEntity lp5 =  new CPortalEntity.CPortalBuilder(2002).latitude(200).longitude(600).build();
-        CPortalEntity lp6 =  new CPortalEntity.CPortalBuilder(2003).latitude(400).longitude(500).build();
+        CPortalEntity lp4 = new CPortalEntity.CPortalBuilder(2001).latitude(101).longitude(300).build();
+        CPortalEntity lp5 = new CPortalEntity.CPortalBuilder(2002).latitude(200).longitude(600).build();
+        CPortalEntity lp6 = new CPortalEntity.CPortalBuilder(2003).latitude(400).longitude(500).build();
 
-        CPortalEntity lp7 =  new CPortalEntity.CPortalBuilder(3001).latitude(10).longitude(45).build();
-        CPortalEntity lp8 =  new CPortalEntity.CPortalBuilder(3002).latitude(11).longitude(55).build();
+        CPortalEntity lp7 = new CPortalEntity.CPortalBuilder(3001).latitude(10).longitude(45).build();
+        CPortalEntity lp8 = new CPortalEntity.CPortalBuilder(3002).latitude(11).longitude(55).build();
 
 
         List<CPortalEntity> lLP11 = new ArrayList<>();
@@ -256,10 +260,10 @@ public class CAlgorithmeTest  extends TestCase{
 
     public void testDetectionNewOneFieldFalse() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(3).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(2).longitude(52).build();
-        CPortalEntity lp3 =  new CPortalEntity.CPortalBuilder(1003).latitude(50).longitude(53).build();
-        CPortalEntity lp4 =  new CPortalEntity.CPortalBuilder(2001).latitude(51).longitude(4).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(3).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(2).longitude(52).build();
+        CPortalEntity lp3 = new CPortalEntity.CPortalBuilder(1003).latitude(50).longitude(53).build();
+        CPortalEntity lp4 = new CPortalEntity.CPortalBuilder(2001).latitude(51).longitude(4).build();
 
 
         List<CPortalEntity> lLP11 = new ArrayList<>();
@@ -280,17 +284,16 @@ public class CAlgorithmeTest  extends TestCase{
         CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
 
 
-
         assertEquals("Test OK", CAlgorithm.detecteNewFields(lL2).size(), 0);
 
     }
 
     public void testDetectionNewOneFieldTrue() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(3).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(2).longitude(52).build();
-        CPortalEntity lp3 =  new CPortalEntity.CPortalBuilder(1003).latitude(50).longitude(53).build();
-        CPortalEntity lp4 =  new CPortalEntity.CPortalBuilder(2001).latitude(51).longitude(4).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(3).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(2).longitude(52).build();
+        CPortalEntity lp3 = new CPortalEntity.CPortalBuilder(1003).latitude(50).longitude(53).build();
+        CPortalEntity lp4 = new CPortalEntity.CPortalBuilder(2001).latitude(51).longitude(4).build();
 
 
         List<CPortalEntity> lLP11 = new ArrayList<>();
@@ -311,16 +314,16 @@ public class CAlgorithmeTest  extends TestCase{
         CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
 
 
-        assertEquals("Test OK", CAlgorithm.detecteNewFields(lL2).size()/3, 1);
+        assertEquals("Test OK", CAlgorithm.detecteNewFields(lL2).size() / 3, 1);
 
     }
 
     public void testDetectionNewTwoFieldsTrue() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(3).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(2).longitude(52).build();
-        CPortalEntity lp3 =  new CPortalEntity.CPortalBuilder(1003).latitude(50).longitude(53).build();
-        CPortalEntity lp4 =  new CPortalEntity.CPortalBuilder(2001).latitude(51).longitude(4).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(3).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(2).longitude(52).build();
+        CPortalEntity lp3 = new CPortalEntity.CPortalBuilder(1003).latitude(50).longitude(53).build();
+        CPortalEntity lp4 = new CPortalEntity.CPortalBuilder(2001).latitude(51).longitude(4).build();
 
 
         List<CPortalEntity> lLP11 = new ArrayList<>();
@@ -353,17 +356,15 @@ public class CAlgorithmeTest  extends TestCase{
         CLinkEntity lL4 = new CLinkEntity.CLinkBuilder(400).portals(lLP21).build();
         CLinkEntity lL5 = new CLinkEntity.CLinkBuilder(500).portals(lLP22).build();
 
-        assertEquals("Test OK", CAlgorithm.detecteNewFields(lL2).size()/3, 2);
+        assertEquals("Test OK", CAlgorithm.detecteNewFields(lL2).size() / 3, 2);
 
     }
 
 
-
-
     public void testGetOtherPortalTrue() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(3).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(2).longitude(52).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(3).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(2).longitude(52).build();
 
 
         List<CPortalEntity> lLP11 = new ArrayList<>();
@@ -374,15 +375,15 @@ public class CAlgorithmeTest  extends TestCase{
         CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
 
 
-        assertEquals("Test OK", CAlgorithm.getOtherPortalOfLink(lp1,lL1), lp2);
+        assertEquals("Test OK", CAlgorithm.getOtherPortalOfLink(lp1, lL1), lp2);
 
     }
 
     public void testConvertListLinkToOneFieldListTrue() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(100).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(50).longitude(51).build();
-        CPortalEntity lp3 =  new CPortalEntity.CPortalBuilder(1003).latitude(3).longitude(2).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(100).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(50).longitude(51).build();
+        CPortalEntity lp3 = new CPortalEntity.CPortalBuilder(1003).latitude(3).longitude(2).build();
 
 
         List<CPortalEntity> lLP11 = new ArrayList<>();
@@ -402,30 +403,25 @@ public class CAlgorithmeTest  extends TestCase{
         CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
 
 
-
-
         List<CLinkEntity> lListL1 = new ArrayList<>();
         lListL1.add(lL1);
         lListL1.add(lL2);
         lListL1.add(lL3);
 
 
-
-
-        assertEquals("Test OK", CAlgorithm.convertLinkListToFieldList(lListL1).size(),1 );
+        assertEquals("Test OK", CAlgorithm.convertLinkListToFieldList(lListL1).size(), 1);
 
     }
 
     public void testConvertListLinkToTwoFieldListTrue() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(100).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(50).longitude(51).build();
-        CPortalEntity lp3 =  new CPortalEntity.CPortalBuilder(1003).latitude(3).longitude(2).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(100).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(50).longitude(51).build();
+        CPortalEntity lp3 = new CPortalEntity.CPortalBuilder(1003).latitude(3).longitude(2).build();
 
-        CPortalEntity lp4 =  new CPortalEntity.CPortalBuilder(2001).latitude(101).longitude(300).build();
-        CPortalEntity lp5 =  new CPortalEntity.CPortalBuilder(2002).latitude(200).longitude(600).build();
-        CPortalEntity lp6 =  new CPortalEntity.CPortalBuilder(2003).latitude(400).longitude(500).build();
-
+        CPortalEntity lp4 = new CPortalEntity.CPortalBuilder(2001).latitude(101).longitude(300).build();
+        CPortalEntity lp5 = new CPortalEntity.CPortalBuilder(2002).latitude(200).longitude(600).build();
+        CPortalEntity lp6 = new CPortalEntity.CPortalBuilder(2003).latitude(400).longitude(500).build();
 
 
         List<CPortalEntity> lLP11 = new ArrayList<>();
@@ -471,21 +467,19 @@ public class CAlgorithmeTest  extends TestCase{
         lListL1.add(lL6);
 
 
-
-        assertEquals("Test OK", CAlgorithm.convertLinkListToFieldList(lListL1).size(),2 );
+        assertEquals("Test OK", CAlgorithm.convertLinkListToFieldList(lListL1).size(), 2);
 
     }
 
     public void testDetectInternalLinkTrue() throws Exception {
 
-        CPortalEntity lp1 =  new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(100).build();
-        CPortalEntity lp2 =  new CPortalEntity.CPortalBuilder(1002).latitude(50).longitude(51).build();
-        CPortalEntity lp3 =  new CPortalEntity.CPortalBuilder(1003).latitude(3).longitude(2).build();
+        CPortalEntity lp1 = new CPortalEntity.CPortalBuilder(1001).latitude(1).longitude(100).build();
+        CPortalEntity lp2 = new CPortalEntity.CPortalBuilder(1002).latitude(50).longitude(51).build();
+        CPortalEntity lp3 = new CPortalEntity.CPortalBuilder(1003).latitude(3).longitude(2).build();
 
-        CPortalEntity lp4 =  new CPortalEntity.CPortalBuilder(2001).latitude(9).longitude(30).build();
-        CPortalEntity lp5 =  new CPortalEntity.CPortalBuilder(2002).latitude(11).longitude(51).build();
-        CPortalEntity lp6 =  new CPortalEntity.CPortalBuilder(2003).latitude(8).longitude(80).build();
-
+        CPortalEntity lp4 = new CPortalEntity.CPortalBuilder(2001).latitude(9).longitude(30).build();
+        CPortalEntity lp5 = new CPortalEntity.CPortalBuilder(2002).latitude(11).longitude(51).build();
+        CPortalEntity lp6 = new CPortalEntity.CPortalBuilder(2003).latitude(8).longitude(80).build();
 
 
         List<CPortalEntity> lLP11 = new ArrayList<>();
@@ -537,8 +531,12 @@ public class CAlgorithmeTest  extends TestCase{
 
         CFieldEntity lField = new CFieldEntity.CFieldBuilder(12).links(lLinksForField).build();
 
-        assertEquals("Test OK", CAlgorithm.detectInternalLink(lField,lLinks).size(),2);
+        assertEquals("Test OK", CAlgorithm.detectInternalLink(lField, lLinks).size(), 2);
 
     }
 
+    public void testCalculDeterminant() throws Exception {
+        assertEquals("Test PAS OK", CAlgorithm.calculDetermiant(3, 2, 5, 3), -1.0);
+
     }
+}
