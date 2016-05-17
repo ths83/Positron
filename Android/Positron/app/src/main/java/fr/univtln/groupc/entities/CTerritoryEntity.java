@@ -64,4 +64,12 @@ public class CTerritoryEntity implements Serializable {
         mFields.remove(pField);
         pField.setTerritory(null);
     }
+
+    @Override
+    public String toString() {
+        return "CTerritoryEntity{" +
+                "mId=" + mId +
+                ", mFields=" + mFields +
+                '}';
+    }
 }
