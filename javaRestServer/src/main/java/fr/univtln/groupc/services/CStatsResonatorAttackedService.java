@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by arouani277 on 04/05/16.
  */
-@Path("/statsResonatorsAttacked")
+@Path("/statsResonatorAttacked")
 public class CStatsResonatorAttackedService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
@@ -21,7 +21,7 @@ public class CStatsResonatorAttackedService {
     
     @POST
     @Consumes("application/json")
-    public Response create(String pStatsResonatorAttackedJson){
+    public Response createStatsResonatorAttacked(String pStatsResonatorAttackedJson){
         CStatsResonatorAttacked lStatsResonatorAttacked = null;
         try {
             lStatsResonatorAttacked = mMapper.readValue(pStatsResonatorAttackedJson, CStatsResonatorAttacked.class);

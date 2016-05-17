@@ -63,7 +63,9 @@ public class CLinkEntity implements Serializable {
         }
 
         public CLinkBuilder portals(List<CPortalEntity> pPortals){
-            mPortals = pPortals;
+
+                mPortals = pPortals;
+
             return this;
         }
 
