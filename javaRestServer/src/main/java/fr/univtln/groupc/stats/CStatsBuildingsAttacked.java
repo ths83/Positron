@@ -10,14 +10,15 @@ import javax.persistence.*;
  * Created by arouani277 on 02/05/16.
  */
 @Entity
-@Table(name = "t_stats_building_attacked", schema = "positron")
-@NamedQueries(@NamedQuery(name = CStatsBuildingsAttacked.GET_ALL, query = "select p from CStatsBuildingsAttacked p"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "t_stats_building_attacked", schema = "positron")
+@NamedQueries(@NamedQuery(name = CStatsBuildingsAttacked.GET_ALL, query = "select c from CStatsBuildingsAttacked c"))
 @JsonDeserialize(as = CStatsBuildingsAttacked.class)
 
 public class CStatsBuildingsAttacked extends AStatsAttacked {
 
     @ManyToOne
+    @JoinColumn(name = "building_fk")
     private ABuildingEntity mBuilding;
 
     public final static String GET_ALL = "StatsBuildingAttacked.getAll";
@@ -28,6 +29,7 @@ public class CStatsBuildingsAttacked extends AStatsAttacked {
     }
 
     public CStatsBuildingsAttacked() {
+        super();
     }
 
     public static class CStatsBuildingsAttackedBuilder {
@@ -36,7 +38,6 @@ public class CStatsBuildingsAttacked extends AStatsAttacked {
         private CPlayerEntity mOwner;
         private int mCpt;
         private CPlayerEntity mAttacker;
-
 
         public CStatsBuildingsAttackedBuilder(int pId) {
             mId = pId;
@@ -67,5 +68,11 @@ public class CStatsBuildingsAttacked extends AStatsAttacked {
         }
     }
 
-
+    public ABuildingEntity getmBuilding() {
+        return mBuilding;
     }
+
+    public void setmBuilding(ABuildingEntity mBuilding) {
+        this.mBuilding = mBuilding;
+    }
+}

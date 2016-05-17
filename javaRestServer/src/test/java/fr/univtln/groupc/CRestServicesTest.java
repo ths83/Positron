@@ -138,7 +138,7 @@ public class CRestServicesTest extends TestCase {
 */
 
     // Tests CRUD StatsBuildingAttackedService OFF
-/*
+
     public void testPostStatsBuildingAttackedService() throws Exception {
 
         CStatsBuildingsAttacked lStatsBuildingsAttacked = new CStatsBuildingsAttacked.CStatsBuildingsAttackedBuilder(0).cpt(51).build();
@@ -157,7 +157,7 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/statsBuildingAttacked/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-*/
+
     // Tests CRUD CSkillService Rouani Azedine
 
     public void testPostSkillService() throws Exception {
