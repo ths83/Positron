@@ -277,7 +277,7 @@ public class CRestServicesTest extends TestCase {
         assertEquals(clientResponse.getStatus(), 200);
     }
 
-    // Tests CRUD CKeyService
+
 /*
     public void testPostLinkService() throws Exception {
         CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(700).longitude(150).latitude(150).build();
