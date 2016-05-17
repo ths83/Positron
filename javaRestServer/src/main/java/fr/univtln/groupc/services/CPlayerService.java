@@ -1,7 +1,9 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPlayerEntity;
 
 import javax.ws.rs.*;
@@ -56,6 +58,21 @@ public class CPlayerService {
         try {
             lJsonValue = mMapper.writeValueAsString(lPlayers);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
+    }
+
+    @GET
+    @Produces
+    @Path("/name/{nickname}")
+    public String readByName(@PathParam("nickname") String pName){
+        String lJsonValue = null;
+        List<CPlayerEntity> lPlayers = (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_BY_NAME, CQueryParameter.with("mNickName", pName).parameters());
+        CPlayerEntity lPlayer = lPlayers.get(0);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lPlayer);
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return lJsonValue;

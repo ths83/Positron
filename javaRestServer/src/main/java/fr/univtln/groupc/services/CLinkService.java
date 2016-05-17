@@ -61,7 +61,7 @@ public class CLinkService {
             System.out.println("Aucune colision détecter");// \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
 
             mCrudMethods.create(lLink);
-
+            //mCrudMethods.persist(lLink);
 
             System.out.println("Pre-Detection Field");
 
@@ -81,6 +81,7 @@ public class CLinkService {
                for (CFieldEntity lField : lListFieldToCreate) {
                    System.out.println("Field créer: ID = " + lField.getId() + "  et Lien:" + lField.getLinks());
                    mCrudMethods.create(lField);
+                   //mCrudMethods.persist(lField);
                    for (CLinkEntity lLinkInField : lField.getLinks()) {
                        mCrudMethods.update(lLinkInField);
                    }
