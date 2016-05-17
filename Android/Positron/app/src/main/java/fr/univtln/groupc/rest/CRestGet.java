@@ -37,6 +37,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
     //public final static String API_URL = "http://192.168.1.83:9998";
     // wifi
     public final static String API_URL = "http://192.168.43.44:9998";
+    //public final static String API_URL = "http://192.168.1.71:9998";
 
     @Override
     protected String doInBackground(String... params) {
@@ -82,11 +83,11 @@ public class CRestGet extends AsyncTask<String,String,String> {
         try {
             Log.d("test","get portals :");
             lPortalsJson = new CRestGet().execute(lUrlString).get();
-            Log.d("test", " -> " + lPortalsJson);
+            //Log.d("test", " -> " + lPortalsJson);
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
             //lPortals = Arrays.asList(lMapper.readValue(lPortalsJson, CPortalEntity[].class));
-            Log.d("test", "objects numero 1 ->\n" + lPortals.get(0).getObjects().get(0));
-            Log.d("test", "objects numero 2 ->\n" + lPortals.get(0).getObjects().get(1));
+            //Log.d("test", "objects numero 1 ->\n" + lPortals.get(0).getObjects().get(0));
+            //Log.d("test", "objects numero 2 ->\n" + lPortals.get(0).getObjects().get(1));
 
             Log.d("test", "deserialized!!");
 
