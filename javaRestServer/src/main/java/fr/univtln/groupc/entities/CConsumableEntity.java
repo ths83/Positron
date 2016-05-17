@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Table(name = "t_consumable", schema = "positron")
 @NamedQueries(@NamedQuery(name = CConsumableEntity.GET_ALL, query = "select c from CConsumableEntity c"))
 @JsonDeserialize(as = CConsumableEntity.class)
+
 public class CConsumableEntity extends AObjectEntity implements Serializable {
     @Column(name = "rarity")
     private int mRarity;

@@ -51,13 +51,14 @@ public class CTestXavier {
         CPortalEntity lPortalDeTest6 = new CPortalEntity.CPortalBuilder(1005).longitude(1201).latitude(604).build();
 */
         CPortalEntity lPortalDeTest4 = new CPortalEntity.CPortalBuilder(1010).longitude(10020).latitude(12010).build();
-        CPortalEntity lPortalDeTest5 = new CPortalEntity.CPortalBuilder(1011).longitude(8010).latitude(6020).build();
-        CPortalEntity lPortalDeTest6 = new CPortalEntity.CPortalBuilder(1012).longitude(12010).latitude(6040).build();
+        CPortalEntity lPortalDeTest5 = new CPortalEntity.CPortalBuilder(1011).longitude(80100).latitude(60200).build();
+        CPortalEntity lPortalDeTest6 = new CPortalEntity.CPortalBuilder(1012).longitude(12010).latitude(60400).build();
 
-        CPortalEntity lPortalDeTest7 = new CPortalEntity.CPortalBuilder(1020).longitude(100300).latitude(120300).build();
+        CPortalEntity lPortalDeTest7 = new CPortalEntity.CPortalBuilder(1020).longitude(100300).latitude(123100).build();
         CPortalEntity lPortalDeTest8 = new CPortalEntity.CPortalBuilder(1021).longitude(100200).latitude(120100).build();
-        CPortalEntity lPortalDeTest9 = new CPortalEntity.CPortalBuilder(1030).longitude(80100).latitude(60200).build();
-        CPortalEntity lPortalDeTest10 = new CPortalEntity.CPortalBuilder(1031).longitude(120100).latitude(60400).build();
+
+        CPortalEntity lPortalDeTest9 = new CPortalEntity.CPortalBuilder(1030).longitude(8010000).latitude(6020000).build();
+        CPortalEntity lPortalDeTest10 = new CPortalEntity.CPortalBuilder(1031).longitude(1201000).latitude(6040000).build();
 
 
         lCrud.create(lPortalDeTest1);
@@ -95,24 +96,15 @@ public class CTestXavier {
         lList2_3.add(lPortalDeTest6);
         lList2_3.add(lPortalDeTest4);
 
-        List<CPortalEntity> lList3_1 = new ArrayList<>();
-        lList2_1.add(lPortalDeTest7);
-        lList2_1.add(lPortalDeTest8);
+        List<CPortalEntity> lList3 = new ArrayList<>();
+        lList3.add(lPortalDeTest7);
+        lList3.add(lPortalDeTest8);
 
-        List<CPortalEntity> lList4_2 = new ArrayList<>();
-        lList2_2.add(lPortalDeTest9);
-        lList2_2.add(lPortalDeTest10);
+        List<CPortalEntity> lList4 = new ArrayList<>();
+        lList4.add(lPortalDeTest9);
+        lList4.add(lPortalDeTest10);
 
         CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder(101).portals(lList1_1).build();
-        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(102).portals(lList1_2).build();
-        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(103).portals(lList1_3).build();
-        CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder(111).portals(lList2_1).build();
-        CLinkEntity lLink5 = new CLinkEntity.CLinkBuilder(112).portals(lList2_2).build();
-        CLinkEntity lLink6 = new CLinkEntity.CLinkBuilder(113).portals(lList2_3).build();
-        CLinkEntity lLink7 = new CLinkEntity.CLinkBuilder(120).portals(lList2_2).build();
-        CLinkEntity lLink8 = new CLinkEntity.CLinkBuilder(130).portals(lList2_3).build();
-
-
 
 
         String lJsonLinkToPost = null;
@@ -127,9 +119,12 @@ public class CTestXavier {
 
         ClientResponse lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
 
-/*
+
         /////////////////////////////////////
         System.out.println("Creation lien 7");
+
+        CLinkEntity lLink7 = new CLinkEntity.CLinkBuilder(120).portals(lList3).build();
+
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink7);
         } catch (JsonProcessingException e) {
@@ -140,6 +135,7 @@ public class CTestXavier {
 
         /////////////////////////////////////
         System.out.println("Creation lien 8");
+        CLinkEntity lLink8 = new CLinkEntity.CLinkBuilder(130).portals(lList4).build();
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink8);
         } catch (JsonProcessingException e) {
@@ -150,6 +146,8 @@ public class CTestXavier {
 
         /////////////////////////////////////
         System.out.println("Creation lien 2");
+
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(102).portals(lList1_2).build();
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink2);
         } catch (JsonProcessingException e) {
@@ -158,8 +156,11 @@ public class CTestXavier {
 
         lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
 
-        /////////////////////////////////////
+   /////////////////////////////////////
         System.out.println("Creation lien 3");
+
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(103).portals(lList1_3).build();
+
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink3);
         } catch (JsonProcessingException e) {
@@ -170,6 +171,9 @@ public class CTestXavier {
 
         ///////////////////////////////////////
         System.out.println("Creation lien 4");
+
+        CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder(111).portals(lList2_1).build();
+
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink4);
         } catch (JsonProcessingException e) {
@@ -181,6 +185,9 @@ public class CTestXavier {
 
         ////////////////////////////////////
         System.out.println("Creation lien 5");
+
+
+        CLinkEntity lLink5 = new CLinkEntity.CLinkBuilder(112).portals(lList2_2).build();
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink5);
         } catch (JsonProcessingException e) {
@@ -191,6 +198,7 @@ public class CTestXavier {
 
         ////////////////////////////////////
         System.out.println("Creation lien 6 & Field");
+        CLinkEntity lLink6 = new CLinkEntity.CLinkBuilder(113).portals(lList2_3).build();
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink6);
         } catch (JsonProcessingException e) {
@@ -199,7 +207,7 @@ public class CTestXavier {
 
         lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
 
-*/
+
 
     }
 

@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,6 +16,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,6 +26,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -73,6 +79,37 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        Button buttonZoomOut= (Button) findViewById(R.id.bzoomout);
+        Button buttonZoomIn= (Button) findViewById(R.id.bzoomin);
+        buttonZoomOut.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mMap.getCameraPosition().zoom >= 17) {
+                    // Zoom like normal
+                    mMap.animateCamera(CameraUpdateFactory.zoomOut());
+                } else {
+                    // Do whatever you want if user went too far
+                    Log.d("test", "impossible de dézoomer");
+                }
+            }
+
+        });
+
+        buttonZoomIn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mMap.getCameraPosition().zoom < 18.5) {
+                    // Zoom like normal
+                    mMap.animateCamera(CameraUpdateFactory.zoomIn());
+                } else {
+                    // Do whatever you want if user went too far
+                    Log.d("test", "impossible de dézoomer");
+                }
+            }
+
+        });
         // Location permission
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -89,22 +126,62 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap = mapFragment.getMap();
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.getUiSettings().setZoomGesturesEnabled(true);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+        //mMap.getUiSettings().setZoomGesturesEnabled(true);
+        //mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(8f));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 17.5));
+        mMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
 
 
         // Portals from database with REST
-        final List<CPortalEntity> lPortals = new CCrudGet().getPortalsRest();
+        /*final List<CPortalEntity> lPortals = new CCrudGet().getPortalsRest();
         Log.d("test", "salut : -> " + lPortals.size());
         for (CPortalEntity lPortal : lPortals){
             Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(lPortal.getLat(),lPortal.getLong()))
                     .title(lPortal.getObjects().toString()));
+        }*/
+        final List<CPortalEntity> lPortals = new CCrudGet().getPortalsRest();
+        for (CPortalEntity p : lPortals) {
+            Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
+            LatLng test = new LatLng(p.getLat(), p.getLong());
+            if (p.getTeam() == null) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(test).title(Integer.toString(p.getId()))
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailic))).setSnippet(Integer.toString(p.getId()));
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                    @Override
+                    public View getInfoWindow(Marker marker) {
+                        return null;
+                    }
+
+                    @Override
+                    public View getInfoContents(Marker marker) {
+                        Context context = getApplicationContext();
+                        LinearLayout info = new LinearLayout(context);
+                        info.setOrientation(LinearLayout.VERTICAL);
+                        TextView snip=new TextView(context);
+                        snip.setTextColor(Color.BLUE);
+                        snip.setText(marker.getSnippet());
+                        info.addView(snip);
+                        return info;
+                    }
+                });
+            } else {
+                if (p.getTeam().getColor().equals("bleu")) {
+                    mMap.addMarker(new MarkerOptions()
+                            .position(test)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailbleu)));
+                }
+                if (p.getTeam().getColor().equals("rouge")) {
+                    mMap.addMarker(new MarkerOptions()
+                            .position(test)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.portailrouge)));
+                }
+            }
         }
         //Toast.makeText(getBaseContext(),lPortals.toString(),Toast.LENGTH_LONG).show();
 
@@ -122,6 +199,17 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 mTmpLink.add(latLng);
             }
         });*/
+
+        // portal created with user click
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mBitmapDescriptor = BitmapDescriptorFactory.
+                        defaultMarker(BitmapDescriptorFactory.HUE_RED);
+                //portalMarker = new CPortalEntity(mMap, latLng, bitmapDescriptor);
+                mTmpLink.add(latLng);
+            }
+        });
 
         // portal action radius when click on it
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -196,6 +284,23 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         });
     }
 
+    private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
+        @Override
+        public void onMyLocationChange(Location location) {
+            Log.i("test", "Latitude: "+String.valueOf(location.getLatitude())+" - Longitude: "+String.valueOf(location.getLongitude()));
+            mUserLatLng=new LatLng(location.getLatitude(),location.getLongitude());
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
+            //mMap.moveCamera(CameraUpdateFactory.zoomTo(8f));
+            if (mUserActionRadius!=null){
+                mUserActionRadius.setCenter(mUserLatLng);
+            }
+            else {
+                mUserActionRadius = mMap.addCircle(new CircleOptions().center(mUserLatLng).radius(50).fillColor(Color.YELLOW));
+            }
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
+        }
+    };
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -206,9 +311,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     // user action radius when new position is detected
     @Override
     public void onLocationChanged(Location location) {
-        mUserLatLng = new LatLng(location.getLatitude(),location.getLongitude());
+        /*mUserLatLng = new LatLng(location.getLatitude(),location.getLongitude());
         mUserActionRadius = mMap.addCircle(new CircleOptions().center(mUserLatLng).radius(50).strokeColor(Color.BLUE));
-        Toast.makeText(getBaseContext(), mUserLatLng.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), mUserLatLng.toString(), Toast.LENGTH_SHORT).show();*/
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.*;
 import fr.univtln.groupc.server.CServer;
 import fr.univtln.groupc.stats.CStatsBuildingsAttacked;
@@ -96,7 +97,6 @@ public class CRestServicesTest extends TestCase {
     }
 
 
-
     public void testGetPlayerService() throws Exception {
         CPlayerEntity lPlayerEntity = mMapper.readValue(mWebResource.path("/players/78678").get(String.class), CPlayerEntity.class);
         assertEquals(lPlayerEntity.getEmail(), "bobz@z.fr");
@@ -139,6 +139,8 @@ public class CRestServicesTest extends TestCase {
     /*
     // Tests CRUD StatsBuildingAttackedService OFF
 
+    // Tests CRUD StatsBuildingAttackedService OFF
+/*
     public void testPostStatsBuildingAttackedService() throws Exception {
 
         CStatsBuildingsAttacked lStatsBuildingsAttacked = new CStatsBuildingsAttacked.CStatsBuildingsAttackedBuilder(0).cpt(51).build();
@@ -161,8 +163,8 @@ public class CRestServicesTest extends TestCase {
 }
 */
 
-    // Tests CRUD CSkillService OFF
-/*
+    // Tests CRUD CSkillService Rouani Azedine
+
     public void testPostSkillService() throws Exception {
 
         CSkillEntity lSkillEntity = new CSkillEntity.CSkillBuilder(66).cost(5).level(10).name("rogue").build();
@@ -173,16 +175,16 @@ public class CRestServicesTest extends TestCase {
 
     public void testGetSkillService() throws Exception {
         CSkillEntity lSkillEntity = mMapper.readValue(mWebResource.path("/skills/66").get(String.class), CSkillEntity.class);
-        assertEquals(lSkillEntity.getId(), 1);
+        assertEquals(lSkillEntity.getId(), 66);
     }
 
     public void testDeleteSkillService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/skills/66").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-*/
+
     // Tests CRUD CConsumableService OFF
-/*
+
     public void testPostConsumableService() throws Exception {
 
         CConsumableEntity lConsumableEntity = new CConsumableEntity.CConsumableBuilder(1).name("bob").rarity(5).build();
@@ -201,10 +203,10 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/consumables/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-*/
+
 
     // Tests CRUD CTurrentService OFF
-/*
+
     public void testPostCTurretService() throws Exception {
 
         CTurretEntity lTurretPost = new CTurretEntity
@@ -226,7 +228,7 @@ public class CRestServicesTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/turrets/150").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-*/
+
 
 
 /*
@@ -268,4 +270,54 @@ public class CRestServicesTest extends TestCase {
         assertEquals(lResponse.getStatus(), 200);
     }*/
 
+    public void testPostLinkServiceWhen3rdOfAFieldToCreate() throws Exception {
+        CCrudMethods lCrud = new CCrudMethods();
+        String lLink1Json = null;
+        String lLink2Json = null;
+        String lLink3Json = null;
+        CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(700).longitude(150).latitude(150).build();
+        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(701).longitude(450).latitude(152).build();
+        CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(702).longitude(300).latitude(400).build();
+        List<CPortalEntity> lPortals1_2 = new ArrayList<>();
+        lPortals1_2.add(lPortal1);
+        lPortals1_2.add(lPortal2);
+
+        List<CPortalEntity> lPortals1_3 = new ArrayList<>();
+        lPortals1_3.add(lPortal1);
+        lPortals1_3.add(lPortal3);
+
+        List<CPortalEntity> lPortals2_3 = new ArrayList<>();
+        lPortals2_3.add(lPortal2);
+        lPortals2_3.add(lPortal3);
+
+        System.out.println("print 1");
+        lCrud.create(lPortal1);
+        System.out.println("print 2");
+        lCrud.create(lPortal2);
+        System.out.println("print 3");
+        lCrud.create(lPortal3);
+
+        CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder(800).portals(lPortals1_2).build();
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(801).portals(lPortals1_3).build();
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(802).portals(lPortals2_3).build();
+
+
+        System.out.println("print 4");
+        lLink1Json = mMapper.writeValueAsString(lLink1);
+
+        //mWebResource.path("/links").accept("application/json").type("application/json").post(lLink1Json);
+        lCrud.create(lLink1);
+        System.out.println("print 5");
+        lLink2Json = mMapper.writeValueAsString(lLink2);
+
+        //mWebResource.path("/links").accept("application/json").type("application/json").post(lLink2Json);
+        lCrud.create(lLink2);
+        System.out.println("print 6");
+        lLink3Json = mMapper.writeValueAsString(lLink3);
+
+        mWebResource.path("/links").accept("application/json").type("application/json").post(lLink3Json);
+
+
+
+    }
 }
