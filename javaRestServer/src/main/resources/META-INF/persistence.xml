@@ -35,6 +35,7 @@
 
             <property name="javax.persistence.target-database" value="PostgreSQL"/>
 
+
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5433/postgres"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="groupc"/>
@@ -45,6 +46,7 @@
             <!-- et des scripts SQL -->
             <property name="eclipselink.create-ddl-jdbc-file-name" value="createDDL_ddlGeneration.sql"/>
             <property name="eclipselink.drop-ddl-jdbc-file-name" value="dropDDL_ddlGeneration.sql"/>
+
         </properties>
     </persistence-unit>
 </persistence>
