@@ -51,9 +51,13 @@ public class CLinkService {
         }
 
         System.out.println("////////////////////////////////// ID: "+lLink.getId() +" ////////////////////////////////////////////");
-        System.out.println("Portail déjà lié: "+lLink.getPortals());
-        System.out.println("Field existant: "+lFields);
-       // System.out.println("llink ->->-> " + lLink);
+       // System.out.println("Portail déjà lié: "+lLink.getPortals());
+        //System.out.println("Field existant: "+lFields);
+        //System.out.println("links ->\n" + lLinks);
+        //System.out.println("\nlportails des links ->->->");
+        for (CLinkEntity lLinkToPrint : lLinks){
+          //  System.out.println("portail : " + lLinkToPrint.getPortals());
+        }
 
         System.out.println("Pre-Detection CrossLink");
 
@@ -62,7 +66,7 @@ public class CLinkService {
 
             mCrudMethods.create(lLink);
             //mCrudMethods.persist(lLink);
-
+            System.out.println(" ! ! ! ! ! ! ! ! ! ! Link Crée ! ! ! ! !! ! ! ! !  :"+lLink.getId());
             System.out.println("Pre-Detection Field");
 
             lLinkListField = CAlgorithm.detecteNewFields(lLink);

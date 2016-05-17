@@ -137,7 +137,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 17.5));
-        mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+        /*mMap.setOnMyLocationChangeListener(myLocationChangeListener);*/
 
 
         // Portals from database with REST

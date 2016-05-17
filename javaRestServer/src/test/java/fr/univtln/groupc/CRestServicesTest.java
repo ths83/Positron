@@ -297,22 +297,23 @@ public class CRestServicesTest extends TestCase {
         System.out.println("print 3");
         lCrud.create(lPortal3);
 
+
         CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder(800).portals(lPortals1_2).build();
-        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(801).portals(lPortals1_3).build();
-        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(802).portals(lPortals2_3).build();
-
-
         System.out.println("print 4");
         lLink1Json = mMapper.writeValueAsString(lLink1);
+        mWebResource.path("/links").accept("application/json").type("application/json").post(lLink1Json);
+        //lCrud.create(lLink1);
 
-        //mWebResource.path("/links").accept("application/json").type("application/json").post(lLink1Json);
-        lCrud.create(lLink1);
+
         System.out.println("print 5");
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(801).portals(lPortals1_3).build();
         lLink2Json = mMapper.writeValueAsString(lLink2);
+        mWebResource.path("/links").accept("application/json").type("application/json").post(lLink2Json);
+        //lCrud.create(lLink2);
 
-        //mWebResource.path("/links").accept("application/json").type("application/json").post(lLink2Json);
-        lCrud.create(lLink2);
+
         System.out.println("print 6");
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(802).portals(lPortals2_3).build();
         lLink3Json = mMapper.writeValueAsString(lLink3);
 
         mWebResource.path("/links").accept("application/json").type("application/json").post(lLink3Json);
