@@ -250,10 +250,13 @@ public class CRestServicesTest extends TestCase {
         assertEquals(lFieldEntity.getId(), 2);
     }
 
+/*
     public void testDeleteFieldService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/fields/2").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
+*/
+    // Tests CRUD CKeyService
 
     public void testPostKeyService() throws Exception {
         CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(700).longitude(150).latitude(150).build();
@@ -269,10 +272,34 @@ public class CRestServicesTest extends TestCase {
         assertEquals(lKeyEntity.getId(), 1);
     }
 
-    public void testKeyFieldService() throws Exception {
+    public void testKeyService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/keys/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
+
+    // Tests CRUD CKeyService
+/*
+    public void testPostLinkService() throws Exception {
+        CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(700).longitude(150).latitude(150).build();
+        ArrayList <CPortalEntity> portals = new ArrayList<>();
+        portals.add(lPortal1);
+
+        CLinkEntity lLinkEntity = new CLinkEntity.CLinkBuilder(1).portals(portals).build();
+        mJson = mMapper.writeValueAsString(lLinkEntity);
+        ClientResponse lResponse = mWebResource.path("/links").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
+        assertEquals(lResponse.getStatus(), 201);
+    }
+
+    public void testGetLinkService() throws Exception {
+        CLinkEntity lLinkEntity = mMapper.readValue(mWebResource.path("/links/1").get(String.class), CLinkEntity.class);
+        assertEquals(lLinkEntity.getId(), 1);
+    }
+
+    public void testKeyLinkService() throws Exception {
+        ClientResponse clientResponse = mWebResource.path("/links/1").type("application/json").accept("application/json").delete(ClientResponse.class);
+        assertEquals(clientResponse.getStatus(), 200);
+    }
+    */
 /*
     public void testGetByIdTeamService() throws Exception {
         CTeamEntity lTeamGotten = mMapper.readValue(mWebResource.path("/teams/150").accept("application/json").type("application/json").get(String.class), CTeamEntity.class);
