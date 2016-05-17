@@ -239,11 +239,10 @@ public class CRestServicesTest extends TestCase {
 
         CTerritoryEntity lTerritoryEntity = new CTerritoryEntity.CTerritoryBuilder(1).build();
 
-
         CLinkEntity lLinkEntity = new CLinkEntity.CLinkBuilder(1).portals(lPortals).build();
         ArrayList<CLinkEntity> lLinks = new ArrayList<>();
         lLinks.add(lLinkEntity);
-        CFieldEntity lFieldEntity = new CFieldEntity.CFieldBuilder(1).links(lLinks).build();
+        CFieldEntity lFieldEntity = new CFieldEntity.CFieldBuilder(2).links(lLinks).build();
         // TODO : FIX WITH territory(lTerritoryEntity) class
 
         mJson = mMapper.writeValueAsString(lFieldEntity);
@@ -252,12 +251,12 @@ public class CRestServicesTest extends TestCase {
     }
 
     public void testGetFieldService() throws Exception {
-        CFieldEntity lFieldEntity = mMapper.readValue(mWebResource.path("fields/1").get(String.class), CFieldEntity.class);
-        assertEquals(lFieldEntity.getId(), 1);
+        CFieldEntity lFieldEntity = mMapper.readValue(mWebResource.path("fields/2").get(String.class), CFieldEntity.class);
+        assertEquals(lFieldEntity.getId(), 2);
     }
 
     public void testDeleteFieldService() throws Exception {
-        ClientResponse clientResponse = mWebResource.path("/fields/1").type("application/json").accept("application/json").delete(ClientResponse.class);
+        ClientResponse clientResponse = mWebResource.path("/fields/2").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
 
