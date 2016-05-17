@@ -17,7 +17,7 @@ public class CStatsResonatorAttacked extends AStatsAttacked{
     @ManyToOne
     private CResonatorEntity mResonator;
 
-    public final static String GET_ALL = "StatsBuildingAttacked.getAll";
+    public final static String GET_ALL = "StatsResonatorAttacked.getAll";
 
     public CStatsResonatorAttacked(CStatsResonatorAttackedBuilder pBuilder){
         super(pBuilder.mAttacker,pBuilder.mOwner, pBuilder.mCpt, pBuilder.mId);
