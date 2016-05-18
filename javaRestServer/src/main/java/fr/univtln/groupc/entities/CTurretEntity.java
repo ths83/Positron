@@ -1,7 +1,5 @@
 package fr.univtln.groupc.entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
