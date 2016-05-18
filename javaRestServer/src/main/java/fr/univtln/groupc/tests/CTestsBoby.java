@@ -1,6 +1,5 @@
 package fr.univtln.groupc.tests;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -8,10 +7,7 @@ import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.*;
 import fr.univtln.groupc.server.CServer;
 
-import javax.ws.rs.HEAD;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by arouani277 on 02/05/16.

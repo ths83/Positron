@@ -19,7 +19,7 @@ import java.io.Serializable;
 @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ABuildingEntity.class)
 
-public class ABuildingEntity extends AObjectEntity implements Serializable {
+public abstract class ABuildingEntity extends AObjectEntity implements Serializable {
     /*
     @Column(name = "long")
     private double mLong;

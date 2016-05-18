@@ -7,7 +7,6 @@ import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.*;
 import fr.univtln.groupc.server.CServer;
-import fr.univtln.groupc.stats.CStatsBuildingsAttacked;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;

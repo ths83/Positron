@@ -22,8 +22,10 @@ public class CPortalEntity implements Serializable {
     private double mLat;
     private double mLong;
     private int mRadius;
-    private List<AObjectEntity> mObjects;
+    private List<ABuildingEntity> mBuildings;
+
     private List<CResonatorEntity> mResonators = new ArrayList<CResonatorEntity>();
+    private List<CKeyEntity> mKeys;
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     private CTeamEntity mTeam;
 
@@ -37,10 +39,17 @@ public class CPortalEntity implements Serializable {
         mLat = pBuilder.mLat;
         mLong = pBuilder.mLong;
         mRadius = pBuilder.mRadius;
-        mObjects = pBuilder.mObjects;
+        mBuildings = pBuilder.mBuildings;
         mResonators = pBuilder.mResonators;
         mTeam = pBuilder.mTeam;
         mLinks = pBuilder.mLinks;
+        mKeys = pBuilder.mKeys;
+        for (CKeyEntity lKey : mKeys){
+            lKey.setPortal(this);
+        }
+        for (ABuildingEntity lBuilding : mBuildings){
+            lBuilding.setPortal(this);
+        }
     }
 
 
@@ -49,10 +58,11 @@ public class CPortalEntity implements Serializable {
         private double mLat;
         private double mLong;
         private int mRadius;
-        private List<AObjectEntity> mObjects = new ArrayList<>();
+        private List<ABuildingEntity> mBuildings = new ArrayList<>();
         private List<CResonatorEntity> mResonators = new ArrayList<>();
         public List<CLinkEntity> mLinks = new ArrayList<>();
         private CTeamEntity mTeam;
+        private List<CKeyEntity> mKeys;
 
         public CPortalBuilder(int pId){
             mId = pId;
@@ -73,8 +83,8 @@ public class CPortalEntity implements Serializable {
             return this;
         }
 
-        public CPortalBuilder objects(List<AObjectEntity> pObjects){
-            mObjects = pObjects;
+        public CPortalBuilder buildings(List<ABuildingEntity> pBuildings){
+            mBuildings = pBuildings;
             return this;
         }
 
@@ -90,6 +100,11 @@ public class CPortalEntity implements Serializable {
 
         public CPortalBuilder team(CTeamEntity pTeam){
             mTeam = pTeam;
+            return this;
+        }
+
+        public CPortalBuilder keys(List<CKeyEntity> pKeys){
+            mKeys = pKeys;
             return this;
         }
 
@@ -142,9 +157,6 @@ public class CPortalEntity implements Serializable {
         mLinks.add(pLink);
     }
 
-    public void addResonator(CResonatorEntity pResonator){
-        mResonators.add(pResonator);
-    }
     public CTeamEntity getTeam(){
         return mTeam;
     }
@@ -154,61 +166,7 @@ public class CPortalEntity implements Serializable {
         if (mTeam != null){
             mTeam.addPortal(this);
         }
-        //setLinks(null);
     }
-
-    public void attributeTeam() {
-
-        List<CResonatorEntity> lResonators1 = new ArrayList<>();
-        List<CResonatorEntity> lResonators2 = new ArrayList<>();
-        int lLevel1 = 0;
-        int lLevel2 = 0;
-
-        // Séparation des résonateur en team.
-        for(CResonatorEntity lResonator : getResonators()){
-            if(lResonator.getOwner().getTeam().getId() == 1 ){
-                lResonators1.add(lResonator);
-            }
-            else{
-                lResonators2.add(lResonator);
-            }
-        }
-        // Calcule des Dominances
-        for (CResonatorEntity resonator : lResonators1) {
-            lLevel1 = lLevel1 + resonator.getLevel();
-        }
-        for (CResonatorEntity resonator : lResonators1) {
-            lLevel2 = lLevel2 + resonator.getLevel();
-        }
-
-        //Changement de team si nécessaire.
-        if (lLevel1>lLevel2){
-            if (getTeam().getId() != 1) {
-                setTeam(lResonators1.get(0).getOwner().getTeam());
-            }
-        }
-        else {
-            if (lLevel2 > lLevel1) {
-                if (getTeam().getId() != 0) {
-                    setTeam(lResonators2.get(0).getOwner().getTeam());
-
-                }
-            }
-            else{
-                //A verifier
-                if(getTeam() != null){
-                setTeam(null);
-                }
-            }
-        }
-
-    }
-
-
-
-
-
-
 
     public List<CResonatorEntity> getResonators(){
         return mResonators;
@@ -218,12 +176,20 @@ public class CPortalEntity implements Serializable {
         mResonators = pResonators;
     }
 
-    public List<AObjectEntity> getObjects(){
-        return mObjects;
+    public List<ABuildingEntity> getBuildings(){
+        return mBuildings;
     }
 
-    public void setObjects(List<AObjectEntity> pObjects){
-        mObjects = pObjects;
+    public void setBuildings(List<ABuildingEntity> pBuildings){
+        mBuildings = pBuildings;
+    }
+
+    public List<CKeyEntity> getKeys(){
+        return mKeys;
+    }
+
+    public void setKeys(List<CKeyEntity> pKeys){
+        mKeys = pKeys;
     }
 
 
@@ -231,15 +197,16 @@ public class CPortalEntity implements Serializable {
     public String toString() {
         return "CPortalEntity{" +
                 "mId=" + mId +
-                ", mLat=" + mLat +
+                /*", mLat=" + mLat +
                 ", mLong=" + mLong +
                 ", mRadius=" + mRadius +
                 ", mObjects=" + mObjects +
                 ", mResonators=" + mResonators +
                 //", mLinks=" + mLinks +
                 ", mTeam=" + mTeam +
-                '}' + super.toString();
+                */'}' + super.toString();
     }
+
 
 
 }

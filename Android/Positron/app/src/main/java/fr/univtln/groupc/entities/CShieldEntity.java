@@ -2,35 +2,33 @@ package fr.univtln.groupc.entities;
 
 import java.io.Serializable;
 
-
-
 /**
- * Created by arouani277 on 02/05/16.
+ * Created by xdurbec066 on 18/05/16.
  */
+public class CShieldEntity extends ABuildingEntity implements Serializable {
 
 
-public class CTurretEntity extends ABuildingEntity implements Serializable, IFighter {
+    private int mDefensBonus;
+    public final static String GET_ALL = "Shield.getAll";
 
-    private int mDamage;
-    public final static String GET_ALL = "Turret.getAll";
-
-    public CTurretEntity(CTurretBuilder pBuilder){
+    public CShieldEntity(CShieldBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName, pBuilder.mPortal, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
-        mDamage = pBuilder.mDamage;
+        mDefensBonus = pBuilder.mDefensBonus;
     }
 
-    public CTurretEntity() {
+    public CShieldEntity() {
     }
 
-    public int getDamage() {
-        return mDamage;
+
+    public void setmDefensBonus(int mDefensBonus) {
+        this.mDefensBonus = mDefensBonus;
     }
 
-    public void setDamage(int pDamage) {
-        mDamage = pDamage;
+    public int getmDefensBonus() {
+        return mDefensBonus;
     }
 
-    public static class CTurretBuilder{
+    public static class CShieldBuilder{
         private int mEnergy;
         private int mId;
         private String mName;
@@ -41,39 +39,39 @@ public class CTurretEntity extends ABuildingEntity implements Serializable, IFig
         private int mLifeTime;
         private int mRadius;
         private int mEnergyMax;
-        private int mDamage;
+        private int mDefensBonus;
 
 
-        public CTurretBuilder(int pId){
+        public CShieldBuilder(int pId){
             mId = pId;
         }
 
-        public CTurretBuilder damage(int pDamage){
-            mDamage = pDamage;
+        public CShieldBuilder damage(int pDefensBonus){
+            mDefensBonus = pDefensBonus;
             return this;
         }
 
-        public CTurretBuilder name(String pName){
+        public CShieldBuilder name(String pName){
             mName = pName;
             return this;
         }
 
-        public CTurretBuilder portal(CPortalEntity pPortal){
+        public CShieldBuilder portal(CPortalEntity pPortal){
             mPortal = pPortal;
             return this;
         }
 
-        public CTurretBuilder level(int pLevel) {
+        public CShieldBuilder level(int pLevel) {
             mLevel = pLevel;
             return this;
         }
 
-        public CTurretBuilder energy(int pEnergy) {
+        public CShieldBuilder energy(int pEnergy) {
             mEnergy = pEnergy;
             return this;
         }
 
-        public CTurretBuilder energyMax(int pEnergyMax){
+        public CShieldBuilder energyMax(int pEnergyMax){
             mEnergyMax = pEnergyMax;
             return this;
         }
@@ -88,30 +86,28 @@ public class CTurretEntity extends ABuildingEntity implements Serializable, IFig
                     return this;
                 }
         */
-        public CTurretBuilder radius(int pRadius){
+        public CShieldBuilder radius(int pRadius){
             mRadius = pRadius;
             return this;
         }
 
-        public CTurretBuilder lifeTime(int plifeTime){
+        public CShieldBuilder lifeTime(int plifeTime){
             mLifeTime = plifeTime;
             return this;
         }
-        public CTurretEntity build() {
-            return new CTurretEntity(this);
+        public CShieldEntity build() {
+            return new CShieldEntity(this);
         }
 
     }
 
     @Override
     public String toString() {
-        return "CTurretEntity{" +
-                "mDamage=" + mDamage +
+        return "CShieldEntity{" +
+                "mDefensBonus=" +  +
                 '}'+super.toString();
     }
 
-    @Override
-    public void attack(ITarget pTarget, int pDamage) {
-        pTarget.takeDamage(pDamage,this);
-    }
+
 }
+

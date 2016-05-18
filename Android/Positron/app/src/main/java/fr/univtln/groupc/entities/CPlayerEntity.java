@@ -280,11 +280,11 @@ public class CPlayerEntity implements Serializable, IFighter, ITarget {
 
     @Override
     public void attack(ITarget pTarget, int pDamage) {
-
+            pTarget.takeDamage(pDamage,this);
     }
 
     @Override
-    public void takeDamage(int pDamage) {
+    public void takeDamage(int pDamage, IFighter pAttacker ) {
         pDamage = pDamage - (getLevel()*2);
         if(pDamage>0) {
             int lEnergy = mEnergy - pDamage;
