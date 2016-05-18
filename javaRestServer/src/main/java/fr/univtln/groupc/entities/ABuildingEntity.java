@@ -26,7 +26,7 @@ public class ABuildingEntity extends AObjectEntity implements Serializable {
     @Column(name = "lat")
     private double mLat;
     */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "portal_id")
     private CPortalEntity mPortal;
     @Column(name = "lifetime")
