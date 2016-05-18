@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,8 +16,6 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -45,6 +40,7 @@ import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
+import fr.univtln.groupc.entities.entities_view.CTraceMapView;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -53,8 +49,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
     public final static float MAX_ZOOM_MAP = 17f;
-    //public static final String PORTALS_URL = "http://localhost:9998/portals/";
-    //public static final String apiUrl = "http://10.0.3.2:9998";
 
     private GoogleMap mMap;
     private LocationManager mLocationManager;
@@ -135,8 +129,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap = mapFragment.getMap();
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.getUiSettings().setZoomGesturesEnabled(false);
-        mMap.getUiSettings().setZoomControlsEnabled(false);
+        mMap.getUiSettings().setZoomGesturesEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 17.5));
@@ -149,7 +143,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
             List<CResonatorEntity> lReso1 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),1);
             List<CResonatorEntity> lReso2 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),2);
-            p.attributeTeam(lReso1,lReso2);
+            //p.attributeTeam(lReso1,lReso2);
             LatLng test = new LatLng(p.getLat(), p.getLong());
             IconGenerator tc =new IconGenerator(this);
             tc.setTextAppearance(R.style.iconGenText);
@@ -194,6 +188,22 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             .position(test).title(Integer.toString(p.getId()))
                             .icon(BitmapDescriptorFactory.fromBitmap(bp)));
                 }
+            }
+        }
+
+        // Display links on start session -> avoid reductant latlng -> v2.0 to do
+        int i = 0;
+        for (CPortalEntity lP : lPortals){
+            for (i = 0 ; i < lP.getLinks().size(); i++){
+                new CTraceMapView().onDisplayLink(mMap,lP.getLinks().get(i));
+            }
+        }
+
+        // Display fields on start session -> avoid reductant latlng -> v2.0 to do
+        i = 0;
+        for (CPortalEntity lP : lPortals){
+            for (i = 0 ; i < lP.getLinks().size(); i++){
+                new CTraceMapView().onDisplayField(mMap,lP.getLinks().get(i).getField());
             }
         }
 
@@ -306,6 +316,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
                     /*return false;
         });*/
+
+
 
     }
 
