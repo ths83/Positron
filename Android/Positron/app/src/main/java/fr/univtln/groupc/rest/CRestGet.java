@@ -47,7 +47,6 @@ public class CRestGet extends AsyncTask<String,String,String> {
         String lResultToDisplay = "";
         InputStream lIn = null;
         String lJson = "";
-
         try {
             URL lUrl = new URL(lUrlString);
             HttpURLConnection urlConnection = (HttpURLConnection) lUrl.openConnection();
@@ -221,7 +220,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
         lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
-        String lUrlString = API_URL + "/resonators" + "portals" + "/teams" + Integer.toString(pId1) + Integer.toString(pId2);
+        String lUrlString = API_URL + "/resonators" + "/portals" + "/teams" + "/"+Integer.toString(pId1) +"/"+ Integer.toString(pId2);
         Log.d("test", "->-> " + lUrlString);
         String lResonatorsJson = null;
         List<CResonatorEntity> lResonators = new ArrayList<>();

@@ -69,7 +69,7 @@ public class CResonatorService {
     @GET
     @Produces("application/json")
     @Path("/portals/teams/{id}/{id2}")
-    public String readResonatorsByPortal(@PathParam("id") int pId,@PathParam("id2") int pId2){
+    public String readResonatorsByPortalAndByTeam(@PathParam("id") int pId,@PathParam("id2") int pId2){
         String lJsonValue = null;
         List<CResonatorEntity> lResonators = (List<CResonatorEntity>)mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_RESONATOR_BY_PORTAL_AND_TEAM, CQueryParameter.with("mId", pId).and("mId2",pId2).parameters());
         try {

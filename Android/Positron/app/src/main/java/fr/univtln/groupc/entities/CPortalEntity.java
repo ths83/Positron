@@ -1,5 +1,7 @@
 package fr.univtln.groupc.entities;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -158,9 +160,11 @@ public class CPortalEntity implements Serializable {
         int lLevel2 = 0;
         for (CResonatorEntity resonator : pResonators1) {
             lLevel1 = lLevel1 + resonator.getLevel();
+            Log.d("test", Integer.toString(lLevel1));
         }
         for (CResonatorEntity resonator : pResonators1) {
             lLevel2 = lLevel2 + resonator.getLevel();
+            Log.d("test", Integer.toString(lLevel2));
         }
         if (lLevel1>lLevel2){
             setTeam(pResonators1.get(0).getOwner().getTeam());

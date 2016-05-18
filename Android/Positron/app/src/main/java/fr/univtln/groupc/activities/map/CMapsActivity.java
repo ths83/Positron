@@ -46,6 +46,7 @@ import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.rest.CRestGet;
+import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
@@ -135,8 +136,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap = mapFragment.getMap();
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.getUiSettings().setZoomGesturesEnabled(false);
-        mMap.getUiSettings().setZoomControlsEnabled(false);
+        //mMap.getUiSettings().setZoomGesturesEnabled(false);
+       // mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 17.5));
@@ -150,6 +151,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             List<CResonatorEntity> lReso1 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),1);
             List<CResonatorEntity> lReso2 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),2);
             p.attributeTeam(lReso1,lReso2);
+            //new CRestUpdate().updatePortalRest(p);
             LatLng test = new LatLng(p.getLat(), p.getLong());
             IconGenerator tc =new IconGenerator(this);
             tc.setTextAppearance(R.style.iconGenText);
@@ -224,10 +226,10 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         });
 
         // portal action radius when click on it
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        //mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
-            @Override
-            public boolean onMarkerClick(Marker marker) {
+            //@Override
+            //public boolean onMarkerClick(Marker marker) {
                 //List<CResonatorEntity> lResonators = new CRestGet().getResonatorsByPortalRest(Integer.getInteger(marker.getTitle()));
                 //for (CResonatorEntity resonator : lResonators) {
                   //  if (resonator.getOwner().getTeam().equals("red")){
@@ -235,9 +237,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     //}
 
                 //}
-                return false;
-            }
-        });
+                //return false;
+            //}
+        //});
 
                     // New tests with objects
                 /*for (CPortalEntity lPortal : lPortals){
