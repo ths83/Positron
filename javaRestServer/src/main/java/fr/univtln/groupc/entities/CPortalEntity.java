@@ -35,14 +35,14 @@ public class CPortalEntity implements Serializable {
     private int mRadius;
     @OneToMany(mappedBy = "mPortal")
     @JoinTable(schema = "positron")
-    private List<ABuildingEntity> mBuildings;
-    @OneToMany(cascade = CascadeType.ALL)
-    //@JoinTable(schema = "positron")
+    private List<ABuildingEntity> mBuildings = new ArrayList<>();
+    @OneToMany(mappedBy = "mPortal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(schema = "positron")
     //@JsonSerialize(using = )
     private List<CResonatorEntity> mResonators = new ArrayList<CResonatorEntity>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mPortal")
     //@JoinTable(schema = "positron")
-    private List<CKeyEntity> mKeys;
+    private List<CKeyEntity> mKeys = new ArrayList<>();
     @ManyToMany(mappedBy = "mPortals")
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     @ManyToOne(cascade = CascadeType.ALL)
@@ -64,12 +64,17 @@ public class CPortalEntity implements Serializable {
         mTeam = pBuilder.mTeam;
         mLinks = pBuilder.mLinks;
         mKeys = pBuilder.mKeys;
-        for (CKeyEntity lKey : mKeys){
-            lKey.setPortal(this);
+        if (mKeys != null){
+            for (CKeyEntity lKey : mKeys){
+                lKey.setPortal(this);
+            }
         }
-        for (ABuildingEntity lBuilding : mBuildings){
-            lBuilding.setPortal(this);
+        if (mBuildings != null){
+            for (ABuildingEntity lBuilding : mBuildings){
+                lBuilding.setPortal(this);
+            }
         }
+
     }
 
 
@@ -212,6 +217,11 @@ public class CPortalEntity implements Serializable {
         mKeys = pKeys;
     }
 
+    public void addResonator(CResonatorEntity pResonator){
+        if (mResonators != null){
+            mResonators.add(pResonator);
+        }
+    }
 
     @Override
     public String toString() {
