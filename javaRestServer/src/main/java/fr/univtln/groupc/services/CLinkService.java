@@ -38,11 +38,9 @@ public class CLinkService {
         List<CLinkEntity> lLinkStorageField = new ArrayList<>();
         List<CLinkEntity> lLinkListField = new ArrayList<>();
         List<CFieldEntity> lListFieldToCreate = new ArrayList<>();
+        List<CFieldEntity> lListAllFields = new ArrayList<>();
         List<CLinkEntity> lLinks = mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
-        List<CFieldEntity> lFields =mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
-
-        //System.out.println("pLinkJson = = = " + pLinkJson);
-       // System.out.println("\n Lien existant : "+lLinks+"\n");
+        List<CFieldEntity> lFields = mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
 
         try {
             lLink = mMapper.readValue(pLinkJson, CLinkEntity.class);
@@ -51,21 +49,12 @@ public class CLinkService {
         }
 
         System.out.println("////////////////////////////////// ID: "+lLink.getId() +" ////////////////////////////////////////////");
-       // System.out.println("Portail déjà lié: "+lLink.getPortals());
-        //System.out.println("Field existant: "+lFields);
-        //System.out.println("links ->\n" + lLinks);
-        //System.out.println("\nlportails des links ->->->");
-        for (CLinkEntity lLinkToPrint : lLinks){
-          //  System.out.println("portail : " + lLinkToPrint.getPortals());
-        }
 
         System.out.println("Pre-Detection CrossLink");
 
         if (CAlgorithm.detectColision(lLink, lLinks, lFields)){
             System.out.println("Aucune colision détecter");// \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
-
             mCrudMethods.create(lLink);
-            //mCrudMethods.persist(lLink);
             System.out.println(" ! ! ! ! ! ! ! ! ! ! Link Crée ! ! ! ! !! ! ! ! !  :"+lLink.getId());
             System.out.println("Pre-Detection Field");
 
@@ -87,7 +76,7 @@ public class CLinkService {
                    mCrudMethods.create(lField);
                    //mCrudMethods.persist(lField);
                    for (CLinkEntity lLinkInField : lField.getLinks()) {
-                       mCrudMethods.update(lLinkInField);
+                       //mCrudMethods.update(lLinkInField);
                    }
 
                    // Ligne pour suprimer un id

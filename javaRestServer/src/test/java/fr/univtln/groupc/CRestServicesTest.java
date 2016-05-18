@@ -338,7 +338,7 @@ public class CRestServicesTest extends TestCase {
 
         assertEquals(lResponse.getStatus(), 200);
     }*/
-/*
+
     public void testPostLinkServiceWhen3rdOfAFieldToCreate() throws Exception {
         CCrudMethods lCrud = new CCrudMethods();
         String lLink1Json = null;
@@ -387,13 +387,6 @@ public class CRestServicesTest extends TestCase {
 
         mWebResource.path("/links").accept("application/json").type("application/json").post(lLink3Json);
         }
-*/
-
-
-
-
-
-
 
 
     public void testPostLinkServiceWhenAFieldEnglobeOtherLink() throws Exception {
