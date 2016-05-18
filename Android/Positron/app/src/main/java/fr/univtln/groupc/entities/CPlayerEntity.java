@@ -12,7 +12,7 @@ import java.util.List;
  * Created by mpesnel786 on 09/05/16.
  */
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class CPlayerEntity implements Serializable, IFighter {
+public class CPlayerEntity implements Serializable, IFighter, ITarget {
     private int mId;
     private String mNickName;
     private String mEmail;
@@ -281,5 +281,19 @@ public class CPlayerEntity implements Serializable, IFighter {
     @Override
     public void attack(ITarget pTarget, int pDamage) {
 
+    }
+
+    @Override
+    public void takeDamage(int pDamage) {
+        pDamage = pDamage - (getLevel()*2);
+        if(pDamage>0) {
+            int lEnergy = mEnergy - pDamage;
+            if (lEnergy>0){
+                mEnergy = lEnergy;
+            }
+            else{
+                mEnergy=0;
+            }
+        }
     }
 }

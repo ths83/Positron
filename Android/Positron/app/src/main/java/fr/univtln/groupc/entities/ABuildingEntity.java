@@ -104,4 +104,22 @@ public abstract class ABuildingEntity extends AObjectEntity implements ITarget {
     public void setEnergy(int pEnergy) {
         mEnergy = pEnergy;
     }
+
+
+
+    @Override
+    public void takeDamage(int pDamage) {
+        int lArmor = mLevel * 2;
+        // Rajouter bouclier
+        pDamage = pDamage - lArmor;
+        if (pDamage > 0) {
+
+
+            mEnergy = mEnergy - pDamage;
+            if (mEnergy<=0){
+                // delete Building.
+            }
+
+        }
+    }
 }

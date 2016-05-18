@@ -54,7 +54,7 @@ public class CActions {
         }
 
         else{
-            Log.d("attackBuilding","Consommable non approrié");
+            Log.d("attackBuilding", "Consommable non approrié");
         }
 
     }
