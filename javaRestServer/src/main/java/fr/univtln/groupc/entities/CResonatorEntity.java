@@ -30,7 +30,7 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
     public final static String GET_RESONATOR_BY_PORTAL_AND_TEAM = "Resonator.getResonatorsByPortalAndTeam";
 
     public CResonatorEntity(CResonatorBuilder pBuilder){
-        super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
+        super(pBuilder.mId, pBuilder.mName, pBuilder.mPortal, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
         mPortal = pBuilder.mPortal;
         mOwner = pBuilder.mOwner;
     }

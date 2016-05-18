@@ -20,7 +20,6 @@ import java.util.List;
 @Table(name = "t_portal" , schema = "positron")
 @NamedQueries({@NamedQuery(name = CPortalEntity.GET_ALL, query = "select p from CPortalEntity p"),
 @NamedQuery(name = CPortalEntity.GET_BY_TEAM, query = "select p from CPortalEntity p where p.mTeam = (select t from CTeamEntity t where t.mId = :mId)")})
-
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CPortalEntity.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 
@@ -34,13 +33,16 @@ public class CPortalEntity implements Serializable {
     private double mLong;
     @Column(name = "radius")
     private int mRadius;
-    @OneToMany
+    @OneToMany(mappedBy = "mPortal")
     @JoinTable(schema = "positron")
-    private List<AObjectEntity> mObjects;
-    @OneToMany
-    @JoinTable(schema = "positron")
+    private List<ABuildingEntity> mBuildings;
+    @OneToMany(cascade = CascadeType.ALL)
+    //@JoinTable(schema = "positron")
     //@JsonSerialize(using = )
     private List<CResonatorEntity> mResonators = new ArrayList<CResonatorEntity>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mPortal")
+    //@JoinTable(schema = "positron")
+    private List<CKeyEntity> mKeys;
     @ManyToMany(mappedBy = "mPortals")
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     @ManyToOne(cascade = CascadeType.ALL)
@@ -57,10 +59,17 @@ public class CPortalEntity implements Serializable {
         mLat = pBuilder.mLat;
         mLong = pBuilder.mLong;
         mRadius = pBuilder.mRadius;
-        mObjects = pBuilder.mObjects;
+        mBuildings = pBuilder.mBuildings;
         mResonators = pBuilder.mResonators;
         mTeam = pBuilder.mTeam;
         mLinks = pBuilder.mLinks;
+        mKeys = pBuilder.mKeys;
+        for (CKeyEntity lKey : mKeys){
+            lKey.setPortal(this);
+        }
+        for (ABuildingEntity lBuilding : mBuildings){
+            lBuilding.setPortal(this);
+        }
     }
 
 
@@ -69,10 +78,11 @@ public class CPortalEntity implements Serializable {
         private double mLat;
         private double mLong;
         private int mRadius;
-        private List<AObjectEntity> mObjects = new ArrayList<>();
+        private List<ABuildingEntity> mBuildings = new ArrayList<>();
         private List<CResonatorEntity> mResonators = new ArrayList<>();
         public List<CLinkEntity> mLinks = new ArrayList<>();
         private CTeamEntity mTeam;
+        private List<CKeyEntity> mKeys;
 
         public CPortalBuilder(int pId){
             mId = pId;
@@ -93,8 +103,8 @@ public class CPortalEntity implements Serializable {
             return this;
         }
 
-        public CPortalBuilder objects(List<AObjectEntity> pObjects){
-            mObjects = pObjects;
+        public CPortalBuilder buildings(List<ABuildingEntity> pBuildings){
+            mBuildings = pBuildings;
             return this;
         }
 
@@ -110,6 +120,11 @@ public class CPortalEntity implements Serializable {
 
         public CPortalBuilder team(CTeamEntity pTeam){
             mTeam = pTeam;
+            return this;
+        }
+
+        public CPortalBuilder keys(List<CKeyEntity> pKeys){
+            mKeys = pKeys;
             return this;
         }
 
@@ -181,12 +196,20 @@ public class CPortalEntity implements Serializable {
         mResonators = pResonators;
     }
 
-    public List<AObjectEntity> getObjects(){
-        return mObjects;
+    public List<ABuildingEntity> getBuildings(){
+        return mBuildings;
     }
 
-    public void setObjects(List<AObjectEntity> pObjects){
-        mObjects = pObjects;
+    public void setBuildings(List<ABuildingEntity> pBuildings){
+        mBuildings = pBuildings;
+    }
+
+    public List<CKeyEntity> getKeys(){
+        return mKeys;
+    }
+
+    public void setKeys(List<CKeyEntity> pKeys){
+        mKeys = pKeys;
     }
 
 

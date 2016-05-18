@@ -2,10 +2,7 @@ package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -15,14 +12,16 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "t_turret", schema = "positron")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries(@NamedQuery(name = CTurretEntity.GET_ALL, query = "select p from CTurretEntity p"))
 //@JsonDeserialize(as = CTurretEntity.class)
 public class CTurretEntity extends ABuildingEntity implements Serializable {
+    @Column(name = "damage")
     private int mDamage;
     public final static String GET_ALL = "Turret.getAll";
 
     public CTurretEntity(CTurretBuilder pBuilder){
-        super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
+        super(pBuilder.mId, pBuilder.mName, pBuilder.mPortal, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
         mDamage = pBuilder.mDamage;
     }
 
@@ -41,9 +40,10 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
         private int mEnergy;
         private int mId;
         private String mName;
-        private int mLevel;
+        private int mLevel;/*
         private double mLong;
-        private double mLat;
+        private double mLat;*/
+        private CPortalEntity mPortal;
         private int mLifeTime;
         private int mRadius;
         private int mEnergyMax;
@@ -64,6 +64,11 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
             return this;
         }
 
+        public CTurretBuilder portal(CPortalEntity pPortal){
+            mPortal = pPortal;
+            return this;
+        }
+
         public CTurretBuilder level(int pLevel) {
             mLevel = pLevel;
             return this;
@@ -78,7 +83,7 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
             mEnergyMax = pEnergyMax;
             return this;
         }
-
+/*
         public CTurretBuilder longitude(double pLong){
             mLong = pLong;
             return this;
@@ -88,7 +93,7 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
             mLat = pLat;
             return this;
         }
-
+*/
         public CTurretBuilder radius(int pRadius){
             mRadius = pRadius;
             return this;
