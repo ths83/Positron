@@ -50,15 +50,15 @@ public class CTraceMapView {
             mLatLngPortalLinkedArray[i] = new LatLng(mPortalLinkedArray.get(i).getLat(), mPortalLinkedArray.get(i).getLong());
         }
 
-    mLinkLine = pMap.addPolyline(new PolylineOptions()
-            .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
-            .width(LINE_WIDTH)
-            .color(Color.BLACK)); // neutral color
+        mLinkLine = pMap.addPolyline(new PolylineOptions()
+                .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
+                .width(LINE_WIDTH)
+                .color(Color.BLACK)); // neutral color
 
         System.out.println(mLatLngPortalLinkedArray[0]);
         System.out.println(mLatLngPortalLinkedArray[1]);
-    return mLatLngPortalLinkedArray;
-}
+        return mLatLngPortalLinkedArray;
+    }
 
     /**
      * Display a polygon which represents a team field
