@@ -1,7 +1,9 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,11 +17,18 @@ import java.io.Serializable;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
 @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ABuildingEntity.class)
+
 public class ABuildingEntity extends AObjectEntity implements Serializable {
+    /*
     @Column(name = "long")
     private double mLong;
     @Column(name = "lat")
     private double mLat;
+    */
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "portal_id")
+    private CPortalEntity mPortal;
     @Column(name = "lifetime")
     private int mLifeTime;
     @Column(name = "radius")
@@ -36,10 +45,12 @@ public class ABuildingEntity extends AObjectEntity implements Serializable {
     }
 
 
-    public ABuildingEntity(int pId, String pName, double pLong, double pLat, int pLifeTime, int pRadius, int pLevel, int pEnergy, int pEnergyMax){
+    public ABuildingEntity(int pId, String pName, CPortalEntity pPortal, int pLifeTime, int pRadius, int pLevel, int pEnergy, int pEnergyMax){
         super(pId, pName);
+        /*
         mLong = pLong;
-        mLat = pLat;
+        mLat = pLat;*/
+        mPortal = pPortal;
         mLifeTime = pLifeTime;
         mRadius = pRadius;
         mLevel = pLevel;
@@ -50,8 +61,9 @@ public class ABuildingEntity extends AObjectEntity implements Serializable {
     @Override
     public String toString() {
         return super.toString() + "ABuildingEntity{" +
-                "mLong=" + mLong +
-                ", mLat=" + mLat +
+                /*"mLong=" + mLong +
+                ", mLat=" + mLat +*/
+                "mPortal=" + mPortal +
                 ", mLifeTime=" + mLifeTime +
                 ", mRadius=" + mRadius +
                 ", mLevel=" + mLevel +
@@ -59,7 +71,7 @@ public class ABuildingEntity extends AObjectEntity implements Serializable {
                 ", mEnergy=" + mEnergy +
                 '}';
     }
-
+    /*
     public double getLong() {
         return mLong;
     }
@@ -74,6 +86,14 @@ public class ABuildingEntity extends AObjectEntity implements Serializable {
 
     public void setLat(float pLat) {
         mLat = pLat;
+    }*/
+
+    public CPortalEntity getPortal(){
+        return mPortal;
+    }
+
+    public void setPortal(CPortalEntity lPortal){
+        mPortal = lPortal;
     }
 
     public int getRadius() {

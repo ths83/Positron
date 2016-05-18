@@ -1,5 +1,7 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
@@ -14,6 +16,8 @@ import java.io.Serializable;
 @Table(name = "t_key", schema = "positron")
 @NamedQueries({@NamedQuery(name = CKeyEntity.GET_ALL, query = "select k from CKeyEntity k"),@NamedQuery(name = CKeyEntity.GET_KEY_BY_PORTAL, query = "select k from CKeyEntity k where k.mPortal=(select p from CPortalEntity p where p.mId=:id )")})
 //@JsonDeserialize(as = CKeyEntity.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CKeyEntity.class)
+
 public class CKeyEntity extends AObjectEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "portal_fk")

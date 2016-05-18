@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 import java.io.Serializable;
 
 /**
@@ -15,12 +16,10 @@ import java.io.Serializable;
 @Table(name = "t_resonator", schema = "positron")
 @NamedQueries({@NamedQuery(name = CResonatorEntity.GET_ALL, query = "select r from CResonatorEntity r"),@NamedQuery(name = CResonatorEntity.GET_RESONATOR_BY_PORTAL, query = "select r from CResonatorEntity r  where r.mPortal = (select p from CPortalEntity p where p.mId = :mId)"),@NamedQuery(name = CResonatorEntity.GET_RESONATOR_BY_PORTAL_AND_TEAM, query = "select r from CResonatorEntity r  where r.mPortal = (select p from CPortalEntity p where p.mId = :mId) and r.mOwner = (select o from CPlayerEntity o where o.mTeam = ( select t from CTeamEntity t where t.mId=:mId2))")})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CResonatorEntity.class)
 //@JsonDeserialize(as = CResonatorEntity.class)
 public class CResonatorEntity extends ABuildingEntity implements Serializable {
-    @ManyToOne
-    @JoinColumn(name = "portal_fk")
-    private CPortalEntity mPortal;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "owner_fk")
     private CPlayerEntity mOwner;
@@ -30,20 +29,13 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
     public final static String GET_RESONATOR_BY_PORTAL_AND_TEAM = "Resonator.getResonatorsByPortalAndTeam";
 
     public CResonatorEntity(CResonatorBuilder pBuilder){
-        super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
-        mPortal = pBuilder.mPortal;
+        super(pBuilder.mId, pBuilder.mName, pBuilder.mPortal, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
+        setPortal(pBuilder.mPortal);
         mOwner = pBuilder.mOwner;
+        getPortal().addResonator(this);
     }
 
     public CResonatorEntity() {
-    }
-
-    public CPortalEntity getPortal() {
-        return mPortal;
-    }
-
-    public void setPortal(CPortalEntity pPortal) {
-        mPortal = pPortal;
     }
 
     public CPlayerEntity getOwner() {
@@ -57,7 +49,7 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
     @Override
     public String toString() {
         return super.toString() + " CResonatorEntity{" +
-                "mPortal=" + mPortal +
+                "mPortal=" +
                 ", mOwner=" + mOwner +
                 '}' + super.toString();
     }

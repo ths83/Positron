@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
         @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
-public abstract class ABuildingEntity extends AObjectEntity {
+public abstract class ABuildingEntity extends AObjectEntity implements ITarget {
     private double mLong;
     private double mLat;
     private int mLifeTime;
@@ -103,5 +103,23 @@ public abstract class ABuildingEntity extends AObjectEntity {
 
     public void setEnergy(int pEnergy) {
         mEnergy = pEnergy;
+    }
+
+
+
+    @Override
+    public void takeDamage(int pDamage) {
+        int lArmor = mLevel * 2;
+        // Rajouter bouclier
+        pDamage = pDamage - lArmor;
+        if (pDamage > 0) {
+
+
+            mEnergy = mEnergy - pDamage;
+            if (mEnergy<=0){
+                // delete Building.
+            }
+
+        }
     }
 }

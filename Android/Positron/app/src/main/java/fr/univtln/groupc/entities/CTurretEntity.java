@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 
 
-public class CTurretEntity extends ABuildingEntity implements Serializable {
+public class CTurretEntity extends ABuildingEntity implements Serializable, IFighter {
     private int mDamage;
     public final static String GET_ALL = "Turret.getAll";
 
@@ -101,5 +101,11 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
         return super.toString() + "CTurretEntity{" +
                 "mDamage=" + mDamage +
                 '}';
+    }
+
+
+    @Override
+    public void attack(ITarget pTarget, int pDamage) {
+        pTarget.takeDamage(pDamage);
     }
 }

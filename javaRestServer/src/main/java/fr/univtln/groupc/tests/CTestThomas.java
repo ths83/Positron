@@ -55,7 +55,7 @@ public class CTestThomas {
 
         lPortalObject.add(lKey);
         lPortalObject.add(lTurret);
-        lPortal.setObjects(lPortalObject);
+        //lPortal.setObjects(lPortalObject);
 
         CFieldEntity lField = new CFieldEntity.CFieldBuilder(1).links(lLinkForField).build();
 

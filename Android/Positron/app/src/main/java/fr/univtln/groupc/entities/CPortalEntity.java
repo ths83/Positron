@@ -144,6 +144,9 @@ public class CPortalEntity implements Serializable {
         mLinks.add(pLink);
     }
 
+    public void addResonator(CResonatorEntity pResonator){
+        mResonators.add(pResonator);
+    }
     public CTeamEntity getTeam(){
         return mTeam;
     }
@@ -153,26 +156,62 @@ public class CPortalEntity implements Serializable {
         if (mTeam != null){
             mTeam.addPortal(this);
         }
+        //setLinks(null);
     }
 
-    public void attributeTeam(List<CResonatorEntity> pResonators1,List<CResonatorEntity> pResonators2) {
+    public void attributeTeam() {
+
+        List<CResonatorEntity> lResonators1 = new ArrayList<>();
+        List<CResonatorEntity> lResonators2 = new ArrayList<>();
         int lLevel1 = 0;
         int lLevel2 = 0;
-        for (CResonatorEntity resonator : pResonators1) {
+
+        // Séparation des résonateur en team.
+        for(CResonatorEntity lResonator : getResonators()){
+            if(lResonator.getOwner().getTeam().getId() == 1 ){
+                lResonators1.add(lResonator);
+            }
+            else{
+                lResonators2.add(lResonator);
+            }
+        }
+        // Calcule des Dominances
+        for (CResonatorEntity resonator : lResonators1) {
             lLevel1 = lLevel1 + resonator.getLevel();
             Log.d("test", Integer.toString(lLevel1));
         }
-        for (CResonatorEntity resonator : pResonators1) {
+        for (CResonatorEntity resonator : lResonators1) {
             lLevel2 = lLevel2 + resonator.getLevel();
             Log.d("test", Integer.toString(lLevel2));
         }
+
+        //Changement de team si nécessaire.
         if (lLevel1>lLevel2){
-            setTeam(pResonators1.get(0).getOwner().getTeam());
+            if (getTeam().getId() != 1) {
+                setTeam(lResonators1.get(0).getOwner().getTeam());
+            }
         }
-        if (lLevel2>lLevel1){
-            setTeam(pResonators2.get(0).getOwner().getTeam());
+        else {
+            if (lLevel2 > lLevel1) {
+                if (getTeam().getId() != 0) {
+                    setTeam(lResonators2.get(0).getOwner().getTeam());
+
+                }
+            }
+            else{
+                //A verifier
+                if(getTeam() != null){
+                setTeam(null);
+                }
+            }
         }
+
     }
+
+
+
+
+
 
 
     public List<CResonatorEntity> getResonators(){
