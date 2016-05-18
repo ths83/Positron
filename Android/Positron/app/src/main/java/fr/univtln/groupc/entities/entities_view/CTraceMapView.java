@@ -34,6 +34,7 @@ public class CTraceMapView {
     private LatLng[] mLatLngPortalLinkedArray;
     private Set<CPortalEntity> mSetLatLngPortals;
     private List<CPortalEntity> mListLatLngPortalsForSet;
+    private int mColor;
 
 
     /**
@@ -45,18 +46,23 @@ public class CTraceMapView {
     public LatLng[] onDisplayLink(GoogleMap pMap, CLinkEntity pLink) {
 
         mPortalLinkedArray = pLink.getPortals();
+
+        // Team color
+        if (mPortalLinkedArray.get(0).getTeam().equals("BLUE")){
+            mColor = Color.BLUE;
+        }
+        else{
+            mColor = Color.RED;
+        }
+
         mLatLngPortalLinkedArray = new LatLng[NB_PORTALS_LINK];
         for (int i = 0; i < NB_PORTALS_LINK; i ++) {
             mLatLngPortalLinkedArray[i] = new LatLng(mPortalLinkedArray.get(i).getLat(), mPortalLinkedArray.get(i).getLong());
         }
-
         mLinkLine = pMap.addPolyline(new PolylineOptions()
                 .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
                 .width(LINE_WIDTH)
-                .color(Color.BLACK)); // neutral color
-
-        System.out.println(mLatLngPortalLinkedArray[0]);
-        System.out.println(mLatLngPortalLinkedArray[1]);
+                .color(mColor)); // neutral color
         return mLatLngPortalLinkedArray;
     }
 
@@ -67,12 +73,12 @@ public class CTraceMapView {
      * @return
      */
     public LatLng[] onDisplayField(GoogleMap pMap, CFieldEntity pField) {
+
         mLinkArray = new ArrayList<>();
         mLinkArray.add(pField.getLinks().get(0));
         mLinkArray.add(pField.getLinks().get(1));
         mLinkArray.add(pField.getLinks().get(2));
-        // System.out.println("h\n");
-        // System.out.println(mLinkArray);
+
         mSetLatLngPortals = new HashSet<>();
         mSetLatLngPortals.add(mLinkArray.get(0).getPortals().get(0));
         mSetLatLngPortals.add(mLinkArray.get(0).getPortals().get(1));
@@ -82,15 +88,22 @@ public class CTraceMapView {
         mSetLatLngPortals.add(mLinkArray.get(2).getPortals().get(1));
         mListLatLngPortalsForSet = new ArrayList<>(mSetLatLngPortals);
         mLatLngPortalLinkedArray = new LatLng[NB_PORTALS_FIELD];
+
+        // Team color
+        if (mListLatLngPortalsForSet.get(0).getTeam().equals("BLUE")){
+            mColor = Color.BLUE;
+        }
+        else{
+            mColor = Color.RED;
+        }
+
         for (int i = 0; i < NB_PORTALS_FIELD; i ++){
             mLatLngPortalLinkedArray[i] = new LatLng(mListLatLngPortalsForSet.get(i).getLat(), mListLatLngPortalsForSet.get(i).getLong());
-            // System.out.println(mLatLngPortalLinkedArray[i]);
         }
 
         Polygon lPolygon = pMap.addPolygon(new PolygonOptions()
                 .add(mLatLngPortalLinkedArray)
-                .strokeColor(Color.BLACK)
-                .fillColor(Color.WHITE));
+                .fillColor(mColor));
         return mLatLngPortalLinkedArray;
     }
 

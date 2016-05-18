@@ -143,7 +143,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
             List<CResonatorEntity> lReso1 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),1);
             List<CResonatorEntity> lReso2 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),2);
-            p.attributeTeam(lReso1,lReso2);
+            //p.attributeTeam(lReso1,lReso2);
             LatLng test = new LatLng(p.getLat(), p.getLong());
             IconGenerator tc =new IconGenerator(this);
             tc.setTextAppearance(R.style.iconGenText);
@@ -191,7 +191,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         }
 
-        // Display links on start session
+        // Display links on start session -> avoid reductant latlng -> v2.0 to do
         int i = 0;
         for (CPortalEntity lP : lPortals){
             for (i = 0 ; i < lP.getLinks().size(); i++){
@@ -199,8 +199,13 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         }
 
+        // Display fields on start session -> avoid reductant latlng -> v2.0 to do
         i = 0;
-
+        for (CPortalEntity lP : lPortals){
+            for (i = 0 ; i < lP.getLinks().size(); i++){
+                new CTraceMapView().onDisplayField(mMap,lP.getLinks().get(i).getField());
+            }
+        }
 
         // Location Service
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
