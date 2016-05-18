@@ -191,6 +191,7 @@ public class CPortalEntity implements Serializable {
             if (lLevel2 > lLevel1) {
                 if (getTeam().getId() != 0) {
                     setTeam(lResonators2.get(0).getOwner().getTeam());
+
                 }
             }
             else{
@@ -202,6 +203,11 @@ public class CPortalEntity implements Serializable {
         }
 
     }
+
+
+
+
+
 
 
     public List<CResonatorEntity> getResonators(){

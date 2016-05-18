@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
         @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
-public abstract class ABuildingEntity extends AObjectEntity {
+public abstract class ABuildingEntity extends AObjectEntity implements ITarget {
     private double mLong;
     private double mLat;
     private int mLifeTime;
