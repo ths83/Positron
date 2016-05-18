@@ -13,14 +13,25 @@ public class CTestThomas {
 
     public static void main(String[] args) {
         CCrudMethods lCrud = new CCrudMethods();
+
+
         List<CResonatorEntity> lResonatorEntityList = new ArrayList<>();
         List<AObjectEntity> lPortalObject = new ArrayList<>();
         List<CPortalEntity> lPortalLinked = new ArrayList<>();
         List<CPortalEntity> lPortalLinked2 = new ArrayList<>();
         List<CPortalEntity> lPortalLinked3 = new ArrayList<>();
-        CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(2000).latitude(45.1948).longitude(5.6045).build();
-        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2001).latitude(43.1948).longitude(5.6045).build();
-        CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(2002).latitude(42.1948).longitude(6.6045).build();
+        List<CKeyEntity> lKeyPortals = new ArrayList<>();
+        CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder(2000).build();
+        CKeyEntity lKeyEntity2 = new CKeyEntity.CKeyBuilder(2001).build();
+        CKeyEntity lKeyEntity3 = new CKeyEntity.CKeyBuilder(2002).build();
+        lKeyPortals.add(lKeyEntity);
+        lKeyPortals.add(lKeyEntity2);
+        lKeyPortals.add(lKeyEntity3);
+        CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(2003).latitude(45.1948).longitude(5.6045).keys(lKeyPortals).build();
+        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2004).latitude(43.1948).longitude(5.6045).keys(lKeyPortals).build();
+        CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(2005).latitude(42.1948).longitude(6.6045).keys(lKeyPortals).build();
+
+
 
         CTeamEntity lAtom = new CTeamEntity.CTeamBuilder(1).color("red").build();
         CTeamEntity lXenom = new CTeamEntity.CTeamBuilder(2).color("blue").build();

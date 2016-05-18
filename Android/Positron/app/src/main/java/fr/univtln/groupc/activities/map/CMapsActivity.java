@@ -196,9 +196,10 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         for (CPortalEntity lP : lPortals){
             for (i = 0 ; i < lP.getLinks().size(); i++){
                 new CTraceMapView().onDisplayLink(mMap,lP.getLinks().get(i));
+
             }
         }
-
+        Log.d("map", String.valueOf(i));
         // Display fields on start session -> avoid reductant latlng -> v2.0 to do
         i = 0;
         for (CPortalEntity lP : lPortals){
@@ -206,7 +207,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 new CTraceMapView().onDisplayField(mMap,lP.getLinks().get(i).getField());
             }
         }
-
+        Log.d("map", String.valueOf(i));
         // Location Service
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
