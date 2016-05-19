@@ -9,6 +9,7 @@ import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.IFighter;
+import fr.univtln.groupc.rest.CRestUpdate;
 
 /**
  * Created by xdurbec066 on 17/05/16.
@@ -22,8 +23,8 @@ public class CActions {
             // Modifier le portail de pResonator en "pPortal" par cascade
 
             pPortal.attributeTeam();
+            new CRestUpdate().updatePortalRest(pPortal);
 
-            // Envoyer le changement par REST
         }
         else{
             Log.d("BuildResonator","Plus de place sur le portail / Portal Overload");

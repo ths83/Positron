@@ -39,6 +39,14 @@ public class CJPATest {
     @Test
     public void testGetPortalWithResonators() throws Exception {
         CPortalEntity lPortGotten = mCrud.find(CPortalEntity.class, 462);
+        if (lPortGotten == null){
+            System.out.println("c est null");
+        }
+        else{
+            System.out.println("-> " + lPortGotten);
+        }
+        System.out.println(lPortGotten.getResonators());
+
         System.out.println(lPortGotten.getResonators().size());
 
     }

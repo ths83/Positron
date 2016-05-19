@@ -1,9 +1,7 @@
 package fr.univtln.groupc;
 
 import fr.univtln.groupc.algorithm.CAlgorithm;
-import fr.univtln.groupc.entities.CFieldEntity;
-import fr.univtln.groupc.entities.CLinkEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.*;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -539,4 +537,50 @@ public class CAlgorithmeTest  extends TestCase {
         assertEquals("Test PAS OK", CAlgorithm.calculDetermiant(3, 2, 5, 3), -1.0);
 
     }
+
+
+    public void testName() throws Exception {
+
+        CTeamEntity t1 = new  CTeamEntity.CTeamBuilder(1).build();
+
+        CPlayerEntity richard = new CPlayerEntity.CPlayerBuilder(45).team(t1).build();
+        CResonatorEntity reso = new CResonatorEntity.CResonatorBuilder(46).owner(richard).build();
+        System.out.println("dddd");
+        assertEquals("dd",getTeamOfTarget(reso),1);
+    }
+
+    public void testName2() throws Exception {
+
+        CTeamEntity t1 = new  CTeamEntity.CTeamBuilder(2).build();
+
+        CPlayerEntity richard = new CPlayerEntity.CPlayerBuilder(45).team(t1).build();
+       CShieldEntity shield = new CShieldEntity.CShieldBuilder(54).build();
+        CTurretEntity turret = new CTurretEntity.CTurretBuilder(45).
+        System.out.println("dddd");
+        assertEquals("dd",getTeamOfTarget(reso),2);
+    }
+
+
+    public int getTeamOfTarget(ABuildingEntity BLBALBA) {
+        System.out.println("Step 1");
+        if(BLBALBA instanceof CResonatorEntity){
+            System.out.println("Step 2");
+            CResonatorEntity lR=(CResonatorEntity)BLBALBA;
+            System.out.println("Step 3");
+            return lR.getOwner().getTeam().getId();
+        }
+        else{
+            return BLBALBA.getPortal().getTeam().getId();
+        }
+    }
+
+
+
+
 }
+
+
+
+
+
+

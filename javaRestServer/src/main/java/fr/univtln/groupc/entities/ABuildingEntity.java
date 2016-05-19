@@ -117,7 +117,7 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
     }
 
     public void setLevel(int pLevel) {
-        mLevel = mLevel;
+        mLevel = pLevel;
     }
 
     public int getEnergyMax() {

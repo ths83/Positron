@@ -89,6 +89,7 @@ public class CPortalService {
     @Produces("application/json")
     public Response updatePortal(String pPortalJson){
         CPortalEntity lPortal = null;
+        System.out.println("json -> " + pPortalJson);
         try {
             lPortal = mMapper.readValue(pPortalJson, CPortalEntity.class);
         } catch (IOException e) {

@@ -1,6 +1,7 @@
 package fr.univtln.groupc.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPortalEntity;
@@ -84,6 +85,7 @@ public class CResonatorService {
     @GET
     @Produces("application/json")
     public String readAll(){
+        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         String lJsonValue = null;
         List<CResonatorEntity> lResonators = mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
         try {
