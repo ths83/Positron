@@ -580,7 +580,7 @@ public class CAlgorithmeTest  extends TestCase {
             return BLBALBA.getPortal().getTeam().getId();
         }
     }
-*/
+
 
 
 }
