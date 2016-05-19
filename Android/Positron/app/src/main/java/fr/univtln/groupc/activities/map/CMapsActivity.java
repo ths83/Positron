@@ -42,9 +42,11 @@ import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.entities_view.CTraceMapView;
+import fr.univtln.groupc.math.CMathFunction;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
@@ -53,7 +55,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
-    public final static float MAX_ZOOM_MAP = 18;
+    public final static int GPS_PLAYER_RADIUS = 50;
+    public final static float MAX_ZOOM_MAP = 17f;
+
 
     private List<Marker> mResonatorMarkers = new ArrayList<>();
     //private float mZoom = 18;
@@ -80,10 +84,15 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private String mLinkObjectString;
     private String mFieldString;
 
+    private CPlayerEntity mPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        // TODO singleton for player
+        mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
 
         // Google Map fragment
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -212,7 +221,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         }
 
-        // Display links on start session -> avoid reductant latlng -> v2.0 to do
+        // Display links on start session
         int i = 0;
         for (CPortalEntity lP : lPortals) {
             for (i = 0; i < lP.getLinks().size(); i++) {
@@ -221,7 +230,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         }
         Log.d("map", String.valueOf(i));
-        // Display fields on start session -> avoid reductant latlng -> v2.0 to do
+        // Display fields on start session
         i = 0;
         for (CPortalEntity lP : lPortals) {
             for (i = 0; i < lP.getLinks().size(); i++) {
@@ -233,6 +242,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         // Location Service
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
+
+
 
         /*// Portal created with user click
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -304,9 +315,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         // portal action radius when click on it
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+
             @Override
             public boolean onMarkerClick(Marker marker) {
-                for (Marker lMarker : mResonatorMarkers){
+                for (Marker lMarker : mResonatorMarkers) {
                     lMarker.remove();
                 }
                 mResonatorMarkers.clear();
@@ -315,22 +328,61 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     mPosition = 1;
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));
 
+
                     //List<CResonatorEntity> lResonators = new CRestGet().getResonatorsByPortalRest(Integer.parseInt(marker.getTitle()));
 
                 }
        /* // Portal action possibilities for players when click on it
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                        @Override
+                        public View getInfoContents(Marker marker) {
+                            Log.d("test",marker.getTitle());
+                            List<CResonatorEntity> pResonatorTeam1= new  CRestGet().getResonatorsByPortalAndTeamRest(Integer.parseInt(marker.getTitle()), 1);
+                            List<CResonatorEntity> pResonatorTeam2= new  CRestGet().getResonatorsByPortalAndTeamRest(Integer.parseInt(marker.getTitle()), 2);
+                            int lNbResonatorTeam1 = pResonatorTeam1.size();
+                            Log.d("test",Integer.toString(lNbResonatorTeam1));
+                            int lNbResonatorTeam2 = pResonatorTeam2.size();
+                            Log.d("test",Integer.toString(lNbResonatorTeam2));
+                            int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
+                            Context context = getApplicationContext();
+                            LinearLayout info = new LinearLayout(context);
+                            info.setOrientation(LinearLayout.VERTICAL);
+                            TextView snip1 = new TextView(context);
+                            snip1.setTextColor(Color.BLUE);
+                            snip1.setText(Integer.toString(lNbResonatorTeam1));
+                            info.addView(snip1);
+                            TextView snip2 = new TextView(context);
+                            snip2.setTextColor(Color.RED);
+                            snip2.setText(Integer.toString(lNbResonatorTeam2));
+                            info.addView(snip2);
+                            TextView snip3 = new TextView(context);
+                            snip3.setTextColor(Color.BLACK);
+                            snip3.setText(Integer.toString(lNbEmptyPlace));
+                            info.addView(snip3);
+                            return info;
+                        }
+                    });
+                }*/
+                // Portal action possibilities for players when click on it
+
+       /* mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
             @Override
             public boolean onMarkerClick(Marker marker) {
-                View lView = new View(getBaseContext());
-                onPortalClick(lView);
->>>>>>> 7c62d4d8e76410a831b8ecd57f4399366669696f*/
+                LatLng lPortalLatLng = marker.getPosition();
+
+
+                // if portal in circle player radius
+                if (CMathFunction.haversine(lPortalLatLng.latitude,lPortalLatLng.longitude,mPlayer.getLat(),mPlayer.getLong()) <= GPS_PLAYER_RADIUS){
+                    View lView = new View(getBaseContext());
+                    onPortalClick(lView);
+                }
+
+
                 return false;
             }
-        });
+        });*/
 
-        // New tests with objects
+                // New tests with objects
                 /*for (CPortalEntity lPortal : lPortals){
                     Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
                     mMarkerUserSelected = new LatLng(lPortal.getLat(),lPortal.getLong());
@@ -357,11 +409,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             Log.d("test", "-> " + lL.toString());
                         }
                         Toast.makeText(getBaseContext(),/*mResonatorString + " " +*/ //mObjectString + mLinkObjectString,Toast.LENGTH_LONG).show();
-        // Log.d("test", "-> " + /*mResonatorString + " " + */mObjectString + "link " + mLinkObjectString);
+                // Log.d("test", "-> " + /*mResonatorString + " " + */mObjectString + "link " + mLinkObjectString);
 
-        //}
+                //}
 
-        //}
+                //}
 
                 /*// display tests for portals attr
                 mLatLng = marker.getPosition();
@@ -394,9 +446,10 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 mMarkerPortalAttr = mMap.addMarker(new MarkerOptions()
                         .position(mLatLng2)
                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.camred)));*/
+                return false;
+            }
 
-                    /*return false;
-        });*/
+        });
 
 
     }
@@ -405,19 +458,26 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
         @Override
         public void onMyLocationChange(Location location) {
-            mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            // current position player
+            mPlayer.setLat(location.getLatitude());
+            mPlayer.setLong(location.getLongitude());
+
+            //mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
             if (mPosition != 1) {
                 //mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
+                //mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
             }
-            //Log.i("test", "Latitude: "+String.valueOf(location.getLatitude())+" - Longitude: "+String.valueOf(location.getLongitude()));
-            //mMap.moveCamera(CameraUpdateFactory.zoomTo(8f));
-            if (mUserActionRadius != null) {
-                mUserActionRadius.setCenter(mUserLatLng);
-            } else {
-                mUserActionRadius = mMap.addCircle(new CircleOptions().center(mUserLatLng).radius(50).fillColor(Color.YELLOW));
+                //Log.i("test", "Latitude: "+String.valueOf(location.getLatitude())+" - Longitude: "+String.valueOf(location.getLongitude()));
+                //mMap.moveCamera(CameraUpdateFactory.zoomTo(8f));
+                if (mUserActionRadius != null) {
+                    mUserActionRadius.setCenter(mUserLatLng);
+                } else {
+                    mUserActionRadius = mMap.addCircle(new CircleOptions().center(mUserLatLng).radius(GPS_PLAYER_RADIUS).fillColor(Color.YELLOW));
+                }
+
             }
-        }
     };
 
 

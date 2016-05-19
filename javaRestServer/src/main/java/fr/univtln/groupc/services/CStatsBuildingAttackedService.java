@@ -21,7 +21,7 @@ public class CStatsBuildingAttackedService {
     
     @POST
     @Consumes("application/json")
-    public Response create(String pStatsBuildingsAttackedJson){
+    public Response createStatsBuildingAttacked(String pStatsBuildingsAttackedJson){
         CStatsBuildingsAttacked lStatsBuildingsAttacked = null;
         try {
             lStatsBuildingsAttacked = mMapper.readValue(pStatsBuildingsAttackedJson, CStatsBuildingsAttacked.class);
@@ -41,7 +41,6 @@ public class CStatsBuildingAttackedService {
     @Produces("application/json")
     @Path("/{id}")
     public String read(@PathParam("id") int pId){
-        //return mCrudMethods.find(CStatsBuildingsAttacked.class, pId);
         String lJsonValue = null;
         CStatsBuildingsAttacked lStat = mCrudMethods.find(CStatsBuildingsAttacked.class, pId);
         try {

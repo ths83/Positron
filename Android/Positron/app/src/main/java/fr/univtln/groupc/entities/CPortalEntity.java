@@ -216,6 +216,7 @@ public class CPortalEntity implements Serializable {
         int lLevel1 = 0;
         int lLevel2 = 0;
         int i=0;
+
         // Séparation des résonateur en team.
         for(CResonatorEntity lResonator : mResonators){
             if(lResonator.getOwner().getTeam().getId() == 1 ){
@@ -238,15 +239,15 @@ public class CPortalEntity implements Serializable {
 
 
         //Changement de team si nécessaire.
-        if (lLevel1>lLevel2){
+        if (lLevel1>lLevel2) {
             if (mTeam == null) {
-                mTeam=lResonators1.get(0).getOwner().getTeam();
+                mTeam = lResonators1.get(0).getOwner().getTeam();
                 //new CRestUpdate().updatePortalRest(this);
                 //TODO  Delete Link
-            }
-            else {
+            } else {
                 if (getTeam().getId() != 1) {
-                    mTeam=lResonators1.get(0).getOwner().getTeam();
+                    mTeam = lResonators1.get(0).getOwner().getTeam();
+
                 }
             }
         }
@@ -261,18 +262,14 @@ public class CPortalEntity implements Serializable {
                 else {
                     if (getTeam().getId() != 2) {
                         mTeam=lResonators2.get(0).getOwner().getTeam();
-
+                }
                     }
 
                 }
-            }
             else{
-
                 if(getTeam() != null){
                      setTeam(null);
-                    //new CRestUpdate().updatePortalRest(this);
                     //TODO  Delete Link
-
                 }
             }
         }
@@ -280,14 +277,18 @@ public class CPortalEntity implements Serializable {
     }
 
     @JsonIgnore
-    public List<CResonatorEntity> getResonatorsTeamById(int pId){
+    public List<CResonatorEntity> getResonatorsTeamById(int pId) {
         List<CResonatorEntity> lList = new ArrayList<>();
-        for (CResonatorEntity lResonator : mResonators){
-            if (lResonator.getOwner().getTeam().getId() == pId){
+        for (CResonatorEntity lResonator : mResonators) {
+            if (lResonator.getOwner().getTeam().getId() == pId) {
                 lList.add(lResonator);
             }
         }
         return lList;
+    }
+
+    public void deleteAllLinks(){
+        mLinks.clear();
     }
 
     @Override

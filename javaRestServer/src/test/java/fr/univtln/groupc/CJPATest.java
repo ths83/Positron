@@ -1,7 +1,9 @@
 package fr.univtln.groupc;
 
 import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.*;
+import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * Created by marti on 18/05/2016.
  */
-public class CJPATest {
+public class CJPATest extends TestCase {
 
     private CCrudMethods mCrud = new CCrudMethods();
 
@@ -48,6 +50,27 @@ public class CJPATest {
         System.out.println(lPortGotten.getResonators());
 
         System.out.println(lPortGotten.getResonators().size());
+
+    }
+
+    public void testGetKeyByPlayers() throws Exception{
+        CKeyEntity lKey1 = new CKeyEntity.CKeyBuilder(55).name("la clef numero 1").build();
+        CKeyEntity lKey2 = new CKeyEntity.CKeyBuilder(56).name("la clef numero 2").build();
+        CKeyEntity lKey3 = new CKeyEntity.CKeyBuilder(57).name("la clef numero 3").build();
+        List<AObjectEntity> lObjects = new ArrayList<>();
+        lObjects.add(lKey1);
+        lObjects.add(lKey2);
+
+        CPlayerEntity lPlayer = new CPlayerEntity.CPlayerBuilder(41).nickname("raul").objects(lObjects).build();
+        mCrud.create(lPlayer);
+        
+        //List<CKeyEntity> lKeysGotten = mCrud.findWithNamedQuery(CKeyEntity.GET_BY_PLAYER, CQueryParameter.with("mId", lPlayer.getId()).parameters());
+        List<AObjectEntity> lKeysGotten = lPlayer.getKeys();
+
+        System.out.println(lKeysGotten);
+
+        assertEquals(lKeysGotten.size(), 2);
+
 
     }
 }

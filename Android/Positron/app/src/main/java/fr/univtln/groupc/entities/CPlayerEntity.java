@@ -280,13 +280,14 @@ public class CPlayerEntity implements Serializable, IFighter, ITarget {
     }
 
     @Override
-    public void attack(ITarget pTarget, int pDamage) {
+    public ITarget attack(ITarget pTarget, int pDamage) {
         if(getTeamOfFighter() != pTarget.getTeamOfTarget()) {
             pTarget.takeDamage(pDamage,this);
         }
         else{
             Log.d("attack","Unité amie");
         }
+        return pTarget;
     }
 
     @Override

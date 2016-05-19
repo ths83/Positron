@@ -5,6 +5,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import fr.univtln.groupc.actions.CActions;
+import fr.univtln.groupc.entities.ABuildingEntity;
+import fr.univtln.groupc.entities.CConsumableEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
+import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.CResonatorEntity;
+import fr.univtln.groupc.rest.CRestDelete;
+import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CClickPortalsAcitivity extends AppCompatActivity {
@@ -35,5 +43,54 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void attackingBuilding(ABuildingEntity pTarget, CPlayerEntity pAttacker, CConsumableEntity pAmmunition , CPortalEntity pPortal){
+
+        CActions lActions = new CActions();
+        pTarget = lActions.attackBuilding(pAmmunition,pTarget,pAttacker);
+
+        if(pTarget.getEnergy() <= 0){
+            // TODO Delete Building
+            //new CRestDelete();
+            updatePortalTeam(pPortal);
+        }
+        else{
+            //TODO Updtate Building
+            //new CRestUpdate().;
+        }
+
+    }
+
+
+    public void buildingResonator(CPortalEntity pPortal,CResonatorEntity pResonator){
+        CActions lActions = new CActions();
+
+        pPortal = lActions.buildResonator(pPortal,pResonator);
+        if(updatePortalTeam(pPortal) == 0){
+            new CRestUpdate().updatePortalRest(pPortal);
+        }
+
+    }
+
+    public int updatePortalTeam(CPortalEntity pPortal){
+        if(pPortal.getTeam() != null){
+            int lTeam = pPortal.getTeam().getId();
+            pPortal.attributeTeam();
+            if (lTeam != pPortal.getTeam().getId()){
+                new CRestUpdate().updatePortalRest(pPortal);
+                // TODO delete Link?
+                return 1;
+            }
+        }
+        else{
+            pPortal.attributeTeam();
+            if (pPortal!=null){
+                new CRestUpdate().updatePortalRest(pPortal);
+                //TODO Delete LINK?
+                return 1;
+            }
+        }
+        return 0;
     }
 }

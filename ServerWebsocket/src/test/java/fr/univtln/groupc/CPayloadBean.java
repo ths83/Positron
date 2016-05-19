@@ -10,24 +10,24 @@ import java.util.Date;
 
 public class CPayloadBean implements Serializable {
     public final static class PayloadBeanCode extends
-            JSONCoder<CPayloadBean> {
+            CJSONCoder<CPayloadBean> {
     }
 
     private Date mDate;
     private String mMessage;
-    private A mA;
 
-    public PayloadBean() {
+
+    public CPayloadBean() {
     }
 
-    public PayloadBean(PayloadBeanBuilder pBuilder){
+    public CPayloadBean(PayloadBeanBuilder pBuilder){
         mDate = pBuilder.mDate;
         mSender = pBuilder.mSender;
         mMessage = pBuilder.mMessage;
         mA = pBuilder.mA;
     }
 
-    public PayloadBean(Date date,Personne sender,String message, A a) {
+    public CPayloadBean(Date date,Personne sender,String message, A a) {
         mDate = date;
         mSender = sender;
         mMessage = message;
@@ -70,9 +70,7 @@ public class CPayloadBean implements Serializable {
     public String toString() {
         return "PayloadBean{" +
                 "mDate=" + mDate +
-                ", mSender=" + mSender +
                 ", mMessage='" + mMessage + '\'' +
-                ", mA='" + mA + '\'' +
                 '}';
     }
 
@@ -81,11 +79,10 @@ public class CPayloadBean implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PayloadBean that = (PayloadBean) o;
+        CPayloadBean that = (CPayloadBean) o;
 
         if (!mDate.equals(that.mDate)) return false;
         if (!mMessage.equals(that.mMessage)) return false;
-        if (!mSender.equals(that.mSender)) return false;
 
         return true;
     }
@@ -93,16 +90,13 @@ public class CPayloadBean implements Serializable {
     @Override
     public int hashCode() {
         int result = mDate.hashCode();
-        result = 31 * result + mSender.hashCode();
         result = 31 * result + mMessage.hashCode();
         return result;
     }
 
     public static class PayloadBeanBuilder{
         private Date mDate;
-        private Personne mSender;
         private String mMessage;
-        private A mA;
 
         public PayloadBeanBuilder(){};
 
@@ -111,23 +105,13 @@ public class CPayloadBean implements Serializable {
             return this;
         }
 
-        public PayloadBeanBuilder sender(Personne pSender){
-            mSender = pSender;
-            return this;
-        }
-
         public PayloadBeanBuilder message(String pMessage){
             mMessage = pMessage;
             return this;
         }
 
-        public PayloadBeanBuilder a(A pA){
-            mA = pA;
-            return this;
-        }
-
-        public PayloadBean build(){
-            return new PayloadBean(this);
+        public CPayloadBean build(){
+            return new CPayloadBean(this);
         }
     }
 }

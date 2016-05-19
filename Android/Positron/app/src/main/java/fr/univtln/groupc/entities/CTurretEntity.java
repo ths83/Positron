@@ -113,13 +113,14 @@ public class CTurretEntity extends ABuildingEntity implements Serializable, IFig
     }
 
     @Override
-    public void attack(ITarget pTarget, int pDamage) {
+    public ITarget attack(ITarget pTarget, int pDamage) {
         if(getTeamOfFighter().getId() != pTarget.getTeamOfTarget().getId() && getTeamOfFighter() != null) {
             pTarget.takeDamage(pDamage, this);
         }
         else{
             Log.d("attack", "Unité amie");
         }
+        return pTarget;
     }
 
 
