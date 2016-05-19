@@ -33,7 +33,7 @@ import fr.univtln.groupc.entities.CResonatorEntity;
 public class CRestGet extends AsyncTask<String,String,String> {
 
     //public final static String API_URL = "http://10.9.185.57:9998";
-    public final static String API_URL = "http://10.9.185.52:9998";
+    //public final static String API_URL = "http://10.9.185.55:9998";
     //public final static String API_URL = "http://10.21.174.206:9998";
     //thom' home
     //public final static String API_URL = "http://192.168.1.83:9998";
@@ -185,7 +185,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
         lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
-        String lUrlString = API_URL + "/resonators" + "/portals" + Integer.toString(pId);
+        String lUrlString = API_URL + "/resonators" + "/portals/" + Integer.toString(pId);
         Log.d("test", "->-> " + lUrlString);
         String lResonatorsJson = null;
         List<CResonatorEntity> lResonators = new ArrayList<>();

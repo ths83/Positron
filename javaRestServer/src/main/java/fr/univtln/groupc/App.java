@@ -4,13 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.dao.CCrudMethods;
-import fr.univtln.groupc.entities.CPlayerEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
-import fr.univtln.groupc.entities.CResonatorEntity;
-import fr.univtln.groupc.entities.CTeamEntity;
+import fr.univtln.groupc.entities.*;
 import fr.univtln.groupc.server.CServer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hello world!
@@ -23,15 +22,20 @@ public class App
         CCrudMethods crud = new CCrudMethods();
         CPlayerEntity p1 = crud.find(CPlayerEntity.class,1);
         CPlayerEntity p2 = crud.find(CPlayerEntity.class,2);
-        CPortalEntity po1 = crud.find(CPortalEntity.class,1);
-        CResonatorEntity r1= new CResonatorEntity.CResonatorBuilder(1).level(2).owner(p1).portal(po1).build();
+        CPortalEntity po1 = crud.find(CPortalEntity.class,7);
+        CPortalEntity po2 = crud.find(CPortalEntity.class,8);
+        CPortalEntity po3 = crud.find(CPortalEntity.class,6);
+        CPortalEntity po4 = crud.find(CPortalEntity.class,9);
+        //po1.setRadius(40);
+        //crud.update(po1);
+        /*CResonatorEntity r1= new CResonatorEntity.CResonatorBuilder(1).level(8).owner(p1).portal(po1).build();
         CResonatorEntity r2= new CResonatorEntity.CResonatorBuilder(2).level(5).owner(p2).portal(po1).build();
         //CResonatorEntity r3= new CResonatorEntity.CResonatorBuilder(3).level(1).portal(po1).build();
         //CResonatorEntity r4= new CResonatorEntity.CResonatorBuilder(4).level(2).portal(po1).build();
         CResonatorEntity r5= new CResonatorEntity.CResonatorBuilder(3).level(7).owner(p2).portal(po1).build();
         CResonatorEntity r6= new CResonatorEntity.CResonatorBuilder(4).level(1).owner(p2).portal(po1).build();
         //CResonatorEntity r7= new CResonatorEntity.CResonatorBuilder(7).level(3).portal(po1).build();
-        CResonatorEntity r8= new CResonatorEntity.CResonatorBuilder(5).level(2).owner(p1).portal(po1).build();
+        CResonatorEntity r8= new CResonatorEntity.CResonatorBuilder(5).level(8).owner(p1).portal(po1).build();
         crud.create(r1);
         crud.create(r2);
         //crud.create(r3);
@@ -40,6 +44,36 @@ public class App
         crud.create(r6);
         //crud.create(r7);
         crud.create(r8);
-
+        CResonatorEntity r9= new CResonatorEntity.CResonatorBuilder(6).level(8).owner(p1).portal(po3).build();
+        CResonatorEntity r10= new CResonatorEntity.CResonatorBuilder(7).level(5).owner(p2).portal(po2).build();
+        CResonatorEntity r13= new CResonatorEntity.CResonatorBuilder(8).level(7).owner(p2).portal(po2).build();
+        CResonatorEntity r14= new CResonatorEntity.CResonatorBuilder(9).level(1).owner(p2).portal(po4).build();
+        CResonatorEntity r16= new CResonatorEntity.CResonatorBuilder(10).level(8).owner(p1).portal(po4).build();
+        crud.create(r9);
+        crud.create(r10);
+        crud.create(r13);
+        crud.create(r14);
+        crud.create(r16);*/
+        List<CPortalEntity> pi1 = new ArrayList<CPortalEntity>();
+        pi1.add(po1);
+        pi1.add(po3);
+        CLinkEntity l1 = new CLinkEntity.CLinkBuilder(1).portals(pi1).build();
+        crud.create(l1);
+        List<CPortalEntity> pi2 = new ArrayList<CPortalEntity>();
+        pi2.add(po4);
+        pi2.add(po3);
+        CLinkEntity l2 = new CLinkEntity.CLinkBuilder(2).portals(pi2).build();
+        crud.create(l2);
+        List<CPortalEntity> pi3 = new ArrayList<CPortalEntity>();
+        pi3.add(po1);
+        pi3.add(po3);
+        CLinkEntity l3 = new CLinkEntity.CLinkBuilder(3).portals(pi3).build();
+        crud.create(l3);
+        List<CLinkEntity> fi2 = new ArrayList<CLinkEntity>();
+        fi2.add(l1);
+        fi2.add(l2);
+        fi2.add(l3);
+        CFieldEntity f2 = new CFieldEntity.CFieldBuilder(1).links(fi2).build();
+        crud.create(f2);
     }
 }

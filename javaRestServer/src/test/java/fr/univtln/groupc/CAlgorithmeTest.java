@@ -555,9 +555,9 @@ public class CAlgorithmeTest  extends TestCase {
 
         CPlayerEntity richard = new CPlayerEntity.CPlayerBuilder(45).team(t1).build();
        CShieldEntity shield = new CShieldEntity.CShieldBuilder(54).build();
-        CTurretEntity turret = new CTurretEntity.CTurretBuilder(45).
+        /*CTurretEntity turret = new CTurretEntity.CTurretBuilder(45).
         System.out.println("dddd");
-        assertEquals("dd",getTeamOfTarget(reso),2);
+        assertEquals("dd",getTeamOfTarget(reso),2);*/
     }
 
 

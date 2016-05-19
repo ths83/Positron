@@ -23,12 +23,11 @@ public class CTeamEntity implements Serializable {
     @Column(name = "id")
     private int mId;
 
-    @OneToMany
+    @OneToMany(mappedBy="mTeam")
     @JoinTable(schema = "positron")
     private List<CPlayerEntity> mPlayers = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(schema = "positron")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mTeam")
     private List<CPortalEntity> mPortals = new ArrayList<>();
 
     @Column(name = "color")
