@@ -561,12 +561,12 @@ public class CAlgorithmeTest  extends TestCase {
         //assertEquals("dd",getTeamOfTarget(reso),2);
 =======
        CShieldEntity shield = new CShieldEntity.CShieldBuilder(54).build();
-        CTurretEntity turret = new CTurretEntity.CTurretBuilder(45).build();
+<<<<<<<<<
+        /*CTurretEntity turret = new CTurretEntity.CTurretBuilder(45).
         System.out.println("dddd");
-        assertEquals("dd",getTeamOfTarget(turret),2);
->>>>>>> 30feba4cc6f0cc94bc582aab669feea254d163d5
+        assertEquals("dd",getTeamOfTarget(reso),2);
     }
-
+*/
 
     public int getTeamOfTarget(ABuildingEntity BLBALBA) {
         System.out.println("Step 1");
@@ -580,7 +580,7 @@ public class CAlgorithmeTest  extends TestCase {
             return BLBALBA.getPortal().getTeam().getId();
         }
     }
-*/
+
 
 
 }
