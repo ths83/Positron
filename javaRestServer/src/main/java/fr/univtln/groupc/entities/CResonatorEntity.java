@@ -32,7 +32,10 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
         super(pBuilder.mId, pBuilder.mName, pBuilder.mPortal, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
         setPortal(pBuilder.mPortal);
         mOwner = pBuilder.mOwner;
-        getPortal().addResonator(this);
+        if (getPortal() != null){
+            getPortal().addResonator(this);
+        }
+
     }
 
     public CResonatorEntity() {

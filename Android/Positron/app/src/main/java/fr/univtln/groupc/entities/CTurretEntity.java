@@ -1,5 +1,7 @@
 package fr.univtln.groupc.entities;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 
@@ -112,6 +114,17 @@ public class CTurretEntity extends ABuildingEntity implements Serializable, IFig
 
     @Override
     public void attack(ITarget pTarget, int pDamage) {
-        pTarget.takeDamage(pDamage,this);
+        if(getTeamOfFighter().getId() != pTarget.getTeamOfTarget().getId() && getTeamOfFighter() != null) {
+            pTarget.takeDamage(pDamage, this);
+        }
+        else{
+            Log.d("attack", "Unité amie");
+        }
+    }
+
+
+    @Override
+    public CTeamEntity getTeamOfFighter() {
+        return getPortal().getTeam();
     }
 }

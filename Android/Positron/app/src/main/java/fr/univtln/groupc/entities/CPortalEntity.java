@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.univtln.groupc.rest.CRestUpdate;
+
 /**
  * Created by marti on 09/05/2016.
  */
@@ -202,23 +204,29 @@ public class CPortalEntity implements Serializable {
             Log.d("test", Integer.toString(lLevel2));
         }
 
+
         //Changement de team si nécessaire.
         if (lLevel1>lLevel2){
             if (getTeam().getId() != 1) {
                 setTeam(lResonators1.get(0).getOwner().getTeam());
+                new CRestUpdate().updatePortalRest(this);
+                //TODO  Delete Link
             }
         }
         else {
             if (lLevel2 > lLevel1) {
                 if (getTeam().getId() != 0) {
                     setTeam(lResonators2.get(0).getOwner().getTeam());
-
+                    new CRestUpdate().updatePortalRest(this);
+                    //TODO  Delete Link
                 }
             }
             else{
-                //A verifier
+                //TODO A verifier
                 if(getTeam() != null){
-                setTeam(null);
+                     setTeam(null);
+                    new CRestUpdate().updatePortalRest(this);
+                    //TODO  Delete Link
                 }
             }
         }

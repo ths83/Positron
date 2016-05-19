@@ -1,6 +1,7 @@
 package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -134,10 +135,10 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
     @Override
     public void takeDamage(int pDamage , IFighter pAttacker) {
         int lArmor = mLevel * 2;
-
         List<CTurretEntity> lListTurrets = new ArrayList<>();
         List<CShieldEntity> lListShield = new ArrayList<>();
 
+        // On fait la liste des tourelles et des boucliers du portail
         for(ABuildingEntity lBuilding : getPortal().getBuildings()){
             if (lBuilding instanceof CTurretEntity){
                 lListTurrets.add((CTurretEntity) lBuilding);
@@ -147,6 +148,11 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
             }
         }
 
+        for(CTurretEntity lTurret : lListTurrets){
+            lTurret.attack((ITarget) pAttacker,lTurret.getDamage());
+        }
+
+
         for(CShieldEntity lShield : lListShield){
             lArmor = lArmor + lShield.getmDefensBonus();
         }
@@ -154,15 +160,31 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
         pDamage = pDamage - lArmor;
         if (pDamage > 0) {
             mEnergy = mEnergy - pDamage;
-            if (mEnergy<=0){
-                // delete Building.
+
+            if (mEnergy <= 0){
+
+                if(this instanceof CResonatorEntity) {
+                    getPortal().attributeTeam();
+                }
+                //TODO DELETE this
+            }
+            else{
+                //TODO Update this
             }
         }
 
-        for(CTurretEntity lTurret : lListTurrets){
 
-            lTurret.attack((ITarget) pAttacker,lTurret.getDamage());
+    }
+
+    @JsonIgnore
+    @Override
+    public CTeamEntity getTeamOfTarget() {
+        if(this instanceof CResonatorEntity){
+            CResonatorEntity lR=(CResonatorEntity)this;
+            return lR.getOwner().getTeam();
         }
-
+        else{
+            return getPortal().getTeam();
+        }
     }
 }

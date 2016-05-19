@@ -5,4 +5,5 @@ package fr.univtln.groupc.entities;
  */
 public interface IFighter {
     public void attack(ITarget pTarget, int pDamage);
+    public CTeamEntity getTeamOfFighter();
 }

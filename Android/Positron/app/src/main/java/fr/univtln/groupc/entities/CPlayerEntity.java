@@ -1,5 +1,7 @@
 package fr.univtln.groupc.entities;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -280,7 +282,12 @@ public class CPlayerEntity implements Serializable, IFighter, ITarget {
 
     @Override
     public void attack(ITarget pTarget, int pDamage) {
+        if(getTeamOfFighter() != pTarget.getTeamOfTarget()) {
             pTarget.takeDamage(pDamage,this);
+        }
+        else{
+            Log.d("attack","Unité amie");
+        }
     }
 
     @Override
@@ -295,5 +302,19 @@ public class CPlayerEntity implements Serializable, IFighter, ITarget {
                 mEnergy=0;
             }
         }
+    }
+
+
+    @JsonIgnore
+    @Override
+    public CTeamEntity getTeamOfFighter() {
+        return getTeam();
+    }
+
+
+    @JsonIgnore
+    @Override
+    public CTeamEntity getTeamOfTarget() {
+        return getTeam();
     }
 }
