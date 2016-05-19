@@ -1,5 +1,10 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by marti on 09/05/2016.
  */
@@ -31,6 +36,8 @@ public class CKeyEntity extends AObjectEntity {
                 "mPortal=" + mPortal +
                 '}';
     }
+
+
 
     public static class CKeyBuilder{
         int mId;

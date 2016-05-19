@@ -4,15 +4,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.univtln.groupc.entities.CKeyEntity;
+import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
+import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CPutPortalsView extends AppCompatActivity {
+
+    private List<CKeyEntity> mKeys = new ArrayList<>();
+    private ListView mListView;
+    private CKeyEntity mKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cput_portals_view);
+        mListView = (ListView) findViewById(R.id.listview);
+        initKeys();
+
+        CKeyAdapter lAdapter = new CKeyAdapter(CPutPortalsView.this, mKeys);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mKey = mKeys.get(position);
+                Toast.makeText(getBaseContext(), "clef de portail : " + Integer.toString(mKey.getPortal().getId()), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -35,5 +64,23 @@ public class CPutPortalsView extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void initKeys(){
+        List<CKeyEntity> lKeys = new ArrayList<>();
+        CRestGet lRest = new CRestGet();
+        CPlayerEntity lPlayer = lRest.getPlayerByID(1);
+        mKeys = lPlayer.getKeys();
+    }
+
+    public void validateKey(View view){
+        CRestGet lRest = new CRestGet();
+        CPortalEntity lPortal1 = lRest.getPortalByIdRest(200);
+        CPortalEntity lPortal2 = mKey.getPortal();
+        List<CPortalEntity> lPortals = new ArrayList<>();
+        lPortals.add(lPortal1);
+        lPortals.add(lPortal2);
+        CLinkEntity lLinkToCreate = new CLinkEntity.CLinkBuilder(756).portals(lPortals).build();
     }
 }

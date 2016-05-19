@@ -170,6 +170,17 @@ public class CPlayerEntity implements Serializable, IFighter, ITarget {
         mObjects.add(o);
     }
 
+    @JsonIgnore
+    public List<CKeyEntity> getKeys(){
+        List<CKeyEntity> lKeys = new ArrayList<>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CKeyEntity){
+                lKeys.add((CKeyEntity)lObject);
+            }
+        }
+        return lKeys;
+    }
+
     public static class CPlayerBuilder{
         private int mId;
         private String mNickName;
