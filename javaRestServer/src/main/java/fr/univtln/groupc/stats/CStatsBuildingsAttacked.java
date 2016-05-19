@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "t_stats_building_attacked", schema = "positron")
 @NamedQueries(@NamedQuery(name = CStatsBuildingsAttacked.GET_ALL, query = "select c from CStatsBuildingsAttacked c"))
-@JsonDeserialize(as = CStatsBuildingsAttacked.class)
 
 public class CStatsBuildingsAttacked extends AStatsAttacked {
 
