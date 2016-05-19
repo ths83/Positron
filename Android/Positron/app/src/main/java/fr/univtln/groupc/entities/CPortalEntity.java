@@ -1,5 +1,7 @@
 package fr.univtln.groupc.entities;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -7,6 +9,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.univtln.groupc.rest.CRestUpdate;
 
 /**
  * Created by marti on 09/05/2016.
@@ -22,8 +26,11 @@ public class CPortalEntity implements Serializable {
     private double mLat;
     private double mLong;
     private int mRadius;
-    private List<AObjectEntity> mObjects;
+    private List<ABuildingEntity> mBuildings = new ArrayList<>();
+    //@JsonSerialize(using = )
     private List<CResonatorEntity> mResonators = new ArrayList<CResonatorEntity>();
+    //@JoinTable(schema = "positron")
+    private List<CKeyEntity> mKeys = new ArrayList<>();
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     private CTeamEntity mTeam;
 
@@ -37,10 +44,22 @@ public class CPortalEntity implements Serializable {
         mLat = pBuilder.mLat;
         mLong = pBuilder.mLong;
         mRadius = pBuilder.mRadius;
-        mObjects = pBuilder.mObjects;
+        mBuildings = pBuilder.mBuildings;
         mResonators = pBuilder.mResonators;
         mTeam = pBuilder.mTeam;
         mLinks = pBuilder.mLinks;
+        mKeys = pBuilder.mKeys;
+        if (mKeys != null){
+            for (CKeyEntity lKey : mKeys){
+                lKey.setPortal(this);
+            }
+        }
+        if (mBuildings != null){
+            for (ABuildingEntity lBuilding : mBuildings){
+                lBuilding.setPortal(this);
+            }
+        }
+
     }
 
 
@@ -49,10 +68,11 @@ public class CPortalEntity implements Serializable {
         private double mLat;
         private double mLong;
         private int mRadius;
-        private List<AObjectEntity> mObjects = new ArrayList<>();
+        private List<ABuildingEntity> mBuildings = new ArrayList<>();
         private List<CResonatorEntity> mResonators = new ArrayList<>();
         public List<CLinkEntity> mLinks = new ArrayList<>();
         private CTeamEntity mTeam;
+        private List<CKeyEntity> mKeys;
 
         public CPortalBuilder(int pId){
             mId = pId;
@@ -73,8 +93,8 @@ public class CPortalEntity implements Serializable {
             return this;
         }
 
-        public CPortalBuilder objects(List<AObjectEntity> pObjects){
-            mObjects = pObjects;
+        public CPortalBuilder buildings(List<ABuildingEntity> pBuildings){
+            mBuildings = pBuildings;
             return this;
         }
 
@@ -90,6 +110,11 @@ public class CPortalEntity implements Serializable {
 
         public CPortalBuilder team(CTeamEntity pTeam){
             mTeam = pTeam;
+            return this;
+        }
+
+        public CPortalBuilder keys(List<CKeyEntity> pKeys){
+            mKeys = pKeys;
             return this;
         }
 
@@ -161,27 +186,105 @@ public class CPortalEntity implements Serializable {
         mResonators = pResonators;
     }
 
-    public List<AObjectEntity> getObjects(){
-        return mObjects;
+    public List<ABuildingEntity> getBuildings(){
+        return mBuildings;
     }
 
-    public void setObjects(List<AObjectEntity> pObjects){
-        mObjects = pObjects;
+    public void setBuildings(List<ABuildingEntity> pBuildings){
+        mBuildings = pBuildings;
     }
 
+    public List<CKeyEntity> getKeys(){
+        return mKeys;
+    }
+
+    public void setKeys(List<CKeyEntity> pKeys){
+        mKeys = pKeys;
+    }
+
+    public void addResonator(CResonatorEntity pResonator){
+        if (mResonators != null){
+            mResonators.add(pResonator);
+        }
+    }
+
+    public void attributeTeam() {
+
+        List<CResonatorEntity> lResonators1 = new ArrayList<>();
+        List<CResonatorEntity> lResonators2 = new ArrayList<>();
+        int lLevel1 = 0;
+        int lLevel2 = 0;
+        int i=0;
+        
+        // Séparation des résonateur en team.
+        for(CResonatorEntity lResonator : mResonators){
+            if(lResonator.getOwner().getTeam().getId() == 1 ){
+                lResonators1.add(lResonator);
+            }
+            else{
+                lResonators2.add(lResonator);
+            }
+        }
+        // Calcule des Dominances
+        for (CResonatorEntity resonator : lResonators1) {
+            lLevel1 = lLevel1 + resonator.getLevel();
+            Log.d("test", "------>>>>>>>"+Integer.toString(lLevel1));
+            i=i+1;
+        }
+        for (CResonatorEntity resonator : lResonators2) {
+            lLevel2 = lLevel2 + resonator.getLevel();
+            Log.d("test", "------>>>>>>>"+Integer.toString(lLevel2));
+        }
+
+
+        //Changement de team si nécessaire.
+        if (lLevel1>lLevel2){
+            if (mTeam == null) {
+                setTeam(lResonators1.get(0).getOwner().getTeam());
+
+            }
+            else {
+                if (getTeam().getId() != 1) {
+                }
+            }
+        }
+        else {
+            if (lLevel2 > lLevel1) {
+                if (mTeam == null) {
+                    setTeam(lResonators2.get(0).getOwner().getTeam());
+                }
+                else {
+                    if (getTeam().getId() != 2) {
+                        setTeam(lResonators2.get(0).getOwner().getTeam());
+                    }
+
+                }
+            }
+            else{
+                if(getTeam() != null){
+                     setTeam(null);
+                }
+            }
+        }
+
+    }
+
+    public void deleteAllLinks(){
+        mLinks.clear();
+    }
 
     @Override
     public String toString() {
         return "CPortalEntity{" +
                 "mId=" + mId +
-                ", mLat=" + mLat +
+                /*", mLat=" + mLat +
                 ", mLong=" + mLong +
                 ", mRadius=" + mRadius +
                 ", mObjects=" + mObjects +
                 ", mResonators=" + mResonators +
                 //", mLinks=" + mLinks +
                 ", mTeam=" + mTeam +
-                '}' + super.toString();
+                */'}' + super.toString();
     }
 
 

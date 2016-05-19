@@ -9,9 +9,9 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -34,18 +34,24 @@
 
         <activity
             android:name="fr.univtln.groupc.activities.map.CMapsActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"
             android:label="@string/title_activity_maps" >
-
-
         </activity>
+
+        <activity
+            android:name="fr.univtln.groupc.activities.map.CTacticalActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+
         <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity" >
             <intent-filter>
                 <action android:name="ANDROID.INTENT.ACTION.MAIN" />
                 <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="fr.univtln.groupc.activities.CDrawerActivity" />
 
+        <activity android:name="fr.univtln.groupc.activities.CDrawerActivity" />
         <activity
             android:name="fr.univtln.groupc.activities.portals.CHackPortalsView"
             android:label="@string/title_activity_chack_portals_view" >
@@ -57,6 +63,10 @@
         <activity
             android:name="fr.univtln.groupc.activities.portals.CPutPortalsView"
             android:label="@string/title_activity_cput_portals_view" >
+        </activity>
+        <activity
+            android:name="fr.univtln.groupc.activities.portals.CClickPortalsAcitivity"
+            android:label="@string/title_activity_cclick_portals_acitivity" >
         </activity>
     </application>
 

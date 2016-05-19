@@ -8,26 +8,23 @@ import java.io.Serializable;
 /**
  * Created by mpesnel786 on 09/05/16.
  */
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CResonatorEntity.class)
+//@JsonDeserialize(as = CResonatorEntity.class)
 public class CResonatorEntity extends ABuildingEntity implements Serializable {
-    private CPortalEntity mPortal;
     private CPlayerEntity mOwner;
 
+    public final static String GET_ALL = "Resonator.getAll";
+    public final static String GET_RESONATOR_BY_PORTAL = "Resonator.getResonatorsByPortal";
+    public final static String GET_RESONATOR_BY_PORTAL_AND_TEAM = "Resonator.getResonatorsByPortalAndTeam";
+
     public CResonatorEntity(CResonatorBuilder pBuilder){
-        super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
-        mPortal = pBuilder.mPortal;
+        super(pBuilder.mId, pBuilder.mName, pBuilder.mPortal, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
+        setPortal(pBuilder.mPortal);
         mOwner = pBuilder.mOwner;
+        getPortal().addResonator(this);
     }
 
     public CResonatorEntity() {
-    }
-
-    public CPortalEntity getPortal() {
-        return mPortal;
-    }
-
-    public void setPortal(CPortalEntity pPortal) {
-        mPortal = pPortal;
     }
 
     public CPlayerEntity getOwner() {
@@ -41,7 +38,7 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
     @Override
     public String toString() {
         return super.toString() + " CResonatorEntity{" +
-                "mPortal=" + mPortal +
+                "mPortal=" +
                 ", mOwner=" + mOwner +
                 '}' + super.toString();
     }

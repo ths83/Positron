@@ -1,7 +1,14 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by marti on 09/05/2016.
@@ -10,14 +17,21 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
-        @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
-public abstract class ABuildingEntity extends AObjectEntity {
-    private double mLong;
-    private double mLat;
+@JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ABuildingEntity.class)
+
+public abstract class ABuildingEntity extends AObjectEntity implements Serializable, ITarget {
+
+    private CPortalEntity mPortal;
+
     private int mLifeTime;
+
     private int mRadius;
+
     private int mLevel;
+
     private int mEnergyMax;
+
     private int mEnergy;
 
     public ABuildingEntity(){
@@ -25,10 +39,12 @@ public abstract class ABuildingEntity extends AObjectEntity {
     }
 
 
-    public ABuildingEntity(int pId, String pName, double pLong, double pLat, int pLifeTime, int pRadius, int pLevel, int pEnergy, int pEnergyMax){
+    public ABuildingEntity(int pId, String pName, CPortalEntity pPortal, int pLifeTime, int pRadius, int pLevel, int pEnergy, int pEnergyMax){
         super(pId, pName);
+        /*
         mLong = pLong;
-        mLat = pLat;
+        mLat = pLat;*/
+        mPortal = pPortal;
         mLifeTime = pLifeTime;
         mRadius = pRadius;
         mLevel = pLevel;
@@ -38,9 +54,10 @@ public abstract class ABuildingEntity extends AObjectEntity {
 
     @Override
     public String toString() {
-        return  super.toString() + "ABuildingEntity{" +
-                "mLong=" + mLong +
-                ", mLat=" + mLat +
+        return super.toString() + "ABuildingEntity{" +
+                /*"mLong=" + mLong +
+                ", mLat=" + mLat +*/
+                "mPortal=" + mPortal +
                 ", mLifeTime=" + mLifeTime +
                 ", mRadius=" + mRadius +
                 ", mLevel=" + mLevel +
@@ -48,7 +65,7 @@ public abstract class ABuildingEntity extends AObjectEntity {
                 ", mEnergy=" + mEnergy +
                 '}';
     }
-
+    /*
     public double getLong() {
         return mLong;
     }
@@ -63,6 +80,14 @@ public abstract class ABuildingEntity extends AObjectEntity {
 
     public void setLat(float pLat) {
         mLat = pLat;
+    }*/
+
+    public CPortalEntity getPortal(){
+        return mPortal;
+    }
+
+    public void setPortal(CPortalEntity lPortal){
+        mPortal = lPortal;
     }
 
     public int getRadius() {
@@ -86,7 +111,7 @@ public abstract class ABuildingEntity extends AObjectEntity {
     }
 
     public void setLevel(int pLevel) {
-        mLevel = mLevel;
+        mLevel = pLevel;
     }
 
     public int getEnergyMax() {
@@ -103,5 +128,60 @@ public abstract class ABuildingEntity extends AObjectEntity {
 
     public void setEnergy(int pEnergy) {
         mEnergy = pEnergy;
+    }
+
+
+
+    @Override
+    public void takeDamage(int pDamage , IFighter pAttacker) {
+        int lArmor = mLevel * 2;
+        List<CTurretEntity> lListTurrets = new ArrayList<>();
+        List<CShieldEntity> lListShield = new ArrayList<>();
+
+        // On fait la liste des tourelles et des boucliers du portail
+        for(ABuildingEntity lBuilding : getPortal().getBuildings()){
+            if (lBuilding instanceof CTurretEntity){
+                lListTurrets.add((CTurretEntity) lBuilding);
+            }
+            else if(lBuilding instanceof CShieldEntity){
+                lListShield.add((CShieldEntity)lBuilding);
+            }
+        }
+
+        for(CTurretEntity lTurret : lListTurrets){
+            lTurret.attack((ITarget) pAttacker,lTurret.getDamage());
+        }
+
+
+        for(CShieldEntity lShield : lListShield){
+            lArmor = lArmor + lShield.getmDefensBonus();
+        }
+
+        pDamage = pDamage - lArmor;
+
+        if (pDamage > 0) {
+            mEnergy = mEnergy - pDamage;
+
+            if (mEnergy <= 0){
+
+                if(this instanceof CResonatorEntity) {
+                    getPortal().attributeTeam();
+                }
+            }
+        }
+
+
+    }
+
+    @JsonIgnore
+    @Override
+    public CTeamEntity getTeamOfTarget() {
+        if(this instanceof CResonatorEntity){
+            CResonatorEntity lR=(CResonatorEntity)this;
+            return lR.getOwner().getTeam();
+        }
+        else{
+            return getPortal().getTeam();
+        }
     }
 }

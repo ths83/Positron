@@ -26,6 +26,11 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
         mId = pBuilder.mId;
     }
 
+    public CFieldEntity(CFieldBuilder pBuilder, List<CLinkEntity> pLinks) {
+        mId = pBuilder.mId;
+        mLinks = pBuilder.mLinks;
+    }
+
     @JsonIgnore
     public List<CLinkEntity> getmLinks() {
         return mLinks;

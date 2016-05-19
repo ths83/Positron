@@ -1,5 +1,7 @@
 package fr.univtln.groupc.entities;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 
@@ -9,12 +11,13 @@ import java.io.Serializable;
  */
 
 
-public class CTurretEntity extends ABuildingEntity implements Serializable {
+public class CTurretEntity extends ABuildingEntity implements Serializable, IFighter {
+
     private int mDamage;
     public final static String GET_ALL = "Turret.getAll";
 
     public CTurretEntity(CTurretBuilder pBuilder){
-        super(pBuilder.mId, pBuilder.mName, pBuilder.mLong, pBuilder.mLat, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
+        super(pBuilder.mId, pBuilder.mName, pBuilder.mPortal, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
         mDamage = pBuilder.mDamage;
     }
 
@@ -33,9 +36,10 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
         private int mEnergy;
         private int mId;
         private String mName;
-        private int mLevel;
+        private int mLevel;/*
         private double mLong;
-        private double mLat;
+        private double mLat;*/
+        private CPortalEntity mPortal;
         private int mLifeTime;
         private int mRadius;
         private int mEnergyMax;
@@ -56,6 +60,11 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
             return this;
         }
 
+        public CTurretBuilder portal(CPortalEntity pPortal){
+            mPortal = pPortal;
+            return this;
+        }
+
         public CTurretBuilder level(int pLevel) {
             mLevel = pLevel;
             return this;
@@ -70,17 +79,17 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
             mEnergyMax = pEnergyMax;
             return this;
         }
+        /*
+                public CTurretBuilder longitude(double pLong){
+                    mLong = pLong;
+                    return this;
+                }
 
-        public CTurretBuilder longitude(double pLong){
-            mLong = pLong;
-            return this;
-        }
-
-        public CTurretBuilder latitude(double pLat){
-            mLat = pLat;
-            return this;
-        }
-
+                public CTurretBuilder latitude(double pLat){
+                    mLat = pLat;
+                    return this;
+                }
+        */
         public CTurretBuilder radius(int pRadius){
             mRadius = pRadius;
             return this;
@@ -98,8 +107,24 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString() + "CTurretEntity{" +
+        return "CTurretEntity{" +
                 "mDamage=" + mDamage +
-                '}';
+                '}'+super.toString();
+    }
+
+    @Override
+    public void attack(ITarget pTarget, int pDamage) {
+        if(getTeamOfFighter().getId() != pTarget.getTeamOfTarget().getId() && getTeamOfFighter() != null) {
+            pTarget.takeDamage(pDamage, this);
+        }
+        else{
+            Log.d("attack", "Unité amie");
+        }
+    }
+
+
+    @Override
+    public CTeamEntity getTeamOfFighter() {
+        return getPortal().getTeam();
     }
 }

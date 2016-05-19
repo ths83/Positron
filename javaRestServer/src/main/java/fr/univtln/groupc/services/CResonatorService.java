@@ -1,7 +1,9 @@
 package fr.univtln.groupc.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.CSkillEntity;
@@ -51,10 +53,39 @@ public class CResonatorService {
         return lJsonValue;
     }
 
+    @GET
+    @Produces("application/json")
+    @Path("/portals/{id}")
+    public String readResonatorsByPortal(@PathParam("id") int pId){
+        String lJsonValue = null;
+        List<CResonatorEntity> lResonators = (List<CResonatorEntity>)mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_RESONATOR_BY_PORTAL, CQueryParameter.with("mId", pId).parameters());
+        try {
+            lJsonValue = mMapper.writeValueAsString(lResonators);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/portals/teams/{id}/{id2}")
+    public String readResonatorsByPortalAndByTeam(@PathParam("id") int pId,@PathParam("id2") int pId2){
+        String lJsonValue = null;
+        List<CResonatorEntity> lResonators = (List<CResonatorEntity>)mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_RESONATOR_BY_PORTAL_AND_TEAM, CQueryParameter.with("mId", pId).and("mId2",pId2).parameters());
+        try {
+            lJsonValue = mMapper.writeValueAsString(lResonators);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
+    }
+
 
     @GET
     @Produces("application/json")
     public String readAll(){
+        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         String lJsonValue = null;
         List<CResonatorEntity> lResonators = mCrudMethods.findWithNamedQuery(CResonatorEntity.GET_ALL);
         try {
