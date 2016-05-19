@@ -1,8 +1,11 @@
 package fr.univtln.groupc.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -69,18 +72,35 @@ public class CKeyService {
     @GET
     @Produces("application/json")
     @Path("/portal/{id}")
-    public String getKeybyportal(@PathParam("id") final int ID){
+    public String getKeyByPortal(@PathParam("id") final int ID){
         Map<String, Object> lMap = new HashMap<>();
         lMap.put("id", ID);
         //return (List<CKeyEntity>)mCrudMethods.findWithNamedQuery(CKeyEntity.GET_KEY_BY_PORTAL, lMap);
 
         String lJsonValue = null;
-        List<CKeyEntity> lKeys = (List<CKeyEntity>)mCrudMethods.findWithNamedQuery(CKeyEntity.GET_KEY_BY_PORTAL, lMap);
+        List<CKeyEntity> lKeys = (List<CKeyEntity>)mCrudMethods.findWithNamedQuery(CKeyEntity.GET_BY_PORTAL, lMap);
         try {
             lJsonValue = mMapper.writeValueAsString(lKeys);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return lJsonValue;
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/players/{id}")
+    public String getKeyByPlayer(@PathParam("id") final int pId){
+        String lJsonValue = null;
+        CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pId);
+        List<AObjectEntity> lKeys = lPlayer.getKeys();
+        System.out.println("keys objects : \n" + lKeys);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lKeys);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println("-> keys json : \n" + lJsonValue);
         return lJsonValue;
     }
 

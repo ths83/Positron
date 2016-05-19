@@ -488,4 +488,14 @@ public class CRestServicesTest extends TestCase {
         System.out.println(lJsonGotten);
 
     }
+
+    public void testGetKeyByPlayer() throws Exception{
+        String lJsonGotten = null;
+        List<CKeyEntity> lKeys = new ArrayList<>();
+        lJsonGotten = mWebResource.path("/keys/players/41").get(String.class);
+        System.out.println("json : \n" + lJsonGotten);
+        lKeys = mMapper.readValue(lJsonGotten,mMapper.getTypeFactory().constructCollectionType(List.class, AObjectEntity.class));
+        System.out.println("keys -> " + lKeys);
+        System.out.println(lKeys.size());
+    }
 }

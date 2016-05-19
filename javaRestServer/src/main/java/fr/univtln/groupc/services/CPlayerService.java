@@ -2,6 +2,7 @@ package fr.univtln.groupc.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPlayerEntity;
@@ -54,6 +55,7 @@ public class CPlayerService {
     @Produces("application/json")
     public String readAll(){
         String lJsonValue = null;
+        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         List<CPlayerEntity> lPlayers = (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
         try {
             lJsonValue = mMapper.writeValueAsString(lPlayers);
