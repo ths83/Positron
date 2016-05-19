@@ -1,6 +1,7 @@
 package fr.univtln.groupc.entities.entities_view;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -48,21 +49,24 @@ public class CTraceMapView {
         mPortalLinkedArray = pLink.getPortals();
 
         // Team color
-        if (mPortalLinkedArray.get(0).getTeam().equals("BLUE")){
-            mColor = Color.BLUE;
-        }
-        else{
-            mColor = Color.RED;
+        Log.d("test", " salut -> " + mPortalLinkedArray.get(0).getTeam());
+        if (mPortalLinkedArray.get(0).getTeam() != null){
+            if (mPortalLinkedArray.get(0).getTeam().getColor().equals("blue")){
+                mColor = Color.BLUE;
+            }
+            else{
+                mColor = Color.RED;
+            }
+            mLatLngPortalLinkedArray = new LatLng[NB_PORTALS_LINK];
+            for (int i = 0; i < NB_PORTALS_LINK; i ++) {
+                mLatLngPortalLinkedArray[i] = new LatLng(mPortalLinkedArray.get(i).getLat(), mPortalLinkedArray.get(i).getLong());
+            }
+            mLinkLine = pMap.addPolyline(new PolylineOptions()
+                    .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
+                    .width(LINE_WIDTH)
+                    .color(mColor)); // neutral color
         }
 
-        mLatLngPortalLinkedArray = new LatLng[NB_PORTALS_LINK];
-        for (int i = 0; i < NB_PORTALS_LINK; i ++) {
-            mLatLngPortalLinkedArray[i] = new LatLng(mPortalLinkedArray.get(i).getLat(), mPortalLinkedArray.get(i).getLong());
-        }
-        mLinkLine = pMap.addPolyline(new PolylineOptions()
-                .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
-                .width(LINE_WIDTH)
-                .color(mColor)); // neutral color
         return mLatLngPortalLinkedArray;
     }
 
@@ -89,21 +93,22 @@ public class CTraceMapView {
         mListLatLngPortalsForSet = new ArrayList<>(mSetLatLngPortals);
         mLatLngPortalLinkedArray = new LatLng[NB_PORTALS_FIELD];
 
-        // Team color
-        if (mListLatLngPortalsForSet.get(0).getTeam().equals("BLUE")){
-            mColor = Color.BLUE;
-        }
-        else{
-            mColor = Color.RED;
-        }
+        if (mListLatLngPortalsForSet.get(0).getTeam() != null) {
+            // Team color
+            if (mListLatLngPortalsForSet.get(0).getTeam().getColor().equals("blue")) {
+                mColor = Color.BLUE;
+            } else {
+                mColor = Color.RED;
+            }
 
-        for (int i = 0; i < NB_PORTALS_FIELD; i ++){
-            mLatLngPortalLinkedArray[i] = new LatLng(mListLatLngPortalsForSet.get(i).getLat(), mListLatLngPortalsForSet.get(i).getLong());
-        }
+            for (int i = 0; i < NB_PORTALS_FIELD; i++) {
+                mLatLngPortalLinkedArray[i] = new LatLng(mListLatLngPortalsForSet.get(i).getLat(), mListLatLngPortalsForSet.get(i).getLong());
+            }
 
-        Polygon lPolygon = pMap.addPolygon(new PolygonOptions()
-                .add(mLatLngPortalLinkedArray)
-                .fillColor(mColor));
+            Polygon lPolygon = pMap.addPolygon(new PolygonOptions()
+                    .add(mLatLngPortalLinkedArray)
+                    .fillColor(mColor));
+        }
         return mLatLngPortalLinkedArray;
     }
 

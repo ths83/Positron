@@ -1,6 +1,7 @@
 package fr.univtln.groupc.rest;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,6 +58,7 @@ public class CRestUpdate extends AsyncTask<String, String, Void> {
     public void updatePortalRest(CPortalEntity pPortal){
         ObjectMapper lMapper = new ObjectMapper();
         String lUrlString = API_URL + "/portals";
+        Log.d("test", "->-> " + lUrlString);
         try {
             String lPortalJson = lMapper.writeValueAsString(pPortal);
             CRestUpdate lUpdate=new CRestUpdate();

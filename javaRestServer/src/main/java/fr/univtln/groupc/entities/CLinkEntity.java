@@ -24,7 +24,7 @@ public class CLinkEntity implements Serializable {
     @Id
     @Column(name = "link_id")
     private int mId;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "field_fk")
     private CFieldEntity mField;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

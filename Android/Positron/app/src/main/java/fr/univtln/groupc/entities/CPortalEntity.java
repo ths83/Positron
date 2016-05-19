@@ -26,10 +26,11 @@ public class CPortalEntity implements Serializable {
     private double mLat;
     private double mLong;
     private int mRadius;
-    private List<ABuildingEntity> mBuildings;
-
+    private List<ABuildingEntity> mBuildings = new ArrayList<>();
+    //@JsonSerialize(using = )
     private List<CResonatorEntity> mResonators = new ArrayList<CResonatorEntity>();
-    private List<CKeyEntity> mKeys;
+    //@JoinTable(schema = "positron")
+    private List<CKeyEntity> mKeys = new ArrayList<>();
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     private CTeamEntity mTeam;
 
@@ -48,12 +49,17 @@ public class CPortalEntity implements Serializable {
         mTeam = pBuilder.mTeam;
         mLinks = pBuilder.mLinks;
         mKeys = pBuilder.mKeys;
-        for (CKeyEntity lKey : mKeys){
-            lKey.setPortal(this);
+        if (mKeys != null){
+            for (CKeyEntity lKey : mKeys){
+                lKey.setPortal(this);
+            }
         }
-        for (ABuildingEntity lBuilding : mBuildings){
-            lBuilding.setPortal(this);
+        if (mBuildings != null){
+            for (ABuildingEntity lBuilding : mBuildings){
+                lBuilding.setPortal(this);
+            }
         }
+
     }
 
 
@@ -117,11 +123,6 @@ public class CPortalEntity implements Serializable {
         }
     }
 
-    public List<CResonatorEntity> getmResonators() {
-        return mResonators;
-    }
-
-
     public int getId() {
         return mId;
     }
@@ -177,64 +178,6 @@ public class CPortalEntity implements Serializable {
         }
     }
 
-
-    public void attributeTeam() {
-
-        List<CResonatorEntity> lResonators1 = new ArrayList<>();
-        List<CResonatorEntity> lResonators2 = new ArrayList<>();
-        int lLevel1 = 0;
-        int lLevel2 = 0;
-
-        // Séparation des résonateur en team.
-        for(CResonatorEntity lResonator : getResonators()){
-            if(lResonator.getOwner().getTeam().getId() == 1 ){
-                lResonators1.add(lResonator);
-            }
-            else{
-                lResonators2.add(lResonator);
-            }
-        }
-        // Calcule des Dominances
-        for (CResonatorEntity resonator : lResonators1) {
-            lLevel1 = lLevel1 + resonator.getLevel();
-            Log.d("test", Integer.toString(lLevel1));
-        }
-        for (CResonatorEntity resonator : lResonators1) {
-            lLevel2 = lLevel2 + resonator.getLevel();
-            Log.d("test", Integer.toString(lLevel2));
-        }
-
-
-        //Changement de team si nécessaire.
-        if (lLevel1>lLevel2){
-            if (getTeam().getId() != 1) {
-                setTeam(lResonators1.get(0).getOwner().getTeam());
-                new CRestUpdate().updatePortalRest(this);
-                //TODO  Delete Link
-            }
-        }
-        else {
-            if (lLevel2 > lLevel1) {
-                if (getTeam().getId() != 0) {
-                    setTeam(lResonators2.get(0).getOwner().getTeam());
-                    new CRestUpdate().updatePortalRest(this);
-                    //TODO  Delete Link
-                }
-            }
-            else{
-                //TODO A verifier
-                if(getTeam() != null){
-                     setTeam(null);
-                    new CRestUpdate().updatePortalRest(this);
-                    //TODO  Delete Link
-                }
-            }
-        }
-
-    }
-
-
-
     public List<CResonatorEntity> getResonators(){
         return mResonators;
     }
@@ -259,6 +202,81 @@ public class CPortalEntity implements Serializable {
         mKeys = pKeys;
     }
 
+    public void addResonator(CResonatorEntity pResonator){
+        if (mResonators != null){
+            mResonators.add(pResonator);
+        }
+    }
+
+    public void attributeTeam() {
+
+        List<CResonatorEntity> lResonators1 = new ArrayList<>();
+        List<CResonatorEntity> lResonators2 = new ArrayList<>();
+        int lLevel1 = 0;
+        int lLevel2 = 0;
+        int i=0;
+        // Séparation des résonateur en team.
+        for(CResonatorEntity lResonator : mResonators){
+            if(lResonator.getOwner().getTeam().getId() == 1 ){
+                lResonators1.add(lResonator);
+            }
+            else{
+                lResonators2.add(lResonator);
+            }
+        }
+        // Calcule des Dominances
+        for (CResonatorEntity resonator : lResonators1) {
+            lLevel1 = lLevel1 + resonator.getLevel();
+            Log.d("test", "------>>>>>>>"+Integer.toString(lLevel1));
+            i=i+1;
+        }
+        for (CResonatorEntity resonator : lResonators2) {
+            lLevel2 = lLevel2 + resonator.getLevel();
+            Log.d("test", "------>>>>>>>"+Integer.toString(lLevel2));
+        }
+
+
+        //Changement de team si nécessaire.
+        if (lLevel1>lLevel2){
+            if (mTeam == null) {
+                setTeam(lResonators1.get(0).getOwner().getTeam());
+                new CRestUpdate().updatePortalRest(this);
+                //TODO  Delete Link
+            }
+            else {
+                if (getTeam().getId() != 1) {
+                    setTeam(lResonators1.get(0).getOwner().getTeam());
+                }
+            }
+        }
+        else {
+            if (lLevel2 > lLevel1) {
+                if (mTeam == null) {
+                    setTeam(lResonators2.get(0).getOwner().getTeam());
+                    new CRestUpdate().updatePortalRest(this);
+                    //TODO  Delete Link
+
+                }
+                else {
+                    if (getTeam().getId() != 2) {
+                        setTeam(lResonators2.get(0).getOwner().getTeam());
+
+                    }
+
+                }
+            }
+            else{
+
+                if(getTeam() != null){
+                     setTeam(null);
+                    new CRestUpdate().updatePortalRest(this);
+                    //TODO  Delete Link
+
+                }
+            }
+        }
+
+    }
 
     @Override
     public String toString() {
@@ -275,7 +293,4 @@ public class CPortalEntity implements Serializable {
     }
 
 
-    public void addResonator(CResonatorEntity pResonator) {
-        this.mResonators.add(pResonator);
-    }
 }
