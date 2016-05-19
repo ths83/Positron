@@ -35,6 +35,7 @@ import com.google.maps.android.ui.IconGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -144,7 +145,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
             //List<CResonatorEntity> lReso1 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),1);
             //List<CResonatorEntity> lReso2 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),2);
-            p.attributeTeam();
+            //p.attributeTeam();
             //new CRestUpdate().updatePortalRest(p);
             LatLng test = new LatLng(p.getLat(), p.getLong());
             IconGenerator tc =new IconGenerator(this);
@@ -206,7 +207,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         i = 0;
         for (CPortalEntity lP : lPortals){
             for (i = 0 ; i < lP.getLinks().size(); i++){
-                new CTraceMapView().onDisplayField(mMap,lP.getLinks().get(i).getField());
+                if (lP.getLinks().get(i).getField() != null)
+                    new CTraceMapView().onDisplayField(mMap,lP.getLinks().get(i).getField());
             }
         }
         Log.d("map", String.valueOf(i));
@@ -236,21 +238,16 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
-        // portal action radius when click on it
-        //mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        // Portal action possibilities for players when click on it
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
-            //@Override
-            //public boolean onMarkerClick(Marker marker) {
-                //List<CResonatorEntity> lResonators = new CRestGet().getResonatorsByPortalRest(Integer.getInteger(marker.getTitle()));
-                //for (CResonatorEntity resonator : lResonators) {
-                  //  if (resonator.getOwner().getTeam().equals("red")){
-
-                    //}
-
-                //}
-                //return false;
-            //}
-        //});
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                View lView = new View(getBaseContext());
+                onPortalClick(lView);
+                return false;
+            }
+        });
 
                     // New tests with objects
                 /*for (CPortalEntity lPortal : lPortals){
@@ -388,6 +385,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
         PolygonOptions polygonOptions = new PolygonOptions().add(latLng1).fillColor(Color.RED);
         mMap.addPolygon(polygonOptions);
+    }
+
+    /**
+     *  Portals actions for players
+     */
+    public void onPortalClick(View pView){
+        Intent lActionIntentPortal = new Intent(this,CClickPortalsAcitivity.class);
+        startActivity(lActionIntentPortal);
     }
 
     /**

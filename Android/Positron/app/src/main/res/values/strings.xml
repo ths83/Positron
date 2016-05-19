@@ -12,4 +12,5 @@
     <string name="title_activity_chack_portals_view">CHackPortalsView</string>
     <string name="title_activity_cmaintain_portals_view">CMaintainPortalsView</string>
     <string name="title_activity_cput_portals_view">CPutPortalsView</string>
+    <string name="title_activity_cclick_portals_acitivity">CClickPortalsAcitivity</string>
 </resources>

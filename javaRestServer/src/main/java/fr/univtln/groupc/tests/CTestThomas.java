@@ -20,6 +20,7 @@ public class CTestThomas {
         List<CPortalEntity> lPortalLinked = new ArrayList<>();
         List<CPortalEntity> lPortalLinked2 = new ArrayList<>();
         List<CPortalEntity> lPortalLinked3 = new ArrayList<>();
+        List<CPortalEntity> lPortalLinked4 = new ArrayList<>();
         List<CKeyEntity> lKeyPortals = new ArrayList<>();
         CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder(2000).build();
         CKeyEntity lKeyEntity2 = new CKeyEntity.CKeyBuilder(2001).build();
@@ -36,18 +37,29 @@ public class CTestThomas {
         CTeamEntity lAtom = new CTeamEntity.CTeamBuilder(1).color("red").build();
         CTeamEntity lXenom = new CTeamEntity.CTeamBuilder(2).color("blue").build();
 
-        lPortalLinked.add(lPortal);
-        lPortalLinked.add(lPortal2);
+        CPortalEntity lPortalGotten = lCrud.find(CPortalEntity.class, 1);
+        CPortalEntity lPortalGotten2 = lCrud.find(CPortalEntity.class, 2);
+        CPortalEntity lPortalGotten3 = lCrud.find(CPortalEntity.class, 3);
+        CPortalEntity lPortalGotten4 = lCrud.find(CPortalEntity.class, 4);
+        CPortalEntity lPortalGotten5 = lCrud.find(CPortalEntity.class, 5);
 
-        lPortalLinked2.add(lPortal2);
-        lPortalLinked2.add(lPortal3);
 
-        lPortalLinked3.add(lPortal);
-        lPortalLinked3.add(lPortal3);
+        lPortalLinked.add(lPortalGotten);
+        lPortalLinked.add(lPortalGotten2);
+
+        lPortalLinked2.add(lPortalGotten2);
+        lPortalLinked2.add(lPortalGotten3);
+
+        lPortalLinked3.add(lPortalGotten);
+        lPortalLinked3.add(lPortalGotten3);
+
+        lPortalLinked4.add(lPortalGotten4);
+        lPortalLinked4.add(lPortalGotten5);
 
         CLinkEntity lLink = new CLinkEntity.CLinkBuilder(1).portals(lPortalLinked).build();
         CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(2).portals(lPortalLinked2).build();
         CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(3).portals(lPortalLinked3).build();
+        CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder(4).portals(lPortalLinked4).build();
 
         List<CLinkEntity> lLinkForField = new ArrayList<>();
         lLinkForField.add(lLink);
@@ -87,6 +99,7 @@ public class CTestThomas {
         lCrud.create(lLink);
         lCrud.create(lLink2);
         lCrud.create(lLink3);
+        lCrud.create(lLink4);
         lCrud.create(lField);
 
     }
