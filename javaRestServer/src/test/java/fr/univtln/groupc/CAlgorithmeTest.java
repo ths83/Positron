@@ -538,7 +538,7 @@ public class CAlgorithmeTest  extends TestCase {
 
     }
 
-
+/*
     public void testName() throws Exception {
 
         CTeamEntity t1 = new  CTeamEntity.CTeamBuilder(1).build();
@@ -555,9 +555,9 @@ public class CAlgorithmeTest  extends TestCase {
 
         CPlayerEntity richard = new CPlayerEntity.CPlayerBuilder(45).team(t1).build();
        CShieldEntity shield = new CShieldEntity.CShieldBuilder(54).build();
-        CTurretEntity turret = new CTurretEntity.CTurretBuilder(45).
+        CTurretEntity turret = new CTurretEntity.CTurretBuilder(45).build();
         System.out.println("dddd");
-        assertEquals("dd",getTeamOfTarget(reso),2);
+        assertEquals("dd",getTeamOfTarget(turret),2);
     }
 
 
@@ -573,10 +573,9 @@ public class CAlgorithmeTest  extends TestCase {
             return BLBALBA.getPortal().getTeam().getId();
         }
     }
+*/
 
-
-
-
+    
 }
 
 

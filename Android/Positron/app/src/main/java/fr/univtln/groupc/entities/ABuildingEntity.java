@@ -158,6 +158,7 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
         }
 
         pDamage = pDamage - lArmor;
+
         if (pDamage > 0) {
             mEnergy = mEnergy - pDamage;
 
@@ -166,10 +167,6 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
                 if(this instanceof CResonatorEntity) {
                     getPortal().attributeTeam();
                 }
-                //TODO DELETE this
-            }
-            else{
-                //TODO Update this
             }
         }
 

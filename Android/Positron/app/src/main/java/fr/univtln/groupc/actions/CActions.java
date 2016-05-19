@@ -20,10 +20,7 @@ public class CActions {
 
         if (pPortal.getResonators().size() >= 8){
             pPortal.addResonator(pResonator);
-            // Modifier le portail de pResonator en "pPortal" par cascade
-
             pPortal.attributeTeam();
-            new CRestUpdate().updatePortalRest(pPortal);
 
         }
         else{
