@@ -37,6 +37,7 @@ import com.google.maps.android.ui.IconGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -204,17 +205,19 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         for (CPortalEntity lP : lPortals){
             for (i = 0 ; i < lP.getLinks().size(); i++){
                 new CTraceMapView().onDisplayLink(mMap,lP.getLinks().get(i));
+
             }
         }
-
+        Log.d("map", String.valueOf(i));
         // Display fields on start session -> avoid reductant latlng -> v2.0 to do
         i = 0;
         for (CPortalEntity lP : lPortals){
             for (i = 0 ; i < lP.getLinks().size(); i++){
-                new CTraceMapView().onDisplayField(mMap,lP.getLinks().get(i).getField());
+                if (lP.getLinks().get(i).getField() != null)
+                    new CTraceMapView().onDisplayField(mMap,lP.getLinks().get(i).getField());
             }
         }
-
+        Log.d("map", String.valueOf(i));
         // Location Service
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
@@ -243,6 +246,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 //mTmpLink.add(latLng);
             }
         });
+
 
         // portal action radius when click on it
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -287,6 +291,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                         }
                     });
                 }
+       /* // Portal action possibilities for players when click on it
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                View lView = new View(getBaseContext());
+                onPortalClick(lView);
+>>>>>>> 7c62d4d8e76410a831b8ecd57f4399366669696f*/
                 return false;
             }
         });
@@ -429,6 +441,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
         PolygonOptions polygonOptions = new PolygonOptions().add(latLng1).fillColor(Color.RED);
         mMap.addPolygon(polygonOptions);
+    }
+
+    /**
+     *  Portals actions for players
+     */
+    public void onPortalClick(View pView){
+        Intent lActionIntentPortal = new Intent(this,CClickPortalsAcitivity.class);
+        startActivity(lActionIntentPortal);
     }
 
     /**

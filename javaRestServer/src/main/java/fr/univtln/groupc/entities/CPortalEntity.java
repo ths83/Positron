@@ -43,7 +43,7 @@ public class CPortalEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mPortal")
     //@JoinTable(schema = "positron")
     private List<CKeyEntity> mKeys = new ArrayList<>();
-    @ManyToMany(mappedBy = "mPortals")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "mPortals")
     private List<CLinkEntity> mLinks  = new ArrayList<CLinkEntity>();
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_fk")
