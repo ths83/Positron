@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by mpesnel786 on 09/05/16.
  */
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope=CPlayerEntity.class)
 public class CPlayerEntity implements Serializable, IFighter, ITarget {
     private int mId;
     private String mNickName;

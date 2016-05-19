@@ -16,6 +16,8 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -60,7 +62,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private LatLng mLatLng;
     private LatLng mUserLatLng;
     private List<LatLng> mTmpLink = new ArrayList<>();
-
+    private int mPosition=0;
     private Marker mMarkerPortalAttr;
     private LatLng mMarkerUserSelected;
     private LatLng mLatLng2;
@@ -89,7 +91,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
             @Override
             public void onClick(View v) {
-                if (mMap.getCameraPosition().zoom >= 17) {
+                if (mMap.getCameraPosition().zoom >= 17.5) {
                     // Zoom like normal
                     mMap.animateCamera(CameraUpdateFactory.zoomOut());
                 } else {
@@ -104,7 +106,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
             @Override
             public void onClick(View v) {
-                if (mMap.getCameraPosition().zoom < 18.5) {
+                if (mMap.getCameraPosition().zoom < 19) {
                     // Zoom like normal
                     mMap.animateCamera(CameraUpdateFactory.zoomIn());
                 } else {
@@ -129,23 +131,27 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         // Enable some gesture and parameters on map
         mMap = mapFragment.getMap();
         mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.getUiSettings().setZoomGesturesEnabled(true);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+        //mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        //mMap.getUiSettings().setZoomGesturesEnabled(true);
+        //mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 17.5));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
         mMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
 
         // Portals from database with REST
         final List<CPortalEntity> lPortals = new CRestGet().getPortalsRest();
         for (CPortalEntity p : lPortals) {
-            Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
+            //Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
             //List<CResonatorEntity> lReso1 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),1);
             //List<CResonatorEntity> lReso2 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),2);
+            Log.d("test",p.getResonators().toString());
             p.attributeTeam();
-            //new CRestUpdate().updatePortalRest(p);
+            if (p.getTeam()!=null) {
+                Log.d("test", "OOOOO" + p.getTeam().getColor());
+            }
+            new CRestUpdate().updatePortalRest(p);
             LatLng test = new LatLng(p.getLat(), p.getLong());
             IconGenerator tc =new IconGenerator(this);
             tc.setTextAppearance(R.style.iconGenText);
@@ -228,28 +234,62 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                mBitmapDescriptor = BitmapDescriptorFactory.
-                        defaultMarker(BitmapDescriptorFactory.HUE_RED);
+                if (mPosition==1){
+                    mPosition=0;
+                }
+                //mBitmapDescriptor = BitmapDescriptorFactory.
+                   //     defaultMarker(BitmapDescriptorFactory.HUE_RED);
                 //portalMarker = new CPortalEntity(mMap, latLng, bitmapDescriptor);
-                mTmpLink.add(latLng);
+                //mTmpLink.add(latLng);
             }
         });
 
         // portal action radius when click on it
-        //mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                LatLng lUserLatLng=marker.getPosition();
+                if (mPosition==0){
+                    mPosition=1;
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));
+                    mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                        @Override
+                        public View getInfoWindow(Marker marker) {
+                            return null;
+                        }
 
-            //@Override
-            //public boolean onMarkerClick(Marker marker) {
-                //List<CResonatorEntity> lResonators = new CRestGet().getResonatorsByPortalRest(Integer.getInteger(marker.getTitle()));
-                //for (CResonatorEntity resonator : lResonators) {
-                  //  if (resonator.getOwner().getTeam().equals("red")){
-
-                    //}
-
-                //}
-                //return false;
-            //}
-        //});
+                        @Override
+                        public View getInfoContents(Marker marker) {
+                            Log.d("test",marker.getTitle());
+                            List<CResonatorEntity> pResonatorTeam1= new  CRestGet().getResonatorsByPortalAndTeamRest(Integer.parseInt(marker.getTitle()), 1);
+                            List<CResonatorEntity> pResonatorTeam2= new  CRestGet().getResonatorsByPortalAndTeamRest(Integer.parseInt(marker.getTitle()), 2);
+                            int lNbResonatorTeam1 = pResonatorTeam1.size();
+                            Log.d("test",Integer.toString(lNbResonatorTeam1));
+                            int lNbResonatorTeam2 = pResonatorTeam2.size();
+                            Log.d("test",Integer.toString(lNbResonatorTeam2));
+                            int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
+                            Context context = getApplicationContext();
+                            LinearLayout info = new LinearLayout(context);
+                            info.setOrientation(LinearLayout.VERTICAL);
+                            TextView snip1 = new TextView(context);
+                            snip1.setTextColor(Color.BLUE);
+                            snip1.setText(Integer.toString(lNbResonatorTeam1));
+                            info.addView(snip1);
+                            TextView snip2 = new TextView(context);
+                            snip2.setTextColor(Color.RED);
+                            snip2.setText(Integer.toString(lNbResonatorTeam2));
+                            info.addView(snip2);
+                            TextView snip3 = new TextView(context);
+                            snip3.setTextColor(Color.BLACK);
+                            snip3.setText(Integer.toString(lNbEmptyPlace));
+                            info.addView(snip3);
+                            return info;
+                        }
+                    });
+                }
+                return false;
+            }
+        });
 
                     // New tests with objects
                 /*for (CPortalEntity lPortal : lPortals){
@@ -323,21 +363,23 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     }
 
+
     private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
         @Override
         public void onMyLocationChange(Location location) {
-            Log.i("test", "Latitude: "+String.valueOf(location.getLatitude())+" - Longitude: "+String.valueOf(location.getLongitude()));
-            mUserLatLng=new LatLng(location.getLatitude(),location.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
-            //mMap.moveCamera(CameraUpdateFactory.zoomTo(8f));
-            if (mUserActionRadius!=null){
-                mUserActionRadius.setCenter(mUserLatLng);
+            mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            if (mPosition != 1) {
+                //mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
             }
-            else {
-                mUserActionRadius = mMap.addCircle(new CircleOptions().center(mUserLatLng).radius(50).fillColor(Color.YELLOW));
+                //Log.i("test", "Latitude: "+String.valueOf(location.getLatitude())+" - Longitude: "+String.valueOf(location.getLongitude()));
+                //mMap.moveCamera(CameraUpdateFactory.zoomTo(8f));
+                if (mUserActionRadius != null) {
+                    mUserActionRadius.setCenter(mUserLatLng);
+                } else {
+                    mUserActionRadius = mMap.addCircle(new CircleOptions().center(mUserLatLng).radius(50).fillColor(Color.YELLOW));
+                }
             }
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
-        }
     };
 
 
@@ -395,6 +437,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
      */
     public GoogleMap getmMap() {
         return mMap;
+    }
+
+    public void displayResonators(List<CResonatorEntity> pResonators){
     }
 }
 
