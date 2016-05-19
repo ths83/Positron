@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "t_stats_building_attacked", schema = "positron")
 @NamedQueries(@NamedQuery(name = CStatsResonatorAttacked.GET_ALL, query = "select p from CStatsResonatorAttacked p"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
 public class CStatsResonatorAttacked extends AStatsAttacked{
 
     @ManyToOne
