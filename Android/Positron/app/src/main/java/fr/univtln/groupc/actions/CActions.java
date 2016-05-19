@@ -9,6 +9,7 @@ import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.IFighter;
+import fr.univtln.groupc.entities.ITarget;
 import fr.univtln.groupc.rest.CRestUpdate;
 
 /**
@@ -16,24 +17,19 @@ import fr.univtln.groupc.rest.CRestUpdate;
  */
 public class CActions {
 
-    public void buildResonator (CPortalEntity pPortal,CResonatorEntity pResonator) {
+    public CPortalEntity buildResonator (CPortalEntity pPortal,CResonatorEntity pResonator) {
 
         if (pPortal.getResonators().size() >= 8){
             pPortal.addResonator(pResonator);
-            // Modifier le portail de pResonator en "pPortal" par cascade
-
-            pPortal.attributeTeam();
-            new CRestUpdate().updatePortalRest(pPortal);
-
         }
         else{
             Log.d("BuildResonator","Plus de place sur le portail / Portal Overload");
         }
-
+        return pPortal;
 
     }
 
-    public void attackBuilding (CConsumableEntity pAmmunition,ABuildingEntity pBuilding , CPlayerEntity pPlayer){
+    public ABuildingEntity attackBuilding (CConsumableEntity pAmmunition, ABuildingEntity pBuilding , CPlayerEntity pPlayer){
         int lDammage = 0;
 
         if(pAmmunition.getName() == "Attack"){
@@ -51,13 +47,13 @@ public class CActions {
                         lDammage = pPlayer.getLevel() * 20 + 40;
                         break;
                 }
-            pPlayer.attack(pBuilding,lDammage);
+            pBuilding = (ABuildingEntity) pPlayer.attack(pBuilding,lDammage);
         }
 
         else{
             Log.d("attackBuilding", "Consommable non approrié");
         }
-
+        return pBuilding;
     }
 
 

@@ -41,7 +41,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
     // wifi
     //public final static String API_URL = "http://192.168.43.44:9998";
     //public final static String API_URL = "http://192.168.1.71:9998";
-    public final static String API_URL = "http://127.0.0.1:9998";
+    //public final static String API_URL = "http://127.0.0.1:9998";
     @Override
     protected String doInBackground(String... params) {
         String lUrlString = params[0]; // URL to call
@@ -147,6 +147,37 @@ public class CRestGet extends AsyncTask<String,String,String> {
         //System.out.println("hello" + lPortals);
         return lPlayers;
     }
+
+    /**
+     * get player by id from database
+     * @return
+     */
+    public CPlayerEntity getPlayerByID(int pId){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = API_URL + "/players/"+Integer.toString(pId);
+        Log.d("test", "->-> " + lUrlString);
+        String lPlayerJson = null;
+        CPlayerEntity lPlayer = null;
+        try {
+            Log.d("test", "salut ?");
+            lPlayerJson = new CRestGet().execute(lUrlString).get();
+            Log.d("test", lPlayerJson);
+            System.out.println(" -> la dedans ?");
+            lPlayer = lMapper.readValue(lPlayerJson, CPlayerEntity.class);
+            System.out.println("-> !");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(lPlayer);
+        return lPlayer;
+    }
+
 
 
     /**

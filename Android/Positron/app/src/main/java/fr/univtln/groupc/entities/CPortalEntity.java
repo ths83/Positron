@@ -215,6 +215,7 @@ public class CPortalEntity implements Serializable {
         int lLevel1 = 0;
         int lLevel2 = 0;
         int i=0;
+
         // Séparation des résonateur en team.
         for(CResonatorEntity lResonator : mResonators){
             if(lResonator.getOwner().getTeam().getId() == 1 ){
@@ -240,12 +241,10 @@ public class CPortalEntity implements Serializable {
         if (lLevel1>lLevel2){
             if (mTeam == null) {
                 setTeam(lResonators1.get(0).getOwner().getTeam());
-                new CRestUpdate().updatePortalRest(this);
-                //TODO  Delete Link
+
             }
             else {
                 if (getTeam().getId() != 1) {
-                    setTeam(lResonators1.get(0).getOwner().getTeam());
                 }
             }
         }
@@ -253,29 +252,25 @@ public class CPortalEntity implements Serializable {
             if (lLevel2 > lLevel1) {
                 if (mTeam == null) {
                     setTeam(lResonators2.get(0).getOwner().getTeam());
-                    new CRestUpdate().updatePortalRest(this);
-                    //TODO  Delete Link
-
                 }
                 else {
                     if (getTeam().getId() != 2) {
                         setTeam(lResonators2.get(0).getOwner().getTeam());
-
                     }
 
                 }
             }
             else{
-
                 if(getTeam() != null){
                      setTeam(null);
-                    new CRestUpdate().updatePortalRest(this);
-                    //TODO  Delete Link
-
                 }
             }
         }
 
+    }
+
+    public void deleteAllLinks(){
+        mLinks.clear();
     }
 
     @Override
