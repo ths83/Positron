@@ -1,6 +1,8 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
  * Created by marti on 09/05/2016.
  */
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CKeyEntity.class)
 public class CKeyEntity extends AObjectEntity {
     private CPortalEntity mPortal;
 

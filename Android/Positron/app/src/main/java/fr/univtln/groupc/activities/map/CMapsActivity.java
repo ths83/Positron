@@ -89,6 +89,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // TODO singleton for player
         mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
+        Log.d("test", "player null ? " + mPlayer);
 
         // Google Map fragment
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

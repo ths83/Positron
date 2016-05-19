@@ -13,8 +13,11 @@ import java.util.List;
 /**
  * Created by mpesnel786 on 09/05/16.
  */
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope=CPlayerEntity.class)
-public class CPlayerEntity implements Serializable, IFighter, ITarget {
+
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
+public class CPlayerEntity implements Serializable {
     private int mId;
     private String mNickName;
     private String mEmail;
@@ -25,8 +28,13 @@ public class CPlayerEntity implements Serializable, IFighter, ITarget {
     private double mLat;
     private int mEnergy;
     private int mEnergyMax;
+
     private List<CSkillEntity> mSkills;
+
     private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
+
+    public final static String GET_ALL = "Player.getAll";
+    public final static String GET_BY_NAME = "Player.getByName";
 
     public CPlayerEntity(){}
 
@@ -65,6 +73,7 @@ public class CPlayerEntity implements Serializable, IFighter, ITarget {
                 ", mEnergyMax=" + mEnergyMax +
                 ", mTeam=" + mTeam +
                 ", mSkills=" + mSkills +
+                ", mObjects=" + mObjects +
                 '}';
     }
 
@@ -259,74 +268,5 @@ public class CPlayerEntity implements Serializable, IFighter, ITarget {
         }
     }
 
-    @JsonIgnore
-    public int getLevel(){
-        int lLevel =0;
-        int lXp=getXp();
 
-        if(lXp<500){
-            lLevel = 1;
-        }
-        else if(lXp>=500 && lXp<1200){
-            lLevel = 2;
-        }
-        else if(lXp>=1200 && lXp<2100){
-            lLevel = 3;
-        }
-        else if(lXp>=2100&& lXp<3200){
-            lLevel = 4;
-        }
-        else if(lXp>=3200 && lXp<4500){
-            lLevel = 5;
-        }
-        else if(lXp>=4500 && lXp<6000){
-            lLevel = 6;
-        }
-        else if(lXp>=6000 && lXp<7700){
-            lLevel = 7;
-        }
-        else if(lXp>=7700){
-            lLevel = 8;
-        }
-        return lLevel;
-    }
-
-    @Override
-    public ITarget attack(ITarget pTarget, int pDamage) {
-        if(getTeamOfFighter() != pTarget.getTeamOfTarget()) {
-            pTarget.takeDamage(pDamage,this);
-        }
-        else{
-            Log.d("attack","Unité amie");
-        }
-        return pTarget;
-    }
-
-    @Override
-    public void takeDamage(int pDamage, IFighter pAttacker ) {
-        pDamage = pDamage - (getLevel()*2);
-        if(pDamage>0) {
-            int lEnergy = mEnergy - pDamage;
-            if (lEnergy>0){
-                mEnergy = lEnergy;
-            }
-            else{
-                mEnergy=0;
-            }
-        }
-    }
-
-
-    @JsonIgnore
-    @Override
-    public CTeamEntity getTeamOfFighter() {
-        return getTeam();
-    }
-
-
-    @JsonIgnore
-    @Override
-    public CTeamEntity getTeamOfTarget() {
-        return getTeam();
-    }
 }

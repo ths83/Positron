@@ -1,19 +1,24 @@
 package fr.univtln.groupc.stats;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by arouani277 on 02/05/16.
  */
 @Entity
 @Table(name = "t_stats_attacked", schema = "positron")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+
 @JsonSubTypes({@JsonSubTypes.Type(value = CStatsBuildingsAttacked.class, name = "CStatsBuildingsAttacked"),
         @JsonSubTypes.Type(value = CStatsResonatorAttacked.class, name = "CStatsResonatorAttacked")})
 
-public class AStatsAttacked {
+public class AStatsAttacked implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "owner")

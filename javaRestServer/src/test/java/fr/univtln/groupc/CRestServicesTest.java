@@ -7,6 +7,7 @@ import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.*;
 import fr.univtln.groupc.server.CServer;
+
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -135,27 +136,7 @@ public class CRestServicesTest extends TestCase {
     }
 */
 
-    // Tests CRUD StatsBuildingAttackedService OFF
-/*
-    public void testPostStatsBuildingAttackedService() throws Exception {
 
-        CStatsBuildingsAttacked lStatsBuildingsAttacked = new CStatsBuildingsAttacked.CStatsBuildingsAttackedBuilder(0).cpt(51).build();
-
-        mJson = mMapper.writeValueAsString(lStatsBuildingsAttacked);
-        lResponse = mWebResource.path("/statsBuildingAttacked").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
-        assertEquals(lResponse.getStatus(), 201);
-    }
-
-    public void testGetStatsBuildingAttackedService() throws Exception {
-        CStatsBuildingsAttacked lStatsBuildingsAttacked = mMapper.readValue(mWebResource.path("/statsBuildingAttacked/1").get(String.class), CStatsBuildingsAttacked.class);
-        assertEquals(lStatsBuildingsAttacked.getmId(), 0);
-    }
-
-    public void testDeleteStatsBuildingAttackedService() throws Exception {
-        ClientResponse clientResponse = mWebResource.path("/statsBuildingAttacked/1").type("application/json").accept("application/json").delete(ClientResponse.class);
-        assertEquals(clientResponse.getStatus(), 200);
-    }
-*/
     // Tests CRUD CSkillService Rouani Azedine
 
     public void testPostSkillService() throws Exception {
@@ -191,12 +172,12 @@ public class CRestServicesTest extends TestCase {
         CConsumableEntity lConsumableEntity = mMapper.readValue(mWebResource.path("/consumables/1").get(String.class), CConsumableEntity.class);
         assertEquals(lConsumableEntity.getId(), 1);
     }
-
+/*
     public void testDeleteConsumableService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/consumables/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-
+*/
 
     // Tests CRUD CTurrentService
 
@@ -274,7 +255,91 @@ public class CRestServicesTest extends TestCase {
         assertEquals(clientResponse.getStatus(), 200);
     }
 
+    // Tests CRUD StatsBuildingAttackedService OFF
+/*
+    public void testPostStatsBuildingAttackedService() throws Exception {
 
+        CStatsBuildingsAttacked lStatsBuildingsAttacked = new CStatsBuildingsAttacked.CStatsBuildingsAttackedBuilder(0).cpt(51).build();
+
+        mJson = mMapper.writeValueAsString(lStatsBuildingsAttacked);
+        lResponse = mWebResource.path("/statsBuildingAttacked").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
+        assertEquals(lResponse.getStatus(), 201);
+    }
+
+    public void testGetStatsBuildingAttackedService() throws Exception {
+        CStatsBuildingsAttacked lStatsBuildingsAttacked = mMapper.readValue(mWebResource.path("/statsBuildingAttacked/1").get(String.class), CStatsBuildingsAttacked.class);
+        assertEquals(lStatsBuildingsAttacked.getmId(), 0);
+    }
+
+    public void testDeleteStatsBuildingAttackedService() throws Exception {
+        ClientResponse clientResponse = mWebResource.path("/statsBuildingAttacked/1").type("application/json").accept("application/json").delete(ClientResponse.class);
+        assertEquals(clientResponse.getStatus(), 200);
+    }
+*/
+/*
+    public void testPostStatsResonatorAttackedService() throws Exception {
+        CPlayerEntity lPlayerEntity1 = new CPlayerEntity.CPlayerBuilder(1).email("zad").energy(5).build();
+        CPlayerEntity lPlayerEntity2 = new CPlayerEntity.CPlayerBuilder(2).email("zad").energy(5).build();
+        CResonatorEntity lResonatorEntity = new CResonatorEntity.CResonatorBuilder(1).energy(5).level(10).build();
+
+        CStatsResonatorAttacked lStatsResonatorAttacked = new CStatsResonatorAttacked.CStatsResonatorAttackedBuilder(1).resonator(lResonatorEntity).cpt(5)
+                .attacker(lPlayerEntity1).owner(lPlayerEntity2).build();
+        mJson = mMapper.writeValueAsString(lStatsResonatorAttacked);
+        lResponse = mWebResource.path("/statsResonatorAttacked").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
+        assertEquals(lResponse.getStatus(), 201);
+    }
+
+    public void testGetStatsResonatorAttackedService() throws Exception {
+        CStatsResonatorAttacked lStatsResonatorAttacked = mMapper.readValue(mWebResource.path("/statsResonatorAttacked/1").get(String.class), CStatsResonatorAttacked.class);
+        assertEquals(lStatsResonatorAttacked.getmId(), 1);
+    }
+
+    public void testDeleteStatsResonatorAttackedService() throws Exception {
+        ClientResponse clientResponse = mWebResource.path("/statsResonatorAttacked/1").type("application/json").accept("application/json").delete(ClientResponse.class);
+        assertEquals(clientResponse.getStatus(), 200);
+    }
+    */
+/*
+    public void testPostStatsPlayerService() throws Exception {
+        CTurretEntity lTurret = new CTurretEntity
+                .CTurretBuilder(78678687).level(10).damage(10).lifeTime(1111)
+                .energy(150).energyMax(200).latitude(10.5)
+                .longitude(11.2).name("t1").radius(100).build();
+        ArrayList <ABuildingEntity> lTurrets= new ArrayList<>();
+        lTurrets.add(lTurret);
+
+        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(78687678).energy(100)
+                .latitude(10.5).energyMax(200)
+                .level(9).longitude(5.2).name("cr")
+                .radius(54).build();
+
+        ArrayList <CResonatorEntity> lResonators = new ArrayList<>();
+        lResonators.add(lResonator);
+
+        CConsumableEntity lConsumableEntity = new CConsumableEntity.CConsumableBuilder(1).name("bob").rarity(5).build();
+        ArrayList <CConsumableEntity> lConsumables = new ArrayList<>();
+        lConsumables.add(lConsumableEntity);
+
+        CPlayerEntity lPlayerEntity1 = new CPlayerEntity.CPlayerBuilder(1).email("zad").energy(5).build();
+
+        CStatsPlayer lStatsPlayer = new CStatsPlayer.CStatsPlayerBuilder(1).player(lPlayerEntity1).buildingsDestroyed(lTurrets).consumablesUsed(lConsumables).build();
+        // TODO : getters : resonatorsDestroyed() and resonatorsBuilt() doesn't work
+
+        mJson = mMapper.writeValueAsString(lStatsPlayer);
+        lResponse = mWebResource.path("/statsPlayer").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
+        assertEquals(lResponse.getStatus(), 201);
+    }
+
+    public void testGetStatsPlayerService() throws Exception {
+        CStatsPlayer lStatsPlayer = mMapper.readValue(mWebResource.path("/statsPlayer/1").get(String.class), CStatsPlayer.class);
+        assertEquals(lStatsPlayer.getmID(), 1);
+    }
+
+    public void testDeleteStatsPlayerService() throws Exception {
+        ClientResponse clientResponse = mWebResource.path("/statsPlayer/1").type("application/json").accept("application/json").delete(ClientResponse.class);
+        assertEquals(clientResponse.getStatus(), 200);
+    }
+*/
 /*
     public void testPostLinkService() throws Exception {
         CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(700).longitude(150).latitude(150).build();
@@ -302,13 +367,6 @@ public class CRestServicesTest extends TestCase {
         CTeamEntity lTeamGotten = mMapper.readValue(mWebResource.path("/teams/150").accept("application/json").type("application/json").get(String.class), CTeamEntity.class);
         assertEquals(lTeamGotten.getId(), 150);
         assertEquals(lTeamGotten.getColor(), "vert");
-    }
-
-    public void testPostPlayerService() throws Exception {
-        CPlayerEntity lPlayerToPost = new CPlayerEntity.CPlayerBuilder(50).email("email_de_test").energy(50).latitude(125.3).longitude(142.9).build();
-        String lJsonPlayer = mMapper.writeValueAsString(lPlayerToPost);
-        ClientResponse lResponse = mWebResource.path("players").type("application/json").accept("application/json").post(ClientResponse.class, lJsonPlayer);
-        assertEquals(lResponse.getStatus(), 201);
     }
 
 */
@@ -386,6 +444,7 @@ public class CRestServicesTest extends TestCase {
         }
 
 
+/*
     public void testPostLinkServiceWhenAFieldEnglobeOtherLink() throws Exception {
         CCrudMethods lCrud = new CCrudMethods();
         String lLink1Json = null;
@@ -460,7 +519,9 @@ public class CRestServicesTest extends TestCase {
 
 
 
-    }
+    }*/
+
+
 
     public void testPortalWithKeyAndBuildingsPost() throws Exception {
         CKeyEntity lKey1 = new CKeyEntity.CKeyBuilder(23).name("clef1").build();

@@ -174,7 +174,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
             e.printStackTrace();
         }
 
-        System.out.println(lPlayer);
+        Log.d("test", "-> player object :\n  " + lPlayer);
         return lPlayer;
     }
 

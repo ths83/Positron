@@ -1,6 +1,7 @@
 package fr.univtln.groupc.activities.portals;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -38,6 +40,7 @@ public class CKeyAdapter extends ArrayAdapter<CKeyEntity> {
 
         CKeyEntity lKey = getItem(position);
 
+        Log.d("test", "dans adapter -> " + lKey.getId());
         viewHolder.mPortalId.setText(Integer.toString(lKey.getId()));
         return convertView;
     }

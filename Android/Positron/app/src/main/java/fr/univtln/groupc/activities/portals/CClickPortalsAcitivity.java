@@ -1,9 +1,11 @@
 package fr.univtln.groupc.activities.portals;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import fr.univtln.groupc.actions.CActions;
 import fr.univtln.groupc.entities.ABuildingEntity;
@@ -16,6 +18,8 @@ import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CClickPortalsAcitivity extends AppCompatActivity {
+
+    private Intent mIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+/*
     public void attackingBuilding(ABuildingEntity pTarget, CPlayerEntity pAttacker, CConsumableEntity pAmmunition , CPortalEntity pPortal){
 
         CActions lActions = new CActions();
@@ -60,13 +64,13 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             //new CRestUpdate().;
         }
 
-    }
+    }*/
 
 
     public void buildingResonator(CPortalEntity pPortal,CResonatorEntity pResonator){
         CActions lActions = new CActions();
 
-        pPortal = lActions.buildResonator(pPortal,pResonator);
+        pPortal = lActions.buildResonator(pPortal, pResonator);
         if(updatePortalTeam(pPortal) == 0){
             new CRestUpdate().updatePortalRest(pPortal);
         }
@@ -92,5 +96,10 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             }
         }
         return 0;
+    }
+
+    public void maintenir(View view){
+        mIntent = new Intent(this, CPutPortalsView.class);
+        startActivity(mIntent);
     }
 }

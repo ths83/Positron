@@ -93,7 +93,7 @@ public class CKeyService {
     public String getKeyByPlayer(@PathParam("id") final int pId){
         String lJsonValue = null;
         CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pId);
-        List<AObjectEntity> lKeys = lPlayer.getKeys();
+        List<CKeyEntity> lKeys = lPlayer.getKeys();
         System.out.println("keys objects : \n" + lKeys);
         try {
             lJsonValue = mMapper.writeValueAsString(lKeys);
