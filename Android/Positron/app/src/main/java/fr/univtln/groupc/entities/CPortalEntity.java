@@ -215,7 +215,7 @@ public class CPortalEntity implements Serializable {
         int lLevel1 = 0;
         int lLevel2 = 0;
         int i=0;
-        
+
         // Séparation des résonateur en team.
         for(CResonatorEntity lResonator : mResonators){
             if(lResonator.getOwner().getTeam().getId() == 1 ){

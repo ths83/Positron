@@ -41,9 +41,11 @@ import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.entities_view.CTraceMapView;
+import fr.univtln.groupc.math.CMathFunction;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
@@ -52,6 +54,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
+    public final static int GPS_PLAYER_RADIUS = 50;
     public final static float MAX_ZOOM_MAP = 17f;
 
     private GoogleMap mMap;
@@ -77,10 +80,15 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private String mLinkObjectString;
     private String mFieldString;
 
+    private CPlayerEntity mPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        // TODO singleton for player
+        mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
 
         // Google Map fragment
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -200,7 +208,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         }
 
-        // Display links on start session -> avoid reductant latlng -> v2.0 to do
+        // Display links on start session
         int i = 0;
         for (CPortalEntity lP : lPortals){
             for (i = 0 ; i < lP.getLinks().size(); i++){
@@ -209,7 +217,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         }
         Log.d("map", String.valueOf(i));
-        // Display fields on start session -> avoid reductant latlng -> v2.0 to do
+        // Display fields on start session
         i = 0;
         for (CPortalEntity lP : lPortals){
             for (i = 0 ; i < lP.getLinks().size(); i++){
@@ -221,6 +229,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         // Location Service
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
+
+
 
         /*// Portal created with user click
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -249,7 +259,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
 
         // portal action radius when click on it
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        /*mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 LatLng lUserLatLng=marker.getPosition();
@@ -290,15 +300,22 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             return info;
                         }
                     });
-                }
-       /* // Portal action possibilities for players when click on it
+                }*/
+        // Portal action possibilities for players when click on it
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
             @Override
             public boolean onMarkerClick(Marker marker) {
-                View lView = new View(getBaseContext());
-                onPortalClick(lView);
->>>>>>> 7c62d4d8e76410a831b8ecd57f4399366669696f*/
+                LatLng lPortalLatLng = marker.getPosition();
+
+
+                // if portal in circle player radius
+                if (CMathFunction.haversine(lPortalLatLng.latitude,lPortalLatLng.longitude,mPlayer.getLat(),mPlayer.getLong()) <= GPS_PLAYER_RADIUS){
+                    View lView = new View(getBaseContext());
+                    onPortalClick(lView);
+                }
+
+
                 return false;
             }
         });
@@ -379,9 +396,15 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
         @Override
         public void onMyLocationChange(Location location) {
-            mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            // current position player
+            mPlayer.setLat(location.getLatitude());
+            mPlayer.setLong(location.getLongitude());
+
+            //mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
             if (mPosition != 1) {
                 //mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
+                //mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
             }
                 //Log.i("test", "Latitude: "+String.valueOf(location.getLatitude())+" - Longitude: "+String.valueOf(location.getLongitude()));
@@ -389,7 +412,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 if (mUserActionRadius != null) {
                     mUserActionRadius.setCenter(mUserLatLng);
                 } else {
-                    mUserActionRadius = mMap.addCircle(new CircleOptions().center(mUserLatLng).radius(50).fillColor(Color.YELLOW));
+                    mUserActionRadius = mMap.addCircle(new CircleOptions().center(mUserLatLng).radius(GPS_PLAYER_RADIUS).fillColor(Color.YELLOW));
                 }
             }
     };

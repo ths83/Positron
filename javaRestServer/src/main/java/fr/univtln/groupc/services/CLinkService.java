@@ -1,6 +1,7 @@
 package fr.univtln.groupc.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.univtln.groupc.algorithm.CAlgorithm;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CFieldEntity;
@@ -114,6 +115,8 @@ public class CLinkService {
     public String read(@PathParam("id") int pId){
 
         String lJsonValue = null;
+        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+
         CLinkEntity lLink = (CLinkEntity)mCrudMethods.find(CLinkEntity.class, pId);
         try {
             lJsonValue = mMapper.writeValueAsString(lLink);

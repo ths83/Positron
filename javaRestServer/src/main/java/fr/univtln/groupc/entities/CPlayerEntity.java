@@ -1,6 +1,7 @@
 package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -194,6 +195,17 @@ public class CPlayerEntity implements Serializable {
 
     public void addObjects(AObjectEntity o) {
         mObjects.add(o);
+    }
+
+    @JsonIgnore
+    public List<AObjectEntity> getKeys(){
+        List<AObjectEntity> lKeys = new ArrayList<>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CKeyEntity){
+                lKeys.add(lObject);
+            }
+        }
+        return lKeys;
     }
 
     public static class CPlayerBuilder{
