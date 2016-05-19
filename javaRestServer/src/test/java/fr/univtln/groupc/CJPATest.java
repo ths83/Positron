@@ -63,6 +63,6 @@ public class CJPATest {
         CPlayerEntity lPlayer = new CPlayerEntity.CPlayerBuilder(41).nickname("raul").objects(lObjects).build();
         mCrud.create(lPlayer);
 
-        List<CKeyEntity> lKeysGotten = mCrud.findWithNamedQuery()
+        //List<CKeyEntity> lKeysGotten = mCrud.findWithNamedQuery();
     }
 }

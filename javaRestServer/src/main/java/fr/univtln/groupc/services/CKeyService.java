@@ -75,7 +75,7 @@ public class CKeyService {
         //return (List<CKeyEntity>)mCrudMethods.findWithNamedQuery(CKeyEntity.GET_KEY_BY_PORTAL, lMap);
 
         String lJsonValue = null;
-        List<CKeyEntity> lKeys = (List<CKeyEntity>)mCrudMethods.findWithNamedQuery(CKeyEntity.GET_KEY_BY_PORTAL, lMap);
+        List<CKeyEntity> lKeys = (List<CKeyEntity>)mCrudMethods.findWithNamedQuery(CKeyEntity.GET_BY_PORTAL, lMap);
         try {
             lJsonValue = mMapper.writeValueAsString(lKeys);
         } catch (IOException e) {

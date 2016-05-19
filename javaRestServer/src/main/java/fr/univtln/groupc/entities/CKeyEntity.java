@@ -14,8 +14,9 @@ import java.io.Serializable;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "t_key", schema = "positron")
-@NamedQueries({@NamedQuery(name = CKeyEntity.GET_ALL, query = "select k from CKeyEntity k"),@NamedQuery(name = CKeyEntity.GET_BY_PORTAL, query = "select k from CKeyEntity k where k.mPortal=(select p from CPortalEntity p where p.mId=:id )")
-, @NamedQuery(name = CKeyEntity.GET_BY_PLAYER, query = "select k from CKeyEntity k where k in (select p.mObjects from CPlayerEntity p where p.mId = :mId)")})
+
+@NamedQueries({@NamedQuery(name = CKeyEntity.GET_ALL, query = "select k from CKeyEntity k"),@NamedQuery(name = CKeyEntity.GET_BY_PORTAL, query = "select k from CKeyEntity k where k.mPortal=(select p from CPortalEntity p where p.mId=:id )")})
+
 //@JsonDeserialize(as = CKeyEntity.class)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CKeyEntity.class)
 
