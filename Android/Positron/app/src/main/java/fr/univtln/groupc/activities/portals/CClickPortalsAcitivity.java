@@ -64,7 +64,9 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             //new CRestUpdate().;
         }
 
-    }*/
+    }
+
+  */
 
 
     public void buildingResonator(CPortalEntity pPortal,CResonatorEntity pResonator){

@@ -1,36 +1,49 @@
 package fr.univtln.groupc.entities;
 
-import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mpesnel786 on 09/05/16.
- */
-
-
+@Entity
+@Table(name = "t_player", schema = "positron")
+@NamedQueries({@NamedQuery(name = CPlayerEntity.GET_ALL, query = "select p from CPlayerEntity p"),
+        @NamedQuery(name = CPlayerEntity.GET_BY_NAME, query = "select p from CPlayerEntity p where p.mNickName = :mNickName")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class CPlayerEntity implements Serializable {
+    @Id
+    @Column(name = "id")
     private int mId;
+    @Column(name = "nickname")
     private String mNickName;
+    @Column(name = "email")
     private String mEmail;
+    @ManyToOne
+    @JoinColumn(name = "team")
     private CTeamEntity mTeam;
+    @Column(name = "xp")
     private int mXp;
+    @Column(name = "bag_size")
     private int mBagSize;
+    @Column(name = "longitude")
     private double mLong;
+    @Column(name = "mLatitude")
     private double mLat;
+    @Column(name = "energy")
     private int mEnergy;
+    @Column(name = "energy_max")
     private int mEnergyMax;
-
+    @OneToMany
+    @JoinTable(schema = "positron")
     private List<CSkillEntity> mSkills;
-
+    @OneToMany
+    @JoinTable(schema = "positron")
     private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
 
     public final static String GET_ALL = "Player.getAll";
@@ -64,13 +77,14 @@ public class CPlayerEntity implements Serializable {
                 "mId=" + mId +
                 ", mNickName='" + mNickName + '\'' +
                 ", mEmail='" + mEmail + '\'' +
-                //", mTeam=" + mTeam +
+                ", mTeam=" + mTeam +
                 ", mXp=" + mXp +
                 ", mBagSize=" + mBagSize +
                 ", mLong=" + mLong +
                 ", mLat=" + mLat +
                 ", mEnergy=" + mEnergy +
                 ", mEnergyMax=" + mEnergyMax +
+                ", mTeam=" + mTeam +
                 ", mSkills=" + mSkills +
                 ", mObjects=" + mObjects +
                 '}';
@@ -177,10 +191,21 @@ public class CPlayerEntity implements Serializable {
     public void addObjects(AObjectEntity o) {
         mObjects.add(o);
     }
+/*
+    @JsonIgnore
+    public List<AObjectEntity> getKeys(){
+        List<AObjectEntity> lKeys = new ArrayList<>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CKeyEntity){
+                lKeys.add(lObject);
+            }
+        }
+        return lKeys;
+    }*/
 
     @JsonIgnore
     public List<CKeyEntity> getKeys(){
-        List<CKeyEntity> lKeys = new ArrayList<>();
+        List<CKeyEntity> lKeys = new ArrayList<CKeyEntity>();
         for (AObjectEntity lObject : mObjects){
             if (lObject instanceof CKeyEntity){
                 lKeys.add((CKeyEntity)lObject);
@@ -188,6 +213,9 @@ public class CPlayerEntity implements Serializable {
         }
         return lKeys;
     }
+
+
+
 
     public static class CPlayerBuilder{
         private int mId;
@@ -200,8 +228,8 @@ public class CPlayerEntity implements Serializable {
         private double mLong;
         private int mBagSize;
         private int mXp;
-        private List<CSkillEntity> mSkills = new ArrayList<>();
-        private List<AObjectEntity> mObjects = new ArrayList<>();
+        private List<CSkillEntity> mSkills = new ArrayList<CSkillEntity>();
+        private List<AObjectEntity> mObjects = new ArrayList<AObjectEntity>();
 
         public CPlayerBuilder(int pId){
             mId = pId;
@@ -266,7 +294,6 @@ public class CPlayerEntity implements Serializable {
             return new CPlayerEntity(this);
         }
     }
-
 
 
 }
