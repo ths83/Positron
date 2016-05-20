@@ -3,7 +3,6 @@ package fr.univtln.groupc.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.stats.CStatsBuildingsAttacked;
-import fr.univtln.groupc.stats.CStatsPlayer;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;

@@ -2,8 +2,10 @@ package fr.univtln.groupc.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import sun.rmi.runtime.Log;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -219,6 +221,82 @@ public class CPortalEntity implements Serializable {
         if (mResonators != null){
             mResonators.add(pResonator);
         }
+    }
+
+    public void attributeTeam() {
+
+        List<CResonatorEntity> lResonators1 = new ArrayList<CResonatorEntity>();
+        List<CResonatorEntity> lResonators2 = new ArrayList<CResonatorEntity>();
+        int lLevel1 = 0;
+        int lLevel2 = 0;
+        int i=0;
+
+        // Séparation des résonateur en team.
+        for(CResonatorEntity lResonator : mResonators){
+            if(lResonator.getOwner().getTeam().getId() == 1 ){
+                lResonators1.add(lResonator);
+            }
+            else{
+                lResonators2.add(lResonator);
+            }
+        }
+        // Calcule des Dominances
+        for (CResonatorEntity resonator : lResonators1) {
+            lLevel1 = lLevel1 + resonator.getLevel();
+            i=i+1;
+        }
+        for (CResonatorEntity resonator : lResonators2) {
+            lLevel2 = lLevel2 + resonator.getLevel();
+        }
+
+
+        //Changement de team si nécessaire.
+        if (lLevel1>lLevel2) {
+            if (mTeam == null) {
+                mTeam = lResonators1.get(0).getOwner().getTeam();
+                //new CRestUpdate().updatePortalRest(this);
+                //TODO  Delete Link
+            } else {
+                if (getTeam().getId() != 1) {
+                    mTeam = lResonators1.get(0).getOwner().getTeam();
+
+                }
+            }
+        }
+        else {
+            if (lLevel2 > lLevel1) {
+                if (mTeam == null) {
+                    mTeam=lResonators2.get(0).getOwner().getTeam();
+                    //new CRestUpdate().updatePortalRest(this);
+                    //TODO  Delete Link
+
+                }
+                else {
+                    if (getTeam().getId() != 2) {
+                        mTeam=lResonators2.get(0).getOwner().getTeam();
+                    }
+                }
+
+            }
+            else{
+                if(getTeam() != null){
+                    setTeam(null);
+                    //TODO  Delete Link
+                }
+            }
+        }
+
+    }
+
+    @JsonIgnore
+    public List<CResonatorEntity> getResonatorsTeamById(int pId) {
+        List<CResonatorEntity> lList = new ArrayList<CResonatorEntity>();
+        for (CResonatorEntity lResonator : mResonators) {
+            if (lResonator.getOwner().getTeam().getId() == pId) {
+                lList.add(lResonator);
+            }
+        }
+        return lList;
     }
 
     @Override

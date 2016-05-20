@@ -2,7 +2,6 @@ package fr.univtln.groupc.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
-import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CTeamEntity;
 
 import javax.ws.rs.*;

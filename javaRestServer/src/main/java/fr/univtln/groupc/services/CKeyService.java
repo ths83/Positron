@@ -3,7 +3,6 @@ package fr.univtln.groupc.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univtln.groupc.dao.CCrudMethods;
-import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 

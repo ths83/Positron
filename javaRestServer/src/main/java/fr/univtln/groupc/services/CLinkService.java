@@ -6,15 +6,11 @@ import fr.univtln.groupc.algorithm.CAlgorithm;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
-import fr.univtln.groupc.entities.CResonatorEntity;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**

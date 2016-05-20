@@ -1,9 +1,6 @@
 package fr.univtln.groupc.tests;
 
 import fr.univtln.groupc.algorithm.CAlgorithm;
-import fr.univtln.groupc.entities.CFieldEntity;
-import fr.univtln.groupc.entities.CLinkEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
 
 import java.util.ArrayList;
 import java.util.List;
