@@ -21,6 +21,8 @@ import fr.univtln.groupc.server.CServer;
 
 import javax.swing.*;
 
+import static java.lang.Thread.sleep;
+
 /*
 full document to display maps with the imageUrl link :
 
@@ -30,7 +32,7 @@ https://developers.google.com/maps/documentation/static-maps/
 
 public class Main {
 
-    public static void generateMap(final JFrame pFest, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals) {
+    public static JFrame generateMap(final JFrame pFest, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals) {
 
         try {
             String lImageUrl =
@@ -121,18 +123,16 @@ public class Main {
                 }
             }
         });
+        return pFest;
     }
 
-
-    public static void main(String[] args) throws IOException {
-
-        JFrame test = new JFrame("Google Maps");
-
+    public static JFrame generateFrame(JFrame lFrame){
         // Rest Requests
         System.out.println("main");
         Client c = Client.create();
         WebResource webResource = c.resource(CServer.BASE_URI);
-        String lJson = webResource.path("/portals").get(String.class);
+        String lPortalsJson = webResource.path("/portals").get(String.class);
+        String lPlayersJson = webResource.path("/players").get(String.class);
 
         ObjectMapper lMapper = new ObjectMapper();
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
@@ -149,8 +149,8 @@ public class Main {
         ArrayList<String> lRedPlayers = new ArrayList<String>();
 
         try {
-            lPortals = lMapper.readValue(lJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
-            lPlayers = lMapper.readValue(lJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPlayerEntity.class));
+            lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+            lPlayers = lMapper.readValue(lPlayersJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPlayerEntity.class));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -176,12 +176,12 @@ public class Main {
                     System.out.println("playerbleu");
                     System.out.println(bluePlayer);
                 }
+                else System.out.println("players vide");
             }
         }
 
         // Récuperation des portails présents dans la BD via REST
         for (CPortalEntity lPortalEntity : lPortals) {
-
             if (lPortalEntity.getTeam() != null) {
 
                 if (Objects.equals(lPortalEntity.getTeam().getColor(), "red")) {
@@ -189,7 +189,7 @@ public class Main {
                     lRedPortals.add(redPortal);
                     System.out.println("portal rouge");
                     System.out.println(redPortal);
-                    }
+                }
 
                 else if (Objects.equals(lPortalEntity.getTeam().getColor(), "blue")) {
                     bluePortal = String.valueOf(lPortalEntity.getLat()) + "," + String.valueOf(lPortalEntity.getLong());
@@ -197,11 +197,25 @@ public class Main {
                     System.out.println("portal bleu");
                     System.out.println(bluePortal);
                 }
+                else System.out.println("portals vide");
+
             }
+            else System.out.println("lPortalEntity.getTeam() == null");
         }
 
+        // Une fois les données REST récupérées, on genere à partir de ça notre map
+        lFrame = Main.generateMap(lFrame, lBluePlayers, lRedPlayers, lBluePortals, lRedPortals);
+        return lFrame;
+    }
 
-        Main.generateMap(test, lBluePlayers, lRedPlayers, lBluePortals, lRedPortals);
+    public static void main(String[] args) throws IOException, InterruptedException {
+        JFrame jFrame = new JFrame("Google Maps");
+
+        while (true) {
+            // On regenere la frame à chaque fois avec les nouvelles données proventante du serveur REST
+            jFrame = generateFrame(jFrame);
+            sleep(5000);
+        }
     }
 
 

@@ -196,7 +196,7 @@ public class CPlayerEntity implements Serializable {
     public void addObjects(AObjectEntity o) {
         mObjects.add(o);
     }
-
+/*
     @JsonIgnore
     public List<AObjectEntity> getKeys(){
         List<AObjectEntity> lKeys = new ArrayList<>();
@@ -206,7 +206,21 @@ public class CPlayerEntity implements Serializable {
             }
         }
         return lKeys;
+    }*/
+
+    @JsonIgnore
+    public List<CKeyEntity> getKeys(){
+        List<CKeyEntity> lKeys = new ArrayList<>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CKeyEntity){
+                lKeys.add((CKeyEntity)lObject);
+            }
+        }
+        return lKeys;
     }
+
+
+
 
     public static class CPlayerBuilder{
         private int mId;

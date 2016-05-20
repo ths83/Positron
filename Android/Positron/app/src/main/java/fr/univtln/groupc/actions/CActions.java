@@ -28,7 +28,7 @@ public class CActions {
         return pPortal;
 
     }
-
+/*
     public ABuildingEntity attackBuilding (CConsumableEntity pAmmunition, ABuildingEntity pBuilding , CPlayerEntity pPlayer){
         int lDammage = 0;
 
@@ -54,7 +54,7 @@ public class CActions {
             Log.d("attackBuilding", "Consommable non approrié");
         }
         return pBuilding;
-    }
+    }*/
 
 
 }

@@ -64,7 +64,12 @@ public class CJPATest extends TestCase {
         CPlayerEntity lPlayer = new CPlayerEntity.CPlayerBuilder(41).nickname("raul").objects(lObjects).build();
         mCrud.create(lPlayer);
 
-
+/*
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 518137b088cd171a5a493b07a63be60692aa3202
+>>>>>>> 7f48333d6902c73a99127e9f8969a62865109708
         //List<CKeyEntity> lKeysGotten = mCrud.findWithNamedQuery(CKeyEntity.GET_BY_PLAYER, CQueryParameter.with("mId", lPlayer.getId()).parameters());
         List<AObjectEntity> lKeysGotten = lPlayer.getKeys();
 
@@ -72,6 +77,12 @@ public class CJPATest extends TestCase {
 
         assertEquals(lKeysGotten.size(), 2);
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+        //List<CKeyEntity> lKeysGotten = mCrud.findWithNamedQuery();
+>>>>>>> 30feba4cc6f0cc94bc582aab669feea254d163d5*/
 
     }
 }

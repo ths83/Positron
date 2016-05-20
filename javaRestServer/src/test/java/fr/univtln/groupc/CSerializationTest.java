@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
+import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.*;
 import fr.univtln.groupc.server.CServer;
 import org.junit.Test;
@@ -161,5 +162,14 @@ public class CSerializationTest extends TestCase {
         System.out.println(lPlayerDeserialized);
     }
 
+    public void testDeserializePlayer() throws Exception {
+        CCrudMethods lCrud = new CCrudMethods();
+        CPlayerEntity lPlayer = lCrud.find(CPlayerEntity.class, 1);
+        String lJson = null;
+        lJson = mMapper.writeValueAsString(lPlayer);
+        System.out.println("ok 0 ?");
 
+        CPlayerEntity lNewPlayer = mMapper.readValue(lJson, CPlayerEntity.class);
+        System.out.println("ok ! " + lNewPlayer);
+    }
 }

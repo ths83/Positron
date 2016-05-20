@@ -22,14 +22,6 @@
         <class>fr.univtln.groupc.entities.CSkillEntity</class>
         <class>fr.univtln.groupc.entities.CTurretEntity</class>
 
-        <!-- Abstracts stats -->
-        <class>fr.univtln.groupc.stats.AStatsAttacked</class>
-
-        <!-- Stats -->
-        <class>fr.univtln.groupc.stats.CStatsBuildingsAttacked</class>
-        <class>fr.univtln.groupc.stats.CStatsPlayer</class>
-        <class>fr.univtln.groupc.stats.CStatsResonatorAttacked</class>
-
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.target-database" value="PostgreSQL"/>

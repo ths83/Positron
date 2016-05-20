@@ -40,6 +40,7 @@ public class CPlayerService {
     @Produces("application/json")
     @Path("/{id}")
     public String readPlayer(@PathParam("id") int pId){
+        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         String lJsonValue = null;
         CPlayerEntity lPlayer = (CPlayerEntity)mCrudMethods.find(CPlayerEntity.class, pId);
         try {
