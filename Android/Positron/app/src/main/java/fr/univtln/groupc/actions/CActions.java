@@ -54,7 +54,7 @@ public class CActions {
             Log.d("attackBuilding", "Consommable non approrié");
         }
         return pBuilding;
-    }*/
-
+    }
+*/
 
 }
