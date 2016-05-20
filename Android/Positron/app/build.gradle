@@ -33,6 +33,7 @@ dependencies {
             [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.4']
     )
     compile 'com.android.support:multidex:1.0.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
