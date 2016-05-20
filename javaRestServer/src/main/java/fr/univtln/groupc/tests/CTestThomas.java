@@ -16,21 +16,29 @@ public class CTestThomas {
 
 
         List<CResonatorEntity> lResonatorEntityList = new ArrayList<>();
-        List<AObjectEntity> lPortalObject = new ArrayList<>();
+        List<ABuildingEntity> lPortalBuilding = new ArrayList<>();
+
         List<CPortalEntity> lPortalLinked = new ArrayList<>();
         List<CPortalEntity> lPortalLinked2 = new ArrayList<>();
         List<CPortalEntity> lPortalLinked3 = new ArrayList<>();
         List<CPortalEntity> lPortalLinked4 = new ArrayList<>();
-        List<CKeyEntity> lKeyPortals = new ArrayList<>();
+
+        List<CKeyEntity> lKeyPortals1 = new ArrayList<>();
         CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder(2000).build();
+        lKeyPortals1.add(lKeyEntity);
+
+        List<CKeyEntity> lKeyPortals2 = new ArrayList<>();
         CKeyEntity lKeyEntity2 = new CKeyEntity.CKeyBuilder(2001).build();
+        lKeyPortals2.add(lKeyEntity2);
+
+        List<CKeyEntity> lKeyPortals3 = new ArrayList<>();
         CKeyEntity lKeyEntity3 = new CKeyEntity.CKeyBuilder(2002).build();
-        lKeyPortals.add(lKeyEntity);
-        lKeyPortals.add(lKeyEntity2);
-        lKeyPortals.add(lKeyEntity3);
-        CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(2003).latitude(45.1948).longitude(5.6045).keys(lKeyPortals).build();
-        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2004).latitude(43.1948).longitude(5.6045).keys(lKeyPortals).build();
-        CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(2005).latitude(42.1948).longitude(6.6045).keys(lKeyPortals).build();
+        lKeyPortals3.add(lKeyEntity3);
+
+
+        CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(2003).latitude(45.1948).longitude(5.6045).keys(lKeyPortals1).build();
+        CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2004).latitude(43.1948).longitude(5.6045).keys(lKeyPortals2).build();
+        CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(2005).latitude(42.1948).longitude(6.6045).keys(lKeyPortals3).build();
 
 
 
@@ -76,8 +84,10 @@ public class CTestThomas {
         lResonatorEntityList.add(lResonator2);
         lPortal.setResonators(lResonatorEntityList);
 
-        lPortalObject.add(lKey);
-        lPortalObject.add(lTurret);
+        //lPortalObject.add(lKey);
+        //lPortalObject.add(lTurret);
+
+
         //lPortal.setObjects(lPortalObject);
 
         CFieldEntity lField = new CFieldEntity.CFieldBuilder(1).links(lLinkForField).build();
