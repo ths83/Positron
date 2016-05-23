@@ -313,5 +313,25 @@ public class CPortalEntity implements Serializable {
                 */'}' + super.toString();
     }
 
+    public List<CShieldEntity> getShields(){
+        List<CShieldEntity> lShields = new ArrayList<CShieldEntity>();
+
+        for(ABuildingEntity lBuild : getBuildings()){
+            if(lBuild instanceof CShieldEntity){
+                lShields.add((CShieldEntity) lBuild);
+            }
+        }
+    return lShields;
+    }
+    public List<CTurretEntity> getTurrets(){
+        List<CTurretEntity> lTurrets = new ArrayList<CTurretEntity>();
+
+        for(ABuildingEntity lBuild : getBuildings()){
+            if(lBuild instanceof CTurretEntity){
+                lTurrets.add((CTurretEntity) lBuild);
+            }
+        }
+        return lTurrets;
+    }
 
 }

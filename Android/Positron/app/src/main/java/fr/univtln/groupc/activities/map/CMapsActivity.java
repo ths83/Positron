@@ -600,7 +600,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     //just a test
 
     public void onClickTest(View pView){
-        new CRestDelete().onDeleteLink(1);
+        new CRestDelete().deleteLinkRest(2);
 
     }
 

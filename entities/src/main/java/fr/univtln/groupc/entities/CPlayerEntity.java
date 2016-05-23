@@ -16,7 +16,7 @@ import java.util.List;
         @NamedQuery(name = CPlayerEntity.GET_BY_NAME, query = "select p from CPlayerEntity p where p.mNickName = :mNickName")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
-public class CPlayerEntity implements Serializable {
+public class CPlayerEntity implements Serializable, ITarget, IFighter {
     @Id
     @Column(name = "id")
     private int mId;
@@ -77,14 +77,20 @@ public class CPlayerEntity implements Serializable {
                 "mId=" + mId +
                 ", mNickName='" + mNickName + '\'' +
                 ", mEmail='" + mEmail + '\'' +
+<<<<<<< HEAD
                 //", mTeam=" + mTeam +
+=======
+>>>>>>> ca631196becb4b0ab737ce191743569e9e33d91b
                 ", mXp=" + mXp +
                 ", mBagSize=" + mBagSize +
                 ", mLong=" + mLong +
                 ", mLat=" + mLat +
                 ", mEnergy=" + mEnergy +
                 ", mEnergyMax=" + mEnergyMax +
+<<<<<<< HEAD
                 //", mTeam=" + mTeam +
+=======
+>>>>>>> ca631196becb4b0ab737ce191743569e9e33d91b
                 ", mSkills=" + mSkills +
                 ", mObjects=" + mObjects +
                 '}';
@@ -338,5 +344,30 @@ public class CPlayerEntity implements Serializable {
     }
 
 
+    public void takeDamage(IFighter pFighter, int pDamage) {
+        int lDamages = pDamage - getLevel()*2;
+        if(lDamages >0) {
+            mEnergy = mEnergy - lDamages;
+            // TODO metre update portail.
+        }
+    }
 
+    @JsonIgnore
+    public CTeamEntity getTargetTeam() {
+        return getTeam();
+    }
+
+    @JsonIgnore
+    public CTeamEntity getFighterTeam() {
+        return getTeam();
+    }
+
+    public void attack(ITarget pTarget, int pDamage) {
+        if(getFighterTeam().getId() != pTarget.getTargetTeam().getId()) {
+            pTarget.takeDamage(this,pDamage);
+        }
+        else  {
+            System.out.println("Cible de la même équipe");
+        }
+    }
 }
