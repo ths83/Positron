@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import fr.univtln.groupc.entities.CKeyEntity;
+import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
@@ -324,6 +325,28 @@ public class CRestGet extends AsyncTask<String,String,String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+    }
+
+    public CLinkEntity getLinkByID(int pId){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = API_URL + "/links/"+Integer.toString(pId);
+        String lLinkJson = null;
+        CLinkEntity lLink = null;
+        try {
+            lLinkJson = new CRestGet().execute(lUrlString).get();
+            System.out.println(" -> la dedans ?");
+            lLink = lMapper.readValue(lLinkJson, CLinkEntity.class);
+            System.out.println("-> !");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lLink;
     }
 
 }
