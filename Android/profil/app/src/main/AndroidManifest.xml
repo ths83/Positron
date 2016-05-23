@@ -19,6 +19,11 @@
         <activity
             android:name=".CStatsActivity"
             android:label="@string/title_activity_cparameters" >
+
+        </activity>
+        <activity
+            android:name=".CParameters"
+            android:label="@string/title_activity_cparameters" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

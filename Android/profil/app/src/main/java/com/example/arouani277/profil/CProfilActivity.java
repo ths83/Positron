@@ -2,14 +2,10 @@ package com.example.arouani277.profil;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.example.arouani277.profil.R;
 import com.pkmmte.view.CircularImageView;
 
 public class CProfilActivity extends Activity {
@@ -17,7 +13,7 @@ public class CProfilActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.stats);
 
         // Récupere et intègre l'image pour la rendre circulaire et l'intégrérer à l'activité
         CircularImageView circularImageView = (CircularImageView)findViewById(R.id.yourCircularImageView);

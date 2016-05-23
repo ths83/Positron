@@ -3,19 +3,16 @@ package com.example.arouani277.profil;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.example.arouani277.profil.R;
 
 public class CStatsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cparameters);
+        setContentView(R.layout.profil);
 
         // On configure les ronds à afficher
         TextDrawable drawable1 = TextDrawable.builder()
