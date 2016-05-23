@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univtln.groupc.activities.map.CMapsActivity;
+import fr.univtln.groupc.entities.CKeyEntity;
+import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
+import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestPost;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;

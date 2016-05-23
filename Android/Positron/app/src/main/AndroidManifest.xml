@@ -34,23 +34,21 @@
 
         <activity
             android:name="fr.univtln.groupc.activities.map.CMapsActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
-            android:label="@string/title_activity_maps" >
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait" >
         </activity>
-
         <activity
             android:name="fr.univtln.groupc.activities.map.CTacticalActivity"
             android:screenOrientation="landscape" >
         </activity>
-
         <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity" >
             <intent-filter>
                 <action android:name="ANDROID.INTENT.ACTION.MAIN" />
+
                 <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name="fr.univtln.groupc.activities.CDrawerActivity" />
         <activity
             android:name="fr.univtln.groupc.activities.portals.CHackPortalsView"
@@ -67,6 +65,10 @@
         <activity
             android:name="fr.univtln.groupc.activities.portals.CClickPortalsAcitivity"
             android:label="@string/title_activity_cclick_portals_acitivity" >
+        </activity>
+        <activity
+            android:name="fr.univtln.groupc.test.testActivity"
+            android:label="@string/title_activity_test" >
         </activity>
     </application>
 

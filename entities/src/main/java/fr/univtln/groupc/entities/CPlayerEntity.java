@@ -77,14 +77,14 @@ public class CPlayerEntity implements Serializable {
                 "mId=" + mId +
                 ", mNickName='" + mNickName + '\'' +
                 ", mEmail='" + mEmail + '\'' +
-                ", mTeam=" + mTeam +
+                //", mTeam=" + mTeam +
                 ", mXp=" + mXp +
                 ", mBagSize=" + mBagSize +
                 ", mLong=" + mLong +
                 ", mLat=" + mLat +
                 ", mEnergy=" + mEnergy +
                 ", mEnergyMax=" + mEnergyMax +
-                ", mTeam=" + mTeam +
+                //", mTeam=" + mTeam +
                 ", mSkills=" + mSkills +
                 ", mObjects=" + mObjects +
                 '}';

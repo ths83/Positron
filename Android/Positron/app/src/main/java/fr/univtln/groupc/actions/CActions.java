@@ -2,6 +2,9 @@ package fr.univtln.groupc.actions;
 
 import android.util.Log;
 
+import fr.univtln.groupc.entities.ABuildingEntity;
+import fr.univtln.groupc.entities.CConsumableEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 
@@ -21,7 +24,7 @@ public class CActions {
         return pPortal;
 
     }
-/*
+
     public ABuildingEntity attackBuilding (CConsumableEntity pAmmunition, ABuildingEntity pBuilding , CPlayerEntity pPlayer){
         int lDammage = 0;
 
@@ -40,7 +43,7 @@ public class CActions {
                         lDammage = pPlayer.getLevel() * 20 + 40;
                         break;
                 }
-            pBuilding = (ABuildingEntity) pPlayer.attack(pBuilding,lDammage);
+            //pBuilding = (ABuildingEntity) pPlayer.attack(pBuilding,lDammage);
         }
 
         else{
@@ -48,6 +51,6 @@ public class CActions {
         }
         return pBuilding;
     }
-*/
+
 
 }
