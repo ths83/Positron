@@ -15,7 +15,7 @@ public class CActions {
 
     public CPortalEntity buildResonator (CPortalEntity pPortal,CResonatorEntity pResonator) {
 
-        if (pPortal.getResonators().size() >= 8){
+        if (pPortal.getResonators().size() >= 8 && pResonator.getOwner().getLevel() >= pResonator.getLevel()){
             pPortal.addResonator(pResonator);
         }
         else{
@@ -30,7 +30,7 @@ public class CActions {
         int lDammage = 0;
 
         if(pAmmunition.getName() == "Attack"){
-            pPlayer.attack(pBuilding,pAmmunition);
+            pPlayer.attack(pBuilding, pAmmunition);
         }
 
         else{
@@ -40,4 +40,7 @@ public class CActions {
     }
 
 
+    public void piratage(CPortalEntity pPortal){
+        
+    }
 }
