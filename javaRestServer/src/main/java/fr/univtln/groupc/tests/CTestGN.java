@@ -1,10 +1,6 @@
 package fr.univtln.groupc.tests;
 
 import fr.univtln.groupc.dao.CCrudMethods;
-import fr.univtln.groupc.entities.CKeyEntity;
-import fr.univtln.groupc.entities.CPlayerEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
-import fr.univtln.groupc.entities.CTeamEntity;
 
 import java.util.ArrayList;
 import java.util.List;

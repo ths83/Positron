@@ -2,16 +2,6 @@ package fr.univtln.groupc.actions;
 
 import android.util.Log;
 
-import fr.univtln.groupc.entities.ABuildingEntity;
-import fr.univtln.groupc.entities.AObjectEntity;
-import fr.univtln.groupc.entities.CConsumableEntity;
-import fr.univtln.groupc.entities.CPlayerEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
-import fr.univtln.groupc.entities.CResonatorEntity;
-import fr.univtln.groupc.entities.IFighter;
-import fr.univtln.groupc.entities.ITarget;
-import fr.univtln.groupc.rest.CRestUpdate;
-
 /**
  * Created by xdurbec066 on 17/05/16.
  */

@@ -4,11 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.dao.CQueryParameter;
-import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
-import fr.univtln.groupc.entities.CSkillEntity;
 
-import javax.persistence.PostUpdate;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.io.IOException;

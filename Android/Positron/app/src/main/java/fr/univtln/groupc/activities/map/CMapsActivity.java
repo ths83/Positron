@@ -14,9 +14,10 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +47,6 @@ import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.entities_view.CTraceMapView;
-import fr.univtln.groupc.math.CMathFunction;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
@@ -278,12 +278,18 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
                 CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(marker.getTitle()));
+                marker.setInfoWindowAnchor((float)0.5,5);
+                Context context = getApplicationContext();
+                LinearLayout info = new LinearLayout(context);
+                ContextThemeWrapper cw = new ContextThemeWrapper(
+                        getApplicationContext(), R.style.Transparent);
+                // AlertDialog.Builder b = new AlertDialog.Builder(cw);
+                LayoutInflater inflater = (LayoutInflater) cw
+                        .getSystemService(LAYOUT_INFLATER_SERVICE);
+                View layout = inflater.inflate(R.layout.activity_attackportals,
+                        null);
+                info.addView(layout);
                 Log.d("test---->", marker.getTitle());
                 List<CResonatorEntity> lResonatorTeam1 = lPortal.getResonatorsTeamById(1);
                 List<CResonatorEntity> lResonatorTeam2 = lPortal.getResonatorsTeamById(2);
@@ -292,9 +298,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 int lNbResonatorTeam2 = lResonatorTeam2.size();
                 Log.d("test team red", Integer.toString(lNbResonatorTeam2));
                 int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
-                Context context = getApplicationContext();
-                LinearLayout info = new LinearLayout(context);
+                //LinearLayout info2 = new LinearLayout(context);
                 info.setOrientation(LinearLayout.VERTICAL);
+                //info2.setOrientation(LinearLayout.HORIZONTAL);
                 TextView snip1 = new TextView(context);
                 snip1.setTextColor(Color.BLUE);
                 snip1.setText(Integer.toString(lNbResonatorTeam1));
@@ -309,6 +315,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 info.addView(snip3);
                 displayResonators(lPortal.getResonators(), lPortal);
                 return info;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                return null;
             }
         });
 

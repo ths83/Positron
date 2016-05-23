@@ -8,12 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-import fr.univtln.groupc.entities.AObjectEntity;
-import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 /**

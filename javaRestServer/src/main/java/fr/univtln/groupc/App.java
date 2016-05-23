@@ -20,12 +20,12 @@ public class App
     public static void main( String[] args )
     {
         CCrudMethods crud = new CCrudMethods();
-        CPlayerEntity p1 = crud.find(CPlayerEntity.class,1);
+        /*CPlayerEntity p1 = crud.find(CPlayerEntity.class,1);
         CPlayerEntity p2 = crud.find(CPlayerEntity.class,2);
         CPortalEntity po1 = crud.find(CPortalEntity.class,7);
         CPortalEntity po2 = crud.find(CPortalEntity.class,8);
         CPortalEntity po3 = crud.find(CPortalEntity.class,6);
-        CPortalEntity po4 = crud.find(CPortalEntity.class,9);
+        CPortalEntity po4 = crud.find(CPortalEntity.class,9);*/
         //po1.setRadius(40);
         //crud.update(po1);
         /*CResonatorEntity r1= new CResonatorEntity.CResonatorBuilder(1).level(8).owner(p1).portal(po1).build();
@@ -54,7 +54,7 @@ public class App
         crud.create(r13);
         crud.create(r14);
         crud.create(r16);*/
-        List<CPortalEntity> pi1 = new ArrayList<CPortalEntity>();
+        /*List<CPortalEntity> pi1 = new ArrayList<CPortalEntity>();
         pi1.add(po1);
         pi1.add(po3);
         CLinkEntity l1 = new CLinkEntity.CLinkBuilder(1).portals(pi1).build();
@@ -74,6 +74,8 @@ public class App
         fi2.add(l2);
         fi2.add(l3);
         CFieldEntity f2 = new CFieldEntity.CFieldBuilder(1).links(fi2).build();
-        crud.create(f2);
+        crud.create(f2);*/
+        //CFieldEntity p1 = crud.find(CFieldEntity.class,101);
+        crud.delete(CFieldEntity.class,101);
     }
 }

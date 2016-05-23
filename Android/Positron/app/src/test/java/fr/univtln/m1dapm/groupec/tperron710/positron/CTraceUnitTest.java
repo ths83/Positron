@@ -8,9 +8,6 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.univtln.groupc.entities.CFieldEntity;
-import fr.univtln.groupc.entities.CLinkEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.entities_view.CTraceMapView;
 
 

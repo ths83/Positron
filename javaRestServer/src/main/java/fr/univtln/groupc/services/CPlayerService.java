@@ -10,7 +10,6 @@ import fr.univtln.groupc.entities.CPlayerEntity;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.net.URI;
 import java.util.List;
 
 /**

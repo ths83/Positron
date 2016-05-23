@@ -2,7 +2,6 @@ package fr.univtln.groupc.algorithm;
 
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
-import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import java.util.ArrayList;
