@@ -2,6 +2,9 @@ package fr.univtln.groupc.actions;
 
 import android.util.Log;
 
+import fr.univtln.groupc.entities.ABuildingEntity;
+import fr.univtln.groupc.entities.CConsumableEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 
@@ -21,33 +24,19 @@ public class CActions {
         return pPortal;
 
     }
-/*
-    public ABuildingEntity attackBuilding (CConsumableEntity pAmmunition, ABuildingEntity pBuilding , CPlayerEntity pPlayer){
+
+    public void attackBuilding (CConsumableEntity pAmmunition, ABuildingEntity pBuilding , CPlayerEntity pPlayer){
         int lDammage = 0;
 
         if(pAmmunition.getName() == "Attack"){
-
-                switch (pAmmunition.getRarity()){
-                    case(0):
-                        lDammage = pPlayer.getLevel() * 10 + 20;
-                        break;
-
-                    case(1):
-                        lDammage = pPlayer.getLevel() * 15 + 30;
-                        break;
-
-                    case(2):
-                        lDammage = pPlayer.getLevel() * 20 + 40;
-                        break;
-                }
-            pBuilding = (ABuildingEntity) pPlayer.attack(pBuilding,lDammage);
+            pPlayer.attack(pBuilding,lDammage);
         }
 
         else{
             Log.d("attackBuilding", "Consommable non approrié");
         }
-        return pBuilding;
+
     }
-*/
+
 
 }

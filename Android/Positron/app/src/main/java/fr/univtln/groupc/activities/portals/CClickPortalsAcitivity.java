@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import fr.univtln.groupc.actions.CActions;
+import fr.univtln.groupc.entities.ABuildingEntity;
+import fr.univtln.groupc.entities.CConsumableEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.rest.CRestUpdate;
@@ -44,11 +47,11 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-/*
+
     public void attackingBuilding(ABuildingEntity pTarget, CPlayerEntity pAttacker, CConsumableEntity pAmmunition , CPortalEntity pPortal){
 
         CActions lActions = new CActions();
-        pTarget = lActions.attackBuilding(pAmmunition,pTarget,pAttacker);
+        lActions.attackBuilding(pAmmunition,pTarget,pAttacker);
 
         if(pTarget.getEnergy() <= 0){
             // TODO Delete Building
@@ -62,7 +65,7 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
 
     }
 
-  */
+
 
 
     public void buildingResonator(CPortalEntity pPortal,CResonatorEntity pResonator){
