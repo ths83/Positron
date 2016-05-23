@@ -117,9 +117,9 @@ public class CTurretEntity extends ABuildingEntity implements Serializable, IFig
                 '}'+super.toString();
     }
 
-    public void attack(ITarget pTarget, int pDamage) {
+    public void attack(ITarget pTarget, CConsumableEntity aAmmunition) {
         if(getFighterTeam().getId() != pTarget.getTargetTeam().getId() && getPortal().getTeam().getId() != 0) {
-            pTarget.takeDamage(this,pDamage);
+            pTarget.takeDamage(this,getDamage());
         }
         else  {
             System.out.println("Cible de la même équipe");

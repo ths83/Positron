@@ -151,7 +151,7 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
 
         // Contre attaque de tout les tourelles en visant l'attaquant.
         for (CTurretEntity lTurret : lTurretList) {
-            lTurret.attack((ITarget) pFighter, lTurret.getDamage());
+            lTurret.attack((ITarget) pFighter,null);
         }
 
         // Application de la défense des shiels si le shield  et la cible sont de la même équipe.
@@ -166,18 +166,13 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
         if (pDamage > 0) {
 
             // Application des dommages
-            lEnergy = lEnergy - pDamage;
-
-            if (lEnergy > 0) {
-                mEnergy = lEnergy;
-                //TODO UPDATE building
+            if (mEnergy > pDamage) {
+                mEnergy = mEnergy - pDamage;
             } else {
                 mEnergy = 0;
-                if (this instanceof CResonatorEntity) {
+                /*if (this instanceof CResonatorEntity) {
                     getPortal().attributeTeam();
-                }
-
-                // TODO DELETE BUILDING
+                }*/
             }
 
         }

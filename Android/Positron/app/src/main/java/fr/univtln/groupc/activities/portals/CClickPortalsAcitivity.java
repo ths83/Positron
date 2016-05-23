@@ -7,9 +7,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.univtln.groupc.actions.CActions;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.CConsumableEntity;
+
+import fr.univtln.groupc.entities.CLinkEntity;
+
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
@@ -51,7 +57,7 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
     public void attackingBuilding(ABuildingEntity pTarget, CPlayerEntity pAttacker, CConsumableEntity pAmmunition , CPortalEntity pPortal){
 
         CActions lActions = new CActions();
-        pTarget = lActions.attackBuilding(pAmmunition,pTarget,pAttacker);
+        lActions.attackBuilding(pAmmunition,pTarget,pAttacker);
 
         if(pTarget.getEnergy() <= 0){
             // TODO Delete Building
@@ -79,12 +85,15 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
     }
 
     public int updatePortalTeam(CPortalEntity pPortal){
+        List<CLinkEntity> lLinkList = new ArrayList<>();
         if(pPortal.getTeam() != null){
             int lTeam = pPortal.getTeam().getId();
             pPortal.attributeTeam();
             if (lTeam != pPortal.getTeam().getId()){
                 new CRestUpdate().updatePortalRest(pPortal);
-                // TODO delete Link?
+                for(CLinkEntity lLink : lLinkList) {
+                    //TODO DELET lLink
+                }
                 return 1;
             }
         }
@@ -92,7 +101,9 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             pPortal.attributeTeam();
             if (pPortal!=null){
                 new CRestUpdate().updatePortalRest(pPortal);
-                //TODO Delete LINK?
+                for(CLinkEntity lLink : lLinkList) {
+                    //TODO DELET lLink
+                }
                 return 1;
             }
         }
