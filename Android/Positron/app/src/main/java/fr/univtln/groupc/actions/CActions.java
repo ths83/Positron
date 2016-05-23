@@ -29,7 +29,7 @@ public class CActions {
         int lDammage = 0;
 
         if(pAmmunition.getName() == "Attack"){
-            pPlayer.attack(pBuilding,lDammage);
+            pPlayer.attack(pBuilding,pAmmunition);
         }
 
         else{
