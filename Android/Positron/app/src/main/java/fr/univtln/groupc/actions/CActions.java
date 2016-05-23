@@ -2,6 +2,9 @@ package fr.univtln.groupc.actions;
 
 import android.util.Log;
 
+import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.CResonatorEntity;
+
 /**
  * Created by xdurbec066 on 17/05/16.
  */

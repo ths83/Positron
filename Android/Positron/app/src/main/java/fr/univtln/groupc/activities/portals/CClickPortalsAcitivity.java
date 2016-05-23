@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import fr.univtln.groupc.actions.CActions;
+import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
