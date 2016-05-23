@@ -1,13 +1,13 @@
 package fr.univtln.groupc.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
+import sun.rmi.runtime.Log;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by arouani277 on 25/04/16.
@@ -20,7 +20,7 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ABuildingEntity.class)
 
-public abstract class ABuildingEntity extends AObjectEntity implements Serializable {
+public abstract class ABuildingEntity extends AObjectEntity implements Serializable ,ITarget {
     /*
     @Column(name = "long")
     private double mLong;
@@ -136,4 +136,64 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
     public void setEnergy(int pEnergy) {
         mEnergy = pEnergy;
     }
+
+
+
+
+
+
+    public void takeDamage(IFighter pFighter, int pDamage) {
+        int lEnergy = mEnergy;
+        int lDefense = getLevel() * 2;
+        // Récupération de toutes les tourelles et des shields.
+        List<CShieldEntity> lShieldList = getPortal().getShields();
+        List<CTurretEntity> lTurretList = getPortal().getTurrets();
+
+        // Contre attaque de tout les tourelles en visant l'attaquant.
+        for (CTurretEntity lTurret : lTurretList) {
+            lTurret.attack((ITarget) pFighter, lTurret.getDamage());
+        }
+
+        // Application de la défense des shiels si le shield  et la cible sont de la même équipe.
+        for (CShieldEntity lShield : lShieldList) {
+            if(lShield.getPortal().getTeam() == getTargetTeam()) {
+                lDefense = lDefense + lShield.getmDefensBonus();
+            }
+        }
+
+        // Vérification dommages.
+        pDamage = pDamage - lDefense;
+        if (pDamage > 0) {
+
+            // Application des dommages
+            lEnergy = lEnergy - pDamage;
+
+            if (lEnergy > 0) {
+                mEnergy = lEnergy;
+                //TODO UPDATE building
+            } else {
+                mEnergy = 0;
+                if (this instanceof CResonatorEntity) {
+                    getPortal().attributeTeam();
+                }
+
+                // TODO DELETE BUILDING
+            }
+
+        }
+        else{
+            System.out.println("Dommage  null");
+        }
+    }
+
+    @JsonIgnore
+    public CTeamEntity getTargetTeam() {
+        if (this instanceof CResonatorEntity) {
+            CResonatorEntity lResonateur = (CResonatorEntity) this;
+            return lResonateur.getOwner().getTeam();
+        } else {
+            return getPortal().getTeam();
+        }
+    }
+
 }
