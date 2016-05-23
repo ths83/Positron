@@ -323,21 +323,17 @@ public class CPlayerEntity implements Serializable {
 
         }
         else if(3200 <= lXp && lXp < 4500){
-
             lLevel = 5;
             }
         else if(45000 <= lXp && lXp < 6000){
             lLevel = 6;
-
         }
         else if(6000 <= lXp && lXp < 7700){
             lLevel = 7;
         }
-
         else if(lXp >= 7700){
             lLevel = 8;
         }
-
         return lLevel;
     }
 }
