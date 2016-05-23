@@ -337,4 +337,16 @@ public class CPortalEntity implements Serializable {
     public void  clearLinks(){
         mLinks.clear();
     }
+
+    @JsonIgnore
+    public int getLevel(){
+    int lLevel =0;
+        for(CResonatorEntity lResonator : getResonators()){
+           if(lResonator.getPortal().getTeam() == lResonator.getOwner().getTeam()){
+               lLevel=lLevel+lResonator.getLevel();
+           }
+       }
+     lLevel =  lLevel/8;
+    return lLevel;
+    }
 }
