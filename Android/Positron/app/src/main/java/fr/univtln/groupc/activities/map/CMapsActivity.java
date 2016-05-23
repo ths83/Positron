@@ -47,6 +47,7 @@ import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.entities_view.CTraceMapView;
+import fr.univtln.groupc.rest.CRestDelete;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
@@ -166,7 +167,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }*/
             //Log.d("test", p.getResonators().toString());
             //Log.d("test", p.getResonators().toString());
-            p.attributeTeam();
+//            p.attributeTeam();
             if (p.getId() == 7){
                 Log.d("test", "!!!!!!!!!!! PORTAIL QUI DOIT ETRE CHANGE !!!!!!!!!");
             }
@@ -595,6 +596,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
 
     }
+
+    //just a test
+
+    public void onClickTest(View pView){
+        new CRestDelete().deleteLinkRest(2);
+
+    }
+
 
 
 }

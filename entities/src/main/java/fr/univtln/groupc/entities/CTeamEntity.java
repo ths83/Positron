@@ -125,7 +125,7 @@ public class CTeamEntity implements Serializable {
     public String toString() {
         return "CTeamEntity{" +
                 "mId=" + mId +
-                ", mPlayers=" + mPlayers +
+                //", mPlayers=" + mPlayers +
                 ", mColor='" + mColor + '\'' +
                 '}';
     }

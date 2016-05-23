@@ -13,7 +13,9 @@ import java.util.List;
 import fr.univtln.groupc.actions.CActions;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.CConsumableEntity;
+
 import fr.univtln.groupc.entities.CLinkEntity;
+
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;

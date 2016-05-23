@@ -25,6 +25,7 @@ public class CActions {
 
     }
 
+
     public void attackBuilding (CConsumableEntity pAmmunition, ABuildingEntity pBuilding , CPlayerEntity pPlayer){
         int lDammage = 0;
 

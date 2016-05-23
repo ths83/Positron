@@ -77,12 +77,14 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
                 "mId=" + mId +
                 ", mNickName='" + mNickName + '\'' +
                 ", mEmail='" + mEmail + '\'' +
+                //", mTeam=" + mTeam +
                 ", mXp=" + mXp +
                 ", mBagSize=" + mBagSize +
                 ", mLong=" + mLong +
                 ", mLat=" + mLat +
                 ", mEnergy=" + mEnergy +
                 ", mEnergyMax=" + mEnergyMax +
+                //", mTeam=" + mTeam +
                 ", mSkills=" + mSkills +
                 ", mObjects=" + mObjects +
                 '}';

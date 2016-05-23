@@ -25,6 +25,11 @@ public class CRestServicesTest extends TestCase {
     String mJson;
     // Tests CRUD TeamService
 
+    public void testDeleteLinkService() throws Exception {
+        ClientResponse lClientResponse = mWebResource.path("/links/1").type("application/json").accept("application/json").delete(ClientResponse.class);
+        assertEquals(lClientResponse.getStatus(), 200);
+    }
+
     public void testPostTeamService() throws Exception {
         CTeamEntity lTeamToPost = new CTeamEntity.CTeamBuilder(150).color("vert").build();
         mJson = mMapper.writeValueAsString(lTeamToPost);
