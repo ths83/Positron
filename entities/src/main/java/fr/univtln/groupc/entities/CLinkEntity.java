@@ -54,6 +54,27 @@ public class CLinkEntity implements Serializable {
                 +'}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CLinkEntity that = (CLinkEntity) o;
+
+        if (mId != that.mId) return false;
+        if (mField != null ? !mField.equals(that.mField) : that.mField != null) return false;
+        return !(mPortals != null ? !mPortals.equals(that.mPortals) : that.mPortals != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = mId;
+        result = 31 * result + (mField != null ? mField.hashCode() : 0);
+        result = 31 * result + (mPortals != null ? mPortals.hashCode() : 0);
+        return result;
+    }
+
     public static class CLinkBuilder{
         private int mId;
         private List<CPortalEntity> mPortals = new ArrayList<CPortalEntity>();
