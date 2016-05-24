@@ -17,8 +17,10 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
-        @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
+        @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity"),
+@JsonSubTypes.Type(value = CShieldEntity.class, name = "CShieldEntity")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ABuildingEntity.class)
+@JsonIdentityReference(alwaysAsId = true)
 
 public abstract class ABuildingEntity extends AObjectEntity implements Serializable ,ITarget {
     /*

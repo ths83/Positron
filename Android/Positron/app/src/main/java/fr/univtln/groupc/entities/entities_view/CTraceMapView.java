@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import fr.univtln.groupc.activities.map.CMapsActivity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
@@ -67,10 +66,10 @@ public class CTraceMapView {
                     .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
                     .width(LINE_WIDTH)
                     .color(mColor)); // neutral color*/
-            CMapsActivity.mMapPolylines.put(pLink.getId(), pMap.addPolyline(new PolylineOptions()
+            /*CMapsActivity.mMapPolylines.put(pLink.getId(), pMap.addPolyline(new PolylineOptions()
                     .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
                     .width(LINE_WIDTH)
-                    .color(mColor)));
+                    .color(mColor)));*/
 
             mLinkLine.setVisible(false);
 

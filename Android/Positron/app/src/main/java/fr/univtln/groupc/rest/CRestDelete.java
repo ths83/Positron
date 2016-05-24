@@ -3,7 +3,10 @@ package fr.univtln.groupc.rest;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.InputStream;
 import java.util.concurrent.ExecutionException;
@@ -36,6 +39,8 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
         HttpDelete lHttpDelete;
         try {
             lHttpDelete = new HttpDelete(lUrlString);
+            HttpClient lHttpClient = new DefaultHttpClient();
+            HttpResponse lHttpResponse = lHttpClient.execute(lHttpDelete);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -49,7 +54,7 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
      */
     public void deleteLinkRest(int pId){
         String lUrlString = API_URL + "/links/" + Integer.toString(pId);
-        Log.d("test", "delete ->-> " + lUrlString);
+        Log.d("test2", "delete ->-> " + lUrlString);
         try {
             new CRestDelete().execute(lUrlString).get();
         } catch (InterruptedException e) {

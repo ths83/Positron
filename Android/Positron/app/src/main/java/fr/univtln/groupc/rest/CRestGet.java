@@ -90,7 +90,6 @@ public class CRestGet extends AsyncTask<String,String,String> {
             lPortalsJson = new CRestGet().execute(lUrlString).get();
             //Log.d("test", "deserialisation !\n" + lPortalsJson);
 
-            //Log.d("test", " -> " + lPortalsJson);
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
             for (CPortalEntity lPortalTest : lPortals){
                 for (CResonatorEntity lResonatorTest : lPortalTest.getResonators()){
@@ -118,7 +117,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
             e.printStackTrace();
         }
         //System.out.println("hello" + lPortals);
-        Log.d("test", lPortals.toString());
+        Log.d("test2", " tous les portails ->\n " + lPortals);
         return lPortals;
     }
 
