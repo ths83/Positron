@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.univtln.groupc.entities.entities_view.CTraceMapView;
+import fr.univtln.groupc.activities.map.CTraceMapView;
 
 
 /**
