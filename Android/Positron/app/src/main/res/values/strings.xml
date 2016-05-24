@@ -16,4 +16,5 @@
     <string name="title_activity_cprofil">CProfilActivity</string>
     <string name="title_activity_csettings_acitvity">CSettingsAcitvity</string>
     <string name="title_activity_cstats">CStatsActivity</string>
+    <string name="title_activity_test">testActivity</string>
 </resources>

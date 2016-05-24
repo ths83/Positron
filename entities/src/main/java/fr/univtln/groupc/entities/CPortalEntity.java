@@ -223,7 +223,7 @@ public class CPortalEntity implements Serializable {
         }
     }
 
-    public void attributeTeam() {
+    public List<CLinkEntity> attributeTeam() {
 
         List<CResonatorEntity> lResonators1 = new ArrayList<CResonatorEntity>();
         List<CResonatorEntity> lResonators2 = new ArrayList<CResonatorEntity>();
@@ -255,7 +255,7 @@ public class CPortalEntity implements Serializable {
             if (mTeam == null) {
                 mTeam = lResonators1.get(0).getOwner().getTeam();
                 //new CRestUpdate().updatePortalRest(this);
-                //TODO  Delete Link
+               return getLinks();
             } else {
                 if (getTeam().getId() != 1) {
                     mTeam = lResonators1.get(0).getOwner().getTeam();
@@ -268,7 +268,7 @@ public class CPortalEntity implements Serializable {
                 if (mTeam == null) {
                     mTeam=lResonators2.get(0).getOwner().getTeam();
                     //new CRestUpdate().updatePortalRest(this);
-                    //TODO  Delete Link
+                   return getLinks();
 
                 }
                 else {
@@ -281,11 +281,11 @@ public class CPortalEntity implements Serializable {
             else{
                 if(getTeam() != null){
                     setTeam(null);
-                    //TODO  Delete Link
+                    return getLinks();
                 }
             }
         }
-
+        return null;
     }
 
     @JsonIgnore
@@ -334,4 +334,19 @@ public class CPortalEntity implements Serializable {
         return lTurrets;
     }
 
+    public void  clearLinks(){
+        mLinks.clear();
+    }
+
+    @JsonIgnore
+    public int getLevel(){
+    int lLevel =0;
+        for(CResonatorEntity lResonator : getResonators()){
+           if(lResonator.getPortal().getTeam() == lResonator.getOwner().getTeam()){
+               lLevel=lLevel+lResonator.getLevel();
+           }
+       }
+     lLevel =  lLevel/8;
+    return lLevel;
+    }
 }
