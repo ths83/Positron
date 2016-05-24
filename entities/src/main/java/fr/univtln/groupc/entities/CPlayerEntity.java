@@ -191,6 +191,31 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     public void addObjects(AObjectEntity o) {
         mObjects.add(o);
     }
+
+    public void attack(ITarget pTarget,CConsumableEntity pAmmunition) {
+        if(getFighterTeam().getId() != pTarget.getTargetTeam().getId()) {
+            int lDammage=0;
+            switch (pAmmunition.getRarity()){
+                case(0):
+                    lDammage = getLevel() * 10 + 20;
+                    break;
+
+                case(1):
+                    lDammage = getLevel() * 15 + 30;
+                    break;
+
+                case(2):
+                    lDammage = getLevel() * 20 + 40;
+                    break;
+            }
+            pTarget.takeDamage(this,lDammage);
+            removeObject(((AObjectEntity) pAmmunition));
+
+        }
+        else  {
+            System.out.println("Cible de la même équipe");
+        }
+    }
 /*
     @JsonIgnore
     public List<AObjectEntity> getKeys(){
@@ -355,30 +380,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return getTeam();
     }
 
-    public void attack(ITarget pTarget,CConsumableEntity pAmmunition) {
-        if(getFighterTeam().getId() != pTarget.getTargetTeam().getId()) {
-            int lDammage=0;
-            switch (pAmmunition.getRarity()){
-                case(0):
-                    lDammage = getLevel() * 10 + 20;
-                    break;
 
-                case(1):
-                    lDammage = getLevel() * 15 + 30;
-                    break;
-
-                case(2):
-                    lDammage = getLevel() * 20 + 40;
-                    break;
-            }
-            pTarget.takeDamage(this,lDammage);
-            removeObject(((AObjectEntity) pAmmunition));
-
-        }
-        else  {
-            System.out.println("Cible de la même équipe");
-        }
-    }
 
     public void removeObject (AObjectEntity pObject){
         mObjects.remove(pObject);

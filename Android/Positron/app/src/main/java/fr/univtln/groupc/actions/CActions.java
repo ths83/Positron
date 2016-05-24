@@ -24,6 +24,7 @@ public class CActions {
             pPortal.addResonator(pResonator);
         } else {
             Log.d("BuildResonator", "Plus de place sur le portail / Portal Overload");
+            Log.d("BuildResonator", "Plus de place sur le portail / Portal Overload");
         }
         return pPortal;
 
