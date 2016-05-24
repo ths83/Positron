@@ -24,6 +24,8 @@ import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import test.grpc.m1dapm.univtln.fr.test_projet.Entities.CPortal;
 import test.grpc.m1dapm.univtln.fr.test_projet.R;
@@ -71,6 +73,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12f));
+
+        Polyline mLinkLine = mMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(42, 13), new LatLng(42, 14))
+                .width(20)
+                .color(Color.BLACK)); // neutral color
+
+        mLinkLine.remove();
 
         // Location Service
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

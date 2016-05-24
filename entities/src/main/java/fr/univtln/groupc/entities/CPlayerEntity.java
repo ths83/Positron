@@ -14,9 +14,9 @@ import java.util.List;
 @Table(name = "t_player", schema = "positron")
 @NamedQueries({@NamedQuery(name = CPlayerEntity.GET_ALL, query = "select p from CPlayerEntity p"),
         @NamedQuery(name = CPlayerEntity.GET_BY_NAME, query = "select p from CPlayerEntity p where p.mNickName = :mNickName")})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CPlayerEntity.class)
 
-public class CPlayerEntity implements Serializable {
+public class CPlayerEntity implements Serializable, ITarget, IFighter {
     @Id
     @Column(name = "id")
     private int mId;
@@ -77,14 +77,14 @@ public class CPlayerEntity implements Serializable {
                 "mId=" + mId +
                 ", mNickName='" + mNickName + '\'' +
                 ", mEmail='" + mEmail + '\'' +
-                ", mTeam=" + mTeam +
+                //", mTeam=" + mTeam +
                 ", mXp=" + mXp +
                 ", mBagSize=" + mBagSize +
                 ", mLong=" + mLong +
                 ", mLat=" + mLat +
                 ", mEnergy=" + mEnergy +
                 ", mEnergyMax=" + mEnergyMax +
-                ", mTeam=" + mTeam +
+                //", mTeam=" + mTeam +
                 ", mSkills=" + mSkills +
                 ", mObjects=" + mObjects +
                 '}';
@@ -190,6 +190,31 @@ public class CPlayerEntity implements Serializable {
 
     public void addObjects(AObjectEntity o) {
         mObjects.add(o);
+    }
+
+    public void attack(ITarget pTarget,CConsumableEntity pAmmunition) {
+        if(getFighterTeam().getId() != pTarget.getTargetTeam().getId()) {
+            int lDammage=0;
+            switch (pAmmunition.getRarity()){
+                case(0):
+                    lDammage = getLevel() * 10 + 20;
+                    break;
+
+                case(1):
+                    lDammage = getLevel() * 15 + 30;
+                    break;
+
+                case(2):
+                    lDammage = getLevel() * 20 + 40;
+                    break;
+            }
+            pTarget.takeDamage(this,lDammage);
+            removeObject(((AObjectEntity) pAmmunition));
+
+        }
+        else  {
+            System.out.println("Cible de la même équipe");
+        }
     }
 /*
     @JsonIgnore
@@ -338,4 +363,43 @@ public class CPlayerEntity implements Serializable {
     }
 
 
+    public void takeDamage(IFighter pFighter, int pDamage) {
+        int lDamages = pDamage - getLevel()*2;
+        if(lDamages >0) {
+            loseEnergy(pDamage);
+        }
+    }
+
+    @JsonIgnore
+    public CTeamEntity getTargetTeam() {
+        return getTeam();
+    }
+
+    @JsonIgnore
+    public CTeamEntity getFighterTeam() {
+        return getTeam();
+    }
+
+
+
+    public void removeObject (AObjectEntity pObject){
+        mObjects.remove(pObject);
+    }
+
+    public void loseEnergy(int pEnergyLose){
+        if(pEnergyLose < mEnergy) {
+            mEnergy = mEnergy - pEnergyLose;
+        }
+        else {
+            mEnergy =0;
+        }
+    }
+    public void gainEnergy(int pEnergyGain){
+        if(pEnergyGain + mEnergy < mEnergyMax){
+            mEnergy = mEnergy + pEnergyGain;
+        }
+        else{
+            mEnergy = mEnergyMax;
+        }
+    }
 }

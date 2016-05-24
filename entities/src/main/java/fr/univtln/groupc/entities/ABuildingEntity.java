@@ -1,13 +1,13 @@
 package fr.univtln.groupc.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
+import sun.rmi.runtime.Log;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by arouani277 on 25/04/16.
@@ -17,10 +17,12 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
-        @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity")})
+        @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity"),
+@JsonSubTypes.Type(value = CShieldEntity.class, name = "CShieldEntity")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ABuildingEntity.class)
+@JsonIdentityReference(alwaysAsId = true)
 
-public abstract class ABuildingEntity extends AObjectEntity implements Serializable {
+public abstract class ABuildingEntity extends AObjectEntity implements Serializable ,ITarget {
     /*
     @Column(name = "long")
     private double mLong;
@@ -135,5 +137,68 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
 
     public void setEnergy(int pEnergy) {
         mEnergy = pEnergy;
+    }
+
+
+
+
+
+
+    public void takeDamage(IFighter pFighter, int pDamage) {
+        int lEnergy = mEnergy;
+        int lDefense = getLevel() * 2;
+        // Récupération de toutes les tourelles et des shields.
+        List<CShieldEntity> lShieldList = getPortal().getShields();
+        List<CTurretEntity> lTurretList = getPortal().getTurrets();
+
+        // Contre attaque de tout les tourelles en visant l'attaquant.
+        for (CTurretEntity lTurret : lTurretList) {
+            lTurret.attack((ITarget) pFighter,null);
+        }
+
+        // Application de la défense des shiels si le shield  et la cible sont de la même équipe.
+        for (CShieldEntity lShield : lShieldList) {
+            if(lShield.getPortal().getTeam() == getTargetTeam()) {
+                lDefense = lDefense + lShield.getmDefensBonus();
+            }
+        }
+
+        // Vérification dommages.
+        pDamage = pDamage - lDefense;
+        if (pDamage > 0) {
+            loseEnergy(pDamage);
+        }
+        else{
+            System.out.println("Dommage  null");
+        }
+    }
+
+    @JsonIgnore
+    public CTeamEntity getTargetTeam() {
+        if (this instanceof CResonatorEntity) {
+            CResonatorEntity lResonateur = (CResonatorEntity) this;
+            return lResonateur.getOwner().getTeam();
+        } else {
+            return getPortal().getTeam();
+        }
+    }
+
+    public void loseEnergy(int pEnergyLose){
+        if(pEnergyLose<mEnergy){
+            mEnergy = mEnergy - pEnergyLose;
+        }
+        else{
+            mEnergy = 0;
+        }
+
+    }
+    public void gainEnergy(int pEnergyGain) {
+
+        if (pEnergyGain + mEnergy < mEnergyMax) {
+            mEnergy = mEnergy + pEnergyGain;
+        } else {
+            mEnergy = mEnergyMax;
+
+        }
     }
 }

@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import fr.univtln.groupc.entities.CKeyEntity;
+import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
@@ -34,7 +35,7 @@ import fr.univtln.groupc.entities.CResonatorEntity;
 public class CRestGet extends AsyncTask<String,String,String> {
 
     //public final static String API_URL = "http://10.9.185.57:9998";
-    //public final static String API_URL = "http://10.9.185.52:9998";
+    public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://10.9.185.55:9998";
     //public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://10.21.174.206:9998";
@@ -43,7 +44,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
     // wifi
     //public final static String API_URL = "http://192.168.43.44:9998";
     //public final static String API_URL = "http://192.168.1.71:9998";
-    public final static String API_URL = "http://127.0.0.1:9998";
+    //public final static String API_URL = "http://127.0.0.1:9998";
     @Override
     protected String doInBackground(String... params) {
         String lUrlString = params[0]; // URL to call
@@ -89,7 +90,6 @@ public class CRestGet extends AsyncTask<String,String,String> {
             lPortalsJson = new CRestGet().execute(lUrlString).get();
             //Log.d("test", "deserialisation !\n" + lPortalsJson);
 
-            //Log.d("test", " -> " + lPortalsJson);
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
             for (CPortalEntity lPortalTest : lPortals){
                 for (CResonatorEntity lResonatorTest : lPortalTest.getResonators()){
@@ -117,7 +117,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
             e.printStackTrace();
         }
         //System.out.println("hello" + lPortals);
-        Log.d("test", lPortals.toString());
+        Log.d("test2", " tous les portails ->\n " + lPortals);
         return lPortals;
     }
 
@@ -324,6 +324,28 @@ public class CRestGet extends AsyncTask<String,String,String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+    }
+
+    public CLinkEntity getLinkByID(int pId){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = API_URL + "/links/"+Integer.toString(pId);
+        String lLinkJson = null;
+        CLinkEntity lLink = null;
+        try {
+            lLinkJson = new CRestGet().execute(lUrlString).get();
+            System.out.println(" -> la dedans ?");
+            lLink = lMapper.readValue(lLinkJson, CLinkEntity.class);
+            System.out.println("-> !");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lLink;
     }
 
 }

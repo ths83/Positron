@@ -1,6 +1,10 @@
 package fr.univtln.groupc.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -13,8 +17,10 @@ import java.io.Serializable;
 @Table(name = "t_turret", schema = "positron")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries(@NamedQuery(name = CTurretEntity.GET_ALL, query = "select p from CTurretEntity p"))
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CTurretEntity.class)
+
 //@JsonDeserialize(as = CTurretEntity.class)
-public class CTurretEntity extends ABuildingEntity implements Serializable {
+public class CTurretEntity extends ABuildingEntity implements Serializable, IFighter {
     @Column(name = "damage")
     private int mDamage;
     public final static String GET_ALL = "Turret.getAll";
@@ -113,5 +119,19 @@ public class CTurretEntity extends ABuildingEntity implements Serializable {
         return "CTurretEntity{" +
                 "mDamage=" + mDamage +
                 '}'+super.toString();
+    }
+
+    public void attack(ITarget pTarget, CConsumableEntity aAmmunition) {
+        if(getFighterTeam().getId() != pTarget.getTargetTeam().getId() && getPortal().getTeam().getId() != 0) {
+            pTarget.takeDamage(this,getDamage());
+        }
+        else  {
+            System.out.println("Cible de la même équipe");
+        }
+    }
+
+    @JsonIgnore
+    public CTeamEntity getFighterTeam() {
+        return getPortal().getTeam();
     }
 }

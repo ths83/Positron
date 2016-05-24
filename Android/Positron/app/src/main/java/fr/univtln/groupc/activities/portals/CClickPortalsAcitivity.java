@@ -7,7 +7,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.univtln.groupc.actions.CActions;
+import fr.univtln.groupc.entities.ABuildingEntity;
+import fr.univtln.groupc.entities.CConsumableEntity;
+
+import fr.univtln.groupc.entities.CLinkEntity;
+
+import fr.univtln.groupc.entities.CPlayerEntity;
+import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -42,11 +53,11 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-/*
+
     public void attackingBuilding(ABuildingEntity pTarget, CPlayerEntity pAttacker, CConsumableEntity pAmmunition , CPortalEntity pPortal){
 
         CActions lActions = new CActions();
-        pTarget = lActions.attackBuilding(pAmmunition,pTarget,pAttacker);
+        lActions.attackBuilding(pAmmunition,pTarget,pAttacker);
 
         if(pTarget.getEnergy() <= 0){
             // TODO Delete Building
@@ -60,7 +71,7 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
 
     }
 
-  */
+
 
 
     public void buildingResonator(CPortalEntity pPortal,CResonatorEntity pResonator){
@@ -74,12 +85,15 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
     }
 
     public int updatePortalTeam(CPortalEntity pPortal){
+        List<CLinkEntity> lLinkList = new ArrayList<>();
         if(pPortal.getTeam() != null){
             int lTeam = pPortal.getTeam().getId();
             pPortal.attributeTeam();
             if (lTeam != pPortal.getTeam().getId()){
                 new CRestUpdate().updatePortalRest(pPortal);
-                // TODO delete Link?
+                for(CLinkEntity lLink : lLinkList) {
+                    //TODO DELET lLink
+                }
                 return 1;
             }
         }
@@ -87,7 +101,9 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             pPortal.attributeTeam();
             if (pPortal!=null){
                 new CRestUpdate().updatePortalRest(pPortal);
-                //TODO Delete LINK?
+                for(CLinkEntity lLink : lLinkList) {
+                    //TODO DELET lLink
+                }
                 return 1;
             }
         }
@@ -97,5 +113,33 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
     public void maintenir(View view){
         mIntent = new Intent(this, CPutPortalsView.class);
         startActivity(mIntent);
+    }
+
+    public void hacking(CPlayerEntity pPlayer, CPlayerEntity pPortal){
+        int li =0;
+        CActions lAction = new CActions();
+
+        // TODO XP ++
+        if(pPortal.getTeam() == null){
+            for(li=0;li<5;li++){
+                pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(),lAction.calculLevel(pPortal.getLevel(), pPlayer.getLevel()),lAction.calculRarety(pPortal.getLevel())));
+            }
+        }
+        else{
+            if(pPortal.getTeam() == pPlayer.getTeam()){
+                for(li=0;li<10;li++){
+                    pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(),lAction.calculLevel(pPortal.getLevel(),pPlayer.getLevel()),lAction.calculRarety(pPortal.getLevel())));
+
+                }
+            }
+            else {
+                //TODO XP ++
+                for(li=0;li<5;li++){
+                    pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(),lAction.calculLevel(pPortal.getLevel(),pPlayer.getLevel()),lAction.calculRarety(pPortal.getLevel())));
+
+                }
+            }
+        }
+
     }
 }

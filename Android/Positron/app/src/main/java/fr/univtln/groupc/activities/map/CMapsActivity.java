@@ -33,20 +33,25 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.ui.IconGenerator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
-import fr.univtln.groupc.entities.entities_view.CTraceMapView;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
@@ -57,6 +62,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
     public final static int GPS_PLAYER_RADIUS = 50;
     public final static float MAX_ZOOM_MAP = 17f;
+    private static final int NB_PORTALS_LINK = 2 ;
+    private static final float LINE_WIDTH = 5f ;
+    private static final int NB_PORTALS_FIELD = 3 ;
 
 
     private List<Marker> mResonatorMarkers = new ArrayList<>();
@@ -84,7 +92,13 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private String mLinkObjectString;
     private String mFieldString;
 
+    private List<Polyline> mListPolyline = new ArrayList<>();
+    private Map<Integer, Polyline> mMapPolylinesWithInteger = new HashMap<>();
+    private Map<Integer, Polygon> mMapPolygonsWithInteger = new HashMap<>();
+    private Map<CLinkEntity, Polyline> mMapPolylines = new HashMap<>();
+    private Map<CFieldEntity, Polygon> mMapPolygons = new HashMap<>();
     private CPlayerEntity mPlayer;
+    private final List<CPortalEntity> mPortals = new CRestGet().getPortalsRest();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +106,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         // TODO singleton for player
-        mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
-        Log.d("test", "player null ? " + mPlayer);
+        //mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
+        //Log.d("test", "player null ? " + mPlayer);
 
         // Google Map fragment
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -146,17 +160,17 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap = mapFragment.getMap();
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
-        mMap.getUiSettings().setZoomGesturesEnabled(false);
+        mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setRotateGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
-        mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+        //mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
+        //mMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
 
         // Portals from database with REST
-        final List<CPortalEntity> lPortals = new CRestGet().getPortalsRest();
-        for (CPortalEntity p : lPortals) {
+
+        for (CPortalEntity p : mPortals) {
             //Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
             //List<CResonatorEntity> lReso1 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),1);
             //List<CResonatorEntity> lReso2 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),2);
@@ -166,7 +180,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }*/
             //Log.d("test", p.getResonators().toString());
             //Log.d("test", p.getResonators().toString());
-            p.attributeTeam();
+//            p.attributeTeam();
             if (p.getId() == 7){
                 Log.d("test", "!!!!!!!!!!! PORTAIL QUI DOIT ETRE CHANGE !!!!!!!!!");
             }
@@ -223,39 +237,13 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
 
         // Display links on start session
-        int i = 0;
-        for (CPortalEntity lP : lPortals) {
-            for (i = 0; i < lP.getLinks().size(); i++) {
-                new CTraceMapView().onDisplayLink(mMap, lP.getLinks().get(i));
+        displayAllLinks();
+        displayAllFields();
 
-            }
-        }
-        Log.d("map", String.valueOf(i));
-        // Display fields on start session
-        i = 0;
-        for (CPortalEntity lP : lPortals) {
-            for (i = 0; i < lP.getLinks().size(); i++) {
-                if (lP.getLinks().get(i).getField() != null)
-                    new CTraceMapView().onDisplayField(mMap, lP.getLinks().get(i).getField());
-            }
-        }
-        Log.d("map", String.valueOf(i));
         // Location Service
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
 
-
-
-        /*// Portal created with user click
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                mbitmapDescriptor = BitmapDescriptorFactory.
-                        defaultMarker(BitmapDescriptorFactory.HUE_RED);
-                //mPortalMarker = new CPortalEntity(mMap, mLatLng, mbitmapDescriptor);
-                mTmpLink.add(latLng);
-            }
-        });*/
 
         // portal created with user click
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -395,7 +383,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         });*/
 
                 // New tests with objects
-                /*for (CPortalEntity lPortal : lPortals){
+                /*for (CPortalEntity lPortal : mPortals){
                     Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
                     mMarkerUserSelected = new LatLng(lPortal.getLat(),lPortal.getLong());
                     if (mMarkerUserSelected.equals(marker.getPosition())){
@@ -526,38 +514,16 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
 
-    /**
-     * some links tests between portals
+    /*
+     * Affiche les icones de tous les resonateurs
+     * d'un portail lors d'un clic sur l'icone de
+     * ce dernier.
      *
-     * @param view
-     */
-    public void onLink(View view) {
-        Object[] objects = mTmpLink.toArray();
-        LatLng[] latLng1 = new LatLng[objects.length];
-
-        for (int i = 0; i < objects.length; i++) {
-            latLng1[i] = (LatLng) objects[i];
-        }
-        PolygonOptions polygonOptions = new PolygonOptions().add(latLng1).fillColor(Color.RED);
-        mMap.addPolygon(polygonOptions);
-    }
-
-    /**
-     * Portals actions for players
-     */
-    public void onPortalClick(View pView) {
-        Intent lActionIntentPortal = new Intent(this, CClickPortalsAcitivity.class);
-        startActivity(lActionIntentPortal);
-    }
-
-    /**
-     * getter for map
+     * ------
      *
-     * @return
+     * Displays all the icons of all the resonators
+     * from a portail given when being clicked.
      */
-    public GoogleMap getmMap() {
-        return mMap;
-    }
 
     public void displayResonators(List<CResonatorEntity> pResonators, CPortalEntity pPortal) {
         double lLat = pPortal.getLat();
@@ -565,16 +531,17 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         //mMarkerUserSelected = new LatLng(lLat, lLong);
         //mCircleMarker = mMap.addCircle(new CircleOptions().center(mMarkerUserSelected).radius(pPortal.getRadius()).strokeColor(Color.BLACK));
         double lIdent = -0.0007;
+        LatLng lLatLng;
         for (CResonatorEntity lResonator : pResonators) {
-            LatLng test = new LatLng(lLat - 0.0004, lLong + lIdent);
+            lLatLng = new LatLng(lLat - 0.0004, lLong + lIdent);
             if (lResonator.getOwner().getTeam().getId() == 1) {
 
                 mResonatorMarkers.add(mMap.addMarker(new MarkerOptions()
-                        .position(test).title(Integer.toString(lResonator.getId()))
+                        .position(lLatLng).title(Integer.toString(lResonator.getId()))
                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.resblue))));
             } else {
                 mResonatorMarkers.add(mMap.addMarker(new MarkerOptions()
-                        .position(test).title(Integer.toString(lResonator.getId()))
+                        .position(lLatLng).title(Integer.toString(lResonator.getId()))
                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.resred))));
 
             }
@@ -582,18 +549,218 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
         int i = pResonators.size();
         while (i < 8) {
-            LatLng test = new LatLng(lLat - 0.0004, lLong + lIdent);
-            /*
-            mMap.addMarker(new MarkerOptions()
-                    .position(test).title(Integer.toString(i))
-                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.emptyplaceresonator)));*/
+            lLatLng = new LatLng(lLat - 0.0004, lLong + lIdent);
             mResonatorMarkers.add(mMap.addMarker(new MarkerOptions()
-                    .position(test).title(Integer.toString(i))
+                    .position(lLatLng).title(Integer.toString(i))
                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.emptyplaceresonator))));
             lIdent = lIdent + 0.0002;
             i = i + 1;
         }
 
+    }
+
+    //just a test
+    public void onClickTest(View pView){
+        Log.d("test2", "etat de la hashmap :\n" + mMapPolylines);
+        CLinkEntity lLink = new CRestGet().getLinkByID(3);
+        deleteLinkInGoogleMapAndHashMap(lLink);
+        //new CRestDelete().deleteLinkRest(3);
+
+
+    }
+
+
+    /*
+     * Supprime un lien donné (via son id) a la fois
+     * de la hashmap, de la map google et de la
+     * base de donnees.
+     *
+     * -----
+     *
+     * Deletes a given link from the
+     * hashmap, googlemap and database
+     */
+
+    public void deleteLinkInGoogleMapAndHashMap(CLinkEntity pLink){
+        Log.d("test2", "hashmap => " + mMapPolylinesWithInteger);
+        //Polyline lPolylineToRemove =  mMapPolylines.get(pLink);
+        Polyline lPolylineToRemove =  mMapPolylinesWithInteger.get(pLink.getId());
+        Log.d("test2", "\n\n\n SALUT LE POLYLINE  : " + lPolylineToRemove);
+        lPolylineToRemove.remove();
+        //mMapPolylines.remove(pLink);
+        mMapPolylinesWithInteger.remove(pLink.getId());
+        if (pLink.getField() != null){
+            deleteFieldInGoogleMapAndHashMap(pLink.getField());
+        }
+        //new CRestDelete().deleteLinkRest(pLink.getId());
+
+    }
+
+    /*
+     * Supprime un champ donné a la fois de
+     * la hashmap et de la googlemap.
+     *
+     * ------
+     *
+     * Deletes a given field from both the
+     * hashmap and the googlemap
+     */
+
+    public void deleteFieldInGoogleMapAndHashMap(CFieldEntity pField){
+        Log.d("test2"," field ? " + mMapPolygonsWithInteger);
+        if (mMapPolygonsWithInteger.containsKey(pField.getId())){
+            mMapPolygonsWithInteger.get(pField.getId()).remove();
+            mMapPolygonsWithInteger.remove(pField);
+        }
+        else{
+            //customiser erreur
+            Log.d("test2", "field a delete pas stocké");
+        }
+
+    }
+
+    /*
+     * Affiche tous les liens des portails de la google map.
+     * Ne crée pas 2 fois le même lien entre 2 portails.
+     *
+     * -------
+     *
+     * Displays all the links from portals on the google map.
+     * Doesn't create the same link twice between 2 portals.
+    */
+
+    public void displayAllLinks(){
+        Set<CLinkEntity> lSetLink = new HashSet<>();
+        int lI = 0;
+        for (CPortalEntity lPortal : mPortals) {
+            for (lI = 0; lI < lPortal.getLinks().size(); lI++) {
+                lSetLink.add(lPortal.getLinks().get(lI));
+            }
+        }
+        for (CLinkEntity lLink : lSetLink){
+            onDisplayLink(lLink);
+        }
+    }
+
+    /*
+     * Affiche tous les fields sur la google map.
+     *
+     * ------
+     *
+     * Displays all the fields on the google map.
+     */
+
+    public void displayAllFields() {
+        Set<CFieldEntity> lSetField = new HashSet<>();
+        int lI = 0;
+        for (CPortalEntity lPortal : mPortals) {
+            for (lI = 0; lI < lPortal.getLinks().size(); lI++) {
+                if (lPortal.getLinks().get(lI).getField() != null) {
+                    lSetField.add(lPortal.getLinks().get(lI).getField());
+                    //mMapPolygons.put(lPortal.getLinks().get(lI).getField(),);
+                }
+            }
+        }
+        for (CFieldEntity lField : lSetField) {
+            onDisplayField(lField);
+        }
+    }
+
+    /**
+     * methode permettant de tracer un polygone
+     * representant un champ, en recuperant les coords des portails
+     * le delimitant
+     *
+     * -----
+     *
+     * Traces a polygon which represents a field, with portals LatLng.
+     *
+     * @param pField
+     */
+    public void onDisplayField(CFieldEntity pField) {
+
+        List<CLinkEntity> lLinkArray = new ArrayList<>();
+        lLinkArray.add(pField.getLinks().get(0));
+        lLinkArray.add(pField.getLinks().get(1));
+        lLinkArray.add(pField.getLinks().get(2));
+
+        // avoid redunctant LatLng for field
+        Set<CPortalEntity> lSetLatLngPortals = new HashSet<>();
+        lSetLatLngPortals.add(lLinkArray.get(0).getPortals().get(0));
+        lSetLatLngPortals.add(lLinkArray.get(0).getPortals().get(1));
+        lSetLatLngPortals.add(lLinkArray.get(1).getPortals().get(0));
+        lSetLatLngPortals.add(lLinkArray.get(1).getPortals().get(1));
+        lSetLatLngPortals.add(lLinkArray.get(2).getPortals().get(0));
+        lSetLatLngPortals.add(lLinkArray.get(2).getPortals().get(1));
+
+        List<CPortalEntity> lListLatLngPortalsForSet = new ArrayList<>(lSetLatLngPortals);
+        LatLng[] lLatLngPortalLinkedArray = new LatLng[NB_PORTALS_FIELD];
+
+        if (lListLatLngPortalsForSet.get(0).getTeam() != null) {
+            // Team color
+            int lTeamColor;
+            if (lListLatLngPortalsForSet.get(0).getTeam().getColor().equals("blue")) {
+                lTeamColor = Color.BLUE;
+            } else {
+                lTeamColor = Color.RED;
+            }
+
+            for (int i = 0; i < NB_PORTALS_FIELD; i++) {
+                lLatLngPortalLinkedArray[i] = new LatLng(lListLatLngPortalsForSet.get(i).getLat(), lListLatLngPortalsForSet.get(i).getLong());
+            }
+
+            Polygon lPolygon = mMap.addPolygon(new PolygonOptions()
+                    .add(lLatLngPortalLinkedArray)
+                    .fillColor(lTeamColor));
+
+            mMapPolygonsWithInteger.put(pField.getId(),lPolygon);
+        }
+    }
+
+
+    /*
+     * Trace un lien sur la map en lui
+     * appliquant la couleur correspondant
+     * a son equipe.
+     *
+     * ------
+     *
+     * Traces a link on the google map
+     * applies the right color matching
+     * his team.
+     */
+
+    public void onDisplayLink(CLinkEntity pLink) {
+
+        Polyline mLinkLine;
+        List<CPortalEntity> mPortalLinkedArray = pLink.getPortals();
+
+        LatLng[] mLatLngPortalLinkedArray = new LatLng[NB_PORTALS_LINK];
+        if (mPortalLinkedArray.get(0).getTeam() != null){
+            int mColor;
+            if (mPortalLinkedArray.get(0).getTeam().getColor().equals("blue")){
+                mColor = Color.BLUE;
+            }
+            else{
+                mColor = Color.RED;
+            }
+            mLatLngPortalLinkedArray = new LatLng[NB_PORTALS_LINK];
+            for (int i = 0; i < NB_PORTALS_LINK; i ++) {
+                mLatLngPortalLinkedArray[i] = new LatLng(mPortalLinkedArray.get(i).getLat(), mPortalLinkedArray.get(i).getLong());
+            }
+
+            mLinkLine = mMap.addPolyline(new PolylineOptions()
+                    .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
+                    .width(LINE_WIDTH)
+                    .color(mColor));
+
+            // ajout dans la hashmap pour pouvoir le supprimer facilement via le lien auquel il correspond
+            // adding in the hashmap in order to delete it easily with the link to whom he belongs.
+            //mMapPolylines.put(pLink, mLinkLine);
+            mMapPolylinesWithInteger.put(pLink.getId(), mLinkLine);
+
+
+        }
     }
 
 

@@ -28,7 +28,7 @@ public class CTraceMapView {
     public static final int NB_PORTALS_FIELD = 3;
     public static final int LINE_WIDTH = 5;
 
-    private Polyline mLinkLine;
+    //private Polyline mLinkLine;
     private Polygon mPolygonField;
     private List<CPortalEntity> mPortalLinkedArray;
     private List<CLinkEntity> mLinkArray;
@@ -46,6 +46,7 @@ public class CTraceMapView {
      */
     public LatLng[] onDisplayLink(GoogleMap pMap, CLinkEntity pLink) {
 
+        Polyline mLinkLine;
         mPortalLinkedArray = pLink.getPortals();
 
         // Team color
@@ -64,7 +65,15 @@ public class CTraceMapView {
             mLinkLine = pMap.addPolyline(new PolylineOptions()
                     .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
                     .width(LINE_WIDTH)
-                    .color(mColor)); // neutral color
+                    .color(mColor)); // neutral color*/
+            /*CMapsActivity.mMapPolylines.put(pLink.getId(), pMap.addPolyline(new PolylineOptions()
+                    .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
+                    .width(LINE_WIDTH)
+                    .color(mColor)));*/
+
+            mLinkLine.setVisible(false);
+
+            Log.d("test2", "polyline ajoutee !");
         }
 
         return mLatLngPortalLinkedArray;
