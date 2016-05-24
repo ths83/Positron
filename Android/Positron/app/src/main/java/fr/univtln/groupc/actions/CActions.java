@@ -29,7 +29,7 @@ public class CActions {
 
     }
 
-
+/////////////////////////////////////////////////////////////
     public void attackBuilding(CConsumableEntity pAmmunition, ABuildingEntity pBuilding, CPlayerEntity pPlayer) {
         int lDammage = 0;
 
@@ -57,8 +57,8 @@ public class CActions {
 
     }
 
+    /////////////////////////////////////////////////////////////////////
     public AObjectEntity createObject(int pTypeObjet, int pLevelObject, int pRarety) {
-
 
         switch (pTypeObjet) {
 
@@ -79,7 +79,7 @@ public class CActions {
         }
         return null;
     }
-
+///////////////////////////////////////////////////////////////////
     public int calculLevel(int pPortalLevel, int pPlayerLevel) {
         int lLevel = 0;
         // Niveau Max
@@ -115,6 +115,7 @@ public class CActions {
         return lLevel;
     }
 
+    ///////////////////////////////////////////////////:
     public int calculRarety(int pPortalLevel) {
         int lRandom = (int) Math.random() * (100);
 
@@ -200,6 +201,32 @@ public class CActions {
 
         return 0;
     }
+
+
+    /////////////////////////////////////////////////////////////////////
+
+    public int calculTypeObject(){
+        int lType = 0, lRandom=0;
+        lRandom = (int) Math.random() * (100);
+
+        if(lRandom > 90){
+            lType = 0;
+        }
+        else if(60 < lRandom && lRandom <= 90){
+            lType = 1;
+        }
+        else if(40 < lRandom && lRandom <= 60){
+            lType = 2;
+        }
+        else if(lRandom <= 40){
+            lType = 3;
+        }
+
+        return lType;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////
 
 
 }
