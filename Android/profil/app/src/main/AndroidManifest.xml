@@ -19,7 +19,6 @@
         <activity
             android:name=".CStatsActivity"
             android:label="@string/title_activity_cparameters" >
-
         </activity>
         <activity
             android:name=".CParameters"

@@ -67,9 +67,31 @@
             android:label="@string/title_activity_cclick_portals_acitivity" >
         </activity>
         <activity
-            android:name="fr.univtln.groupc.test.testActivity"
-            android:label="@string/title_activity_test" >
+            android:name="fr.univtln.groupc.activities.profil.CProfilActivity"
+            android:label="@string/title_activity_cprofil" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name="fr.univtln.groupc.activities.settings.CSettingsAcitvity"
+            android:label="@string/title_activity_csettings_acitvity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="fr.univtln.groupc.activities.profil.CStatsActivity"
+            android:label="@string/title_activity_cstats" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+</activity>
     </application>
 
+    <uses-sdk
+        android:minSdkVersion="19"/>
 </manifest>
