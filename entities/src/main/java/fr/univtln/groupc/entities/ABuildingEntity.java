@@ -164,17 +164,7 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
         // Vérification dommages.
         pDamage = pDamage - lDefense;
         if (pDamage > 0) {
-
-            // Application des dommages
-            if (mEnergy > pDamage) {
-                mEnergy = mEnergy - pDamage;
-            } else {
-                mEnergy = 0;
-                /*if (this instanceof CResonatorEntity) {
-                    getPortal().attributeTeam();
-                }*/
-            }
-
+            loseEnergy(pDamage);
         }
         else{
             System.out.println("Dommage  null");
@@ -191,4 +181,22 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
         }
     }
 
+    public void loseEnergy(int pEnergyLose){
+        if(pEnergyLose<mEnergy){
+            mEnergy = mEnergy - pEnergyLose;
+        }
+        else{
+            mEnergy = 0;
+        }
+
+    }
+    public void gainEnergy(int pEnergyGain) {
+
+        if (pEnergyGain + mEnergy < mEnergyMax) {
+            mEnergy = mEnergy + pEnergyGain;
+        } else {
+            mEnergy = mEnergyMax;
+
+        }
+    }
 }

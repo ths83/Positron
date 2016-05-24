@@ -366,8 +366,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     public void takeDamage(IFighter pFighter, int pDamage) {
         int lDamages = pDamage - getLevel()*2;
         if(lDamages >0) {
-            mEnergy = mEnergy - lDamages;
-            // TODO metre update portail.
+            loseEnergy(pDamage);
         }
     }
 
@@ -387,4 +386,20 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         mObjects.remove(pObject);
     }
 
+    public void loseEnergy(int pEnergyLose){
+        if(pEnergyLose < mEnergy) {
+            mEnergy = mEnergy - pEnergyLose;
+        }
+        else {
+            mEnergy =0;
+        }
+    }
+    public void gainEnergy(int pEnergyGain){
+        if(pEnergyGain + mEnergy < mEnergyMax){
+            mEnergy = mEnergy + pEnergyGain;
+        }
+        else{
+            mEnergy = mEnergyMax;
+        }
+    }
 }
