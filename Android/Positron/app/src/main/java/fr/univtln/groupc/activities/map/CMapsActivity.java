@@ -1,7 +1,6 @@
 package fr.univtln.groupc.activities.map;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,7 +9,6 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
@@ -94,6 +92,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private List<Polyline> mListPolyline = new ArrayList<>();
     public static Map<Integer, Polyline> mMapPolylines = new HashMap<>();
     private CPlayerEntity mPlayer;
+    private final List<CPortalEntity> mPortals = new CRestGet().getPortalsRest();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,8 +163,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
 
         // Portals from database with REST
-        final List<CPortalEntity> lPortals = new CRestGet().getPortalsRest();
-        for (CPortalEntity p : lPortals) {
+
+        for (CPortalEntity p : mPortals) {
             //Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
             //List<CResonatorEntity> lReso1 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),1);
             //List<CResonatorEntity> lReso2 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),2);
@@ -233,7 +232,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // Display links on start session
         int i = 0;
-        for (CPortalEntity lP : lPortals) {
+        for (CPortalEntity lP : mPortals) {
             for (i = 0; i < lP.getLinks().size(); i++) {
                 onDisplayLink(lP.getLinks().get(i));
 
@@ -242,7 +241,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         Log.d("map", String.valueOf(i));
         // Display fields on start session
        /* i = 0;
-        for (CPortalEntity lP : lPortals) {
+        for (CPortalEntity lP : mPortals) {
             for (i = 0; i < lP.getLinks().size(); i++) {
                 if (lP.getLinks().get(i).getField() != null)
                     new CTraceMapView().onDisplayField(mMap, lP.getLinks().get(i).getField());
@@ -404,7 +403,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         });*/
 
                 // New tests with objects
-                /*for (CPortalEntity lPortal : lPortals){
+                /*for (CPortalEntity lPortal : mPortals){
                     Log.d("test", " - > " + "\nlat : " + lPortal.getLat() + "\nlong : " + lPortal.getLong());
                     mMarkerUserSelected = new LatLng(lPortal.getLat(),lPortal.getLong());
                     if (mMarkerUserSelected.equals(marker.getPosition())){
@@ -590,12 +589,18 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
     //just a test
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void onClickTest(View pView){
         Log.d("test2", "etat de la hashmap :\n" + mMapPolylines);
-        deleteLinkInMap(3);
-        new CRestDelete().deleteLinkRest(3);
+        deleteLinkInMap(4);
+        new CRestDelete().deleteLinkRest(4);
+
+        /*int i = 0;
+        for (CPortalEntity lP : mPortals) {
+            for (i = 0; i < lP.getLinks().size(); i++) {
+                onDisplayLink(lP.getLinks().get(i));
+
+            }
+        }*/
 
     }
 
@@ -604,9 +609,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
     public void deleteLinkInMap(int pLinkId){
-        Log.d("test2", "poly : " +  mMapPolylines.get(pLinkId).getId());
-        mMapPolylines.get(pLinkId).remove();
+        Log.d("test2", "poly : " + mMapPolylines.get(pLinkId).getId());
+        // cast to Polyline test
+        Polyline lTest =  mMapPolylines.get(pLinkId);
+        Log.d("test2", "here ? " + lTest);
+        lTest.remove();
         mMapPolylines.remove(pLinkId);
+        Log.d("test2", "empty ? " + mMapPolylines.values());
+
     }
 
     public LatLng[] onDisplayLink(CLinkEntity pLink) {
