@@ -559,4 +559,13 @@ public class CRestServicesTest extends TestCase {
         System.out.println("keys -> " + lKeys);
         System.out.println(lKeys.size());
     }
+
+    public void testgetAllPortals() throws Exception {
+        String lJsonGotten = null;
+
+        lJsonGotten = mWebResource.path("/portals").get(String.class);
+        List<CPortalEntity> lPortals = mMapper.readValue(lJsonGotten, mMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+        System.out.println(lPortals);
+
+    }
 }
