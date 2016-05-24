@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "fr.univtln.m1dapm.groupec.tperron710.positron"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -34,7 +34,9 @@ dependencies {
     )
     compile 'com.android.support:multidex:1.0.0'
     compile files ('libs/entities-1.0-SNAPSHOT.jar')
-
+    compile 'com.pkmmte.view:circularimageview:1.1'
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    compile 'com.android.support:support-v4:23.+'
 }
 
 apply plugin: 'com.google.gms.google-services'

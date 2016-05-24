@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 /**
