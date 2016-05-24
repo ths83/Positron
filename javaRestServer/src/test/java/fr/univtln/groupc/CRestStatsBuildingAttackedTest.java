@@ -5,6 +5,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.server.CServer;
+import fr.univtln.groupc.stats.CStatsBuildingsAttacked;
 import junit.framework.TestCase;
 
 /**
@@ -18,7 +19,7 @@ public class CRestStatsBuildingAttackedTest extends TestCase {
     String mJson;
 
 // Tests CRUD StatsBuildingAttackedService OFF
-/*
+
     public void testPostStatsBuildingAttackedService() throws Exception {
 
         CStatsBuildingsAttacked lStatsBuildingsAttacked = new CStatsBuildingsAttacked.CStatsBuildingsAttackedBuilder(0).cpt(51).build();
@@ -30,12 +31,12 @@ public class CRestStatsBuildingAttackedTest extends TestCase {
 
     public void testGetStatsBuildingAttackedService() throws Exception {
         CStatsBuildingsAttacked lStatsBuildingsAttacked = mMapper.readValue(mWebResource.path("/statsBuildingAttacked/1").get(String.class), CStatsBuildingsAttacked.class);
-        assertEquals(lStatsBuildingsAttacked.getmId(), 0);
+        assertEquals(lStatsBuildingsAttacked.getId(), 0);
     }
 
     public void testDeleteStatsBuildingAttackedService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/statsBuildingAttacked/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-    */
+
 }

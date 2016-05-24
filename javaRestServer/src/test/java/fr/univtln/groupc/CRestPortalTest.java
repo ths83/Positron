@@ -64,6 +64,7 @@ public class CRestPortalTest extends TestCase {
         System.out.println(lJsonGotten);
 
     }
+    /*
     public void testPortalWithKeyAndBuildingsPost() throws Exception {
         CKeyEntity lKey1 = new CKeyEntity.CKeyBuilder(23).name("clef1").build();
         CKeyEntity lKey2 = new CKeyEntity.CKeyBuilder(24).name("clef2").build();
@@ -82,5 +83,5 @@ public class CRestPortalTest extends TestCase {
         //lCrud.create(lPortal);
         lResponse = mWebResource.path("/portals").accept("application/json").type("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
-    }
+    }*/
 }

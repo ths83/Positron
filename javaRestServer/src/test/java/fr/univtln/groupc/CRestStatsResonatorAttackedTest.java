@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import fr.univtln.groupc.entities.CPlayerEntity;
+import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.server.CServer;
+import fr.univtln.groupc.stats.CStatsResonatorAttacked;
 import junit.framework.TestCase;
 
 /**
@@ -17,7 +20,7 @@ public class CRestStatsResonatorAttackedTest extends TestCase {
     ClientResponse lClientResponse, lResponse;
     String mJson;
 
-/*
+
     public void testPostStatsResonatorAttackedService() throws Exception {
         CPlayerEntity lPlayerEntity1 = new CPlayerEntity.CPlayerBuilder(1).email("zad").energy(5).build();
         CPlayerEntity lPlayerEntity2 = new CPlayerEntity.CPlayerBuilder(2).email("zad").energy(5).build();
@@ -32,12 +35,12 @@ public class CRestStatsResonatorAttackedTest extends TestCase {
 
     public void testGetStatsResonatorAttackedService() throws Exception {
         CStatsResonatorAttacked lStatsResonatorAttacked = mMapper.readValue(mWebResource.path("/statsResonatorAttacked/1").get(String.class), CStatsResonatorAttacked.class);
-        assertEquals(lStatsResonatorAttacked.getmId(), 1);
+        assertEquals(lStatsResonatorAttacked.getId(), 1);
     }
 
     public void testDeleteStatsResonatorAttackedService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/statsResonatorAttacked/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-    */
+
 }

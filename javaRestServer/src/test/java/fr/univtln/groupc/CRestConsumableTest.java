@@ -18,7 +18,7 @@ public class CRestConsumableTest extends TestCase {
     ObjectMapper mMapper = new ObjectMapper();
     ClientResponse lClientResponse, lResponse;
     String mJson;
-
+/*
     public void testPostConsumableService() throws Exception {
 
         CConsumableEntity lConsumableEntity = new CConsumableEntity.CConsumableBuilder(1).name("bob").rarity(5).build();

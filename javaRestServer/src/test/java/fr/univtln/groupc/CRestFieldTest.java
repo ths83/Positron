@@ -43,7 +43,7 @@ public class CRestFieldTest extends TestCase {
         ClientResponse lResponse = mWebResource.path("/fields").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
     }
-
+/*
     public void testGetFieldService() throws Exception {
         CFieldEntity lFieldEntity = mMapper.readValue(mWebResource.path("fields/2").get(String.class), CFieldEntity.class);
         assertEquals(lFieldEntity.getId(), 2);

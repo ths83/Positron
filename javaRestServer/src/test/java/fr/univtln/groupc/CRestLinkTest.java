@@ -23,13 +23,13 @@ public class CRestLinkTest extends TestCase {
     ClientResponse lClientResponse, lResponse;
     String mJson;
 
-/*
+
     public void testPostLinkService() throws Exception {
         CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(700).longitude(150).latitude(150).build();
         ArrayList <CPortalEntity> portals = new ArrayList<>();
         portals.add(lPortal1);
 
-        CLinkEntity lLinkEntity = new CLinkEntity.CLinkBuilder(1).portals(portals).build();
+        CLinkEntity lLinkEntity = new CLinkEntity.CLinkBuilder(2).portals(portals).build();
         mJson = mMapper.writeValueAsString(lLinkEntity);
         ClientResponse lResponse = mWebResource.path("/links").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
@@ -44,7 +44,7 @@ public class CRestLinkTest extends TestCase {
         ClientResponse clientResponse = mWebResource.path("/links/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
-    */
+    /*
 public void testPostLinkServiceWhen3rdOfAFieldToCreate() throws Exception {
     CCrudMethods lCrud = new CCrudMethods();
     String lLink1Json = null;
