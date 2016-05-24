@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import fr.univtln.groupc.entities.AObjectEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
-import fr.univtln.groupc.entities.CResonatorEntity;
-import fr.univtln.groupc.entities.CTurretEntity;
+import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.entities.*;
 import fr.univtln.groupc.server.CServer;
 import junit.framework.TestCase;
 
@@ -58,5 +56,31 @@ public class CRestPortalTest extends TestCase {
     public void testDeletePortalService() throws Exception {
         lClientResponse = mWebResource.path("/portals/150").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(lClientResponse.getStatus(), 200);
+    }
+
+    public void testPortalWithKeyAndBuildingsGet() throws Exception {
+        String lJsonGotten = null;
+        lJsonGotten = mWebResource.path("/portals/778").get(String.class);
+        System.out.println(lJsonGotten);
+
+    }
+    public void testPortalWithKeyAndBuildingsPost() throws Exception {
+        CKeyEntity lKey1 = new CKeyEntity.CKeyBuilder(23).name("clef1").build();
+        CKeyEntity lKey2 = new CKeyEntity.CKeyBuilder(24).name("clef2").build();
+        ABuildingEntity lTurret1 = new CTurretEntity.CTurretBuilder(74).name("turret1").build();
+        List<CKeyEntity> lKeys = new ArrayList<>();
+        List<ABuildingEntity> lBuildings = new ArrayList<>();
+        lKeys.add(lKey1);
+        lKeys.add(lKey2);
+        lBuildings.add(lTurret1);
+        //String lTurretJson = mMapper.writeValueAsString(lTurret1);
+        CCrudMethods lCrud = new CCrudMethods();
+        //lCrud.create(lTurret1);
+        //mWebResource.path("/turrets").accept("application/json").type("application/json").post(lTurretJson);
+        CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(778).buildings(lBuildings).keys(lKeys).latitude(445.2).longitude(112.3).build();
+        mJson = mMapper.writeValueAsString(lPortal);
+        //lCrud.create(lPortal);
+        lResponse = mWebResource.path("/portals").accept("application/json").type("application/json").post(ClientResponse.class, mJson);
+        assertEquals(lResponse.getStatus(), 201);
     }
 }

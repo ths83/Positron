@@ -38,4 +38,28 @@ public class CRestPlayerTest extends TestCase {
         lClientResponse = mWebResource.path("/players/78678").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(lClientResponse.getStatus(), 200);
     }
+    /*
+    public void testGetByIdPlayerService() throws Exception {
+        CPlayerEntity lPlayerGotten = mMapper.readValue(mWebResource.path("players/50").get(String.class), CPlayerEntity.class);
+        // need post method first
+        assertEquals(lPlayerGotten.getId(), 50);
+        assertEquals(lPlayerGotten.getEmail(), "email_de_test");
+        assertEquals(lPlayerGotten.getEnergy(), 50);
+        // etc
+    }*/
+    /*
+
+
+
+    public void testUpdatePlayerService() throws Exception {
+        String lPlayerJson = null;
+        String lUpdatedPlayer = null;
+        lPlayerJson = mWebResource.path("/players/50").accept("application/json").type("application/json").get(String.class);
+        CPlayerEntity lPlayerToUpdate = mMapper.readValue(lPlayerJson, CPlayerEntity.class);
+        lPlayerToUpdate.setNickName("update");
+        lUpdatedPlayer = mMapper.writeValueAsString(lPlayerToUpdate);
+        ClientResponse lResponse = mWebResource.path("/players").accept("application/json").type("application/json").put(ClientResponse.class, lPlayerJson);
+
+        assertEquals(lResponse.getStatus(), 200);
+    }*/
 }
