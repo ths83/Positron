@@ -45,7 +45,7 @@ public class CTraceMapView {
      * @param pLink
      * @return
      */
-    public LatLng[] onDisplayLink(GoogleMap pMap, CLinkEntity pLink) {
+    /*public LatLng[] onDisplayLink(GoogleMap pMap, CLinkEntity pLink) {
 
         Polyline mLinkLine;
         mPortalLinkedArray = pLink.getPortals();
@@ -66,19 +66,24 @@ public class CTraceMapView {
             mLinkLine = pMap.addPolyline(new PolylineOptions()
                     .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
                     .width(LINE_WIDTH)
+<<<<<<< HEAD
                     .color(mColor)); // neutral color*/
           /*  CMapsActivity.mMapPolylines.put(pLink.getId(), pMap.addPolyline(new PolylineOptions()
+=======
+                    .color(mColor)); // neutral color
+            CMapsActivity.mMapPolylines.put(pLink.getId(), pMap.addPolyline(new PolylineOptions()
+>>>>>>> fc4c3b5b2d880340571220b455da9912c3f1e6fb
                     .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
                     .width(LINE_WIDTH)
                     .color(mColor)));
-*/
+*
             mLinkLine.setVisible(false);
 
             Log.d("test2", "polyline ajoutee !");
         }
 
         return mLatLngPortalLinkedArray;
-    }
+    }*/
 
     /**
      * Display a polygon which represents a team field

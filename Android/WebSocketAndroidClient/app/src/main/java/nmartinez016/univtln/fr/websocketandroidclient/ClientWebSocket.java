@@ -24,11 +24,13 @@ import javax.websocket.Session;
 @ClientEndpoint
 public class ClientWebSocket extends Thread {
 
-    private static String LOG_TAG = ClientWebSocket.class.getName();
+    private static String LOG_TAG = "test";
     private ClientManager clientManager;
     private  ServiceWS serviceWS;
     private Looper looper;
 
+
+    public ClientWebSocket(){}
 
     public ClientWebSocket(ServiceWS serviceWS){
         this.serviceWS = serviceWS;
@@ -93,11 +95,13 @@ public class ClientWebSocket extends Thread {
     public void run() {
         Log.d(LOG_TAG, "Websocket BroadcasterWebsocketClient started");
 
-        Looper.prepare();
-        looper = Looper.myLooper();
+        //Looper.prepare();
+        Log.d(LOG_TAG, "step 2");
+        //looper = Looper.myLooper();
+        Log.d(LOG_TAG, "step 3");
         //This thread does nothing but waiting for
         // process incoming messages here
-        URI uri = URI.create("ws://10.0.3.2:8025/echo");
+        URI uri = URI.create("ws://89.234.183.3:8025/echo");
         Log.d(LOG_TAG, "Connecting to " + uri + ".");
         try {
             clientManager = ClientManager.createClient();
