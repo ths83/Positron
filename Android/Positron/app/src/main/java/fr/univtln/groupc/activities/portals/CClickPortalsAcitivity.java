@@ -3,6 +3,7 @@ package fr.univtln.groupc.activities.portals;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -103,7 +104,7 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
         else{
             pPortal.attributeTeam();
             if (pPortal!=null){
-                new CRestUpdate().updatePortalRest(pPortal);
+              //  new CRestUpdate().updatePortalRest(pPortal);
                 for(CLinkEntity lLink : lLinkList) {
                     //TODO DELET lLink
                 }
@@ -144,5 +145,22 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    public void useBombe(CConsumableEntity pAmmunition,CPortalEntity pPortal, CPlayerEntity pPlayer){
+        CActions lAction = new CActions();
+
+        if(pAmmunition.getName() == "Bombe"){
+           // TODO rajouter vérification du skill
+            if(true){
+                lAction.bombeExplosion(pPortal,(pAmmunition.getRarity()*10)+20);
+            }
+            else{
+                Log.d("UseBombe","Not able to use this weapon");
+            }
+        }
+        else{
+            Log.d("useBombe","Not good consumable");
+        }
     }
 }

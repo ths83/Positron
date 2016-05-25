@@ -2,6 +2,7 @@ package fr.univtln.groupc.actions;
 
 import android.util.Log;
 
+import java.util.List;
 import java.util.Objects;
 
 import fr.univtln.groupc.entities.ABuildingEntity;
@@ -235,5 +236,19 @@ public class CActions {
     // TODO : Choirsie/Vérifier sens de création: Cascade Player -> Object or Object -> Player
     public CKeyEntity keyHacking(CPortalEntity pPortal){
         return new CKeyEntity.CKeyBuilder(140).portal(pPortal).build();
+    }
+
+
+    public void bombeExplosion(CPortalEntity pPortal, int pDamage){
+        List<CResonatorEntity> lResonatorListe = pPortal.getResonators();
+        List<ABuildingEntity> lBuildingListe = pPortal.getBuildings();
+
+        for(CResonatorEntity lResonator : lResonatorListe){
+            lBuildingListe.add((ABuildingEntity) lResonator);
+        }
+        for(ABuildingEntity lBuilding : lBuildingListe){
+            lBuilding.takeDamage(null,pDamage);
+
+        }
     }
 }
