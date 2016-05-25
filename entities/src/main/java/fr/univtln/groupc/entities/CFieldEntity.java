@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_field", schema = "positron")
 @NamedQueries(@NamedQuery(name = CFieldEntity.GET_ALL, query = "select f from CFieldEntity f"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CFieldEntity.class)
 
 public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
     @Id

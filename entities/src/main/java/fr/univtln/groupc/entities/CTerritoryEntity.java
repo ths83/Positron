@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_territory", schema = "positron")
 @NamedQueries(@NamedQuery(name = CTerritoryEntity.GET_ALL, query = "select p from CTerritoryEntity p"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CTerritoryEntity.class)
 public class CTerritoryEntity implements Serializable {
     @Id
     @Column(name = "territory_id")

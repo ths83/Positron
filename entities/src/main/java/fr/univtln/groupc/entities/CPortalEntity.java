@@ -313,6 +313,7 @@ public class CPortalEntity implements Serializable {
                 */'}' + super.toString();
     }
 
+    @JsonIgnore
     public List<CShieldEntity> getShields(){
         List<CShieldEntity> lShields = new ArrayList<CShieldEntity>();
 
@@ -323,6 +324,8 @@ public class CPortalEntity implements Serializable {
         }
     return lShields;
     }
+
+    @JsonIgnore
     public List<CTurretEntity> getTurrets(){
         List<CTurretEntity> lTurrets = new ArrayList<CTurretEntity>();
 
@@ -349,4 +352,5 @@ public class CPortalEntity implements Serializable {
      lLevel =  lLevel/8;
     return lLevel;
     }
+
 }

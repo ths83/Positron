@@ -468,4 +468,21 @@ public class CRestServicesTest extends TestCase {
         System.out.println("keys -> " + lKeys);
         System.out.println(lKeys.size());
     }
+
+    public void testgetAllPortals() throws Exception {
+
+
+        CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(89).build();
+        List<ABuildingEntity> lBuildings = new ArrayList<>();
+        lBuildings.add(lTurret);
+        CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(1112).buildings(lBuildings).build();
+        CCrudMethods lCrud = new CCrudMethods();
+        lCrud.create(lPortal);
+        String lJsonGotten = null;
+
+        lJsonGotten = mWebResource.path("/portals").get(String.class);
+        List<CPortalEntity> lPortals = mMapper.readValue(lJsonGotten, mMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+        System.out.println(lPortals);
+
+    }
 }

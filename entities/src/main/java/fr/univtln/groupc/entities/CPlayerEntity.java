@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "t_player", schema = "positron")
 @NamedQueries({@NamedQuery(name = CPlayerEntity.GET_ALL, query = "select p from CPlayerEntity p"),
         @NamedQuery(name = CPlayerEntity.GET_BY_NAME, query = "select p from CPlayerEntity p where p.mNickName = :mNickName")})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CPlayerEntity.class)
 
 public class CPlayerEntity implements Serializable, ITarget, IFighter {
     @Id
@@ -281,8 +281,31 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return lLevel;
     }
 
+    @JsonIgnore
+    public List<CResonatorEntity> getResonatorsByLevel(int pId){
+        List<CResonatorEntity> lResonators = new ArrayList<CResonatorEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CResonatorEntity){
+                if (((CResonatorEntity) lObject).getLevel() == pId){
+                    lResonators.add((CResonatorEntity) lObject);
+                }
+            }
+        }
+        return lResonators;
+    }
 
-
+    @JsonIgnore
+    public List<CTurretEntity> getTurretsByLevel(int pId){
+        List<CTurretEntity> lTurrets = new ArrayList<CTurretEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CTurretEntity){
+                if (((CTurretEntity) lObject).getLevel() == pId){
+                    lTurrets.add((CTurretEntity) lObject);
+                }
+            }
+        }
+        return lTurrets;
+    }
 
     public static class CPlayerBuilder{
         private int mId;
@@ -400,6 +423,12 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         }
         else{
             mEnergy = mEnergyMax;
+        }
+    }
+
+    public void addXP(int pExperienceAdded){
+        if(getLevel() != 8){
+            mXp = mXp + pExperienceAdded;
         }
     }
 }
