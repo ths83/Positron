@@ -65,4 +65,14 @@ public class CJPATest extends TestCase {
         mCrud.create(lPlayer);
 */
 
+    public void testDeleteLink() throws Exception {
+
+        CLinkEntity lLink10 = mCrud.find(CLinkEntity.class, 10);
+        CLinkEntity lLink20 = mCrud.find(CLinkEntity.class, 20);
+        lLink10.setField(null);
+        lLink20.setField(null);
+        mCrud.update(lLink10);
+        mCrud.update(lLink20);
+        mCrud.delete(CLinkEntity.class, 30);
+    }
 }

@@ -12,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
+import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 /**
@@ -69,5 +70,22 @@ public class CRestUpdate extends AsyncTask<String, String, Void> {
             e.printStackTrace();
         }
         }
+
+    public void updateLinkRest(CLinkEntity pLink){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = API_URL + "/links";
+        Log.d("test", "->-> " + lUrlString);
+        try {
+            String lLinkJson = lMapper.writeValueAsString(pLink);
+            CRestUpdate lUpdate=new CRestUpdate();
+            lUpdate.execute(lUrlString,lLinkJson).get();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
     }
 
