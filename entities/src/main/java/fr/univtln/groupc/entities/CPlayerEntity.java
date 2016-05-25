@@ -281,6 +281,18 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return lLevel;
     }
 
+    @JsonIgnore
+    public List<CResonatorEntity> getResonatorsByLevel(int pId){
+        List<CResonatorEntity> lResonators = new ArrayList<CResonatorEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CResonatorEntity){
+                if (((CResonatorEntity) lObject).getLevel() == pId){
+                    lResonators.add((CResonatorEntity) lObject);
+                }
+            }
+        }
+        return lResonators;
+    }
 
 
 

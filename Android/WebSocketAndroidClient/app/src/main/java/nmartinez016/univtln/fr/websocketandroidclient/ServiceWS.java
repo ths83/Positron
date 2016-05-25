@@ -20,7 +20,7 @@ import android.util.Log;
 
 public class ServiceWS extends Service {
 
-    private static String LOG_TAG = ServiceWS.class.getName();
+    private static String LOG_TAG = "test";
     private static NotificationManager notificationManager;
     private final IBinder mBinder = new LocalBinder();
     private static BroadcastReceiver broadcastReceiver;
@@ -47,7 +47,7 @@ public class ServiceWS extends Service {
 
     @Override
     public void onCreate() {
-        Log.d(LOG_TAG, "Service started.");
+        Log.d("test", "Service started.");
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         showNotification("COucou");
         broadcastReceiver = new BroadcastReceiver() {
