@@ -63,10 +63,13 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             // TODO Delete Building
             //new CRestDelete();
             updatePortalTeam(pPortal);
+            //TODO addXP
         }
         else{
             //TODO Updtate Building
             //new CRestUpdate().;
+
+            //TODO add XP
         }
 
     }
@@ -122,20 +125,20 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
         // TODO XP ++
         if(pPortal.getTeam() == null){
             for(li=0;li<5;li++){
-                pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(),lAction.calculLevel(pPortal.getLevel(), pPlayer.getLevel()),lAction.calculRarety(pPortal.getLevel())));
+                pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(), lAction.calculLevel(pPortal.getLevel(), pPlayer.getLevel()), lAction.calculRarety(pPortal.getLevel())));
             }
         }
         else{
             if(pPortal.getTeam() == pPlayer.getTeam()){
                 for(li=0;li<10;li++){
-                    pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(),lAction.calculLevel(pPortal.getLevel(),pPlayer.getLevel()),lAction.calculRarety(pPortal.getLevel())));
+                    pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(), lAction.calculLevel(pPortal.getLevel(), pPlayer.getLevel()), lAction.calculRarety(pPortal.getLevel())));
 
                 }
             }
             else {
                 //TODO XP ++
                 for(li=0;li<5;li++){
-                    pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(),lAction.calculLevel(pPortal.getLevel(),pPlayer.getLevel()),lAction.calculRarety(pPortal.getLevel())));
+                    pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(), lAction.calculLevel(pPortal.getLevel(), pPlayer.getLevel()), lAction.calculRarety(pPortal.getLevel())));
 
                 }
             }

@@ -402,4 +402,10 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
             mEnergy = mEnergyMax;
         }
     }
+
+    public void addXP(int pExperienceAdded){
+        if(getLevel() != 8){
+            mXp = mXp + pExperienceAdded;
+        }
+    }
 }

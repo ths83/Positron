@@ -471,6 +471,7 @@ public class CRestServicesTest extends TestCase {
 
     public void testgetAllPortals() throws Exception {
 
+
         CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(89).build();
         List<ABuildingEntity> lBuildings = new ArrayList<>();
         lBuildings.add(lTurret);

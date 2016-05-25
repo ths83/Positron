@@ -22,8 +22,8 @@ public class CActions {
 
         if (pPortal.getResonators().size() >= 8 && pResonator.getOwner().getLevel() >= pResonator.getLevel()) {
             pPortal.addResonator(pResonator);
+            //TODO add XP
         } else {
-            Log.d("BuildResonator", "Plus de place sur le portail / Portal Overload");
             Log.d("BuildResonator", "Plus de place sur le portail / Portal Overload");
         }
         return pPortal;
@@ -31,11 +31,13 @@ public class CActions {
     }
 
 /////////////////////////////////////////////////////////////
+
     public void attackBuilding(CConsumableEntity pAmmunition, ABuildingEntity pBuilding, CPlayerEntity pPlayer) {
         int lDammage = 0;
 
         if (pAmmunition.getName() == "Attack") {
             pPlayer.attack(pBuilding, pAmmunition);
+            //TODO add XP
         } else {
             Log.d("attackBuilding", "Consommable non approrié");
         }
@@ -43,22 +45,9 @@ public class CActions {
     }
 
 
-    public void piratage(CPortalEntity pPortal, CPlayerEntity pPlayer) {
-
-        if (pPortal.getTeam() != null) {
-            if (pPortal.getTeam() == pPlayer.getTeam()) {
-
-            } else {
-
-            }
-
-        } else {
-
-        }
-
-    }
 
     /////////////////////////////////////////////////////////////////////
+
     public AObjectEntity createObject(int pTypeObjet, int pLevelObject, int pRarety) {
 
         switch (pTypeObjet) {
@@ -80,7 +69,9 @@ public class CActions {
         }
         return null;
     }
+
 ///////////////////////////////////////////////////////////////////
+
     public int calculLevel(int pPortalLevel, int pPlayerLevel) {
         int lLevel = 0;
         // Niveau Max
@@ -117,6 +108,7 @@ public class CActions {
     }
 
     ///////////////////////////////////////////////////:
+
     public int calculRarety(int pPortalLevel) {
         int lRandom = (int) Math.random() * (100);
 
@@ -226,8 +218,6 @@ public class CActions {
         return lType;
     }
 
-
     /////////////////////////////////////////////////////////////////////
-
 
 }
