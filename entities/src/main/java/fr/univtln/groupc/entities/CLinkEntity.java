@@ -24,10 +24,10 @@ public class CLinkEntity implements Serializable {
     @Id
     @Column(name = "link_id")
     private int mId;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "field_fk")
     private CFieldEntity mField;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "t_portal_link",joinColumns=@JoinColumn(name="link_fk", referencedColumnName="link_id"),inverseJoinColumns=@JoinColumn(name="portal_fk", referencedColumnName="portal_id"),schema = "positron")
     private List<CPortalEntity> mPortals  = new ArrayList<CPortalEntity>();
 
