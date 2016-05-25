@@ -81,40 +81,47 @@ public class CTestCActions {
         return null;
     }
 
-/////////////////////////////////////////////////////////////////// TODO A REVOIR
+///////////////////////////////////////////////////////////////////
 
     public int calculLevel(int pPortalLevel, int pPlayerLevel) {
         int lLevel = 0;
         // Niveau Max
         if (pPlayerLevel == 8 && pPortalLevel == 8) {
             lLevel = 8;
-        } else {
-            //Cas Basic (+-2 possible)
-            if (pPlayerLevel + 2 <= pPortalLevel && pPlayerLevel - 2 >= 1) {
-                lLevel = (pPlayerLevel - 2) + (int) (Math.random() * ((pPlayerLevel + 2)) - (pPlayerLevel - 2));
-            } else {
-                if (pPlayerLevel == pPortalLevel) {
-                    // Portail & Player lvl 1
-                    if (pPlayerLevel == 1) {
-                        lLevel = (pPlayerLevel) + (int) (Math.random() * ((pPlayerLevel + 2)) - (pPlayerLevel));
-                    }
-                    // Portail & Player same level between 2 et 7
-                    else {
-                        lLevel = (pPlayerLevel - 2) + (int) (Math.random() * (pPlayerLevel) - (pPlayerLevel - 2));
-                    }
-                } else {
-                    // Player = 1  & Portail = 2
-                    if (pPlayerLevel == 1 && pPortalLevel == 2) {
-                        lLevel = (pPlayerLevel) + (int) (Math.random() * ((pPlayerLevel + 1)) - (pPlayerLevel));
-                    }
-                    // Player = Portail - 1
-                    else {
-                        lLevel = (pPlayerLevel - 2) + (int) (Math.random() * ((pPlayerLevel + 1)) - (pPlayerLevel - 2));
-                    }
+        }
+        else {
+            int lMinima =0;
+            // On garde la valeur la plus basse
+            if(pPlayerLevel <= pPortalLevel){
+                    lMinima = pPlayerLevel;
+                }
+            else{
+                    lMinima = pPortalLevel;
+                }
 
+
+            if(lMinima <= 2){
+                    // Pour 1
+                    if(lMinima == 1) {
+                        lLevel = 1 + (int) (Math.random() * 2);
+                    }
+                    // Pour 2
+                    else {
+                        lLevel = 1 + (int) (Math.random() * 3);
+                    }
+                }
+            else{
+                    // Pour 7
+                    if (lMinima ==7){
+                        lLevel = 5 + (int)(Math.random() * 3);
+                    }
+                    // Normal
+                    else{
+                        lLevel = (lMinima -2 ) + ((int)(Math.random()*5));
+                    }
                 }
             }
-        }
+
         return lLevel;
     }
 
