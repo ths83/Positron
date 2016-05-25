@@ -1,28 +1,23 @@
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.univtln.groupc.activities.map.CMapsActivity"
+    android:fitsSystemWindows="true"
     >
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-           <!-- <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/link"
-                android:text="test"
-                android:onClick="onLink"
-                android:layout_weight="2"/> -->
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClickTest"></Button>
+        <!-- <Button
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/link"
+             android:text="test"
+             android:onClick="onLink"
+             android:layout_weight="2"/> -->
 
         <fragment
             android:id="@+id/map"
@@ -33,13 +28,103 @@
     </LinearLayout>
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:id="@+id/drawerleft"
+        android:layout_width="250sp"
+        android:layout_height="50sp"
+        android:orientation="horizontal"
+        android:layout_gravity="start"
+        android:background="@color/backgroundaction">
+
+        <LinearLayout
+            android:id="@+id/initaction"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/black"
+            android:dividerHeight="10dp"
+            style="@style/buttondef"
+            />
+
+    </ScrollView>
+
+
+    <ScrollView
+        android:id="@+id/drawerright"
+        android:layout_width="80sp"
         android:layout_height="match_parent"
-        android:layout_gravity="right" >
+        android:orientation="vertical"
+        android:layout_gravity="end"
+        android:background="@color/colorPrimary">
 
-        <include layout="@layout/activity_drawer"/>
+        <LinearLayout
 
-    </FrameLayout>
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:background="@mipmap/drone"
+                android:backgroundTint="@color/colorAccent"
+                android:layout_gravity="center"
+                />
+
+            <ImageButton
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:background="@mipmap/radar"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/colorAccent"/>
+
+            <ImageButton
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:background="@mipmap/pcvol"
+                android:layout_gravity="center" />
+
+
+            <ImageButton
+                android:layout_width="45sp"
+                android:layout_height="45sp"
+                android:background="@mipmap/brouilleur"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/colorAccent"
+                android:layout_marginBottom="50sp"/>
+
+            <CheckedTextView
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:background="@mipmap/portail"
+                android:layout_gravity="center"/>
+
+            <CheckedTextView
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:background="@mipmap/chat"
+                android:backgroundTint="@color/colorAccent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50sp"/>
+
+            <Button
+                android:id="@+id/bzoomin"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:text="+" />
+            <Button
+                android:id="@+id/bzoomout"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_gravity="center"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:text="-" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.v4.widget.DrawerLayout>

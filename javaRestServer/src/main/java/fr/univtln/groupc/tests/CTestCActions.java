@@ -1,9 +1,8 @@
-package fr.univtln.groupc.actions;
-
-import android.util.Log;
+package fr.univtln.groupc.tests;
 
 import java.util.Objects;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CConsumableEntity;
@@ -17,7 +16,7 @@ import fr.univtln.groupc.entities.CTurretEntity;
 /**
  * Created by xdurbec066 on 17/05/16.
  */
-public class CActions {
+public class CTestCActions {
 
     public CPortalEntity buildResonator(CPortalEntity pPortal, CResonatorEntity pResonator) {
 
@@ -29,7 +28,7 @@ public class CActions {
                 //TODO add XP
             }
             else{
-                //   Log.d("BuildResonator","Niveau pas assez élever pour poser ce portail");
+             //   Log.d("BuildResonator","Niveau pas assez élever pour poser ce portail");
                 System.out.println("Niveau pas assez élever");
             }
         }
@@ -82,7 +81,7 @@ public class CActions {
         return null;
     }
 
-////////////// TODO A REVOIR ///////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////// TODO A REVOIR
 
     public int calculLevel(int pPortalLevel, int pPlayerLevel) {
         int lLevel = 0;
@@ -119,11 +118,11 @@ public class CActions {
         return lLevel;
     }
 
-    /////TODO///////////////////////////////////////////////////////////////////////////////////////:
+    ///////////////////////////////////////////////////:
 
     public int calculRarety(int pPortalLevel) {
         double lRandom = (int) (Math.random() * (100));
-        //  System.out.println(lRandom);
+      //  System.out.println(lRandom);
         switch (pPortalLevel) {
 
 

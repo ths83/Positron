@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,12 +14,16 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,20 +96,25 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private String mObjectString;
     private String mLinkObjectString;
     private String mFieldString;
-
+    private DrawerLayout mDrawerAction;
     private List<Polyline> mListPolyline = new ArrayList<>();
     private Map<Integer, Polyline> mMapPolylinesWithInteger = new HashMap<>();
     private Map<Integer, Polygon> mMapPolygonsWithInteger = new HashMap<>();
     private Map<CLinkEntity, Polyline> mMapPolylines = new HashMap<>();
     private Map<CFieldEntity, Polygon> mMapPolygons = new HashMap<>();
     private CPlayerEntity mPlayer;
+    private ScrollView mScroll;
+    private int mDrawState=0;
     private final List<CPortalEntity> mPortals = new CRestGet().getPortalsRest();
+    private LinearLayout mLinear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
+        mDrawerAction = (DrawerLayout) findViewById(R.id.drawerlayout);
+        mScroll = (ScrollView) findViewById(R.id.drawerleft);
+        mLinear = (LinearLayout) findViewById(R.id.initaction);
         // TODO singleton for player
         //mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
         //Log.d("test", "player null ? " + mPlayer);
@@ -139,7 +149,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     mMap.animateCamera(CameraUpdateFactory.zoomIn());
                 } else {
                     // Do whatever you want if user went too far
-                    Log.d("test", "impossible de dézoomer");
+                    Log.d("test", "impossible de zoomer");
                 }
             }
 
@@ -160,12 +170,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap = mapFragment.getMap();
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
-        mMap.getUiSettings().setZoomGesturesEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(false);
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setRotateGesturesEnabled(true);
-        mMap.getUiSettings().setCompassEnabled(true);
-        //mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
-        //mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+        mMap.getUiSettings().setCompassEnabled(false);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
+        mMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
 
         // Portals from database with REST
@@ -250,9 +260,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             @Override
             public void onMapClick(LatLng latLng) {
                 if (mPosition == 1) {
-                    mPosition = 0;
+                    if (mDrawState == 1) {
+                        mPosition = 0;
+                    }
                 }
-                for (Marker lMarker : mResonatorMarkers){
+                for (Marker lMarker : mResonatorMarkers) {
                     lMarker.remove();
                 }
                 mResonatorMarkers.clear();
@@ -263,53 +275,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-            @Override
-            public View getInfoWindow(Marker marker) {
-                CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(marker.getTitle()));
-                marker.setInfoWindowAnchor((float)0.5,5);
-                Context context = getApplicationContext();
-                LinearLayout info = new LinearLayout(context);
-                ContextThemeWrapper cw = new ContextThemeWrapper(
-                        getApplicationContext(), R.style.Transparent);
-                // AlertDialog.Builder b = new AlertDialog.Builder(cw);
-                LayoutInflater inflater = (LayoutInflater) cw
-                        .getSystemService(LAYOUT_INFLATER_SERVICE);
-                View layout = inflater.inflate(R.layout.activity_attackportals,
-                        null);
-                info.addView(layout);
-                Log.d("test---->", marker.getTitle());
-                List<CResonatorEntity> lResonatorTeam1 = lPortal.getResonatorsTeamById(1);
-                List<CResonatorEntity> lResonatorTeam2 = lPortal.getResonatorsTeamById(2);
-                int lNbResonatorTeam1 = lResonatorTeam1.size();
-                Log.d("test team blue", Integer.toString(lNbResonatorTeam1));
-                int lNbResonatorTeam2 = lResonatorTeam2.size();
-                Log.d("test team red", Integer.toString(lNbResonatorTeam2));
-                int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
-                //LinearLayout info2 = new LinearLayout(context);
-                info.setOrientation(LinearLayout.VERTICAL);
-                //info2.setOrientation(LinearLayout.HORIZONTAL);
-                TextView snip1 = new TextView(context);
-                snip1.setTextColor(Color.BLUE);
-                snip1.setText(Integer.toString(lNbResonatorTeam1));
-                info.addView(snip1);
-                TextView snip2 = new TextView(context);
-                snip2.setTextColor(Color.RED);
-                snip2.setText(Integer.toString(lNbResonatorTeam2));
-                info.addView(snip2);
-                TextView snip3 = new TextView(context);
-                snip3.setTextColor(Color.BLACK);
-                snip3.setText(Integer.toString(lNbEmptyPlace));
-                info.addView(snip3);
-                displayResonators(lPortal.getResonators(), lPortal);
-                return info;
-            }
 
-            @Override
-            public View getInfoContents(Marker marker) {
-                return null;
-            }
-        });
 
 
         // portal action radius when click on it
@@ -324,14 +290,75 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 }
                 mResonatorMarkers.clear();
                 LatLng lUserLatLng = marker.getPosition();
+                if (mPosition==1){
+                    if (mDrawState == 1) {
+                        mDrawState = 0;
+                        mPosition=0;
+                    }
+                }
                 if (mPosition == 0) {
+                    CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(marker.getTitle()));
+                    displayResonators(lPortal.getResonators(), lPortal);
                     mPosition = 1;
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));
-
+                    mLinear.removeAllViews();
+                    initDrawerAction();
+                    mDrawerAction.openDrawer(mScroll);
+                    //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+                    mDrawerAction.setScrimColor(getResources().getColor(R.color.transparent));
+                    Log.d("test2", "drawer null ? " + Boolean.toString(mDrawerAction == null));
+                    mDrawState=1;
 
                     //List<CResonatorEntity> lResonators = new CRestGet().getResonatorsByPortalRest(Integer.parseInt(marker.getTitle()));
 
                 }
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                    @Override
+                    public View getInfoWindow(Marker marker) {
+                        CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(marker.getTitle()));
+                        marker.setInfoWindowAnchor((float) 1, 1);
+                        Context context = getApplicationContext();
+                        LinearLayout info = new LinearLayout(context);
+                        /*ContextThemeWrapper cw = new ContextThemeWrapper(
+                                getApplicationContext(), R.style.Transparent);
+                        // AlertDialog.Builder b = new AlertDialog.Builder(cw);
+                        LayoutInflater inflater = (LayoutInflater) cw
+                                .getSystemService(LAYOUT_INFLATER_SERVICE);
+                        View layout = inflater.inflate(R.layout.activity_attackportals,
+                                null);
+                        info.addView(layout);*/
+                        Log.d("test5", "---->"+marker.getTitle());
+                        List < CResonatorEntity > lResonatorTeam1 = lPortal.getResonatorsTeamById(1);
+                        List<CResonatorEntity> lResonatorTeam2 = lPortal.getResonatorsTeamById(2);
+                        int lNbResonatorTeam1 = lResonatorTeam1.size();
+                        Log.d("test team blue", Integer.toString(lNbResonatorTeam1));
+                        int lNbResonatorTeam2 = lResonatorTeam2.size();
+                        Log.d("test team red", Integer.toString(lNbResonatorTeam2));
+                        int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
+                        //LinearLayout info2 = new LinearLayout(context);
+                        info.setOrientation(LinearLayout.VERTICAL);
+                        //info2.setOrientation(LinearLayout.HORIZONTAL);
+                        TextView snip1 = new TextView(context);
+                        snip1.setTextColor(Color.BLUE);
+                        snip1.setText(Integer.toString(lNbResonatorTeam1));
+                        info.addView(snip1);
+                        TextView snip2 = new TextView(context);
+                        snip2.setTextColor(Color.RED);
+                        snip2.setText(Integer.toString(lNbResonatorTeam2));
+                        info.addView(snip2);
+                        TextView snip3 = new TextView(context);
+                        snip3.setTextColor(Color.BLACK);
+                        snip3.setText(Integer.toString(lNbEmptyPlace));
+                        info.addView(snip3);
+                        //mResonatorMarkers
+                        return info;
+                    }
+
+                    @Override
+                    public View getInfoContents(Marker marker) {
+                        return null;
+                    }
+                });
        /* // Portal action possibilities for players when click on it
                         @Override
                         public View getInfoContents(Marker marker) {
@@ -459,11 +486,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         @Override
         public void onMyLocationChange(Location location) {
             // current position player
-            mPlayer.setLat(location.getLatitude());
-            mPlayer.setLong(location.getLongitude());
-
-            //mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-            mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
+            //mPlayer.setLat(location.getLatitude());
+            //mPlayer.setLong(location.getLongitude());
+            //location.setBearing(location.getBearing());
+            //mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
+            mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            //mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
             if (mPosition != 1) {
                 //mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
@@ -528,6 +556,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public void displayResonators(List<CResonatorEntity> pResonators, CPortalEntity pPortal) {
         double lLat = pPortal.getLat();
         double lLong = pPortal.getLong();
+        //ProgressBar mHealthBar= new ProgressBar();
+        //mHealthBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         //mMarkerUserSelected = new LatLng(lLat, lLong);
         //mCircleMarker = mMap.addCircle(new CircleOptions().center(mMarkerUserSelected).radius(pPortal.getRadius()).strokeColor(Color.BLACK));
         double lIdent = -0.0007;
@@ -539,6 +569,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 mResonatorMarkers.add(mMap.addMarker(new MarkerOptions()
                         .position(lLatLng).title(Integer.toString(lResonator.getId()))
                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.resblue))));
+                Log.d("test5", "title -> " + mResonatorMarkers.get(mResonatorMarkers.size() - 1).getTitle());
             } else {
                 mResonatorMarkers.add(mMap.addMarker(new MarkerOptions()
                         .position(lLatLng).title(Integer.toString(lResonator.getId()))
@@ -559,6 +590,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     }
 
+    /*mHealthBar = (ProgressBar)findViewById(R.id.healthbar);
+
+    int lNewHp = mHealthBar.getProgress() - 30;
+    int lNewHp = mHealthBar.getProgress() - 30;
+    mHealthBar.setProgress(lNewHp);*/
     //just a test
     public void onClickTest(View pView){
         Log.d("test2", "etat de la hashmap :\n" + mMapPolylines);
@@ -761,6 +797,29 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
 
         }
+    }
+
+    public void initDrawerAction(){
+        ImageButton lButtonAttack = new ImageButton(this);
+        Drawable mDrawable1 = getDrawable(R.mipmap.attack);
+        lButtonAttack.setImageDrawable(mDrawable1);
+        mLinear.addView(lButtonAttack);
+        ImageButton lButtonZone = new ImageButton(this);
+        Drawable mDrawable2 = getDrawable(R.mipmap.zoneattack);
+        lButtonZone.setImageDrawable(mDrawable2);
+        mLinear.addView(lButtonZone);
+        ImageButton lButtonCreate = new ImageButton(this);
+        Drawable mDrawable3 = getDrawable(R.mipmap.create);
+        lButtonCreate.setImageDrawable(mDrawable3);
+        mLinear.addView(lButtonCreate);
+        ImageButton lButtonBuild = new ImageButton(this);
+        Drawable mDrawable4 = getDrawable(R.mipmap.build);
+        lButtonBuild.setImageDrawable(mDrawable4);
+        mLinear.addView(lButtonBuild);
+        ImageButton lButtonPirate = new ImageButton(this);
+        Drawable mDrawable5 = getDrawable(R.mipmap.pirate);
+        lButtonPirate.setImageDrawable(mDrawable5);
+        mLinear.addView(lButtonPirate);
     }
 
 

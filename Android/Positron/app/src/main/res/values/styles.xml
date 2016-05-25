@@ -20,5 +20,12 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="buttondef">
+        <item name="android:height">80sp</item>
+        <item name="android:width">80sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:buttonTint">@color/backgroundaction</item>
+    </style>
+
 
 </resources>
