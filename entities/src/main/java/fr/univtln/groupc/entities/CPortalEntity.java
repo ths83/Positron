@@ -220,6 +220,7 @@ public class CPortalEntity implements Serializable {
     public void addResonator(CResonatorEntity pResonator){
         if (mResonators != null){
             mResonators.add(pResonator);
+            pResonator.setPortal(this);
         }
     }
 
@@ -313,6 +314,7 @@ public class CPortalEntity implements Serializable {
                 */'}' + super.toString();
     }
 
+    @JsonIgnore
     public List<CShieldEntity> getShields(){
         List<CShieldEntity> lShields = new ArrayList<CShieldEntity>();
 
@@ -323,6 +325,8 @@ public class CPortalEntity implements Serializable {
         }
     return lShields;
     }
+
+    @JsonIgnore
     public List<CTurretEntity> getTurrets(){
         List<CTurretEntity> lTurrets = new ArrayList<CTurretEntity>();
 
@@ -349,4 +353,5 @@ public class CPortalEntity implements Serializable {
      lLevel =  lLevel/8;
     return lLevel;
     }
+
 }
