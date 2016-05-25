@@ -141,4 +141,6 @@ public class CLinkEntity implements Serializable {
         lSize=Math.sqrt(lLat * lLat * lLong * lLong);
         return lSize;
     }
+
+
 }
