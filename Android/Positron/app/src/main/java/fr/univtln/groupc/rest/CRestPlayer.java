@@ -19,43 +19,9 @@ import fr.univtln.groupc.entities.CPlayerEntity;
 /**
  * Created by arouani277 on 25/05/16.
  */
-public class CRestPlayer extends AsyncTask<String,String,String> {
+public class CRestPlayer extends CRest {
 
-    //public final static String API_URL = "http://10.9.185.57:9998";
     public final static String API_URL = "http://10.9.185.161:9998";
-    //public final static String API_URL = "http://10.9.185.55:9998";
-    //public final static String API_URL = "http://10.9.185.52:9998";
-    //public final static String API_URL = "http://10.21.174.206:9998";
-    //thom' home
-    //public final static String API_URL = "http://192.168.1.83:9998";
-    // wifi
-    //public final static String API_URL = "http://192.168.43.44:9998";
-    //public final static String API_URL = "http://192.168.1.71:9998";
-    //public final static String API_URL = "http://127.0.0.1:9998";
-    @Override
-    protected String doInBackground(String... params) {
-        String lUrlString = params[0]; // URL to call
-        String lResultToDisplay = "";
-        InputStream lIn = null;
-        String lJson = "";
-        try {
-            URL lUrl = new URL(lUrlString);
-            HttpURLConnection urlConnection = (HttpURLConnection) lUrl.openConnection();
-            lIn = new BufferedInputStream(urlConnection.getInputStream());
-            BufferedReader lReader = new BufferedReader(new InputStreamReader(lIn), 8);
-            StringBuilder lSb = new StringBuilder();
-            String lLine = null;
-            while ((lLine = lReader.readLine()) != null) {
-                lSb.append(lLine + "\n");
-            }
-            lIn.close();
-            lJson = lSb.toString();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return e.getMessage();
-        }
-        return lJson;
-    }
 
     /**
      * get player by id from database
