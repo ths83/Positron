@@ -294,7 +294,18 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return lResonators;
     }
 
-
+    @JsonIgnore
+    public List<CTurretEntity> getTurretsByLevel(int pId){
+        List<CTurretEntity> lTurrets = new ArrayList<CTurretEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CTurretEntity){
+                if (((CTurretEntity) lObject).getLevel() == pId){
+                    lTurrets.add((CTurretEntity) lObject);
+                }
+            }
+        }
+        return lTurrets;
+    }
 
     public static class CPlayerBuilder{
         private int mId;
