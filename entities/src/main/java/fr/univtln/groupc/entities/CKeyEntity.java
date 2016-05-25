@@ -64,6 +64,7 @@ public class CKeyEntity extends AObjectEntity implements Serializable {
 
         public CKeyBuilder portal(CPortalEntity pPortal){
             mPortal = pPortal;
+            //TODO KEY
             return this;
         }
 

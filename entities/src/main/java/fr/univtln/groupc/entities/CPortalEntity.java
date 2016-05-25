@@ -220,6 +220,7 @@ public class CPortalEntity implements Serializable {
     public void addResonator(CResonatorEntity pResonator){
         if (mResonators != null){
             mResonators.add(pResonator);
+            pResonator.setPortal(this);
         }
     }
 

@@ -67,11 +67,11 @@ public class CTraceMapView {
                     .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
                     .width(LINE_WIDTH)
                     .color(mColor)); // neutral color*/
-            CMapsActivity.mMapPolylines.put(pLink.getId(), pMap.addPolyline(new PolylineOptions()
+          /*  CMapsActivity.mMapPolylines.put(pLink.getId(), pMap.addPolyline(new PolylineOptions()
                     .add(mLatLngPortalLinkedArray[0], mLatLngPortalLinkedArray[1])
                     .width(LINE_WIDTH)
                     .color(mColor)));
-
+*/
             mLinkLine.setVisible(false);
 
             Log.d("test2", "polyline ajoutee !");
