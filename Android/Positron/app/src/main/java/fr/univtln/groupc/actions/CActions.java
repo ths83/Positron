@@ -7,6 +7,7 @@ import java.util.Objects;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CConsumableEntity;
+import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
@@ -20,11 +21,21 @@ public class CActions {
 
     public CPortalEntity buildResonator(CPortalEntity pPortal, CResonatorEntity pResonator) {
 
-        if (pPortal.getResonators().size() >= 8 && pResonator.getOwner().getLevel() >= pResonator.getLevel()) {
-            pPortal.addResonator(pResonator);
-            //TODO add XP
-        } else {
-            Log.d("BuildResonator", "Plus de place sur le portail / Portal Overload");
+        if (pPortal.getResonators().size() < 8 ) {
+            if ( pResonator.getOwner().getLevel() >= pResonator.getLevel()) {
+
+
+                pPortal.addResonator(pResonator);
+                //TODO add XP
+            }
+            else{
+                //   Log.d("BuildResonator","Niveau pas assez élever pour poser ce portail");
+                System.out.println("Niveau pas assez élever");
+            }
+        }
+        else {
+            //Log.d("BuildResonator", "Plus de place sur le portail / Portal Overload");
+            System.out.println("Plus de place sur le portail.");
         }
         return pPortal;
 
@@ -39,7 +50,8 @@ public class CActions {
             pPlayer.attack(pBuilding, pAmmunition);
             //TODO add XP
         } else {
-            Log.d("attackBuilding", "Consommable non approrié");
+            //Log.d("attackBuilding", "Consommable non approrié");
+            System.out.println("Consommable non approrié");
         }
 
     }
@@ -70,7 +82,7 @@ public class CActions {
         return null;
     }
 
-///////////////////////////////////////////////////////////////////
+////////////// TODO A REVOIR ///////////////////////////////////////////////////////////////////////////////
 
     public int calculLevel(int pPortalLevel, int pPlayerLevel) {
         int lLevel = 0;
@@ -107,11 +119,11 @@ public class CActions {
         return lLevel;
     }
 
-    ///////////////////////////////////////////////////:
+    /////TODO///////////////////////////////////////////////////////////////////////////////////////:
 
     public int calculRarety(int pPortalLevel) {
-        int lRandom = (int) Math.random() * (100);
-
+        double lRandom = (int) (Math.random() * (100));
+        //  System.out.println(lRandom);
         switch (pPortalLevel) {
 
 
@@ -200,7 +212,7 @@ public class CActions {
 
     public int calculTypeObject(){
         int lType = 0, lRandom=0;
-        lRandom = (int) Math.random() * (100);
+        lRandom = (int)(Math.random() * (100));
 
         if(lRandom > 90){
             lType = 0;
@@ -220,4 +232,8 @@ public class CActions {
 
     /////////////////////////////////////////////////////////////////////
 
+    // TODO : Choirsie/Vérifier sens de création: Cascade Player -> Object or Object -> Player
+    public CKeyEntity keyHacking(CPortalEntity pPortal){
+        return new CKeyEntity.CKeyBuilder(140).portal(pPortal).build();
+    }
 }

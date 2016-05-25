@@ -321,10 +321,6 @@ public class CRestGet extends AsyncTask<String,String,String> {
         return lKeys;
     }
 
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-    }
 
     public CLinkEntity getLinkByID(int pId){
         ObjectMapper lMapper = new ObjectMapper();
@@ -347,5 +343,11 @@ public class CRestGet extends AsyncTask<String,String,String> {
 
         return lLink;
     }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+    }
+
 
 }
