@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
@@ -20,36 +21,22 @@ public class CServerGoogle2 {
     private final JsonFactory mJFactory;
     private String mProblem = "Verification failed. (Time-out?)";
 
-    public CServerGoogle2(String[] clientIDs, String audience) {
-        mClientIDs = Arrays.asList(clientIDs);
-        mAudience = audience;
-        NetHttpTransport transport = new NetHttpTransport();
-        mJFactory = new GsonFactory();
-        mVerifier = new GoogleIdTokenVerifier(transport, mJFactory);
-    }
+    public static void main(String[] args) {
+        // Set up the HTTP transport and JSON factory
+        HttpTransport httpTransport = new NetHttpTransport();
+        JsonFactory jsonFactory = new JacksonFactory();
 
-    public GoogleIdToken.Payload check(String tokenString) {
-        GoogleIdToken.Payload payload = null;
-        try {
-            GoogleIdToken token = GoogleIdToken.parse(mJFactory, tokenString);
-            if (mVerifier.verify(token)) {
-                GoogleIdToken.Payload tempPayload = token.getPayload();
-                if (!tempPayload.getAudience().equals(mAudience))
-                    mProblem = "Audience mismatch";
-                else if (!mClientIDs.contains(tempPayload.getIssuee()))
-                    mProblem = "Client ID mismatch";
-                else
-                    payload = tempPayload;
-            }
-        } catch (GeneralSecurityException e) {
-            mProblem = "Security issue: " + e.getLocalizedMessage();
-        } catch (IOException e) {
-            mProblem = "Network problem: " + e.getLocalizedMessage();
-        }
-        return payload;
-    }
+// Set up OAuth 2.0 access of protected resources
+// using the refresh and access tokens, automatically
+// refreshing the access token when it expires
+        GoogleAccessProtectedResource requestInitializer =
+                new GoogleAccessProtectedResource(accessToken, httpTransport,
+                        jsonFactory, clientId, clientSecret, refreshToken);
 
-    public String problem() {
-        return mProblem;
+// set up global Oauth2 instance
+        Oauth2 oauth2 = new Oauth2.Builder(httpTransport, jsonFactory, requestInitializer)
+                .setApplicationName("Google-OAuth2Sample/1.0").build();
+
+        Userinfo userinfo = oauth2.userinfo().get().execute();
     }
 }
