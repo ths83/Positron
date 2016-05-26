@@ -18,10 +18,10 @@ public class CRestPlayerTest extends TestCase {
     ObjectMapper mMapper = new ObjectMapper();
     ClientResponse lClientResponse, lResponse;
     String mJson;
+
     public void testPostPlayerService() throws Exception {
 
         CPlayerEntity lPlayerEntity = new CPlayerEntity.CPlayerBuilder(78678).email("bobz@z.fr").build();
-
         mJson = mMapper.writeValueAsString(lPlayerEntity);
         lResponse = mWebResource.path("/players").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
 
@@ -34,19 +34,21 @@ public class CRestPlayerTest extends TestCase {
         assertEquals(lPlayerEntity.getEmail(), "bobz@z.fr");
     }
 
+    public void testGetPlayerByTokenService() throws Exception {
+        CPlayerEntity lPlayerGotten = mMapper.readValue(mWebResource.path("players/token/bobz@z.fr").get(String.class), CPlayerEntity.class);
+        assertEquals(lPlayerGotten.getEmail(), "bobz@z.fr");
+    }
+    public void testGetPlayerByMailService() throws Exception {
+        CPlayerEntity lPlayerGotten = mMapper.readValue(mWebResource.path("players/mail/bobz@z.fr").get(String.class), CPlayerEntity.class);
+        assertEquals(lPlayerGotten.getEmail(), "bobz@z.fr");
+    }
     public void testDeletePlayerService() throws Exception {
         lClientResponse = mWebResource.path("/players/78678").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(lClientResponse.getStatus(), 200);
     }
-    /*
-    public void testGetByIdPlayerService() throws Exception {
-        CPlayerEntity lPlayerGotten = mMapper.readValue(mWebResource.path("players/50").get(String.class), CPlayerEntity.class);
-        // need post method first
-        assertEquals(lPlayerGotten.getId(), 50);
-        assertEquals(lPlayerGotten.getEmail(), "email_de_test");
-        assertEquals(lPlayerGotten.getEnergy(), 50);
-        // etc
-    }*/
+
+
+
     /*
 
 

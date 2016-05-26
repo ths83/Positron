@@ -20,7 +20,6 @@
         <class>fr.univtln.groupc.entities.CTerritoryEntity</class>
         <class>fr.univtln.groupc.entities.CSkillEntity</class>
         <class>fr.univtln.groupc.entities.CTurretEntity</class>
-        <class>fr.univtln.groupc.entities.CTokenEntity</class>
 
         <!-- Abstracts stats -->
         <class>fr.univtln.groupc.stats.AStatsAttacked</class>
