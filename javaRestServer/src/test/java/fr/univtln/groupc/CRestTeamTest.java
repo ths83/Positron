@@ -39,7 +39,7 @@ public class CRestTeamTest extends TestCase{
     }
     /*
     public void testGetByIdTeamService() throws Exception {
-        CTeamEntity lTeamGotten = mMapper.readValue(mWebResource.path("/teams/150").accept("application/json").type("application/json").get(String.class), CTeamEntity.class);
+        CTeamEntity lTeamGotten = mMapper.readValue(mWebResourit addce.path("/teams/150").accept("application/json").type("application/json").get(String.class), CTeamEntity.class);
         assertEquals(lTeamGotten.getId(), 150);
         assertEquals(lTeamGotten.getColor(), "vert");
     }

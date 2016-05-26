@@ -272,6 +272,17 @@ public class CActions {
     }
 
 
-    punmic
+    public Boolean portalAllied(CPortalEntity pPortal,CPlayerEntity pPlayer){
+        /*if(pPlayer.getTeam() == pPortal.getTeam()){
+            return true;
+        }
+        else{
+            return false;
+        }
+        */
+        return pPlayer.getTeam() == pPortal.getTeam();
+    }
+
+
 
 }

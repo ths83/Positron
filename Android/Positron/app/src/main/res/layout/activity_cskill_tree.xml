@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="fr.univtln.groupc.activities.profil.CSkillTree">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Maintenance_1"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Maintenance_21"
+            android:layout_toRightOf="@+id/Maintenance_1"
+            a
+/>
+        <!--<Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Maintenance_22"/>
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Maintenance_3"/>-->
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
