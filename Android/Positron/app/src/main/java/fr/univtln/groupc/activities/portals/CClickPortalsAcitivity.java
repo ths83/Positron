@@ -20,6 +20,7 @@ import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
+import fr.univtln.groupc.rest.CRestDelete;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -96,7 +97,8 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             if (lTeam != pPortal.getTeam().getId()){
                 new CRestUpdate().updatePortalRest(pPortal);
                 for(CLinkEntity lLink : lLinkList) {
-                    //TODO DELET lLink
+                    //DELETE lLink
+                    new CRestDelete().deleteLinkRest(lLink.getId());
                 }
                 return 1;
             }
@@ -106,7 +108,8 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             if (pPortal!=null){
               //  new CRestUpdate().updatePortalRest(pPortal);
                 for(CLinkEntity lLink : lLinkList) {
-                    //TODO DELET lLink
+                    // DELETE lLink
+                    new CRestDelete().deleteLinkRest(lLink.getId());
                 }
                 return 1;
             }
