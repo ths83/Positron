@@ -704,7 +704,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             mMapPolylinesWithInteger.put(pLink.getId(), lLinkLine);
         }
     }
-
+    
     /*
      * Actions disponibles du "drawer
      * action" après un click
