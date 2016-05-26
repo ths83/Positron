@@ -12,7 +12,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
+
 import fr.univtln.groupc.entities.CLinkEntity;
+
 import fr.univtln.groupc.entities.CPortalEntity;
 
 /**
