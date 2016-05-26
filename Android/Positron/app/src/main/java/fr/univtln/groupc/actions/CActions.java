@@ -2,6 +2,7 @@ package fr.univtln.groupc.actions;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -256,13 +257,21 @@ public class CActions {
         }
     }
     //////////////////////////////////////////////////////////////////////////////////////
-/*
-    public CLinkEntity createLink(CKeyEntity pKey, CPlayerEntity pPortal){
 
-        CLinkEntity
+    public CLinkEntity createLink(CKeyEntity pKey, CPortalEntity pPortal){
+        if(pKey.getPortal().getTeam() == pPortal.getTeam()) {
+            List<CPortalEntity> lPortalListe = new ArrayList<>();
+            lPortalListe.add(pPortal);
+            lPortalListe.add(pKey.getPortal());
+
+            return new CLinkEntity.CLinkBuilder(1).portals(lPortalListe).build();
+        }
+        else{
+            return null;
+        }
     }
-    */
 
 
+    punmic
 
 }
