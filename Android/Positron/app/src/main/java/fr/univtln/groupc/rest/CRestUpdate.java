@@ -20,7 +20,7 @@ import fr.univtln.groupc.entities.CPortalEntity;
 public class CRestUpdate extends AsyncTask<String, String, Void> {
 
     //public final static String API_URL = "http://192.168.1.71:9998";
-    public final static String API_URL = "http://10.9.185.52:9998";
+    public final static String API_URL = "http://10.9.185.55:9998";
     // thom
     //public final static String API_URL = "http://10.9.185.52:9998";
 

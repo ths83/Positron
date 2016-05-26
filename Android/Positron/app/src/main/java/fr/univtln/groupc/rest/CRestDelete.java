@@ -21,7 +21,7 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
     //public final static String API_URL = "http://10.9.185.57:9998";
     //public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://10.9.185.55:9998";
-    public final static String API_URL = "http://10.9.185.52:9998";
+    public final static String API_URL = "http://10.9.185.55:9998";
     //public final static String API_URL = "http://10.21.174.206:9998";
     //thom' home
     //public final static String API_URL = "http://192.168.1.83:9998";
