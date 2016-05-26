@@ -6,56 +6,190 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="fr.univtln.groupc.activities.profil.CSkillTree">
 
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/title_Skill-Tree"
+    android:id="@+id/skill_tree_title"
+    android:layout_centerHorizontal="true"/>
+
+
+    <!-- 1er Arbre Maintenance -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/Maintenance_Tree"
+        android:layout_below="@+id/skill_tree_title"
+        android:layout_centerHorizontal="true">
 
-        <Button
-            android:layout_width="@dimen/skill_tree_button_width"
-            android:layout_height="@dimen/skill_tree_button_height"
-            android:id="@+id/Maintenance_1"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"/>
+            <Button
+                android:layout_width="@dimen/skill_tree_button_width"
+                android:layout_height="@dimen/skill_tree_button_height"
+                android:id="@+id/Maintenance_1"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"/>
+
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
             android:layout_height="@dimen/skill_tree_button_height"
             android:id="@+id/Maintenance_21"
             android:layout_toRightOf="@+id/Maintenance_1"
-            
-/>
-        <!--<Button
-            android:layout_width="@dimen/skill_tree_button_width"
-            android:layout_height="@dimen/skill_tree_button_height"
-            android:id="@+id/Maintenance_22"/>
+            android:layout_marginBottom="@dimen/skill_tree_button_margin"
+            />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
             android:layout_height="@dimen/skill_tree_button_height"
-            android:id="@+id/Maintenance_3"/>-->
-
+            android:id="@+id/Maintenance_22"
+            android:layout_toRightOf="@+id/Maintenance_1"
+            android:layout_marginTop="@dimen/skill_tree_button_margin"
+            />
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Maintenance_3"
+            android:layout_toRightOf="@+id/Maintenance_22"
+            android:layout_centerVertical="true"
+            />
 
     </RelativeLayout>
 
-
+    <!-- 2er Arbre Attack-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/Attack_Tree"
+        android:layout_below="@+id/Maintenance_Tree">
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Attack_1"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Attack_21"
+            android:layout_toRightOf="@+id/Attack_1"
+            android:layout_marginBottom="@dimen/skill_tree_button_margin"
+            />
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Attack_22"
+            android:layout_toRightOf="@+id/Attack_1"
+            android:layout_marginTop="@dimen/skill_tree_button_margin"
+            />
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Attack_3"
+            android:layout_toRightOf="@+id/Attack_22"
+            android:layout_centerVertical="true"
+            />
 
     </RelativeLayout>
 
-    <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    </RelativeLayout>
-
-
+    <!-- 3er Arbre Hacking-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/Hacking_Tree"
+        android:layout_below="@+id/Attack_Tree"
+        >
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Hacking_1"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Hacking_21"
+            android:layout_toRightOf="@+id/Hacking_1"
+            android:layout_marginBottom="@dimen/skill_tree_button_margin"
+            />
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Hacking_22"
+            android:layout_toRightOf="@+id/Hacking_1"
+            android:layout_marginTop="@dimen/skill_tree_button_margin"
+            />
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Hacking_3"
+            android:layout_toRightOf="@+id/Hacking_22"
+            android:layout_centerVertical="true"
+            />
 
     </RelativeLayout>
 
+    <!-- 4er Scout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Scout_Tree"
+        android:layout_below="@+id/Hacking_Tree"
+        >
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Scout_1"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Scout_21"
+            android:layout_toRightOf="@+id/Scout_1"
+            android:layout_marginBottom="@dimen/skill_tree_button_margin"
+            />
+
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Scout_22"
+            android:layout_toRightOf="@+id/Scout_1"
+            android:layout_marginTop="@dimen/skill_tree_button_margin"
+            />
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Scout_3"
+            android:layout_toRightOf="@+id/Scout_22"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Scout_Tree">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/free_Skill_Point"
+            />
+        <Button
+            android:layout_width="@dimen/skill_tree_button_width"
+            android:layout_height="@dimen/skill_tree_button_height"
+            android:id="@+id/Reset_Skill"
+            />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
