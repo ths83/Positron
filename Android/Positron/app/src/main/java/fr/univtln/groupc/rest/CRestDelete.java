@@ -21,7 +21,7 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
     //public final static String API_URL = "http://10.9.185.57:9998";
     //public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://10.9.185.55:9998";
-    public final static String API_URL = "http://10.9.185.55:9998";
+    public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://10.21.174.206:9998";
     //thom' home
     //public final static String API_URL = "http://192.168.1.83:9998";
@@ -48,9 +48,14 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
         return null;
     }
 
+
     /**
-     * get all portals from database to display them on Android Map
-     * @return
+     * Supprime le lien identifie par le parametre
+     *
+     * ------
+     *
+     * Deletes the link identified by parameter
+     * @param pId
      */
     public void deleteLinkRest(int pId){
         String lUrlString = API_URL + "/links/" + Integer.toString(pId);
@@ -63,4 +68,26 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * Supprime le champ identifie par le parametre
+     *
+     * ------
+     *
+     * Deletes the field identified by parameter
+     * @param pId
+     */
+    public void deleteFieldRest(int pId){
+        String lUrlString =  API_URL + "/fields/" + Integer.toString(pId);
+        Log.d("test2", "delete ->-> " + lUrlString);
+        try {
+            new CRestDelete().execute(lUrlString).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

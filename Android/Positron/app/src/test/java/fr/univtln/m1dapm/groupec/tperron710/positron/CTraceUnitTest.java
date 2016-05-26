@@ -8,8 +8,6 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.univtln.groupc.activities.map.CTraceMapView;
-
 
 /**
  * Created by toms on 5/17/16.

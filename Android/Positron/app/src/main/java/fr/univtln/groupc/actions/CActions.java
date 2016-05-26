@@ -2,12 +2,15 @@ package fr.univtln.groupc.actions;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
+import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
@@ -82,44 +85,47 @@ public class CActions {
         return null;
     }
 
-////////////// TODO A REVOIR ///////////////////////////////////////////////////////////////////////////////
-
     public int calculLevel(int pPortalLevel, int pPlayerLevel) {
         int lLevel = 0;
         // Niveau Max
         if (pPlayerLevel == 8 && pPortalLevel == 8) {
             lLevel = 8;
-        } else {
-            //Cas Basic (+-2 possible)
-            if (pPlayerLevel + 2 <= pPortalLevel && pPlayerLevel - 2 >= 1) {
-                lLevel = (pPlayerLevel - 2) + (int) (Math.random() * ((pPlayerLevel + 2)) - (pPlayerLevel - 2));
-            } else {
-                if (pPlayerLevel == pPortalLevel) {
-                    // Portail & Player lvl 1
-                    if (pPlayerLevel == 1) {
-                        lLevel = (pPlayerLevel) + (int) (Math.random() * ((pPlayerLevel + 2)) - (pPlayerLevel));
-                    }
-                    // Portail & Player same level between 2 et 7
-                    else {
-                        lLevel = (pPlayerLevel - 2) + (int) (Math.random() * (pPlayerLevel) - (pPlayerLevel - 2));
-                    }
-                } else {
-                    // Player = 1  & Portail = 2
-                    if (pPlayerLevel == 1 && pPortalLevel == 2) {
-                        lLevel = (pPlayerLevel) + (int) (Math.random() * ((pPlayerLevel + 1)) - (pPlayerLevel));
-                    }
-                    // Player = Portail - 1
-                    else {
-                        lLevel = (pPlayerLevel - 2) + (int) (Math.random() * ((pPlayerLevel + 1)) - (pPlayerLevel - 2));
-                    }
+        }
+        else {
+            int lMinima =0;
+            // On garde la valeur la plus basse
+            if(pPlayerLevel <= pPortalLevel){
+                lMinima = pPlayerLevel;
+            }
+            else{
+                lMinima = pPortalLevel;
+            }
 
+
+            if(lMinima <= 2){
+                // Pour 1
+                if(lMinima == 1) {
+                    lLevel = 1 + (int) (Math.random() * 2);
+                }
+                // Pour 2
+                else {
+                    lLevel = 1 + (int) (Math.random() * 3);
+                }
+            }
+            else{
+                // Pour 7
+                if (lMinima ==7){
+                    lLevel = 5 + (int)(Math.random() * 3);
+                }
+                // Normal
+                else{
+                    lLevel = (lMinima -2 ) + ((int)(Math.random()*5));
                 }
             }
         }
+
         return lLevel;
     }
-
-    /////TODO///////////////////////////////////////////////////////////////////////////////////////:
 
     public int calculRarety(int pPortalLevel) {
         double lRandom = (int) (Math.random() * (100));
@@ -236,4 +242,47 @@ public class CActions {
     public CKeyEntity keyHacking(CPortalEntity pPortal){
         return new CKeyEntity.CKeyBuilder(140).portal(pPortal).build();
     }
+//////////////////////////////////////////////////////////////////////////////////////////
+
+    public void bombeExplosion(CPortalEntity pPortal, int pDamage){
+        List<CResonatorEntity> lResonatorListe = pPortal.getResonators();
+        List<ABuildingEntity> lBuildingListe = pPortal.getBuildings();
+
+        for(CResonatorEntity lResonator : lResonatorListe){
+            lBuildingListe.add((ABuildingEntity) lResonator);
+        }
+        for(ABuildingEntity lBuilding : lBuildingListe){
+            lBuilding.takeDamage(null,pDamage);
+
+        }
+    }
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    public CLinkEntity createLink(CKeyEntity pKey, CPortalEntity pPortal){
+        if(pKey.getPortal().getTeam() == pPortal.getTeam()) {
+            List<CPortalEntity> lPortalListe = new ArrayList<>();
+            lPortalListe.add(pPortal);
+            lPortalListe.add(pKey.getPortal());
+
+            return new CLinkEntity.CLinkBuilder(1).portals(lPortalListe).build();
+        }
+        else{
+            return null;
+        }
+    }
+
+
+    public Boolean portalAllied(CPortalEntity pPortal,CPlayerEntity pPlayer){
+        /*if(pPlayer.getTeam() == pPortal.getTeam()){
+            return true;
+        }
+        else{
+            return false;
+        }
+        */
+        return pPlayer.getTeam() == pPortal.getTeam();
+    }
+
+
+
 }

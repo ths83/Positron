@@ -3,6 +3,7 @@ package fr.univtln.groupc.activities.portals;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
+import fr.univtln.groupc.rest.CRestDelete;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -95,7 +97,8 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             if (lTeam != pPortal.getTeam().getId()){
                 new CRestUpdate().updatePortalRest(pPortal);
                 for(CLinkEntity lLink : lLinkList) {
-                    //TODO DELET lLink
+                    //DELETE lLink
+                    new CRestDelete().deleteLinkRest(lLink.getId());
                 }
                 return 1;
             }
@@ -103,9 +106,10 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
         else{
             pPortal.attributeTeam();
             if (pPortal!=null){
-                new CRestUpdate().updatePortalRest(pPortal);
+              //  new CRestUpdate().updatePortalRest(pPortal);
                 for(CLinkEntity lLink : lLinkList) {
-                    //TODO DELET lLink
+                    // DELETE lLink
+                    new CRestDelete().deleteLinkRest(lLink.getId());
                 }
                 return 1;
             }
@@ -144,5 +148,22 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    public static void useBombe(CConsumableEntity pAmmunition,CPortalEntity pPortal, CPlayerEntity pPlayer){
+        CActions lAction = new CActions();
+
+        if(pAmmunition.getName() == "Bombe"){
+           // TODO rajouter vérification du skill
+            if(true){
+                lAction.bombeExplosion(pPortal,(pAmmunition.getRarity()*10)+20);
+            }
+            else{
+                Log.d("UseBombe","Not able to use this weapon");
+            }
+        }
+        else{
+            Log.d("useBombe","Not good consumable");
+        }
     }
 }

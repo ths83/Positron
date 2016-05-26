@@ -35,7 +35,7 @@ import fr.univtln.groupc.entities.CResonatorEntity;
 public class CRestGet extends AsyncTask<String,String,String> {
 
     //public final static String API_URL = "http://10.9.185.57:9998";
-    public final static String API_URL = "http://10.9.185.55:9998";
+    public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://10.9.185.55:9998";
     //public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://10.21.174.206:9998";

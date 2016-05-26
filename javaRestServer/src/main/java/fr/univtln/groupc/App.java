@@ -26,9 +26,11 @@ public class App
         CPortalEntity po2 = crud.find(CPortalEntity.class,8);
         CPortalEntity po3 = crud.find(CPortalEntity.class,6);
         CPortalEntity po4 = crud.find(CPortalEntity.class,9);
+        p1.addObjects(new CConsumableEntity.CConsumableBuilder(11).name("Bombe").rarity(2).build());
+        crud.update(p1);
         //po1.setRadius(40);
         //crud.update(po1);
-        CResonatorEntity r1= new CResonatorEntity.CResonatorBuilder(1).level(8).owner(p1).energy(100).energyMax(50).portal(po1).build();
+        /*CResonatorEntity r1= new CResonatorEntity.CResonatorBuilder(1).level(8).owner(p1).energy(100).energyMax(50).portal(po1).build();
         CResonatorEntity r2= new CResonatorEntity.CResonatorBuilder(2).level(5).owner(p2).energy(100).energyMax(100).portal(po1).build();
         //CResonatorEntity r3= new CResonatorEntity.CResonatorBuilder(3).level(1).portal(po1).build();
         //CResonatorEntity r4= new CResonatorEntity.CResonatorBuilder(4).level(2).portal(po1).build();
@@ -53,7 +55,7 @@ public class App
         crud.create(r10);
         crud.create(r13);
         crud.create(r14);
-        crud.create(r16);
+        crud.create(r16);*/
         /*List<CPortalEntity> pi1 = new ArrayList<CPortalEntity>();
         pi1.add(po1);
         pi1.add(po3);
@@ -76,6 +78,6 @@ public class App
         CFieldEntity f2 = new CFieldEntity.CFieldBuilder(1).links(fi2).build();
         crud.create(f2);*/
         //CFieldEntity p1 = crud.find(CFieldEntity.class,101);
-        //crud.delete(CFieldEntity.class,101);
+        //crud.delete(CFieldEntity.class,101);*/
     }
 }

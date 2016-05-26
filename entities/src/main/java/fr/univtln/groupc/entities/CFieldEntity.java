@@ -24,7 +24,7 @@ public class CFieldEntity implements Serializable,Comparable<CFieldEntity> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "field_id")
     private int mId;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "territory_fk")
     private CTerritoryEntity mTerritory;
     @OneToMany(mappedBy="mField",  cascade = CascadeType.MERGE)

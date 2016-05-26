@@ -213,18 +213,16 @@ public class CActionTest extends TestCase {
 
         assertEquals(lAction.calculLevel(8,8), 8);
     }
-    /*
+
     public void testCalculLevelObject() throws Exception {
         CTestCActions lAction = new CTestCActions();
 
-        System.out.println(lAction.calculLevel(8,8));
-        System.out.println(lAction.calculLevel(3,8));
-        System.out.println(lAction.calculLevel(2,8));
-        System.out.println(lAction.calculLevel(4,7));
-        System.out.println(lAction.calculLevel(6, 6));
+        for (int i=0;i<100;i++) {
+            System.out.println(lAction.calculLevel(3, 8));
+        }
 
     }
-    */
+
 
     public void testKeyHacking() throws Exception{
         CTestCActions lAction = new CTestCActions();

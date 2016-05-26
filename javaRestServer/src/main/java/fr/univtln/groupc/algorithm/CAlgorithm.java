@@ -15,6 +15,9 @@ import java.util.List;
  */
 public class CAlgorithm {
 
+    // TODO unit tests in java server
+    public static final double EARTH_RADIUS = 6372.8; // In kilometers
+    public static final double MILLE = 1000;
 
     public static boolean detectFieldCollision(CPortalEntity pPortal, List<CFieldEntity> pListField) {
         Iterator<CFieldEntity> lIterator = pListField.iterator();
@@ -295,11 +298,38 @@ public class CAlgorithm {
     }
 
 
-
     public static double calculDetermiant(double pABx,double pABy,double pACx,double pACy){
         double lDet = pABx * pACy - pABy * pACx;
         return lDet;
 
+    }
+
+    /**
+     * calcule et retourne la distance en metre entre deux coordonnees
+     * mise en parametre
+     *
+     * -----
+     *
+     * calculates and returns distance between two coordinates in meters
+     * coordinates are in method's parameters
+     * @param lLat1
+     * @param lLon1
+     * @param lLat2
+     * @param lLon2
+     * @return
+     */
+    public static double haversine(double lLat1, double lLon1, double lLat2, double lLon2) {
+
+        double lLat = Math.toRadians(lLat2 - lLat1);
+        double lLon = Math.toRadians(lLon2 - lLon1);
+
+        lLat1 = Math.toRadians(lLat1);
+        lLat2 = Math.toRadians(lLat2);
+
+        double lA = Math.pow(Math.sin(lLat / 2),2) + Math.pow(Math.sin(lLon / 2),2) * Math.cos(lLat1) * Math.cos(lLat2);
+        double lC = 2 * Math.asin(Math.sqrt(lA));
+
+        return EARTH_RADIUS * lC * MILLE ;
     }
 
 }

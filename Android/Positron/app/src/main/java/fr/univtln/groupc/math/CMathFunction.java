@@ -1,16 +1,11 @@
 package fr.univtln.groupc.math;
 
-import static java.lang.Math.atan2;
-import static java.lang.Math.cos;
-import static java.lang.Math.pow;
-import static java.lang.Math.sin;
-import static java.lang.Math.sqrt;
-
 /**
  * Created by tperron710 on 19/05/16.
  */
 public class CMathFunction {
 
+    // TODO unit tests in java server
     public static final double EARTH_RADIUS = 6372.8; // In kilometers
     public static final double MILLE = 1000;
 
@@ -26,11 +21,8 @@ public class CMathFunction {
         double lA = Math.pow(Math.sin(lLat / 2),2) + Math.pow(Math.sin(lLon / 2),2) * Math.cos(lLat1) * Math.cos(lLat2);
         double lC = 2 * Math.asin(Math.sqrt(lA));
 
-        return EARTH_RADIUS * lC / MILLE ;
+        return EARTH_RADIUS * lC * MILLE ;
     }
 
 
-    public static void main(String[] args) {
-        System.out.println(haversine(36.12, -86.67, 33.94, -118.40));
-    }
 }
