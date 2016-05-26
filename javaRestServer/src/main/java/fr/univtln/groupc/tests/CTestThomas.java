@@ -102,7 +102,7 @@ public class CTestThomas {
 
         lCrud.create(lAtom);
         lCrud.create(lXenom);
-        lCrud.create(lResonator);
+//        lCrud.create(lResonator);
         lCrud.create(lPortal);
         lCrud.create(lPortal2);
         lCrud.create(lPortal3);

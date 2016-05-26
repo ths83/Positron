@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
  */
 public class CHaversineTest extends TestCase{
 
+    // tested fo kilometers -> ok
     public void testDistanceHaversineTest() throws Exception {
         DecimalFormat lDecimalFormat = new DecimalFormat("#.###");
         double lDistance = new CAlgorithm().haversine(38.898556, -77.037852, 38.897147, -77.043934);

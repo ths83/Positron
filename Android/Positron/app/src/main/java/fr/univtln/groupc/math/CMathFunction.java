@@ -7,6 +7,8 @@ public class CMathFunction {
 
     // TODO unit tests in java server
     public static final double EARTH_RADIUS = 6372.8; // In kilometers
+    public static final double MILLE = 1000;
+
 
     public static double haversine(double lLat1, double lLon1, double lLat2, double lLon2) {
 
@@ -19,6 +21,8 @@ public class CMathFunction {
         double lA = Math.pow(Math.sin(lLat / 2),2) + Math.pow(Math.sin(lLon / 2),2) * Math.cos(lLat1) * Math.cos(lLat2);
         double lC = 2 * Math.asin(Math.sqrt(lA));
 
-        return EARTH_RADIUS * lC ;
+        return EARTH_RADIUS * lC * MILLE ;
     }
+
+
 }

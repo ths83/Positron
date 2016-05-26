@@ -329,7 +329,7 @@ public class CAlgorithm {
         double lA = Math.pow(Math.sin(lLat / 2),2) + Math.pow(Math.sin(lLon / 2),2) * Math.cos(lLat1) * Math.cos(lLat2);
         double lC = 2 * Math.asin(Math.sqrt(lA));
 
-        return EARTH_RADIUS * lC  ;
+        return EARTH_RADIUS * lC * MILLE ;
     }
 
 }
