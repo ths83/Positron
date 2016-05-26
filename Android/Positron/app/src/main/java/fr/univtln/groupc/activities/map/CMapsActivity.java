@@ -717,7 +717,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             mMapPolylinesWithInteger.put(pLink.getId(), lLinkLine);
         }
     }
-    
+
     public void initDrawerAction(){
         ImageButton lButtonAttack = new ImageButton(this);
         Drawable mDrawable1 = getDrawable(R.mipmap.attack);
