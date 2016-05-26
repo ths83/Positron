@@ -9,6 +9,7 @@ import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
+import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
@@ -240,7 +241,7 @@ public class CActions {
     public CKeyEntity keyHacking(CPortalEntity pPortal){
         return new CKeyEntity.CKeyBuilder(140).portal(pPortal).build();
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 
     public void bombeExplosion(CPortalEntity pPortal, int pDamage){
         List<CResonatorEntity> lResonatorListe = pPortal.getResonators();
@@ -254,4 +255,14 @@ public class CActions {
 
         }
     }
+    //////////////////////////////////////////////////////////////////////////////////////
+/*
+    public CLinkEntity createLink(CKeyEntity pKey, CPlayerEntity pPortal){
+
+        CLinkEntity
+    }
+    */
+
+
+
 }
