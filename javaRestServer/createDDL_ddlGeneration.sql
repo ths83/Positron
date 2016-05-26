@@ -11,7 +11,6 @@ CREATE TABLE positron.t_team (id INTEGER NOT NULL, color VARCHAR(255), PRIMARY K
 CREATE TABLE positron.t_territory (territory_id INTEGER NOT NULL, PRIMARY KEY (territory_id))
 CREATE TABLE positron.t_skill (id INTEGER NOT NULL, cost INTEGER, level INTEGER, name VARCHAR(255), PRIMARY KEY (id))
 CREATE TABLE positron.t_turret (id INTEGER NOT NULL, damage INTEGER, PRIMARY KEY (id))
-CREATE TABLE positron.t_token (token VARCHAR(255) NOT NULL, PRIMARY KEY (token))
 CREATE TABLE positron.t_stats_attacked (MID INTEGER NOT NULL, DTYPE VARCHAR(31), MCPT INTEGER, attacker INTEGER, owner INTEGER, PRIMARY KEY (MID))
 CREATE TABLE positron.t_stats_building_attacked (MID INTEGER NOT NULL, building_fk INTEGER, MRESONATOR_id INTEGER, PRIMARY KEY (MID))
 CREATE TABLE positron.t_stats_player (MID INTEGER NOT NULL, MPLAYER_id INTEGER, PRIMARY KEY (MID))

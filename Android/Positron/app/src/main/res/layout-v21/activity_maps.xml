@@ -11,13 +11,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- <Button
+        <Button
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:id="@+id/link"
              android:text="test"
-             android:onClick="onLink"
-             android:layout_weight="2"/> -->
+             android:layout_weight="2"/>
 
         <fragment
             android:id="@+id/map"

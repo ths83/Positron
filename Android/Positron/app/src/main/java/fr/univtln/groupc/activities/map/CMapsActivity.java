@@ -1,17 +1,18 @@
 package fr.univtln.groupc.activities.map;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
@@ -19,14 +20,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,9 +72,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
     public final static int GPS_PLAYER_RADIUS = 50;
     public final static float MAX_ZOOM_MAP = 17f;
-    private static final int NB_PORTALS_LINK = 2 ;
-    private static final float LINE_WIDTH = 5f ;
-    private static final int NB_PORTALS_FIELD = 3 ;
+    public static final int NB_PORTALS_LINK = 2 ;
+    public static final float LINE_WIDTH = 5f ;
+    public static final int NB_PORTALS_FIELD = 3 ;
+    public static final String HAVERSINE_BAD_DISTANCE_PORTAL_FRENCH = "Pour interagir avec le portail, celui-ci doit être dans votre rayon d'action.";
+
 
 
     private List<Marker> mResonatorMarkers = new ArrayList<>();
@@ -123,6 +123,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mDrawerAction = (DrawerLayout) findViewById(R.id.drawerlayout);
         mScroll = (ScrollView) findViewById(R.id.drawerleft);
         mLinear = (LinearLayout) findViewById(R.id.initaction);
+        
         // TODO singleton for player
         mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
         Log.d("test", "player null ? " + mPlayer);
@@ -352,6 +353,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     lMarker.remove();
                 }
                 mResonatorMarkers.clear();
+
                  // Si le portail est dans le rayon d'action d'action du joueur, il peut interagir avec
                  // Players will only interact with portals which are in their radius action
                 if (lDistanceBetweenPortalAndPlayer <= GPS_PLAYER_RADIUS) {
@@ -392,6 +394,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
                     }
 
+                }
+                else{
+                    Toast.makeText(getBaseContext(),HAVERSINE_BAD_DISTANCE_PORTAL_FRENCH,Toast.LENGTH_SHORT).show();
                 }
                 return false;
 
@@ -553,7 +558,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
      * hashmap and the googlemap
      */
     public void deleteFieldInGoogleMapAndHashMap(CFieldEntity pField){
-        Log.d("test2"," field ? " + mMapPolygonsWithInteger);
+        Log.d("test2", " field ? " + mMapPolygonsWithInteger);
         if (mMapPolygonsWithInteger.containsKey(pField.getId())){
             mMapPolygonsWithInteger.get(pField.getId()).remove();
             mMapPolygonsWithInteger.remove(pField);
@@ -717,6 +722,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
      * (step 1)
      */
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void initDrawerAction(final CPortalEntity pPortal){
         ImageButton lButtonAttack = new ImageButton(this);
         Drawable mDrawable1 = getDrawable(R.mipmap.attack);
