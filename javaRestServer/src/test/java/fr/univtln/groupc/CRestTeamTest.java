@@ -20,29 +20,23 @@ public class CRestTeamTest extends TestCase{
     // Tests CRUD TeamService
 
     public void testPostTeamService() throws Exception {
-        CTeamEntity lTeamToPost = new CTeamEntity.CTeamBuilder(150).color("vert").build();
+        CTeamEntity lTeamToPost = new CTeamEntity.CTeamBuilder(3).color("rose").build();
         mJson = mMapper.writeValueAsString(lTeamToPost);
         ClientResponse lResponse = mWebResource.path("/teams").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
     }
 
     public void testGetTeamService() throws Exception {
-        CTeamEntity lTeamEntity = mMapper.readValue(mWebResource.path("teams/150").get(String.class), CTeamEntity.class);
+        CTeamEntity lTeamEntity = mMapper.readValue(mWebResource.path("teams/3").get(String.class), CTeamEntity.class);
         System.out.println(lTeamEntity);
-        assertEquals(lTeamEntity.getColor(), "vert");
+        assertEquals(lTeamEntity.getColor(), "rose");
     }
 
 
     public void testDeleteTeamService() throws Exception {
-        ClientResponse lClientResponse = mWebResource.path("/teams/150").type("application/json").accept("application/json").delete(ClientResponse.class);
+        ClientResponse lClientResponse = mWebResource.path("/teams/3").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(lClientResponse.getStatus(), 200);
     }
-    /*
-    public void testGetByIdTeamService() throws Exception {
-        CTeamEntity lTeamGotten = mMapper.readValue(mWebResourit addce.path("/teams/150").accept("application/json").type("application/json").get(String.class), CTeamEntity.class);
-        assertEquals(lTeamGotten.getId(), 150);
-        assertEquals(lTeamGotten.getColor(), "vert");
-    }
 
-*/
+
 }

@@ -66,11 +66,45 @@ public class CPlayerService {
     }
 
     @GET
-    @Produces
+    @Produces("application/json")
     @Path("/name/{nickname}")
     public String readByName(@PathParam("nickname") String pName){
         String lJsonValue = null;
         List<CPlayerEntity> lPlayers = (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_BY_NAME, CQueryParameter.with("mNickName", pName).parameters());
+        CPlayerEntity lPlayer = lPlayers.get(0);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lPlayer);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/mail/{email}")
+    public String readByMail(@PathParam("email") String pMail){
+        String lJsonValue = null;
+
+        List<CPlayerEntity> lPlayers = (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_BY_MAIL, CQueryParameter.with("mEmail", pMail).parameters());
+        CPlayerEntity lPlayer = lPlayers.get(0);
+        try {
+            lJsonValue = mMapper.writeValueAsString(lPlayer);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return lJsonValue;
+    }
+
+
+    @GET
+    @Produces("application/json")
+    @Path("/token/{token}")
+    public String readByToken(@PathParam("token") String pToken){
+        String lJsonValue = null;
+        // TODO : Recuperate the mail with the token given in parameters
+        String lMail = pToken;
+        List<CPlayerEntity> lPlayers = (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_BY_MAIL, CQueryParameter.with("mEmail", lMail).parameters());
         CPlayerEntity lPlayer = lPlayers.get(0);
         try {
             lJsonValue = mMapper.writeValueAsString(lPlayer);
