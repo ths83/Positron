@@ -9,7 +9,11 @@
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+<<<<<<< HEAD
     android:text="@string/title_SkillTree"
+=======
+    android:text="@string/title_Skill_Tree"
+>>>>>>> ec2be9cf9d8043bdd60f2fb0b93f7e0f3d8a8bad
     android:id="@+id/skill_tree_title"
     android:layout_centerHorizontal="true"/>
 

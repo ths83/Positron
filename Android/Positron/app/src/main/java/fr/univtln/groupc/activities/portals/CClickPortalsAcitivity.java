@@ -150,7 +150,7 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
 
     }
 
-    public void useBombe(CConsumableEntity pAmmunition,CPortalEntity pPortal, CPlayerEntity pPlayer){
+    public static void useBombe(CConsumableEntity pAmmunition,CPortalEntity pPortal, CPlayerEntity pPlayer){
         CActions lAction = new CActions();
 
         if(pAmmunition.getName() == "Bombe"){

@@ -1,10 +1,7 @@
 package fr.univtln.groupc.actions;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
@@ -258,6 +255,12 @@ public class CActions {
     }
     //////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Creer un lien
+     * @param pPortal
+     * @param pKey
+     * @return
+     */
     public CLinkEntity createLink(CKeyEntity pKey, CPortalEntity pPortal){
         if(pKey.getPortal().getTeam() == pPortal.getTeam()) {
             List<CPortalEntity> lPortalListe = new ArrayList<>();
@@ -270,6 +273,7 @@ public class CActions {
             return null;
         }
     }
+
 
 
     public Boolean portalAllied(CPortalEntity pPortal,CPlayerEntity pPlayer){

@@ -311,6 +311,20 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return lTurrets;
     }
 
+
+    @JsonIgnore
+    public List<CConsumableEntity> getBombs(){
+        List<CConsumableEntity> lBombs = new ArrayList<CConsumableEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CConsumableEntity){
+                if (lObject.getName().equals("Bombe")){
+                    lBombs.add((CConsumableEntity)lObject);
+                }
+            }
+        }
+        return lBombs;
+    }
+
     public static class CPlayerBuilder{
         private int mId;
         private String mNickName;
