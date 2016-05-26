@@ -35,9 +35,9 @@ public class CTokenService {
     @GET
     @Produces("application/json")
     @Path("/{id}")
-    public String read(@PathParam("id") int pId){
+    public String read(@PathParam("id") String  pToken){
         String lJsonValue = null;
-        CTokenEntity lConsumable = mCrudMethods.find(CTokenEntity.class, pId);
+        CTokenEntity lConsumable = mCrudMethods.find(CTokenEntity.class, pToken);
         try {
             lJsonValue = mMapper.writeValueAsString(lConsumable);
         } catch (IOException e) {
@@ -77,11 +77,10 @@ public class CTokenService {
         return Response.status(200).build();
     }
 
-
     @DELETE
     @Consumes("application/json")
     @Path("/{id}")
-    public Response delete(@PathParam("id") int pId){
+    public Response delete(@PathParam("id") String  pToken){
         mCrudMethods.delete(CTokenEntity.class, pId);
         return Response.status(200).build();
     }
