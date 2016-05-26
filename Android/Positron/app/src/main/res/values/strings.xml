@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Positron</string>
     <string name="title_activity_maps">Map</string>
     <string name="toHack">Pirater</string>
@@ -18,7 +19,7 @@
     <string name="title_activity_cstats">CStatsActivity</string>
     <string name="title_activity_test">testActivity</string>
     <string name="title_activity_cskill_tree">CSkillTree</string>
-    <string name="title_Skill-Tree">Arbre de compétance</string>
+    <string name="title_SkillTree">Arbre de compétance</string>
     <string name="free_Skill_Point">1</string>
 
 </resources>
