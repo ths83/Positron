@@ -22,6 +22,7 @@ public class CTestThomas2 {
         List<CPortalEntity> lPortalLinked2 = new ArrayList<>();
         List<CPortalEntity> lPortalLinked3 = new ArrayList<>();
         List<CPortalEntity> lPortalLinked4 = new ArrayList<>();
+        List<CPortalEntity> lPortalLinked5 = new ArrayList<>();
 
         List<CKeyEntity> lKeyPortals1 = new ArrayList<>();
         CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder(20000).build();
@@ -35,15 +36,20 @@ public class CTestThomas2 {
         CKeyEntity lKeyEntity3 = new CKeyEntity.CKeyBuilder(20020).build();
         lKeyPortals3.add(lKeyEntity3);
 
+        List<CKeyEntity> lKeyPortals4 = new ArrayList<>();
+        CKeyEntity lKeyEntity4 = new CKeyEntity.CKeyBuilder(20030).build();
+        lKeyPortals4.add(lKeyEntity4);
+
 
         CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(20030).latitude(40.1948).longitude(-73.22).keys(lKeyPortals1).build();
         CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(20040).latitude(40.1948).longitude(-72).keys(lKeyPortals2).build();
         CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(20050).latitude(40.1948).longitude(-71).keys(lKeyPortals3).build();
-
+        CPortalEntity lPortal4 = new CPortalEntity.CPortalBuilder(20060).latitude(43.1356975).longitude(6.0187804).keys(lKeyPortals4).build();
 
         lCrud.create(lPortal);
         lCrud.create(lPortal2);
         lCrud.create(lPortal3);
+        lCrud.create(lPortal4);
 
         CTeamEntity lAtom = new CTeamEntity.CTeamBuilder(1).color("red").build();
         CTeamEntity lXenom = new CTeamEntity.CTeamBuilder(2).color("blue").build();

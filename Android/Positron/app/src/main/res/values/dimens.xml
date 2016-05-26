@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="skill_tree_button_height">20dp</dimen>
     <dimen name="skill_tree_button_width">40dp</dimen>
+    <dimen name="skill_tree_button_margin">30dp</dimen>
 </resources>
