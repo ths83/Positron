@@ -43,6 +43,28 @@ public class CActions {
         return pPortal;
 
     }
+/////////////////////////////////////////////////////////////
+
+public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuilding , CPlayerEntity pPlayer) {
+
+    if (pPortal.getBuildings().size() < 4 ) {
+        if ( pPlayer.getLevel() >= pBuilding.getLevel() ){
+
+            pPortal.addBuilding( pBuilding );
+            //TODO add XP
+        }
+        else {
+            //   Log.d("BuildResonator","Niveau pas assez élever pour poser ce portail");
+            System.out.println( "Niveau pas assez élever" );
+        }
+    }
+    else {
+        //Log.d("BuildResonator", "Plus de place sur le portail / Portal Overload");
+        System.out.println( "Plus de place sur le portail." );
+    }
+    return pPortal;
+
+}
 
 /////////////////////////////////////////////////////////////
 
@@ -286,7 +308,7 @@ public class CActions {
     public Boolean portalAllied(CPortalEntity pPortal,CPlayerEntity pPlayer){
         /*if(pPlayer.getTeam() == pPortal.getTeam()){
             return true;
-        }
+        }ddu
         else{
             return false;
         }
