@@ -35,7 +35,8 @@ import fr.univtln.groupc.entities.CResonatorEntity;
 public class CRestGet extends AsyncTask<String,String,String> {
 
     //public final static String API_URL = "http://10.9.185.57:9998";
-    public final static String API_URL = "http://10.9.185.52:9998";
+    //public final static String API_URL = "http://10.9.185.52:9998";
+    public final static String API_URL = "http://10.9.185.223:9998";
     //public final static String API_URL = "http://10.9.185.55:9998";
     //public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://10.21.174.206:9998";
@@ -86,7 +87,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
         List<CPortalEntity> lPortals = new ArrayList<>();
         JSONObject lPortalObject = null;
         try {
-            Log.d("test","get portals :");
+            Log.d("test8","get portals :");
             lPortalsJson = new CRestGet().execute(lUrlString).get();
             //Log.d("test", "deserialisation !\n" + lPortalsJson);
 
@@ -100,7 +101,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
             //Log.d("test", "objects numero 1 ->\n" + lPortals.get(0).getObjects().get(0));
             //Log.d("test", "objects numero 2 ->\n" + lPortals.get(0).getObjects().get(1));
 
-            Log.d("test", "deserialized!!");
+            Log.d("test8", "deserialized!!");
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -117,7 +118,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
             e.printStackTrace();
         }
         //System.out.println("hello" + lPortals);
-        Log.d("test2", " tous les portails ->\n " + lPortals);
+        Log.d("test8", " tous les portails ->\n " + lPortals);
         return lPortals;
     }
 

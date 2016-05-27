@@ -56,6 +56,7 @@ import java.util.Set;
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
+import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
@@ -116,6 +117,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private final List<CPortalEntity> mPortals = new CRestGet().getPortalsRest();
     private LinearLayout mLinear;
 
+    // TODO delete this attr -> just for test link creation
+    private CPortalEntity mTestPortal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,7 +127,10 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mDrawerAction = (DrawerLayout) findViewById(R.id.drawerlayout);
         mScroll = (ScrollView) findViewById(R.id.drawerleft);
         mLinear = (LinearLayout) findViewById(R.id.initaction);
-        
+
+        // TODO test for links
+        Button lTestButton = (Button) findViewById(R.id.link);
+
         // TODO singleton for player
         mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
         Log.d("test", "player null ? " + mPlayer);
@@ -354,6 +361,10 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 }
                 mResonatorMarkers.clear();
 
+                //String lTitle = marker.getTitle();
+                //String[] lNb = lTitle.split(" ");
+                //int lI = Integer.parseInt(lNb[1]);
+
                  // Si le portail est dans le rayon d'action d'action du joueur, il peut interagir avec
                  // Players will only interact with portals which are in their radius action
                 if (lDistanceBetweenPortalAndPlayer <= GPS_PLAYER_RADIUS) {
@@ -372,6 +383,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             Log.d("test5", "DANS LE IF DU SPLIT 1");
                             Log.d("test6", "ok" + lSplitString[1]);
                             CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(lSplitString[1]));
+                            // TODO delete this 382-> test
+                            mTestPortal = lPortal;
                             displayResonators(lPortal.getResonators(), lPortal);
                             mPosition = 1;
                         /*mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));*/
@@ -380,7 +393,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             mDrawerAction.openDrawer(mScroll);
                             //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
                             mDrawerAction.setScrimColor(getResources().getColor(R.color.transparent));
-                            Log.d("test2", "drawer null ? " + Boolean.toString(mDrawerAction == null));
+                            Log.d("tesmPlayert2", "drawer null ? " + Boolean.toString(mDrawerAction == null));
                             mDrawState = 1;
                         }
 
@@ -709,7 +722,33 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             mMapPolylinesWithInteger.put(pLink.getId(), lLinkLine);
         }
     }
-    
+
+    /**
+     * recuperer la cle possede par le joueur pour creer un lien avec le portail clique
+     * @param pView
+     */
+    // TODO first version -> to modify fastly
+    public void onCreateLink(View pView){
+        int lTeamColor;
+        // Link color
+        if (mPlayer.equals("blue")){
+            lTeamColor = Color.BLUE;
+        }
+        else{
+            lTeamColor = Color.RED;
+        }
+        // just for the first key
+        List<CKeyEntity> lPlayerKeysForPortal = mPlayer.getKeys();
+        CKeyEntity lKey = lPlayerKeysForPortal.get(0);
+        LatLng lBeginningPortal = new LatLng(lKey.getPortal().getLat(),lKey.getPortal().getLong());
+        LatLng lLastPortal = new LatLng(mTestPortal.getLat(),mTestPortal.getLong());
+        Polyline lLinkToDraw = mMap.addPolyline(new PolylineOptions()
+                .add(lBeginningPortal, lLastPortal)
+                .width(LINE_WIDTH)
+                .color(lTeamColor));
+    }
+
+
     /*
      * Actions disponibles du "drawer
      * action" après un click
@@ -779,6 +818,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
      * energy and team color
      *
      */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public Bitmap displayResonatorWithEnergy(IconGenerator pIg,int pId,CResonatorEntity pResonator){
         pIg.setBackground(null);
         Context lContext = getApplicationContext();
