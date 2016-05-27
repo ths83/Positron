@@ -244,42 +244,34 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     public int getLevel(){
         int lLevel = 0;
         int lXp = getXp();
-
         if (lXp < 500){
             lLevel = 1;
         }
-
         else if(500 <= lXp && lXp < 1200){
             lLevel = 2;
         }
 
         else if(1200 <= lXp && lXp < 2100){
-
             lLevel = 3;
         }
         else if(2100 <= lXp && lXp < 3200){
-
             lLevel = 4;
-
         }
         else if(3200 <= lXp && lXp < 4500){
-
             lLevel = 5;
         }
         else if(4500 <= lXp && lXp < 6000){
             lLevel = 6;
-
         }
         else if(6000 <= lXp && lXp < 7700){
             lLevel = 7;
         }
-
         else if(lXp >= 7700){
             lLevel = 8;
         }
-
         return lLevel;
     }
+
 
     @JsonIgnore
     public List<CResonatorEntity> getResonatorsByLevel(int pId){
@@ -294,6 +286,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return lResonators;
     }
 
+
     @JsonIgnore
     public List<CTurretEntity> getTurretsByLevel(int pId){
         List<CTurretEntity> lTurrets = new ArrayList<CTurretEntity>();
@@ -306,6 +299,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         }
         return lTurrets;
     }
+
 
     public static class CPlayerBuilder{
         private int mId;
@@ -388,7 +382,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
     public void takeDamage(IFighter pFighter, int pDamage) {
         int lDamages = pDamage - getLevel()*2;
-        if(lDamages >0) {
+        if(lDamages > 0) {
             loseEnergy(pDamage);
         }
     }

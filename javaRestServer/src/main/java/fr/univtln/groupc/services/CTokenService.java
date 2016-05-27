@@ -16,7 +16,7 @@ import java.util.List;
 public class CTokenService {
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
-
+/*
     POST
     @Consumes("application/json")
     public Response createConsumable(String pConsumableJson){
@@ -84,5 +84,5 @@ public class CTokenService {
         mCrudMethods.delete(CTokenEntity.class, pId);
         return Response.status(200).build();
     }
-
+*/
 }

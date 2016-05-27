@@ -12,7 +12,7 @@ import junit.framework.TestCase;
  */
 public class CRestTokenTest extends TestCase {
     // Tests CRUD CTerritoryService
-    Client c = Client.create();
+  /*  Client c = Client.create();
     WebResource mWebResource = c.resource(CServer.BASE_URI);
     ObjectMapper mMapper = new ObjectMapper();
     ClientResponse lClientResponse, lResponse;
@@ -30,4 +30,5 @@ public class CRestTokenTest extends TestCase {
         CTokenEntity lTokenEntity = mMapper.readValue(mWebResource.path("/tokens/1").get(String.class), CTokenEntity.class);
         assertEquals(lTerritoryEntity.getToken(), 1);
     }
-}
+
+*/}
