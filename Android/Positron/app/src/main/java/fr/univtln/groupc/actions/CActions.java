@@ -1,5 +1,7 @@
 package fr.univtln.groupc.actions;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.CShieldEntity;
 import fr.univtln.groupc.entities.CTurretEntity;
+import fr.univtln.groupc.rest.CRestUpdate;
 
 /**
  * Created by xdurbec066 on 17/05/16.
@@ -40,6 +43,28 @@ public class CActions {
         return pPortal;
 
     }
+/////////////////////////////////////////////////////////////
+
+public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuilding , CPlayerEntity pPlayer) {
+
+    if (pPortal.getBuildings().size() < 4 ) {
+        if ( pPlayer.getLevel() >= pBuilding.getLevel() ){
+
+            pPortal.addBuilding( pBuilding );
+            //TODO add XP
+        }
+        else {
+            //   Log.d("BuildResonator","Niveau pas assez élever pour poser ce portail");
+            System.out.println( "Niveau pas assez élever" );
+        }
+    }
+    else {
+        //Log.d("BuildResonator", "Plus de place sur le portail / Portal Overload");
+        System.out.println( "Plus de place sur le portail." );
+    }
+    return pPortal;
+
+}
 
 /////////////////////////////////////////////////////////////
 
@@ -244,14 +269,18 @@ public class CActions {
     public void bombeExplosion(CPortalEntity pPortal, int pDamage){
         List<CResonatorEntity> lResonatorListe = pPortal.getResonators();
         List<ABuildingEntity> lBuildingListe = pPortal.getBuildings();
-
+        CRestUpdate lUpdate = new CRestUpdate();
         for(CResonatorEntity lResonator : lResonatorListe){
             lBuildingListe.add((ABuildingEntity) lResonator);
         }
         for(ABuildingEntity lBuilding : lBuildingListe){
-            lBuilding.takeDamage(null,pDamage);
-
+            lBuilding.takeDamage(null, pDamage);
+            Log.d("test5", "-->" + lBuilding.getEnergy());
+            //lUpdate.updateBuildingRest(lBuilding);
         }
+
+        lUpdate.updatePortalRest(pPortal);
+        //return pPortal;
     }
     //////////////////////////////////////////////////////////////////////////////////////
 
@@ -279,7 +308,7 @@ public class CActions {
     public Boolean portalAllied(CPortalEntity pPortal,CPlayerEntity pPlayer){
         /*if(pPlayer.getTeam() == pPortal.getTeam()){
             return true;
-        }
+        }ddu
         else{
             return false;
         }

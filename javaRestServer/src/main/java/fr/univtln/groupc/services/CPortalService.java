@@ -88,6 +88,7 @@ public class CPortalService {
     @Consumes("application/json")
     @Produces("application/json")
     public Response updatePortal(String pPortalJson){
+        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         CPortalEntity lPortal = null;
         System.out.println("json -> " + pPortalJson);
         try {

@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Positron</string>
     <string name="title_activity_maps">Map</string>
     <string name="toHack">Pirater</string>
@@ -20,5 +21,12 @@
     <string name="title_activity_cskill_tree">CSkillTree</string>
     <string name="title_Skill_Tree">Arbre de compétance</string>
     <string name="free_Skill_Point">1</string>
+    <string name="title_Maintenance_Tree">Maintenance :</string>
+    <string name="title_Attack_Tree">Offensif :</string>
+    <string name="title_Hacking_Tree">Piratage :</string>
+    <string name="title_Scout_Tree">Reconaissance :</string>
+    <string name="text_view_free_skill_point">Point de compétance Libre : </string>
+
+
 
 </resources>

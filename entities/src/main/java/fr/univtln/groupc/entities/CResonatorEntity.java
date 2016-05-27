@@ -4,6 +4,7 @@ package fr.univtln.groupc.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +19,6 @@ import java.io.Serializable;
         @NamedQuery(name = CResonatorEntity.GET_RESONATOR_BY_PORTAL_AND_TEAM, query = "select r from CResonatorEntity r  where r.mPortal = (select p from CPortalEntity p where p.mId = :mId) and r.mOwner = (select o from CPlayerEntity o where o.mTeam = ( select t from CTeamEntity t where t.mId=:mId2))")})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CResonatorEntity.class)
-@JsonIdentityReference(alwaysAsId = true)
 //@JsonDeserialize(as = CResonatorEntity.class)
 public class CResonatorEntity extends ABuildingEntity implements Serializable {
 
@@ -30,6 +30,11 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
     public final static String GET_RESONATOR_BY_PORTAL = "Resonator.getResonatorsByPortal";
     public final static String GET_RESONATOR_BY_PORTAL_AND_TEAM = "Resonator.getResonatorsByPortalAndTeam";
 
+
+    public CResonatorEntity() {
+    }
+
+
     public CResonatorEntity(CResonatorBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName, pBuilder.mPortal, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
         setPortal(pBuilder.mPortal);
@@ -37,11 +42,8 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
         if (getPortal() != null){
             getPortal().addResonator(this);
         }
-
     }
 
-    public CResonatorEntity() {
-    }
 
     public CPlayerEntity getOwner() {
         return mOwner;

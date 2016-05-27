@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by nmartinez016 on 25/04/16.
@@ -72,6 +73,12 @@ public class CPortalEntity implements Serializable {
         if (mBuildings != null){
             for (ABuildingEntity lBuilding : mBuildings){
                 lBuilding.setPortal(this);
+            }
+        }
+
+        if (mResonators != null){
+            for (CResonatorEntity lResonator : mResonators){
+                lResonator.setPortal(this);
             }
         }
 
@@ -221,6 +228,14 @@ public class CPortalEntity implements Serializable {
         if (mResonators != null){
             mResonators.add(pResonator);
             pResonator.setPortal(this);
+        }
+    }
+
+    public void addBuilding(ABuildingEntity pBuilding){
+        if (mBuildings != null){
+            mBuildings.add(pBuilding);
+            pBuilding.setPortal(this);
+
         }
     }
 
