@@ -63,12 +63,16 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
 
         if(pTarget.getEnergy() <= 0){
             // TODO Delete Building
+            CRestDelete lDelete = new CRestDelete();
+            lDelete.deleteBuildingRest(pTarget,pTarget.getId());
             //new CRestDelete();
             updatePortalTeam(pPortal);
             //TODO addXP
         }
         else{
             //TODO Updtate Building
+            CRestUpdate lUpdate = new CRestUpdate();
+            lUpdate.updateBuildingRest(pTarget);
             //new CRestUpdate().;
 
             //TODO add XP
@@ -87,6 +91,17 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
             new CRestUpdate().updatePortalRest(pPortal);
         }
 
+    }
+
+    public void buildingBuilding(CPortalEntity pPortal,CPlayerEntity pPlayer,CResonatorEntity pResonator){
+        CActions lActions = new CActions();
+if(pPlayer.getTeam() == pPortal.getTeam()) {
+    pPortal = lActions.buildResonator(pPortal, pResonator);
+
+    if (updatePortalTeam(pPortal) == 0) {
+        new CRestUpdate().updatePortalRest(pPortal);
+    }
+}
     }
 
     public int updatePortalTeam(CPortalEntity pPortal){
@@ -150,7 +165,7 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
 
     }
 
-    public void useBombe(CConsumableEntity pAmmunition,CPortalEntity pPortal, CPlayerEntity pPlayer){
+    public static void useBombe(CConsumableEntity pAmmunition,CPortalEntity pPortal, CPlayerEntity pPlayer){
         CActions lAction = new CActions();
 
         if(pAmmunition.getName() == "Bombe"){

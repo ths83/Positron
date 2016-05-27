@@ -1,10 +1,7 @@
 package fr.univtln.groupc.actions;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
@@ -43,6 +40,28 @@ public class CActions {
         return pPortal;
 
     }
+/////////////////////////////////////////////////////////////
+
+public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuilding , CPlayerEntity pPlayer) {
+
+    if (pPortal.getBuildings().size() < 4 ) {
+        if ( pPlayer.getLevel() >= pBuilding.getLevel() ){
+
+            pPortal.addBuilding( pBuilding );
+            //TODO add XP
+        }
+        else {
+            //   Log.d("BuildResonator","Niveau pas assez élever pour poser ce portail");
+            System.out.println( "Niveau pas assez élever" );
+        }
+    }
+    else {
+        //Log.d("BuildResonator", "Plus de place sur le portail / Portal Overload");
+        System.out.println( "Plus de place sur le portail." );
+    }
+    return pPortal;
+
+}
 
 /////////////////////////////////////////////////////////////
 
@@ -258,6 +277,12 @@ public class CActions {
     }
     //////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Creer un lien
+     * @param pPortal
+     * @param pKey
+     * @return
+     */
     public CLinkEntity createLink(CKeyEntity pKey, CPortalEntity pPortal){
         if(pKey.getPortal().getTeam() == pPortal.getTeam()) {
             List<CPortalEntity> lPortalListe = new ArrayList<>();
@@ -272,10 +297,11 @@ public class CActions {
     }
 
 
+
     public Boolean portalAllied(CPortalEntity pPortal,CPlayerEntity pPlayer){
         /*if(pPlayer.getTeam() == pPortal.getTeam()){
             return true;
-        }
+        }ddu
         else{
             return false;
         }
