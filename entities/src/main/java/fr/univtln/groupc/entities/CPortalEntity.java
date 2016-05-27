@@ -75,6 +75,12 @@ public class CPortalEntity implements Serializable {
             }
         }
 
+        if (mResonators != null){
+            for (CResonatorEntity lResonator : mResonators){
+                lResonator.setPortal(this);
+            }
+        }
+
     }
 
 

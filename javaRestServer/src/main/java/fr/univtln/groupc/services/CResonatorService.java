@@ -39,6 +39,8 @@ public class CResonatorService {
     @Path("/{id}")
     public String readResonator(@PathParam("id") int pId){
         System.out.println("dedans");
+        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+
         //return (CResonatorEntity)mCrudMethods.find(CResonatorEntity.class, pId);
         String lJsonValue = null;
         CResonatorEntity lResonator = (CResonatorEntity)mCrudMethods.find(CResonatorEntity.class, pId);
@@ -97,14 +99,18 @@ public class CResonatorService {
 
     @PUT
     @Consumes("application/json")
+    @Produces("application/json")
     public Response updateResonator(String pResonatorJson){
+        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         CResonatorEntity lResonator = null;
+        System.out.println("dans update reso");
         try {
             lResonator = mMapper.readValue(pResonatorJson, CResonatorEntity.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
         mCrudMethods.update(lResonator);
+        System.out.println("reso update ok");
         return Response.status(200).build();
     }
 

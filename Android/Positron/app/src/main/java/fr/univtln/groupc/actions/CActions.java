@@ -1,5 +1,7 @@
 package fr.univtln.groupc.actions;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.CShieldEntity;
 import fr.univtln.groupc.entities.CTurretEntity;
+import fr.univtln.groupc.rest.CRestUpdate;
 
 /**
  * Created by xdurbec066 on 17/05/16.
@@ -244,14 +247,18 @@ public class CActions {
     public void bombeExplosion(CPortalEntity pPortal, int pDamage){
         List<CResonatorEntity> lResonatorListe = pPortal.getResonators();
         List<ABuildingEntity> lBuildingListe = pPortal.getBuildings();
-
+        CRestUpdate lUpdate = new CRestUpdate();
         for(CResonatorEntity lResonator : lResonatorListe){
             lBuildingListe.add((ABuildingEntity) lResonator);
         }
         for(ABuildingEntity lBuilding : lBuildingListe){
-            lBuilding.takeDamage(null,pDamage);
-
+            lBuilding.takeDamage(null, pDamage);
+            Log.d("test5", "-->" + lBuilding.getEnergy());
+            //lUpdate.updateBuildingRest(lBuilding);
         }
+
+        lUpdate.updatePortalRest(pPortal);
+        //return pPortal;
     }
     //////////////////////////////////////////////////////////////////////////////////////
 
