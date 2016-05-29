@@ -132,9 +132,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         // TODO test for links
         Button lTestButton = (Button) findViewById(R.id.link);
 
-        // TODO singleton for player
+        // TODO singleton for player -> with token
         mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
-        Log.d("test", "player null ? " + mPlayer);
+        Log.d("test", "player null ? -> " + mPlayer);
 
         // Google Map fragment
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -300,12 +300,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             Log.d("test5", "DANS LE IF DU SPLIT 1");
                             Log.d("test8", "ok " + lSplitString[1]);
                             CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(lSplitString[1]));
-<<<<<<< HEAD
                             // TODO delete this 382-> test
                             mTestPortal = lPortal;
-=======
                             Log.d("test8", "portail null ? " + Boolean.toString(lPortal==null));
->>>>>>> 831bb49017d5f0f5c77bb19d2dcf7c07ef65bc32
                             displayResonators(lPortal.getResonators(), lPortal);
                             mPosition = 1;
                         /*mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));*/
@@ -345,8 +342,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         @Override
         public void onMyLocationChange(Location location) {
             // current position player
-            mPlayer.setLat(location.getLatitude());
-            mPlayer.setLong(location.getLongitude());
+            //mPlayer.setLat(location.getLatitude());
+            //mPlayer.setLong(location.getLongitude());
             //location.setBearing(location.getBearing());
             //mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
             mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
