@@ -55,6 +55,7 @@ import java.util.Set;
 
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
+import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -132,9 +133,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         // TODO test for links
         Button lTestButton = (Button) findViewById(R.id.link);
 
-        // TODO singleton for player
+        // TODO singleton for player -> with token
         mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
-        Log.d("test", "player null ? " + mPlayer);
+        Log.d("test", "player null ? -> " + mPlayer);
 
         // Google Map fragment
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -301,11 +302,16 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             Log.d("test8", "ok " + lSplitString[1]);
                             CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(lSplitString[1]));
 <<<<<<< HEAD
+=======
+/*<<<<<<< HEAD
+>>>>>>> bf36b11bac92ee34859e3ee9207a1d97c9f000d2
                             // TODO delete this 382-> test
                             mTestPortal = lPortal;
-=======
                             Log.d("test8", "portail null ? " + Boolean.toString(lPortal==null));
->>>>>>> 831bb49017d5f0f5c77bb19d2dcf7c07ef65bc32
+<<<<<<< HEAD
+=======
+>>>>>>> 831bb49017d5f0f5c77bb19d2dcf7c07ef65bc32*/
+>>>>>>> bf36b11bac92ee34859e3ee9207a1d97c9f000d2
                             displayResonators(lPortal.getResonators(), lPortal);
                             mPosition = 1;
                         /*mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));*/
@@ -345,8 +351,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         @Override
         public void onMyLocationChange(Location location) {
             // current position player
-            mPlayer.setLat(location.getLatitude());
-            mPlayer.setLong(location.getLongitude());
+            //mPlayer.setLat(location.getLatitude());
+            //mPlayer.setLong(location.getLongitude());
             //location.setBearing(location.getBearing());
             //mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
             mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -732,6 +738,17 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         ImageButton lButtonBuild = new ImageButton(this);
         Drawable mDrawable4 = getDrawable(R.mipmap.build);
         lButtonBuild.setImageDrawable(mDrawable4);
+        lButtonBuild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLinear.removeAllViews();
+                reparationDrawerExtend(mPortalMarker);
+                mDrawerAction.openDrawer(mScroll);
+                //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN,mScroll);
+                //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+                mDrawerAction.setScrimColor(getResources().getColor(R.color.transparent));
+            }
+        });
         mLinear.addView(lButtonBuild);
         ImageButton lButtonPirate = new ImageButton(this);
         Drawable mDrawable5 = getDrawable(R.mipmap.pirate);
@@ -804,6 +821,23 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mPortalMarkers.add(mMap.addMarker(new MarkerOptions()
                 .position(pLatLng).snippet("portal " + Integer.toString(pPortal.getId()))
                 .icon(BitmapDescriptorFactory.fromBitmap(bp))));
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void reparationDrawerExtend(final CPortalEntity pPortal) {
+
+        ImageButton lButtonCreate = new ImageButton(this);
+        Drawable mDrawable1 = getDrawable(R.mipmap.keyportal);
+        lButtonCreate.setImageDrawable(mDrawable1);
+        mLinear.addView(lButtonCreate);
+        ImageButton lButtonBuild = new ImageButton(this);
+        Drawable mDrawable2 = getDrawable(R.mipmap.virus);
+        lButtonBuild.setImageDrawable(mDrawable2);
+        mLinear.addView(lButtonBuild);
+        ImageButton lButtonPirate = new ImageButton(this);
+        Drawable mDrawable3 = getDrawable(R.mipmap.kitsoin);
+        lButtonPirate.setImageDrawable(mDrawable3);
+        mLinear.addView(lButtonPirate);
     }
 
 
