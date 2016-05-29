@@ -23,8 +23,7 @@ public class CProfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cprofil);
         String mEnergy =null, mEnergyMax=null, mName=null, mXp=null, mTeam=null, mBagSize=null, mLevel = null;
-
-        mPlayer = new CRestPlayer().getPlayerByID(1); // ugly just a test :)
+        mPlayer = new CRestPlayer().getPlayerByMail("bobz@z.fr"); // ugly just a test :)
         if (mPlayer!=null) {
             mEnergy = String.valueOf(mPlayer.getEnergy());
             mEnergyMax = String.valueOf(mPlayer.getEnergyMax());
