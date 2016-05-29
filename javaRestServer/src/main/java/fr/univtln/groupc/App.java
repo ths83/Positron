@@ -20,7 +20,7 @@ public class App
     public static void main( String[] args )
     {
         CCrudMethods crud = new CCrudMethods();
-        CPlayerEntity p1 = crud.find(CPlayerEntity.class,1);
+        /*CPlayerEntity p1 = crud.find(CPlayerEntity.class,1);
         CPlayerEntity p2 = crud.find(CPlayerEntity.class,2);
         CPortalEntity po1 = crud.find(CPortalEntity.class,7);
         CPortalEntity po2 = crud.find(CPortalEntity.class,8);
@@ -30,7 +30,7 @@ public class App
         crud.update(p1);
         //po1.setRadius(40);
         //crud.update(po1);
-        /*CResonatorEntity r1= new CResonatorEntity.CResonatorBuilder(1).level(8).owner(p1).energy(100).energyMax(50).portal(po1).build();
+        CResonatorEntity r1= new CResonatorEntity.CResonatorBuilder(1).level(8).owner(p1).energy(100).energyMax(50).portal(po1).build();
         CResonatorEntity r2= new CResonatorEntity.CResonatorBuilder(2).level(5).owner(p2).energy(100).energyMax(100).portal(po1).build();
         //CResonatorEntity r3= new CResonatorEntity.CResonatorBuilder(3).level(1).portal(po1).build();
         //CResonatorEntity r4= new CResonatorEntity.CResonatorBuilder(4).level(2).portal(po1).build();
