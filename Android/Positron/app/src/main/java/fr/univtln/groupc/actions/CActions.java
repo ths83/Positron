@@ -30,6 +30,9 @@ public class CActions {
 
                 pPortal.addResonator(pResonator);
                 //TODO add XP
+                if (pResonator.getPortal() != null){
+                    pResonator.getOwner().addXP(pResonator.getLevel()*10);
+                }
             }
             else{
                 //   Log.d("BuildResonator","Niveau pas assez élever pour poser ce portail");
@@ -50,8 +53,11 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
     if (pPortal.getBuildings().size() < 4 ) {
         if ( pPlayer.getLevel() >= pBuilding.getLevel() ){
 
-            pPortal.addBuilding( pBuilding );
+            pPortal.addBuilding(pBuilding);
             //TODO add XP
+            if (pBuilding.getPortal() != null) {
+                pPlayer.addXP(pBuilding.getLevel() * 20);
+            }
         }
         else {
             //   Log.d("BuildResonator","Niveau pas assez élever pour poser ce portail");
@@ -69,11 +75,14 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
 /////////////////////////////////////////////////////////////
 
     public void attackBuilding(CConsumableEntity pAmmunition, ABuildingEntity pBuilding, CPlayerEntity pPlayer) {
-        int lDammage = 0;
+        int lBuildingEnergy = pBuilding.getEnergy();
 
         if (pAmmunition.getName() == "Attack") {
             pPlayer.attack(pBuilding, pAmmunition);
             //TODO add XP
+            if(pBuilding.getEnergy()<lBuildingEnergy){
+                pPlayer.addXP((lBuildingEnergy-pBuilding.getEnergy())*10);
+            }
         } else {
             //Log.d("attackBuilding", "Consommable non approrié");
             System.out.println("Consommable non approrié");
@@ -101,7 +110,9 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
             case (3): {
                 return (CConsumableEntity) new CConsumableEntity.CConsumableBuilder(10).name("Attack").rarity(pRarety).build();
             }
-
+            case (4): {
+                return (CConsumableEntity) new CConsumableEntity.CConsumableBuilder(10).name("Bombe").rarity(pRarety).build();
+            }
 
         }
         return null;

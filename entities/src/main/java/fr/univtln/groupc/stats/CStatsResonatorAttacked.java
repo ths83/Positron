@@ -67,4 +67,12 @@ public class CStatsResonatorAttacked extends AStatsAttacked{
 
 
     }
+
+    public CResonatorEntity getmResonator() {
+        return mResonator;
+    }
+
+    public void setmResonator(CResonatorEntity mResonator) {
+        this.mResonator = mResonator;
+    }
 }

@@ -4,6 +4,7 @@ package fr.univtln.groupc.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,8 +19,8 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries(@NamedQuery(name = CTurretEntity.GET_ALL, query = "select p from CTurretEntity p"))
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CTurretEntity.class)
+@JsonDeserialize(as = CTurretEntity.class)
 
-//@JsonDeserialize(as = CTurretEntity.class)
 public class CTurretEntity extends ABuildingEntity implements Serializable, IFighter {
     @Column(name = "damage")
     private int mDamage;

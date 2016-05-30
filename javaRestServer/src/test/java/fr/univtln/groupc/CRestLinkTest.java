@@ -39,11 +39,12 @@ public class CRestLinkTest extends TestCase {
         CLinkEntity lLinkEntity = mMapper.readValue(mWebResource.path("/links/1").get(String.class), CLinkEntity.class);
         assertEquals(lLinkEntity.getId(), 1);
     }
-
+/*
     public void testKeyLinkService() throws Exception {
         ClientResponse clientResponse = mWebResource.path("/links/1").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(clientResponse.getStatus(), 200);
     }
+    */
     /*
 public void testPostLinkServiceWhen3rdOfAFieldToCreate() throws Exception {
     CCrudMethods lCrud = new CCrudMethods();

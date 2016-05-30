@@ -27,6 +27,7 @@ import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
+import fr.univtln.groupc.entities.CSkillEntity;
 
 
 /**
@@ -339,6 +340,39 @@ public class CRestGet extends AsyncTask<String,String,String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+    }
+
+
+
+
+    /**
+     * get player by id from database
+     * @return
+     */
+    public CSkillEntity getSkillByID(int pId){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = API_URL + "/skills/"+Integer.toString(pId);
+        Log.d("test", "->-> " + lUrlString);
+        String lSkillJson = null;
+        CSkillEntity lSkill = null;
+        try {
+            Log.d("test", "salut ?");
+            lSkillJson = new CRestGet().execute(lUrlString).get();
+            Log.d("test", lSkillJson);
+            System.out.println(" -> la dedans ?");
+            lSkill = lMapper.readValue(lSkillJson, CSkillEntity.class);
+            System.out.println("-> !");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("test", "-> skill object :\n  " + lSkill);
+        return lSkill;
     }
 
 

@@ -34,7 +34,7 @@ public class CProfilActivity extends AppCompatActivity {
             mBagSize = String.valueOf(CCurrentPlayer.mPlayer.getBagSize());
             mLevel = String .valueOf(CCurrentPlayer.mPlayer.getLevel());
         }
-        
+
         mTextName = (TextView) findViewById(R.id.textName);
         if (mTextName != null) {
             mTextName.setText(mName);
