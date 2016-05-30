@@ -8,7 +8,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_player", schema = "positron")
@@ -90,7 +92,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
                 ", mEnergyMax=" + mEnergyMax +
                 //", mTeam=" + mTeam +
                 ", mSkills=" + mSkills +
-                ", mObjects=" + mObjects +
+                //", mObjects=" + mObjects +
                 '}';
     }
 
@@ -232,17 +234,6 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return lKeys;
     }*/
 
-    @JsonIgnore
-    public List<CKeyEntity> getKeys(){
-        List<CKeyEntity> lKeys = new ArrayList<CKeyEntity>();
-        for (AObjectEntity lObject : mObjects){
-            if (lObject instanceof CKeyEntity){
-                lKeys.add((CKeyEntity)lObject);
-            }
-        }
-        return lKeys;
-    }
-
 
     @JsonIgnore
     public int getLevel(){
@@ -274,20 +265,6 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
             lLevel = 8;
         }
         return lLevel;
-    }
-
-
-    @JsonIgnore
-    public List<CResonatorEntity> getResonatorsByLevel(int pId){
-        List<CResonatorEntity> lResonators = new ArrayList<CResonatorEntity>();
-        for (AObjectEntity lObject : mObjects){
-            if (lObject instanceof CResonatorEntity){
-                if (((CResonatorEntity) lObject).getLevel() == pId){
-                    lResonators.add((CResonatorEntity) lObject);
-                }
-            }
-        }
-        return lResonators;
     }
 
 
@@ -441,5 +418,68 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         if(getLevel() != 8){
             mXp = mXp + pExperienceAdded;
         }
+    }
+
+
+    @JsonIgnore
+    public List<CResonatorEntity> getResonators(){
+        List<CResonatorEntity> lResonators = new ArrayList<CResonatorEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CResonatorEntity){
+                lResonators.add((CResonatorEntity)lObject);
+                }
+            }
+        return lResonators;
+    }
+
+    @JsonIgnore
+    public List<CResonatorEntity> getResonatorsByLevel(int pLevel){
+        List<CResonatorEntity> lResonators = new ArrayList<CResonatorEntity>();
+        for (CResonatorEntity lResonator : getResonators()) {
+            if (lResonator.getLevel()==pLevel){
+                lResonators.add(lResonator);
+            }
+        }
+        return lResonators;
+    }
+
+    @JsonIgnore
+    public Set<Integer> getLevelsOfResonators(){
+        Set<Integer> lLevels = new HashSet<Integer>();
+        for (CResonatorEntity lResonator : getResonators()) {
+            lLevels.add(lResonator.getLevel());
+            }
+    return lLevels;
+    }
+
+    @JsonIgnore
+    public List<CKeyEntity> getKeys(){
+        List<CKeyEntity> lKeys = new ArrayList<CKeyEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CKeyEntity){
+                lKeys.add((CKeyEntity)lObject);
+            }
+        }
+        return lKeys;
+    }
+
+    @JsonIgnore
+    public List<CKeyEntity> getKeysByPortal(int pId){
+        List<CKeyEntity> lKeys = new ArrayList<CKeyEntity>();
+        for (CKeyEntity lKey : getKeys()) {
+            if (lKey.getPortal().getId()==pId){
+                lKeys.add(lKey);
+            }
+        }
+        return lKeys;
+    }
+
+    @JsonIgnore
+    public Set<Integer> getIdPortalsOfKeys(){
+        Set<Integer> lIdPortals = new HashSet<Integer>();
+        for (CKeyEntity lKey : getKeys()) {
+            lIdPortals.add(lKey.getPortal().getId());
+        }
+        return lIdPortals;
     }
 }
