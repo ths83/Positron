@@ -1,12 +1,26 @@
 package fr.univtln.groupc;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.server.CServer;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -18,12 +32,41 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class CAddPortalsPanel {
+
+    Client c = Client.create();
+    WebResource mWebResource = c.resource(CServer.BASE_URI);
+    String mJson;
+    ObjectMapper mMapper = new ObjectMapper();
+
     private JPanel panel;
     private JFrame frame;
     private JList todoItemsList;
     private boolean introduceBugs;
     private List<String> todoItems = new ArrayList<String>();
+    private Pattern pattern1 = Pattern.compile("\\b,.*\\b");
+    private Pattern pattern2 = Pattern.compile("\\b.*,");
+    String match1 = null, match2 = null;
 
+    public void postPortal(String pPortalLong, String pPortalLat) throws IOException {
+        ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
+        lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+        Random rand = null;
+        int randomNum = 0;
+        if (rand != null) {
+            randomNum = rand.nextInt((100000000) + 1);
+        }
+        else randomNum = 4544646;
+
+        CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(randomNum).longitude(Double.parseDouble(pPortalLong)).latitude(Double.parseDouble(pPortalLat)).build();
+        System.out.println(Double.parseDouble(pPortalLong) + " " + Double.parseDouble(pPortalLat));
+        mJson = mMapper.writeValueAsString(lPortal);
+        mWebResource.path("/portals").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
+
+    }
     public CAddPortalsPanel(boolean introduceBugs) {
         this.introduceBugs = introduceBugs;
         createFrame();
@@ -80,6 +123,27 @@ public class CAddPortalsPanel {
             addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     todoItems.add(textField.getText());
+
+                    // regex to separate long and lat
+                    // Long regex
+                    Matcher matcher1 = pattern1.matcher(textField.getText());
+                    while (matcher1.find()) {
+                        match1 = matcher1.group().replace(", ","");
+                        System.out.println("Long : "+ match1) ;
+                    }
+
+                    // Lat regex
+                    Matcher matcher2 = pattern2.matcher(textField.getText());
+                    while (matcher2.find()) {
+                        match2 = matcher2.group().replace(",","");
+                        System.out.println("Lat : "+ match2) ;
+                    }
+
+                    try {
+                        postPortal(match1, match2);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     updateTodoItems();
                 }
             });
