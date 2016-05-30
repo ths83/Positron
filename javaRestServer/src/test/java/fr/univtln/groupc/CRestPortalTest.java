@@ -57,7 +57,7 @@ public class CRestPortalTest extends TestCase {
         lClientResponse = mWebResource.path("/portals/150").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(lClientResponse.getStatus(), 200);
     }
-
+/*
     public void testPortalWithKeyAndBuildingsGet() throws Exception {
         String lJsonGotten = null;
         lJsonGotten = mWebResource.path("/portals/778").get(String.class);

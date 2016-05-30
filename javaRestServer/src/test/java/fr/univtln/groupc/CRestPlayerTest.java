@@ -34,10 +34,6 @@ public class CRestPlayerTest extends TestCase {
         assertEquals(lPlayerEntity.getEmail(), "bobz@z.fr");
     }
 
-    public void testGetPlayerByTokenService() throws Exception {
-        CPlayerEntity lPlayerGotten = mMapper.readValue(mWebResource.path("players/token/bobz@z.fr").get(String.class), CPlayerEntity.class);
-        assertEquals(lPlayerGotten.getEmail(), "bobz@z.fr");
-    }
     public void testGetPlayerByMailService() throws Exception {
         CPlayerEntity lPlayerGotten = mMapper.readValue(mWebResource.path("players/mail/bobz@z.fr").get(String.class), CPlayerEntity.class);
         assertEquals(lPlayerGotten.getEmail(), "bobz@z.fr");

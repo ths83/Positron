@@ -15,12 +15,11 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "t_stats_building_attacked", schema = "positron")
 @NamedQueries(@NamedQuery(name = CStatsBuildingsAttacked.GET_ALL, query = "select c from CStatsBuildingsAttacked c"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CStatsBuildingsAttacked.class)
 
 public class CStatsBuildingsAttacked extends AStatsAttacked {
 
     @ManyToOne
-    @JoinColumn(name = "building_fk")
+    @JoinColumn(name = "building")
     private ABuildingEntity mBuilding;
 
     public final static String GET_ALL = "StatsBuildingAttacked.getAll";
@@ -31,7 +30,7 @@ public class CStatsBuildingsAttacked extends AStatsAttacked {
     }
 
     public CStatsBuildingsAttacked() {
-        super();
+
     }
 
     public static class CStatsBuildingsAttackedBuilder {
