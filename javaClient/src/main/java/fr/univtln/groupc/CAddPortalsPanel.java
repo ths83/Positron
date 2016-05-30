@@ -33,11 +33,6 @@ import javax.swing.SwingUtilities;
 
 public class CAddPortalsPanel {
 
-    Client c = Client.create();
-    WebResource mWebResource = c.resource(CServer.BASE_URI);
-    String mJson;
-    ObjectMapper mMapper = new ObjectMapper();
-
     private JPanel panel;
     private JFrame frame;
     private JList todoItemsList;
@@ -48,25 +43,22 @@ public class CAddPortalsPanel {
     String match1 = null, match2 = null;
 
     public void postPortal(String pPortalLong, String pPortalLat) throws IOException {
-        ObjectMapper lMapper = new ObjectMapper();
-        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
-        lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+        Client c = Client.create();
+        WebResource mWebResource = c.resource(CServer.BASE_URI);
+        String mJson;
+        ObjectMapper mMapper = new ObjectMapper();
+        int max = 1000;
+        int min = 10;
         Random rand = null;
-        int randomNum = 0;
-        if (rand != null) {
-            randomNum = rand.nextInt((100000000) + 1);
-        }
-        else randomNum = 4544646;
-
+        int randomNum = (rand != null ? rand.nextInt(max - min + 1) : 0) + min;
+        System.out.println("rand "+ randomNum);
         CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(randomNum).longitude(Double.parseDouble(pPortalLong)).latitude(Double.parseDouble(pPortalLat)).build();
         System.out.println(Double.parseDouble(pPortalLong) + " " + Double.parseDouble(pPortalLat));
         mJson = mMapper.writeValueAsString(lPortal);
         mWebResource.path("/portals").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
 
     }
+
     public CAddPortalsPanel(boolean introduceBugs) {
         this.introduceBugs = introduceBugs;
         createFrame();
@@ -202,6 +194,7 @@ public class CAddPortalsPanel {
     private void removeTodoItem() {
         Object possibleSelection = todoItemsList.getSelectedValue();
         if (introduceBugs || possibleSelection != null) {
+            System.out.println("portal deleted : "+ possibleSelection.toString());
             todoItems.remove(possibleSelection.toString());
             updateTodoItems();
         }
