@@ -20,13 +20,13 @@ public class App
     public static void main( String[] args )
     {
         CCrudMethods crud = new CCrudMethods();
-        /*CPlayerEntity p1 = crud.find(CPlayerEntity.class,1);
+        CPlayerEntity p1 = crud.find(CPlayerEntity.class,1);
         CPlayerEntity p2 = crud.find(CPlayerEntity.class,2);
         CPortalEntity po1 = crud.find(CPortalEntity.class,7);
         CPortalEntity po2 = crud.find(CPortalEntity.class,8);
         CPortalEntity po3 = crud.find(CPortalEntity.class,6);
         CPortalEntity po4 = crud.find(CPortalEntity.class,9);
-        p1.addObjects(new CConsumableEntity.CConsumableBuilder(11).name("Bombe").rarity(2).build());
+        /*p1.addObjects(new CConsumableEntity.CConsumableBuilder(11).name("Bombe").rarity(2).build());
         crud.update(p1);
         //po1.setRadius(40);
         //crud.update(po1);
