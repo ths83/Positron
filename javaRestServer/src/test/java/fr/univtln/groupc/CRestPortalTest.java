@@ -84,4 +84,9 @@ public class CRestPortalTest extends TestCase {
         lResponse = mWebResource.path("/portals").accept("application/json").type("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
     }*/
+
+    public void testGetAllPortals() throws Exception {
+        CPortalEntity lPortalEntity = mMapper.readValue(mWebResource.path("/portals").get(String.class), CPortalEntity.class);
+        assertEquals(lPortalEntity.getId(), 150);
+    }
 }

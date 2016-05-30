@@ -95,7 +95,9 @@ public class CTestThomas2 {
         lResonatorEntityList.add(lResonator2);
         lPortal.setResonators(lResonatorEntityList);
 
-        //lPortalObject.add(lKey);
+
+        List<AObjectEntity> lPortalObject = new ArrayList<>();
+        lPortalObject.add((AObjectEntity)lKey);
         //lPortalObject.add(lTurret);
 
 
@@ -112,6 +114,9 @@ public class CTestThomas2 {
         lPortal3.setTeam(lAtom);
 
         //lCrud.create(lResonator);
+
+        lCrud.create(lAtom);
+        lCrud.create(lXenom);
 
         lCrud.create(lLink);
         lCrud.create(lLink2);
