@@ -12,7 +12,7 @@ import java.net.URI;
 public class CServer {
     private static int getPort(int defaultPort) {
         //grab port from environment, otherwise fall back to default port 9998
-        String httpPort = System.getProperty("jersey.test.port");
+        String httpPort = System.getProperty("jersey.fr.univtln.groupc.CAddPortalsPanel.port");
         if (null != httpPort) {
             try {
                 return Integer.parseInt(httpPort);
