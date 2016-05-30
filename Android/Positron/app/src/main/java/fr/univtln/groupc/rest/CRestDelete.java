@@ -22,18 +22,7 @@ import fr.univtln.groupc.entities.CShieldEntity;
 
 public class CRestDelete extends AsyncTask<String, String, Void> {
 
-    //public final static String API_URL = "http://10.9.185.57:9998";
-    //public final static String API_URL = "http://10.9.185.52:9998";
-    //public final static String API_URL = "http://10.9.185.55:9998";
-    //public final static String API_URL = "http://10.9.185.52:9998";
-    //public final static String API_URL = "http://10.9.185.223:9998";
-    //public final static String API_URL = "http://10.21.174.206:9998";
-    //thom' home
-    public final static String API_URL = "http://192.168.1.83:9998";
-    // wifi
-    //public final static String API_URL = "http://192.168.43.44:9998";
-    //public final static String API_URL = "http://192.168.1.71:9998";
-   //public final static String API_URL = "http://127.0.0.1:9998";
+    public final static String API_URL = "http://10.9.185.52:9998";
 
     @Override
     protected Void doInBackground(String... params) {
@@ -74,6 +63,25 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
         }
     }
 
+    /**
+     * Supprime le consomable identifie par le parametre
+     *
+     * ------
+     *
+     * Deletes the consumable identified by parameter
+     * @param pId
+     */
+    public void deleteConsumableRest(int pId){
+        String lUrlString = API_URL + "/consumables/" + Integer.toString(pId);
+        Log.d("test2", "delete ->-> " + lUrlString);
+        try {
+            new CRestDelete().execute(lUrlString).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Supprime le champ identifie par le parametre

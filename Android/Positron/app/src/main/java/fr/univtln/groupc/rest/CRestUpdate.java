@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.CShieldEntity;
@@ -23,17 +24,7 @@ import fr.univtln.groupc.entities.CShieldEntity;
  */
 public class CRestUpdate extends AsyncTask<String, String, Void> {
 
-    //public final static String API_URL = "http://192.168.1.71:9998";
-    //public final static String API_URL = "http://10.9.185.52:9998";
-<<<<<<< HEAD
-    ///public final static String API_URL = "http://10.9.185.223:9998";
-=======
-    public final static String API_URL = "http://10.9.185.223:9998";
-    //public final static String API_URL = "http://192.168.43.44:9998";
->>>>>>> bf36b11bac92ee34859e3ee9207a1d97c9f000d2
-    // thom
-    public final static String API_URL = "http://192.168.1.83:9998";
-    //public final static String API_URL = "http://10.9.185.52:9998";
+    public final static String API_URL = "http://10.9.185.52:9998";
 
     @Override
     protected Void doInBackground(String... params) {
@@ -118,7 +109,7 @@ public class CRestUpdate extends AsyncTask<String, String, Void> {
      * sends to REST server the structure update
      * @param pBuilding
      */
-    // TODO test this method -> Xavier
+
     public void updateBuildingRest(ABuildingEntity pBuilding){
         ObjectMapper lMapper = new ObjectMapper();
         String lUrlString = API_URL;
@@ -145,6 +136,30 @@ public class CRestUpdate extends AsyncTask<String, String, Void> {
             String lBuildingJson = lMapper.writeValueAsString(pBuilding);
             CRestUpdate lUpdate=new CRestUpdate();
             lUpdate.execute(lUrlString,lBuildingJson).get();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * envoi au serveur la mise a jour effectuee sur un portal (objets, niveau, equipe ...)
+     * -----
+     * sends to REST server the portal update (building, team, level ...)
+     * @param pPlayer
+     */
+    public void updatePlayerRest(CPlayerEntity pPlayer){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = API_URL + "/portals";
+        Log.d("test", "->-> " + lUrlString);
+        try {
+            String lPortalJson = lMapper.writeValueAsString(pPlayer);
+            CRestUpdate lUpdate=new CRestUpdate();
+            lUpdate.execute(lUrlString,lPortalJson).get();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

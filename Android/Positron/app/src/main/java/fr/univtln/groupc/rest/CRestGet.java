@@ -19,7 +19,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -28,6 +27,7 @@ import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
+import fr.univtln.groupc.entities.CSkillEntity;
 
 
 /**
@@ -35,18 +35,8 @@ import fr.univtln.groupc.entities.CResonatorEntity;
  */
 public class CRestGet extends AsyncTask<String,String,String> {
 
-    //public final static String API_URL = "http://10.9.185.57:9998";
-    //public final static String API_URL = "http://10.9.185.52:9998";
-    //public final static String API_URL = "http://10.9.185.223:9998";
-    //public final static String API_URL = "http://10.9.185.55:9998";
-    //public final static String API_URL = "http://10.9.185.52:9998";
-    //public final static String API_URL = "http://10.21.174.206:9998";
-    //thom' home
-    public final static String API_URL = "http://192.168.1.19:9998";
-    // wifi
-    //public final static String API_URL = "http://192.168.43.44:9998";
-    //public final static String API_URL = "http://192.168.1.71:9998";
-    //public final static String API_URL = "http://127.0.0.1:9998";
+    public final static String API_URL = "http://10.9.185.52:9998";
+
 
     @Override
     protected String doInBackground(String... params) {
@@ -350,6 +340,39 @@ public class CRestGet extends AsyncTask<String,String,String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+    }
+
+
+
+
+    /**
+     * get player by id from database
+     * @return
+     */
+    public CSkillEntity getSkillByID(int pId){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = API_URL + "/skills/"+Integer.toString(pId);
+        Log.d("test", "->-> " + lUrlString);
+        String lSkillJson = null;
+        CSkillEntity lSkill = null;
+        try {
+            Log.d("test", "salut ?");
+            lSkillJson = new CRestGet().execute(lUrlString).get();
+            Log.d("test", lSkillJson);
+            System.out.println(" -> la dedans ?");
+            lSkill = lMapper.readValue(lSkillJson, CSkillEntity.class);
+            System.out.println("-> !");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("test", "-> skill object :\n  " + lSkill);
+        return lSkill;
     }
 
 
