@@ -24,7 +24,8 @@ public class CProfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cprofil);
         String mEnergy =null, mEnergyMax=null, mName=null, mXp=null, mTeam=null, mBagSize=null, mLevel = null;
 
-        mPlayer = new CRestPlayer().getPlayerByID(1); // ugly just a test :)
+        mPlayer = new CRestPlayer().getPlayerByID(1);
+
         if (mPlayer!=null) {
             mEnergy = String.valueOf(mPlayer.getEnergy());
             mEnergyMax = String.valueOf(mPlayer.getEnergyMax());
@@ -34,6 +35,11 @@ public class CProfilActivity extends AppCompatActivity {
             mBagSize = String.valueOf(mPlayer.getBagSize());
             mLevel = String .valueOf(mPlayer.getLevel());
         }
+
+
+
+
+
 
         mTextName = (TextView) findViewById(R.id.textName);
         if (mTextName != null) {

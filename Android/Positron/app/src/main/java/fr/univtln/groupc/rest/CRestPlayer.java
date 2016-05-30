@@ -50,6 +50,29 @@ public class CRestPlayer extends CRest {
         return lPlayer;
     }
 
+    public CPlayerEntity getPlayerByMail(String pMail){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = API_URL + "/players/mails"+pMail;
+        Log.d("test", "->-> " + lUrlString);
+        String lPlayerJson = null;
+        CPlayerEntity lPlayer = null;
+        try {
+            lPlayerJson = new CRestGet().execute(lUrlString).get();
+            Log.d("test", lPlayerJson);
+            lPlayer = lMapper.readValue(lPlayerJson, CPlayerEntity.class);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("test", "-> player object :\n  " + lPlayer);
+        return lPlayer;
+    }
+
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
