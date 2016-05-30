@@ -673,7 +673,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         if (lPlayerKeysForPortal.get(0).getPortal().getTeam() != null){
             lStringPortalTeamColor = lPlayerKeysForPortal.get(0).getPortal().getTeam().getColor();
         }
-        Log.d("test","team color -> " + lStringPortalTeamColor);
+       // Log.d("test","team color -> " + lStringPortalTeamColor);
 
         if (lStringPortalTeamColor.equals(lStringTeamColor)){
             LatLng lBeginningPortal = new LatLng(lKey.getPortal().getLat(),lKey.getPortal().getLong());
