@@ -6,4 +6,5 @@
     <dimen name="skill_tree_button_width">80dp</dimen>
     <dimen name="skill_tree_button_margin">50dp</dimen>
     <dimen name="skill_tree_margin">5dp</dimen>
+    <dimen name="skill_tree_colon_margin">70dp</dimen>
 </resources>
