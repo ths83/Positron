@@ -9,13 +9,13 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.pkmmte.view.CircularImageView;
 
+import fr.univtln.groupc.activities.google.CCurrentPlayer;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.rest.CRestPlayer;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CProfilActivity extends AppCompatActivity {
 
-    private CPlayerEntity mPlayer;
     CircularImageView mCircularImageView;
     TextView mTextName, mTextLevel;
     @Override
@@ -23,17 +23,18 @@ public class CProfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cprofil);
         String mEnergy =null, mEnergyMax=null, mName=null, mXp=null, mTeam=null, mBagSize=null, mLevel = null;
-        mPlayer = new CRestPlayer().getPlayerByMail("bobz@z.fr"); // ugly just a test :)
-        if (mPlayer!=null) {
-            mEnergy = String.valueOf(mPlayer.getEnergy());
-            mEnergyMax = String.valueOf(mPlayer.getEnergyMax());
-            mName = String.valueOf(mPlayer.getNickName());
-            mXp = String.valueOf(mPlayer.getXp());
-            mTeam = String.valueOf(mPlayer.getTeam());
-            mBagSize = String.valueOf(mPlayer.getBagSize());
-            mLevel = String .valueOf(mPlayer.getLevel());
-        }
 
+
+        if (CCurrentPlayer.mPlayer!=null) {
+            mEnergy = String.valueOf(CCurrentPlayer.mPlayer.getEnergy());
+            mEnergyMax = String.valueOf(CCurrentPlayer.mPlayer.getEnergyMax());
+            mName = String.valueOf(CCurrentPlayer.mPlayer.getNickName());
+            mXp = String.valueOf(CCurrentPlayer.mPlayer.getXp());
+            mTeam = String.valueOf(CCurrentPlayer.mPlayer.getTeam());
+            mBagSize = String.valueOf(CCurrentPlayer.mPlayer.getBagSize());
+            mLevel = String .valueOf(CCurrentPlayer.mPlayer.getLevel());
+        }
+        
         mTextName = (TextView) findViewById(R.id.textName);
         if (mTextName != null) {
             mTextName.setText(mName);

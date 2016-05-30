@@ -15,6 +15,7 @@ import fr.univtln.groupc.entities.CPlayerEntity;
 public class CRestPlayer extends CRest {
 
     //public final static String API_URL = "http://10.9.185.161:9998";
+<<<<<<< HEAD
 
     //public final static String API_URL = "http://10.9.185.223:9998";
     public final static String API_URL = "http://10.9.185.52:9998";
@@ -24,6 +25,16 @@ public class CRestPlayer extends CRest {
     //public final static String API_URL = "http://10.9.185.223:9998";
     //public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://192.168.43.44:9998"
+=======
+    //public final static String API_URL = "http://10.9.185.223:9998";
+    public final static String API_URL = "http://10.9.185.52:9998";
+    //public final static String API_URL = "http://10.9.185.223:9998";
+    //public final static String API_URL = "http://192.168.1.83:9998";
+    //public final static String API_URL = "http://10.9.185.223:9998";
+    //public final static String API_URL = "http://10.9.185.52:9998";
+    //public final static String API_URL = "http://192.168.43.44:9998";
+
+>>>>>>> a54af612b6e3a480c5a0381655fd290a1986362a
 
     /**
      * get player by id from database
@@ -52,9 +63,10 @@ public class CRestPlayer extends CRest {
         return lPlayer;
     }
 
-    public CPlayerEntity getPlayerByMail(String  pMail){
+    public CPlayerEntity getPlayerByMail(String pMail){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/players/mail"+pMail;
+        String lUrlString = API_URL + "/players/mails"+pMail;
+
         Log.d("test", "->-> " + lUrlString);
         String lPlayerJson = null;
         CPlayerEntity lPlayer = null;
@@ -74,6 +86,7 @@ public class CRestPlayer extends CRest {
         Log.d("test", "-> player object :\n  " + lPlayer);
         return lPlayer;
     }
+
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
