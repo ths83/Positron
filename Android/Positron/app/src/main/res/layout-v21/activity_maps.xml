@@ -31,7 +31,7 @@
 
     <ScrollView
         android:id="@+id/drawerleft"
-        android:layout_width="250sp"
+        android:layout_width="300sp"
         android:layout_height="50sp"
         android:orientation="horizontal"
         android:layout_gravity="start"

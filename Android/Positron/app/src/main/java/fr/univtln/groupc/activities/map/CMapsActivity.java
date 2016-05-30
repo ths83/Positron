@@ -82,7 +82,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public static final String LINK_PORTAL_NOT_GOOD_TEAM_FRENCH = "Vous ne pouvez pas lier deux portails n'appartenant pas à la même équipe!" ;
 
     //private ImageButton lButtonZone;
-
+    private CPortalEntity mPortalClicked;
     private Map<Integer, ProgressBar> mProgressBars = new HashMap<>();
     private List<Marker> mResonatorMarkers = new ArrayList<>();
     private List<Marker> mPortalMarkers = new ArrayList<>();
@@ -133,7 +133,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mLinear = (LinearLayout) findViewById(R.id.initaction);
 
         // TODO test for links
-        Button lTestButton = (Button) findViewById(R.id.link);
+        //Button lTestButton = (Button) findViewById(R.id.link);
 
         // TODO singleton for player -> with token
         mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
@@ -268,7 +268,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 Log.d("test10",Integer.toString(mPosition));
                 Log.d("test10",Integer.toString(mDrawState));
                 Log.d("test8","------>"+marker.getSnippet());
-
+                if (mPlayer == null){
+                    mPlayer = new CPlayerEntity();
+                }
                 double lDistanceBetweenPortalAndPlayer =
                         new CMathFunction().haversine
                                 (mPlayer.getLat(), mPlayer.getLong(), marker.getPosition().latitude, marker.getPosition().longitude);
@@ -303,17 +305,20 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                         if (lSplitString[0].equals("portal")) {
                             Log.d("test5", "DANS LE IF DU SPLIT 1");
                             Log.d("test8", "ok " + lSplitString[1]);
-                            CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(lSplitString[1]));
+                            /*if (mPortalClicked == null){
+                                mPortalClicked = new CPortalEntity();
+                            }*/
+                            mPortalClicked = new CRestGet().getPortalByIdRest(Integer.parseInt(lSplitString[1]));
 
                             // TODO delete this 382-> test
-                            mTestPortal = lPortal;
+                            //mTestPortal = lPortal;
                             //Log.d("test8", "portail null ? " + Boolean.toString(lPortal==null));
 
-                            displayResonators(lPortal.getResonators(), lPortal);
+                            displayResonators(mPortalClicked.getResonators(), mPortalClicked);
                             mPosition = 1;
                         /*mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));*/
                             mLinear.removeAllViews();
-                            //initDrawerAction(lPortal);
+                            initDrawerAction(mPortalClicked);
                             mDrawerAction.openDrawer(mScroll);
                             //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
                             mDrawerAction.setScrimColor(getResources().getColor(R.color.transparent));
@@ -352,8 +357,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
   //          mPlayer.setLong(location.getLongitude());
             //location.setBearing(location.getBearing());
             //mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
-            mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            //mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            /*if (mPlayer == null){
+                mPlayer = new CPlayerEntity();
+            }*/
+            mPlayer.setLat(location.getLatitude());
+            mPlayer.setLong(location.getLongitude());
             //mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
+            mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
             if (mPosition != 1) {
                 //mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
@@ -747,7 +758,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
                 }*/
 
-                Log.d("test5", "rte"+ pPortal.getResonators().get(0).getEnergy());
+                Log.d("test5", "rte" + pPortal.getResonators().get(0).getEnergy());
             }
         });
         ImageButton lButtonCreate = new ImageButton(this);
@@ -773,6 +784,10 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         Drawable mDrawable5 = getDrawable(R.mipmap.pirate);
         lButtonPirate.setImageDrawable(mDrawable5);
         mLinear.addView(lButtonPirate);
+        ImageButton lButtonCancel = new ImageButton(this);
+        Drawable mDrawable6 = getDrawable(R.mipmap.cancel);
+        lButtonCancel.setImageDrawable(mDrawable6);
+        mLinear.addView(lButtonCancel);
     }
 
 
