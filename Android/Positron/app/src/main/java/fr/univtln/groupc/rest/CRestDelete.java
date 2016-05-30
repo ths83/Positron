@@ -63,6 +63,25 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
         }
     }
 
+    /**
+     * Supprime le consomable identifie par le parametre
+     *
+     * ------
+     *
+     * Deletes the consumable identified by parameter
+     * @param pId
+     */
+    public void deleteConsumableRest(int pId){
+        String lUrlString = API_URL + "/consumables/" + Integer.toString(pId);
+        Log.d("test2", "delete ->-> " + lUrlString);
+        try {
+            new CRestDelete().execute(lUrlString).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Supprime le champ identifie par le parametre
