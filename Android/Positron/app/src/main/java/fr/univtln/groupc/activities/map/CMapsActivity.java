@@ -55,7 +55,6 @@ import java.util.Set;
 
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
-import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -79,8 +78,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public static final int NB_PORTALS_FIELD = 3 ;
     public static final String HAVERSINE_BAD_DISTANCE_PORTAL_FRENCH = "Pour interagir avec le portail, celui-ci doit être dans votre rayon d'action.";
 
-    //private ImageButton lButtonZone;
+    // Toast interaction
+    public static final String LINK_PORTAL_NOT_GOOD_TEAM_FRENCH = "Vous ne pouvez pas lier deux portails n'appartenant pas à la même équipe!" ;
 
+    //private ImageButton lButtonZone;
+    private CPortalEntity mPortalClicked;
     private Map<Integer, ProgressBar> mProgressBars = new HashMap<>();
     private List<Marker> mResonatorMarkers = new ArrayList<>();
     private List<Marker> mPortalMarkers = new ArrayList<>();
@@ -131,7 +133,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mLinear = (LinearLayout) findViewById(R.id.initaction);
 
         // TODO test for links
-        Button lTestButton = (Button) findViewById(R.id.link);
+        //Button lTestButton = (Button) findViewById(R.id.link);
 
         // TODO singleton for player -> with token
         mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
@@ -266,7 +268,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 Log.d("test10",Integer.toString(mPosition));
                 Log.d("test10",Integer.toString(mDrawState));
                 Log.d("test8","------>"+marker.getSnippet());
-
+                if (mPlayer == null){
+                    mPlayer = new CPlayerEntity();
+                }
                 double lDistanceBetweenPortalAndPlayer =
                         new CMathFunction().haversine
                                 (mPlayer.getLat(), mPlayer.getLong(), marker.getPosition().latitude, marker.getPosition().longitude);
@@ -284,6 +288,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
                  // Si le portail est dans le rayon d'action d'action du joueur, il peut interagir avec
                  // Players will only interact with portals which are in their radius action
+                Log.d("test","distance -> "  + lDistanceBetweenPortalAndPlayer);
                 if (lDistanceBetweenPortalAndPlayer <= GPS_PLAYER_RADIUS) {
 
                     LatLng lUserLatLng = marker.getPosition();
@@ -300,23 +305,20 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                         if (lSplitString[0].equals("portal")) {
                             Log.d("test5", "DANS LE IF DU SPLIT 1");
                             Log.d("test8", "ok " + lSplitString[1]);
-                            CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(lSplitString[1]));
-<<<<<<< HEAD
-=======
-/*<<<<<<< HEAD
->>>>>>> bf36b11bac92ee34859e3ee9207a1d97c9f000d2
+                            /*if (mPortalClicked == null){
+                                mPortalClicked = new CPortalEntity();
+                            }*/
+                            mPortalClicked = new CRestGet().getPortalByIdRest(Integer.parseInt(lSplitString[1]));
+
                             // TODO delete this 382-> test
-                            mTestPortal = lPortal;
-                            Log.d("test8", "portail null ? " + Boolean.toString(lPortal==null));
-<<<<<<< HEAD
-=======
->>>>>>> 831bb49017d5f0f5c77bb19d2dcf7c07ef65bc32*/
->>>>>>> bf36b11bac92ee34859e3ee9207a1d97c9f000d2
-                            displayResonators(lPortal.getResonators(), lPortal);
+                            //mTestPortal = lPortal;
+                            //Log.d("test8", "portail null ? " + Boolean.toString(lPortal==null));
+
+                            displayResonators(mPortalClicked.getResonators(), mPortalClicked);
                             mPosition = 1;
                         /*mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));*/
                             mLinear.removeAllViews();
-                            //initDrawerAction(lPortal);
+                            initDrawerAction(mPortalClicked);
                             mDrawerAction.openDrawer(mScroll);
                             //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
                             mDrawerAction.setScrimColor(getResources().getColor(R.color.transparent));
@@ -355,8 +357,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             //mPlayer.setLong(location.getLongitude());
             //location.setBearing(location.getBearing());
             //mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
-            mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            //mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            /*if (mPlayer == null){
+                mPlayer = new CPlayerEntity();
+            }*/
+            mPlayer.setLat(location.getLatitude());
+            mPlayer.setLong(location.getLongitude());
             //mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
+            mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
             if (mPosition != 1) {
                 //mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
@@ -650,6 +658,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+
     /**
      * recuperer la cle possede par le joueur pour creer un lien avec le portail clique
      * @param pView
@@ -657,22 +666,38 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     // TODO first version -> to modify fastly
     public void onCreateLink(View pView){
         int lTeamColor;
+        String lStringTeamColor;
         // Link color
         if (mPlayer.equals("blue")){
             lTeamColor = Color.BLUE;
+            lStringTeamColor = "BLUE";
         }
         else{
             lTeamColor = Color.RED;
+            lStringTeamColor = "RED";
         }
+
         // just for the first key
         List<CKeyEntity> lPlayerKeysForPortal = mPlayer.getKeys();
         CKeyEntity lKey = lPlayerKeysForPortal.get(0);
-        LatLng lBeginningPortal = new LatLng(lKey.getPortal().getLat(),lKey.getPortal().getLong());
-        LatLng lLastPortal = new LatLng(mTestPortal.getLat(),mTestPortal.getLong());
-        Polyline lLinkToDraw = mMap.addPolyline(new PolylineOptions()
-                .add(lBeginningPortal, lLastPortal)
-                .width(LINE_WIDTH)
-                .color(lTeamColor));
+        String lStringPortalTeamColor = "NONE" ;
+        if (lPlayerKeysForPortal.get(0).getPortal().getTeam() != null){
+            lStringPortalTeamColor = lPlayerKeysForPortal.get(0).getPortal().getTeam().getColor();
+        }
+       // Log.d("test","team color -> " + lStringPortalTeamColor);
+
+        if (lStringPortalTeamColor.equals(lStringTeamColor)){
+            LatLng lBeginningPortal = new LatLng(lKey.getPortal().getLat(),lKey.getPortal().getLong());
+            LatLng lLastPortal = new LatLng(mTestPortal.getLat(),mTestPortal.getLong());
+            Polyline lLinkToDraw = mMap.addPolyline(new PolylineOptions()
+                    .add(lBeginningPortal, lLastPortal)
+                    .width(LINE_WIDTH)
+                    .color(lTeamColor));
+        }
+        else {
+            Toast.makeText(getBaseContext(),LINK_PORTAL_NOT_GOOD_TEAM_FRENCH,Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
@@ -728,7 +753,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
                 }*/
 
-                Log.d("test5", "rte"+ pPortal.getResonators().get(0).getEnergy());
+                Log.d("test5", "rte" + pPortal.getResonators().get(0).getEnergy());
             }
         });
         ImageButton lButtonCreate = new ImageButton(this);
@@ -754,6 +779,10 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         Drawable mDrawable5 = getDrawable(R.mipmap.pirate);
         lButtonPirate.setImageDrawable(mDrawable5);
         mLinear.addView(lButtonPirate);
+        ImageButton lButtonCancel = new ImageButton(this);
+        Drawable mDrawable6 = getDrawable(R.mipmap.cancel);
+        lButtonCancel.setImageDrawable(mDrawable6);
+        mLinear.addView(lButtonCancel);
     }
 
 
