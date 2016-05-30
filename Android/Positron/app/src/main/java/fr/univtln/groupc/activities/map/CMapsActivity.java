@@ -55,7 +55,6 @@ import java.util.Set;
 
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
-import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -78,6 +77,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public static final float LINE_WIDTH = 5f ;
     public static final int NB_PORTALS_FIELD = 3 ;
     public static final String HAVERSINE_BAD_DISTANCE_PORTAL_FRENCH = "Pour interagir avec le portail, celui-ci doit être dans votre rayon d'action.";
+
+    // Toast interaction
+    public static final String LINK_PORTAL_NOT_GOOD_TEAM_FRENCH = "Vous ne pouvez pas lier deux portails n'appartenant pas à la même équipe!" ;
 
     //private ImageButton lButtonZone;
 
@@ -284,6 +286,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
                  // Si le portail est dans le rayon d'action d'action du joueur, il peut interagir avec
                  // Players will only interact with portals which are in their radius action
+                Log.d("test","distance -> "  + lDistanceBetweenPortalAndPlayer);
                 if (lDistanceBetweenPortalAndPlayer <= GPS_PLAYER_RADIUS) {
 
                     LatLng lUserLatLng = marker.getPosition();
@@ -301,17 +304,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             Log.d("test5", "DANS LE IF DU SPLIT 1");
                             Log.d("test8", "ok " + lSplitString[1]);
                             CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(lSplitString[1]));
-<<<<<<< HEAD
-=======
-/*<<<<<<< HEAD
->>>>>>> bf36b11bac92ee34859e3ee9207a1d97c9f000d2
+
                             // TODO delete this 382-> test
                             mTestPortal = lPortal;
-                            Log.d("test8", "portail null ? " + Boolean.toString(lPortal==null));
-<<<<<<< HEAD
-=======
->>>>>>> 831bb49017d5f0f5c77bb19d2dcf7c07ef65bc32*/
->>>>>>> bf36b11bac92ee34859e3ee9207a1d97c9f000d2
+                            //Log.d("test8", "portail null ? " + Boolean.toString(lPortal==null));
+
                             displayResonators(lPortal.getResonators(), lPortal);
                             mPosition = 1;
                         /*mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));*/
@@ -650,6 +647,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+
     /**
      * recuperer la cle possede par le joueur pour creer un lien avec le portail clique
      * @param pView
@@ -657,22 +655,38 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     // TODO first version -> to modify fastly
     public void onCreateLink(View pView){
         int lTeamColor;
+        String lStringTeamColor;
         // Link color
         if (mPlayer.equals("blue")){
             lTeamColor = Color.BLUE;
+            lStringTeamColor = "BLUE";
         }
         else{
             lTeamColor = Color.RED;
+            lStringTeamColor = "RED";
         }
+
         // just for the first key
         List<CKeyEntity> lPlayerKeysForPortal = mPlayer.getKeys();
         CKeyEntity lKey = lPlayerKeysForPortal.get(0);
-        LatLng lBeginningPortal = new LatLng(lKey.getPortal().getLat(),lKey.getPortal().getLong());
-        LatLng lLastPortal = new LatLng(mTestPortal.getLat(),mTestPortal.getLong());
-        Polyline lLinkToDraw = mMap.addPolyline(new PolylineOptions()
-                .add(lBeginningPortal, lLastPortal)
-                .width(LINE_WIDTH)
-                .color(lTeamColor));
+        String lStringPortalTeamColor = "NONE" ;
+        if (lPlayerKeysForPortal.get(0).getPortal().getTeam() != null){
+            lStringPortalTeamColor = lPlayerKeysForPortal.get(0).getPortal().getTeam().getColor();
+        }
+        Log.d("test","team color -> " + lStringPortalTeamColor);
+
+        if (lStringPortalTeamColor.equals(lStringTeamColor)){
+            LatLng lBeginningPortal = new LatLng(lKey.getPortal().getLat(),lKey.getPortal().getLong());
+            LatLng lLastPortal = new LatLng(mTestPortal.getLat(),mTestPortal.getLong());
+            Polyline lLinkToDraw = mMap.addPolyline(new PolylineOptions()
+                    .add(lBeginningPortal, lLastPortal)
+                    .width(LINE_WIDTH)
+                    .color(lTeamColor));
+        }
+        else {
+            Toast.makeText(getBaseContext(),LINK_PORTAL_NOT_GOOD_TEAM_FRENCH,Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

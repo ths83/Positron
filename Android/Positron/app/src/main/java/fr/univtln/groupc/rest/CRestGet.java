@@ -19,7 +19,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -39,10 +38,10 @@ public class CRestGet extends AsyncTask<String,String,String> {
     //public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://10.9.185.223:9998";
     //public final static String API_URL = "http://10.9.185.55:9998";
-    //public final static String API_URL = "http://10.9.185.52:9998";
+    public final static String API_URL = "http://10.9.185.52:9998";
     //public final static String API_URL = "http://10.21.174.206:9998";
     //thom' home
-    public final static String API_URL = "http://192.168.1.19:9998";
+    //public final static String API_URL = "http://192.168.1.19:9998";
     // wifi
     //public final static String API_URL = "http://192.168.43.44:9998";
     //public final static String API_URL = "http://192.168.1.71:9998";
