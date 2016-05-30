@@ -5,15 +5,15 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple Main.
+ * Unit fr.univtln.groupc.CAddPortalsPanel for simple Main.
  */
 public class AppTest 
     extends TestCase
 {
     /**
-     * Create the test case
+     * Create the fr.univtln.groupc.CAddPortalsPanel case
      *
-     * @param testName name of the test case
+     * @param testName name of the fr.univtln.groupc.CAddPortalsPanel case
      */
     public AppTest( String testName )
     {

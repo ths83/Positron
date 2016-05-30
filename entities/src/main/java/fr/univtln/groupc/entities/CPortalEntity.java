@@ -322,10 +322,10 @@ public class CPortalEntity implements Serializable {
                 ", mLong=" + mLong +
                 ", mRadius=" + mRadius +
                 ", mObjects=" + mObjects +
-                ", mResonators=" + mResonators +
+                ", mResonators=" + mResonators +*/
                 //", mLinks=" + mLinks +
                 ", mTeam=" + mTeam +
-                */'}' + super.toString();
+                '}' + super.toString();
     }
 
     @JsonIgnore

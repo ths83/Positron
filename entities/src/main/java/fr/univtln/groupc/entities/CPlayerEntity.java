@@ -160,6 +160,10 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         mLong = pLong;
     }
 
+    public List<CSkillEntity> getSkills() {
+        return mSkills;
+    }
+
     public double getLat() {
         return mLat;
     }
@@ -421,6 +425,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     }
 
 
+
     @JsonIgnore
     public List<CResonatorEntity> getResonators(){
         List<CResonatorEntity> lResonators = new ArrayList<CResonatorEntity>();
@@ -482,4 +487,39 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         }
         return lIdPortals;
     }
+
+    public int getLevelOnSkillBranch(String pType){
+        int lCount = 0;
+        for (CSkillEntity lSkill : mSkills){
+            if (lSkill.getType().equals(pType)){
+                lCount++;
+            }
+        }
+        return lCount;
+    }
+
+    public boolean skillAvailable(CSkillEntity pSkillWanted ,int pFreeSkillPoint){
+
+        if(pFreeSkillPoint<pSkillWanted.getCost()){
+            return false;
+        }
+        else if(pSkillWanted.getLevel() == 1) {
+            return false;
+        }
+        else{
+
+            for(CSkillEntity lSkill : mSkills){
+                if(lSkill.equals(pSkillWanted)){
+                    return false;
+                }
+            }
+            if (getLevelOnSkillBranch(pSkillWanted.getType())+1 == pSkillWanted.getLevel() ){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 }

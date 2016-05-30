@@ -356,6 +356,10 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             // current position player
             mPlayer.setLat(location.getLatitude());
             mPlayer.setLong(location.getLongitude());
+
+//            mPlayer.setLat(location.getLatitude());
+  //          mPlayer.setLong(location.getLongitude());
+
             //location.setBearing(location.getBearing());
             //mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
             //mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -582,41 +586,46 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
      */
     public void onDisplayField(CFieldEntity pField) {
 
-        List<CLinkEntity> lLinkArray = new ArrayList<>();
-        lLinkArray.add(pField.getLinks().get(0));
-        lLinkArray.add(pField.getLinks().get(1));
-        lLinkArray.add(pField.getLinks().get(2));
+        if (pField != null) {
+            List<CLinkEntity> lLinkArray = new ArrayList<>();
 
-        // Avoid redunctant LatLng for field
-        Set<CPortalEntity> lSetLatLngPortals = new HashSet<>();
-        lSetLatLngPortals.add(lLinkArray.get(0).getPortals().get(0));
-        lSetLatLngPortals.add(lLinkArray.get(0).getPortals().get(1));
-        lSetLatLngPortals.add(lLinkArray.get(1).getPortals().get(0));
-        lSetLatLngPortals.add(lLinkArray.get(1).getPortals().get(1));
-        lSetLatLngPortals.add(lLinkArray.get(2).getPortals().get(0));
-        lSetLatLngPortals.add(lLinkArray.get(2).getPortals().get(1));
+            Log.d("test", " field null ? -> " + pField.getLinks());
 
-        List<CPortalEntity> lListLatLngPortalsForSet = new ArrayList<>(lSetLatLngPortals);
-        LatLng[] lLatLngPortalLinkedArray = new LatLng[NB_PORTALS_FIELD];
+            lLinkArray.add(pField.getLinks().get(0));
+            lLinkArray.add(pField.getLinks().get(1));
+            lLinkArray.add(pField.getLinks().get(2));
 
-        if (lListLatLngPortalsForSet.get(0).getTeam() != null) {
-            // Team color
-            int lTeamColor;
-            if (lListLatLngPortalsForSet.get(0).getTeam().getColor().equals("blue")) {
-                lTeamColor = Color.BLUE;
-            } else {
-                lTeamColor = Color.RED;
+            // Avoid redunctant LatLng for field
+            Set<CPortalEntity> lSetLatLngPortals = new HashSet<>();
+            lSetLatLngPortals.add(lLinkArray.get(0).getPortals().get(0));
+            lSetLatLngPortals.add(lLinkArray.get(0).getPortals().get(1));
+            lSetLatLngPortals.add(lLinkArray.get(1).getPortals().get(0));
+            lSetLatLngPortals.add(lLinkArray.get(1).getPortals().get(1));
+            lSetLatLngPortals.add(lLinkArray.get(2).getPortals().get(0));
+            lSetLatLngPortals.add(lLinkArray.get(2).getPortals().get(1));
+
+            List<CPortalEntity> lListLatLngPortalsForSet = new ArrayList<>(lSetLatLngPortals);
+            LatLng[] lLatLngPortalLinkedArray = new LatLng[NB_PORTALS_FIELD];
+
+            if (lListLatLngPortalsForSet.get(0).getTeam() != null) {
+                // Team color
+                int lTeamColor;
+                if (lListLatLngPortalsForSet.get(0).getTeam().getColor().equals("blue")) {
+                    lTeamColor = Color.BLUE;
+                } else {
+                    lTeamColor = Color.RED;
+                }
+
+                for (int i = 0; i < NB_PORTALS_FIELD; i++) {
+                    lLatLngPortalLinkedArray[i] = new LatLng(lListLatLngPortalsForSet.get(i).getLat(), lListLatLngPortalsForSet.get(i).getLong());
+                }
+
+                Polygon lPolygon = mMap.addPolygon(new PolygonOptions()
+                        .add(lLatLngPortalLinkedArray)
+                        .fillColor(lTeamColor));
+
+                mMapPolygonsWithInteger.put(pField.getId(), lPolygon);
             }
-
-            for (int i = 0; i < NB_PORTALS_FIELD; i++) {
-                lLatLngPortalLinkedArray[i] = new LatLng(lListLatLngPortalsForSet.get(i).getLat(), lListLatLngPortalsForSet.get(i).getLong());
-            }
-
-            Polygon lPolygon = mMap.addPolygon(new PolygonOptions()
-                    .add(lLatLngPortalLinkedArray)
-                    .fillColor(lTeamColor));
-
-            mMapPolygonsWithInteger.put(pField.getId(),lPolygon);
         }
     }
 

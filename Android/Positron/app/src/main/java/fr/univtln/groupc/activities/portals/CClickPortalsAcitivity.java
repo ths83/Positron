@@ -60,22 +60,19 @@ public class CClickPortalsAcitivity extends AppCompatActivity {
 
         CActions lActions = new CActions();
         lActions.attackBuilding(pAmmunition,pTarget,pAttacker);
-
+        CRestDelete lDelete = new CRestDelete();
+        lDelete.deleteConsumableRest(pAmmunition.getId());
         if(pTarget.getEnergy() <= 0){
-            // TODO Delete Building
-            CRestDelete lDelete = new CRestDelete();
-            lDelete.deleteBuildingRest(pTarget,pTarget.getId());
+            lDelete.deleteBuildingRest(pTarget, pTarget.getId());
             //new CRestDelete();
             updatePortalTeam(pPortal);
-            //TODO addXP
         }
         else{
-            //TODO Updtate Building
+
             CRestUpdate lUpdate = new CRestUpdate();
             lUpdate.updateBuildingRest(pTarget);
             //new CRestUpdate().;
 
-            //TODO add XP
         }
 
     }
@@ -141,13 +138,15 @@ if(pPlayer.getTeam() == pPortal.getTeam()) {
         int li =0;
         CActions lAction = new CActions();
 
-        // TODO XP ++
+
         if(pPortal.getTeam() == null){
+            pPlayer.addXP(10);
             for(li=0;li<5;li++){
                 pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(), lAction.calculLevel(pPortal.getLevel(), pPlayer.getLevel()), lAction.calculRarety(pPortal.getLevel())));
             }
         }
         else{
+            pPlayer.addXP(5);
             if(pPortal.getTeam() == pPlayer.getTeam()){
                 for(li=0;li<10;li++){
                     pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(), lAction.calculLevel(pPortal.getLevel(), pPlayer.getLevel()), lAction.calculRarety(pPortal.getLevel())));
@@ -155,7 +154,7 @@ if(pPlayer.getTeam() == pPortal.getTeam()) {
                 }
             }
             else {
-                //TODO XP ++
+                pPlayer.addXP(20);
                 for(li=0;li<5;li++){
                     pPlayer.addObjects(lAction.createObject(lAction.calculTypeObject(), lAction.calculLevel(pPortal.getLevel(), pPlayer.getLevel()), lAction.calculRarety(pPortal.getLevel())));
 

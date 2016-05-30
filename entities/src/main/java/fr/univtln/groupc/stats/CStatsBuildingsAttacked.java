@@ -1,6 +1,8 @@
 package fr.univtln.groupc.stats;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 
@@ -17,7 +19,7 @@ import javax.persistence.*;
 public class CStatsBuildingsAttacked extends AStatsAttacked {
 
     @ManyToOne
-    @JoinColumn(name = "building_fk")
+    @JoinColumn(name = "building")
     private ABuildingEntity mBuilding;
 
     public final static String GET_ALL = "StatsBuildingAttacked.getAll";
@@ -28,7 +30,7 @@ public class CStatsBuildingsAttacked extends AStatsAttacked {
     }
 
     public CStatsBuildingsAttacked() {
-        super();
+
     }
 
     public static class CStatsBuildingsAttackedBuilder {

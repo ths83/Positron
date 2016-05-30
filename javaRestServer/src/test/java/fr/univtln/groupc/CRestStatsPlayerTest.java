@@ -23,6 +23,7 @@ public class CRestStatsPlayerTest extends TestCase{
 
 
     public void testPostStatsPlayerService() throws Exception {
+
         CTurretEntity lTurret = new CTurretEntity
                 .CTurretBuilder(78678687).level(10).damage(10).lifeTime(1111)
                 .energy(150).energyMax(200)
@@ -44,7 +45,7 @@ public class CRestStatsPlayerTest extends TestCase{
 
         CPlayerEntity lPlayerEntity1 = new CPlayerEntity.CPlayerBuilder(1).email("zad").energy(5).build();
 
-        CStatsPlayer lStatsPlayer = new CStatsPlayer.CStatsPlayerBuilder(1).player(lPlayerEntity1).buildingsDestroyed(lTurrets).consumablesUsed(lConsumables).build();
+        CStatsPlayer lStatsPlayer = new CStatsPlayer.CStatsPlayerBuilder(1).player(lPlayerEntity1).build();
         // TODO : getters : resonatorsDestroyed() and resonatorsBuilt() doesn't work
 
         mJson = mMapper.writeValueAsString(lStatsPlayer);

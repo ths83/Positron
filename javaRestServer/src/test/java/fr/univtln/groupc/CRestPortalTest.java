@@ -57,7 +57,7 @@ public class CRestPortalTest extends TestCase {
         lClientResponse = mWebResource.path("/portals/150").type("application/json").accept("application/json").delete(ClientResponse.class);
         assertEquals(lClientResponse.getStatus(), 200);
     }
-
+/*
     public void testPortalWithKeyAndBuildingsGet() throws Exception {
         String lJsonGotten = null;
         lJsonGotten = mWebResource.path("/portals/778").get(String.class);
@@ -85,11 +85,13 @@ public class CRestPortalTest extends TestCase {
         assertEquals(lResponse.getStatus(), 201);
     }*/
 
+
     public void testgetPortals() throws Exception {
         String lJson = null;
         List<CPortalEntity> lPortals = new ArrayList<>();
         lJson = mWebResource.path("/portals").get(String.class);
         lPortals = mMapper.readValue(lJson, mMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
         System.out.println("portals : " + lPortals);
+
     }
 }

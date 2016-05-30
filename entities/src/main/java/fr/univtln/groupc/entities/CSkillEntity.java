@@ -17,6 +17,10 @@ import java.io.Serializable;
         @NamedQuery(name = CSkillEntity.GET_BY_LEVEL, query = "select s from CSkillEntity s where s.mLevel = :mLevel")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CSkillEntity.class)
 
+
+
+//TODO: --Cost ++Branche/type
+
 public class CSkillEntity implements Serializable {
 
     @Id
@@ -28,6 +32,10 @@ public class CSkillEntity implements Serializable {
     private int mLevel;
     @Column(name = "cost")
     private int mCost;
+    @Column(name = "type")
+    private String mType;
+
+
 
     public final static String GET_ALL = "Skill.getAll";
     public final static String GET_BY_LEVEL = "Skill.getByLevel";
@@ -73,7 +81,16 @@ public class CSkillEntity implements Serializable {
         mCost = pCost;
     }
 
-    @Override
+    public String getType() {
+        return mType;
+    }
+
+    public void setType(String pType) {
+        mType = pType;
+    }
+
+
+        @Override
     public String toString() {
         return "CSkillEntity{" +
                 "mId=" + mId +
@@ -83,11 +100,27 @@ public class CSkillEntity implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CSkillEntity that = (CSkillEntity) o;
+
+        return mId == that.mId;
+    }
+
+    @Override
+    public int hashCode() {
+        return mId;
+    }
+
     public static class CSkillBuilder{
         private final int mId;
         private String mName;
         private int mLevel;
         private int mCost;
+        private String mType;
 
         public CSkillBuilder(int pId){
             mId = pId;
@@ -108,9 +141,17 @@ public class CSkillEntity implements Serializable {
             return this;
         }
 
+        public CSkillBuilder type(String pType){
+            mType = pType;
+            return this;
+        }
+
+
         public CSkillEntity build(){
             return new CSkillEntity(this);
         }
     }
+
+
 
 }
