@@ -19,11 +19,7 @@
     <string name="title_activity_cstats">CStatsActivity</string>
     <string name="title_activity_test">testActivity</string>
     <string name="title_activity_cskill_tree">CSkillTree</string>
-<<<<<<< HEAD
-    <string name="title_SkillTree">Arbre de compétance</string>
-=======
     <string name="title_Skill_Tree">Arbre de compétance</string>
->>>>>>> ec2be9cf9d8043bdd60f2fb0b93f7e0f3d8a8bad
     <string name="free_Skill_Point">1</string>
 
 </resources>
