@@ -115,7 +115,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private Map<Integer, Polygon> mMapPolygonsWithInteger = new HashMap<>();
     private Map<CLinkEntity, Polyline> mMapPolylines = new HashMap<>();
     private Map<CFieldEntity, Polygon> mMapPolygons = new HashMap<>();
-    private CPlayerEntity mPlayer = new CPlayerEntity();
+    private CPlayerEntity mPlayer = new CRestGet().getPlayerByID(1);
     private ScrollView mScroll;
     private int mDrawState=0;
     private final List<CPortalEntity> mPortals = new CRestGet().getPortalsRest();
@@ -137,7 +137,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // TODO singleton for player -> with token
         mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
-        Log.d("test", "player null ? -> " + mPlayer);
+        //Log.d("test", "player null ? -> " + mPlayer);
 
         // Google Map fragment
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -232,7 +232,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         // Display links on start session
         displayAllLinks();
         displayAllFields();
-
+        Log.d("test", "player null 2? -> " + mPlayer);
         // Location Service
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
@@ -268,9 +268,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 Log.d("test10",Integer.toString(mPosition));
                 Log.d("test10",Integer.toString(mDrawState));
                 Log.d("test8","------>"+marker.getSnippet());
-                if (mPlayer == null){
+                /*if (mPlayer == null){
                     mPlayer = new CPlayerEntity();
-                }
+                }*/
                 double lDistanceBetweenPortalAndPlayer =
                         new CMathFunction().haversine
                                 (mPlayer.getLat(), mPlayer.getLong(), marker.getPosition().latitude, marker.getPosition().longitude);
@@ -310,11 +310,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             }*/
                             mPortalClicked = new CRestGet().getPortalByIdRest(Integer.parseInt(lSplitString[1]));
 
+
                             // TODO delete this 382-> test
                             //mTestPortal = lPortal;
                             //Log.d("test8", "portail null ? " + Boolean.toString(lPortal==null));
 
-                            displayResonators(mPortalClicked.getResonators(), mPortalClicked);
+                            displayResonators(mPortalClicked);
                             mPosition = 1;
                         /*mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));*/
                             mLinear.removeAllViews();
@@ -353,18 +354,23 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         @Override
         public void onMyLocationChange(Location location) {
             // current position player
+            mPlayer.setLat(location.getLatitude());
+            mPlayer.setLong(location.getLongitude());
+
 //            mPlayer.setLat(location.getLatitude());
   //          mPlayer.setLong(location.getLongitude());
+
             //location.setBearing(location.getBearing());
             //mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
             //mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
             /*if (mPlayer == null){
                 mPlayer = new CPlayerEntity();
             }*/
-            mPlayer.setLat(location.getLatitude());
-            mPlayer.setLong(location.getLongitude());
+            //mPlayer = new CPlayerEntity.CPlayerBuilder(1).latitude(location.getLatitude()).longitude(location.getLongitude()).build();
+            //mPlayer.setLat(location.getLatitude());
+            //mPlayer.setLong(location.getLongitude());
             //mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
-            mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
+            mUserLatLng = new LatLng(location.getLatitude(),location.getLongitude());
             if (mPosition != 1) {
                 //mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
@@ -422,12 +428,13 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
      * Displays all the icons of all the resonators
      * from a portail given when being clicked.
      */
-    public void displayResonators(List<CResonatorEntity> pResonators, CPortalEntity pPortal) {
+    public void displayResonators(CPortalEntity pPortal) {
+        List<CResonatorEntity> lResonators = mPortalClicked.getResonators();
         double lLat = pPortal.getLat();
         double lLong = pPortal.getLong();
         double lIdent = -0.0007;
         LatLng lLatLng;
-        for (CResonatorEntity lResonator : pResonators) {
+        for (CResonatorEntity lResonator : lResonators) {
             lLatLng = new LatLng(lLat - 0.0004, lLong + lIdent);
             IconGenerator tc = new IconGenerator(this);
             tc.setTextAppearance(R.style.iconGenText);
@@ -444,7 +451,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
             lIdent = lIdent + 0.0002;
         }
-        int i = pResonators.size();
+        int i = lResonators.size();
         while (i < 8) {
             lLatLng = new LatLng(lLat - 0.0004, lLong + lIdent);
             mResonatorMarkers.add(mMap.addMarker(new MarkerOptions()
@@ -721,9 +728,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void initDrawerAction(final CPortalEntity pPortal){
 
-        ImageButton lButtonAttack = new ImageButton(this);
-        Drawable mDrawable1 = getDrawable(R.mipmap.attack);
-        lButtonAttack.setImageDrawable(mDrawable1);
+        ImageButton lButtonAttack = generateButton(R.mipmap.attack);
         mLinear.addView(lButtonAttack);
         /*lButtonAttack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -731,26 +736,16 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
             }
         });*/
-        ImageButton lButtonZone = new ImageButton(this);
-        Log.d("test5","---->"+lButtonZone.isEnabled());
-        lButtonZone.setEnabled(true);
         if (mPlayer.getBombs().size()>0) {
-            Drawable mDrawable2 = getDrawable(R.mipmap.zoneattackvalid);
-            lButtonZone.setImageDrawable(mDrawable2);
-            lButtonZone.setClickable(true);
-        }
-        else {
-            Drawable mDrawable2 = getDrawable(R.mipmap.zoneattack);
-            lButtonZone.setImageDrawable(mDrawable2);
-            lButtonZone.setClickable(false);
-        }
-        mLinear.addView(lButtonZone);
-        lButtonZone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final CPortalEntity lPortal;
-                Log.d("test5", "dans le onclick !");
-                CClickPortalsAcitivity.useBombe(mPlayer.getBombs().get(0), pPortal, mPlayer);
+            ImageButton lButtonZone = generateButton(R.mipmap.zoneattackvalid);
+            lButtonZone.setEnabled(true);
+            mLinear.addView(lButtonZone);
+            lButtonZone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //final CPortalEntity lPortal;
+                    Log.d("test5", "dans le onclick !");
+                    CClickPortalsAcitivity.useBombe(mPlayer.getBombs().get(0), mPortalClicked, mPlayer);
                 /*for (CResonatorEntity lResonator : lPortal.getResonators()){
                     Log.d("test15", "ds la map de progressbar ? " + mProgressBars.get(lResonator.getId()));
                     mProgressBars.get(lResonator.getId()).setProgress(lResonator.getEnergy());
@@ -758,16 +753,19 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
                 }*/
 
-                Log.d("test5", "rte" + pPortal.getResonators().get(0).getEnergy());
-            }
-        });
-        ImageButton lButtonCreate = new ImageButton(this);
-        Drawable mDrawable3 = getDrawable(R.mipmap.create);
-        lButtonCreate.setImageDrawable(mDrawable3);
+                    Log.d("test5", "rte" + pPortal.getResonators().get(0).getEnergy());
+                }
+            });
+        }
+        else {
+            ImageButton lButtonZone = generateButton(R.mipmap.zoneattack);
+            lButtonZone.setEnabled(false);
+            mLinear.addView(lButtonZone);
+        }
+
+        ImageButton lButtonCreate = generateButton(R.mipmap.create);
         mLinear.addView(lButtonCreate);
-        ImageButton lButtonBuild = new ImageButton(this);
-        Drawable mDrawable4 = getDrawable(R.mipmap.build);
-        lButtonBuild.setImageDrawable(mDrawable4);
+        ImageButton lButtonBuild = generateButton(R.mipmap.build);
         lButtonBuild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -780,13 +778,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         });
         mLinear.addView(lButtonBuild);
-        ImageButton lButtonPirate = new ImageButton(this);
-        Drawable mDrawable5 = getDrawable(R.mipmap.pirate);
-        lButtonPirate.setImageDrawable(mDrawable5);
+        ImageButton lButtonPirate = generateButton(R.mipmap.pirate);
         mLinear.addView(lButtonPirate);
-        ImageButton lButtonCancel = new ImageButton(this);
-        Drawable mDrawable6 = getDrawable(R.mipmap.cancel);
-        lButtonCancel.setImageDrawable(mDrawable6);
+        ImageButton lButtonCancel = generateButton(R.mipmap.cancel);
         mLinear.addView(lButtonCancel);
     }
 
@@ -860,20 +854,47 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void reparationDrawerExtend(final CPortalEntity pPortal) {
 
-        ImageButton lButtonCreate = new ImageButton(this);
-        Drawable mDrawable1 = getDrawable(R.mipmap.keyportal);
-        lButtonCreate.setImageDrawable(mDrawable1);
+        ImageButton lButtonCreate = generateButton(R.mipmap.keyportal);
         mLinear.addView(lButtonCreate);
-        ImageButton lButtonBuild = new ImageButton(this);
-        Drawable mDrawable2 = getDrawable(R.mipmap.virus);
-        lButtonBuild.setImageDrawable(mDrawable2);
+        lButtonCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLinear.removeAllViews();
+                InitDrawerLink();
+                mDrawerAction.openDrawer(mScroll);
+                //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN,mScroll);
+                //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+                mDrawerAction.setScrimColor(getResources().getColor(R.color.transparent));
+
+            }
+        });
+        ImageButton lButtonBuild = generateButton(R.mipmap.virus);
         mLinear.addView(lButtonBuild);
-        ImageButton lButtonPirate = new ImageButton(this);
-        Drawable mDrawable3 = getDrawable(R.mipmap.kitsoin);
-        lButtonPirate.setImageDrawable(mDrawable3);
+        ImageButton lButtonPirate = generateButton(R.mipmap.kitsoin);
         mLinear.addView(lButtonPirate);
     }
 
+    public void InitDrawerLink(){
+        Log.d("test60","-->"+mPlayer.getKeys());
+        Log.d("test60","-"+mPlayer.getIdPortalsOfKeys());
+        for (int i : mPlayer.getIdPortalsOfKeys()){
+            if (i!=mPortalClicked.getId()) {
+                List<CKeyEntity> lKeys = mPlayer.getKeysByPortal(i);
+                ImageButton lButton = generateButton(R.mipmap.keyportal);
+                mLinear.addView(lButton);
+            }
+        }
+
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ImageButton generateButton(int pIdMipMap){
+        ImageButton lButton= new ImageButton(this);
+        Drawable mDrawable = getDrawable(pIdMipMap);
+        lButton.setImageDrawable(mDrawable);
+        return lButton;
+    }
 
 
 }

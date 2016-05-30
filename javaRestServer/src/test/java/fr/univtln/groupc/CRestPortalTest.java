@@ -85,8 +85,13 @@ public class CRestPortalTest extends TestCase {
         assertEquals(lResponse.getStatus(), 201);
     }*/
 
-    public void testGetAllPortals() throws Exception {
-        CPortalEntity lPortalEntity = mMapper.readValue(mWebResource.path("/portals").get(String.class), CPortalEntity.class);
-        assertEquals(lPortalEntity.getId(), 150);
+
+    public void testgetPortals() throws Exception {
+        String lJson = null;
+        List<CPortalEntity> lPortals = new ArrayList<>();
+        lJson = mWebResource.path("/portals").get(String.class);
+        lPortals = mMapper.readValue(lJson, mMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+        System.out.println("portals : " + lPortals);
+
     }
 }
