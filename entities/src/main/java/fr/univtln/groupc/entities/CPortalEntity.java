@@ -75,6 +75,12 @@ public class CPortalEntity implements Serializable {
             }
         }
 
+        if (mResonators != null){
+            for (CResonatorEntity lResonator : mResonators){
+                lResonator.setPortal(this);
+            }
+        }
+
     }
 
 
@@ -221,6 +227,14 @@ public class CPortalEntity implements Serializable {
         if (mResonators != null){
             mResonators.add(pResonator);
             pResonator.setPortal(this);
+        }
+    }
+
+    public void addBuilding(ABuildingEntity pBuilding){
+        if (mBuildings != null){
+            mBuildings.add(pBuilding);
+            pBuilding.setPortal(this);
+
         }
     }
 

@@ -15,6 +15,7 @@ import com.google.api.client.json.gson.GsonFactory;
  * Created by arouani277 on 25/05/16.
  */
 public class CServerGoogle2 {
+    /*
     private final List mClientIDs;
     private final String mAudience;
     private final GoogleIdTokenVerifier mVerifier;
@@ -39,4 +40,5 @@ public class CServerGoogle2 {
 
         Userinfo userinfo = oauth2.userinfo().get().execute();
     }
+    */
 }

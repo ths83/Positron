@@ -19,7 +19,7 @@ import java.util.Arrays;
  * Created by arouani277 on 25/05/16.
  */
 public class CServerGoogle {
-
+/*
     private static final HttpTransport transport = new NetHttpTransport();
     private static final JsonFactory jsonFactory = new MockJsonFactory();
 
@@ -67,4 +67,5 @@ public class CServerGoogle {
 
 
     }
+*/
 }

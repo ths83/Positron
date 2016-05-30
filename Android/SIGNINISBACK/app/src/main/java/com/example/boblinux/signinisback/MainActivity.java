@@ -22,41 +22,41 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-    private static final String serverClientId = "38429459185-kjm6ss6jbb1msmpq5i8sggt4r5428lcn.apps.googleusercontent.com";
-    private static final String TAG = "CSignInActivity";
-    private static final int RC_SIGN_IN = 9001;
-    private static final String AUTHENTIFICATION_SUCCESS_FRENCH = "Connexion établie !";
+        private static final String serverClientId = "38429459185-kjm6ss6jbb1msmpq5i8sggt4r5428lcn.apps.googleusercontent.com";
+        private static final String TAG = "CSignInActivity";
+        private static final int RC_SIGN_IN = 9001;
+        private static final String AUTHENTIFICATION_SUCCESS_FRENCH = "Connexion établie !";
 
-    private Intent mMapIntent;
-    private Button mMapButtonLauncher;
-    private GoogleApiClient mGoogleApiClient;
-    private TextView mStatusTextView;
-    private ProgressDialog mProgressDialog;
+        private Intent mMapIntent;
+        private Button mMapButtonLauncher;
+        private GoogleApiClient mGoogleApiClient;
+        private TextView mStatusTextView;
+        private ProgressDialog mProgressDialog;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mMapButtonLauncher = (Button) findViewById(R.id.sign_in_button);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            mMapButtonLauncher = (Button) findViewById(R.id.sign_in_button);
 
-// Configure sign-in to request the user's ID, email address, and basic
-// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
-                .requestEmail()
-                .requestIdToken(serverClientId)
-                .requestServerAuthCode(serverClientId, false)
-                .build();
+    // Configure sign-in to request the user's ID, email address, and basic
+    // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
+                    .requestEmail()
+                    .requestIdToken(serverClientId)
+                    .requestServerAuthCode(serverClientId, false)
+                    .build();
 
-// Build a GoogleApiClient with access to the Google Sign-In API and the
-// options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+    // Build a GoogleApiClient with access to the Google Sign-In API and the
+    // options specified by gso.
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
 
-    }
+        }
 
 
     /**

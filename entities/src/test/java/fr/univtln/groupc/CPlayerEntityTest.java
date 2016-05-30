@@ -54,4 +54,10 @@ public class CPlayerEntityTest extends TestCase {
         assertEquals(3, lPlayer.getTurretsByLevel(3).size());
         assertEquals(1, lPlayer.getTurretsByLevel(4).size());
     }
+
+    public void testPlayerWithKey() throws Exception {
+
+        //AObjectEntity
+
+    }
 }

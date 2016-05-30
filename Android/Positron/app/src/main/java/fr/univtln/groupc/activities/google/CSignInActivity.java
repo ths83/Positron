@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 
 import fr.univtln.groupc.activities.map.CMapsActivity;
+import fr.univtln.groupc.rest.CRestPlayer;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CSignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
@@ -115,9 +116,16 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
             GoogleSignInAccount lAcct = pResult.getSignInAccount();
 
             // Mettre le compte courant disponible pour tout le programme globalement
+            if (lAcct != null) {
+                CCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(lAcct.getEmail());
+            }
 
 
-            String idToken = lAcct.getIdToken();
+            String idToken = null;
+            if (lAcct != null) {
+                idToken = lAcct.getIdToken();
+            }
+
             // Show signed-in UI.
             Log.d(TAG, "idToken:" + idToken);
             mMapIntent = new Intent(this,CMapsActivity.class);

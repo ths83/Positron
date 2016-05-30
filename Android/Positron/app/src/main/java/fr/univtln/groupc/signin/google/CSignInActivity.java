@@ -15,15 +15,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Scope;
 
 import fr.univtln.groupc.activities.map.CMapsActivity;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CSignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
+    private static final String serverClientId = "38429459185-kjm6ss6jbb1msmpq5i8sggt4r5428lcn.apps.googleusercontent.com";
     private static final String TAG = "CSignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final String AUTHENTIFICATION_SUCCESS_FRENCH = "Connexion établie !";
@@ -43,16 +46,20 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions lGso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
                 .requestEmail()
+                .requestIdToken(serverClientId)
+                .requestServerAuthCode(serverClientId, false)
                 .build();
 
         // Build a GoogleApiClient with access to the Google Sign-In API and the
         // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, lGso)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
     }
 
 
@@ -73,8 +80,8 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
      * ask connexion to Google API
      */
     private void signIn() {
-        Intent lSignInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(lSignInIntent, RC_SIGN_IN);
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
@@ -94,13 +101,15 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
             });
         }
     }
-    
+
     @Override
-    public void onActivityResult(int pRequestCode, int pResultCode, Intent pData) {
-        super.onActivityResult(pRequestCode, pResultCode, pData);
-        if (pRequestCode == RC_SIGN_IN) {
-            GoogleSignInResult lResult = Auth.GoogleSignInApi.getSignInResultFromIntent(pData);
-            handleSignInResult(lResult);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
         }
     }
 
@@ -108,23 +117,20 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
     public void onConnectionFailed(ConnectionResult pConnectionResult) {
     }
 
-    private void handleSignInResult(GoogleSignInResult pResult) {
-        Log.d(TAG, "handleSignInResult:" + pResult.isSuccess());
-        if (pResult.isSuccess()) {
+    private void handleSignInResult(GoogleSignInResult result) {
+        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount lAcct = pResult.getSignInAccount();
-            String idToken = lAcct.getIdToken();
-            // Show signed-in UI.
-            Log.d(TAG, "idToken:" + idToken);
-            mMapIntent = new Intent(this,CMapsActivity.class);
-            // on lance la map
-            startActivity(mMapIntent);
-            Toast.makeText(getBaseContext(),AUTHENTIFICATION_SUCCESS_FRENCH,Toast.LENGTH_SHORT).show();
-            /*mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-            updateUI(true);*/
+            GoogleSignInAccount acct = result.getSignInAccount();
+
+            Toast.makeText(getBaseContext(),"bienvenue : " + acct.getDisplayName(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(),"server auth code : " + acct.getServerAuthCode(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(),"granted scopres : " + acct.getGrantedScopes(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(),"id token : " + acct.getIdToken(),Toast.LENGTH_SHORT).show();
+
         } else {
             // Signed out, show unauthenticated UI.
-            //updateUI(false);
+            Toast.makeText(getBaseContext(),"degage",Toast.LENGTH_SHORT).show();
         }
     }
 

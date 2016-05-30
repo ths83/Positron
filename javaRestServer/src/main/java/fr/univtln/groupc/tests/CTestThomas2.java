@@ -42,7 +42,7 @@ public class CTestThomas2 {
 
         List<CKeyEntity> lKeyPortals5 = new ArrayList<>();
         CKeyEntity lKeyEntity5 = new CKeyEntity.CKeyBuilder(20040).build();
-        lKeyPortals4.add(lKeyEntity5);
+        lKeyPortals5.add(lKeyEntity5);
 
 
         CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(20030).latitude(40.1948).longitude(-73.22).keys(lKeyPortals1).build();
@@ -57,7 +57,7 @@ public class CTestThomas2 {
         lCrud.create(lPortal5);
 
         CPlayerEntity lPlayer = lCrud.find(CPlayerEntity.class,1);
-        lPlayer.addObjects(lKeyEntity5);
+        lPlayer.addObjects((AObjectEntity)lKeyEntity5);
         lCrud.update(lPlayer);
 
         CTeamEntity lAtom = new CTeamEntity.CTeamBuilder(1).color("red").build();

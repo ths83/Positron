@@ -19,7 +19,14 @@
     <string name="title_activity_cstats">CStatsActivity</string>
     <string name="title_activity_test">testActivity</string>
     <string name="title_activity_cskill_tree">CSkillTree</string>
-    <string name="title_Skill_Tree">Arbre de compétance</string>
+    <string name="title_Skill_Tree">Arbre de compétences</string>
     <string name="free_Skill_Point">1</string>
+    <string name="title_Maintenance_Tree">Maintenance :</string>
+    <string name="title_Attack_Tree">Offensif :</string>
+    <string name="title_Hacking_Tree">Piratage :</string>
+    <string name="title_Scout_Tree">Reconnaissance :</string>
+    <string name="text_view_free_skill_point">Point de compétences libres : </string>
+
+
 
 </resources>

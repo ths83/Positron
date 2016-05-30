@@ -1,17 +1,10 @@
 package fr.univtln.groupc.rest;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 import fr.univtln.groupc.entities.CPlayerEntity;
@@ -21,7 +14,15 @@ import fr.univtln.groupc.entities.CPlayerEntity;
  */
 public class CRestPlayer extends CRest {
 
-    public final static String API_URL = "http://10.9.185.161:9998";
+    //public final static String API_URL = "http://10.9.185.161:9998";
+    //public final static String API_URL = "http://10.9.185.223:9998";
+    public final static String API_URL = "http://10.9.185.52:9998";
+    //public final static String API_URL = "http://10.9.185.223:9998";
+    //public final static String API_URL = "http://192.168.1.83:9998";
+    //public final static String API_URL = "http://10.9.185.223:9998";
+    //public final static String API_URL = "http://10.9.185.52:9998";
+    //public final static String API_URL = "http://192.168.43.44:9998";
+
 
     /**
      * get player by id from database
@@ -53,6 +54,7 @@ public class CRestPlayer extends CRest {
     public CPlayerEntity getPlayerByMail(String pMail){
         ObjectMapper lMapper = new ObjectMapper();
         String lUrlString = API_URL + "/players/mails"+pMail;
+
         Log.d("test", "->-> " + lUrlString);
         String lPlayerJson = null;
         CPlayerEntity lPlayer = null;

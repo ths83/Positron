@@ -55,7 +55,9 @@ import java.util.Set;
 
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
+import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
+import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
@@ -77,8 +79,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public static final int NB_PORTALS_FIELD = 3 ;
     public static final String HAVERSINE_BAD_DISTANCE_PORTAL_FRENCH = "Pour interagir avec le portail, celui-ci doit être dans votre rayon d'action.";
 
+    //private ImageButton lButtonZone;
 
-
+    private Map<Integer, ProgressBar> mProgressBars = new HashMap<>();
     private List<Marker> mResonatorMarkers = new ArrayList<>();
     private List<Marker> mPortalMarkers = new ArrayList<>();
     //private float mZoom = 18;
@@ -110,11 +113,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private Map<Integer, Polygon> mMapPolygonsWithInteger = new HashMap<>();
     private Map<CLinkEntity, Polyline> mMapPolylines = new HashMap<>();
     private Map<CFieldEntity, Polygon> mMapPolygons = new HashMap<>();
-    private CPlayerEntity mPlayer;
+    private CPlayerEntity mPlayer = new CPlayerEntity();
     private ScrollView mScroll;
     private int mDrawState=0;
     private final List<CPortalEntity> mPortals = new CRestGet().getPortalsRest();
     private LinearLayout mLinear;
+
+    // TODO delete this attr -> just for test link creation
+    private CPortalEntity mTestPortal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,10 +129,13 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mDrawerAction = (DrawerLayout) findViewById(R.id.drawerlayout);
         mScroll = (ScrollView) findViewById(R.id.drawerleft);
         mLinear = (LinearLayout) findViewById(R.id.initaction);
-        
-        // TODO singleton for player
+
+        // TODO test for links
+        Button lTestButton = (Button) findViewById(R.id.link);
+
+        // TODO singleton for player -> with token
         mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
-        Log.d("test", "player null ? " + mPlayer);
+        Log.d("test", "player null ? -> " + mPlayer);
 
         // Google Map fragment
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -163,6 +172,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
 
         });
+
+
         // Location permission
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -190,15 +201,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         // Portals from database with REST
 
         for (CPortalEntity p : mPortals) {
-            //Log.d("test", " - > " + p.getLong() + " , " + p.getLat());
-            //List<CResonatorEntity> lReso1 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),1);
-            //List<CResonatorEntity> lReso2 = new CRestGet().getResonatorsByPortalAndTeamRest(p.getId(),2);
-            /*if (p.getId()==7){
-                Log.d("test",Integer.toString(lReso1.size()));
-                Log.d("test",Integer.toString(lReso1.size()));
-            }*/
-            //Log.d("test", p.getResonators().toString());
-            //Log.d("test", p.getResonators().toString());
            p.attributeTeam();
             if (p.getId() == 7){
                 Log.d("test", "!!!!!!!!!!! PORTAIL QUI DOIT ETRE CHANGE !!!!!!!!!");
@@ -212,98 +214,15 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             IconGenerator tc = new IconGenerator(this);
             tc.setTextAppearance(R.style.iconGenText);
             if (p.getTeam() == null) {
-                tc.setBackground(getResources().getDrawable(R.mipmap.portneutral));
-                //Bitmap bp = tc.makeIcon(Integer.toString(p.getId()));
-                List<CResonatorEntity> lResonatorTeam1 = p.getResonatorsTeamById(1);
-                List<CResonatorEntity> lResonatorTeam2 = p.getResonatorsTeamById(2);
-                int lNbResonatorTeam1 = lResonatorTeam1.size();
-                Log.d("test",Integer.toString(lNbResonatorTeam1));
-                int lNbResonatorTeam2 = lResonatorTeam2.size();
-                Log.d("test",Integer.toString(lNbResonatorTeam2));
-                int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
-                Context context = getApplicationContext();
-                LinearLayout info = new LinearLayout(context);
-                info.setOrientation(LinearLayout.VERTICAL);
-                TextView snip1 = new TextView(context);
-                snip1.setTextColor(Color.BLUE);
-                snip1.setText(Integer.toString(lNbResonatorTeam1));
-                info.addView(snip1);
-                TextView snip2 = new TextView(context);
-                snip2.setTextColor(Color.RED);
-                snip2.setText(Integer.toString(lNbResonatorTeam2));
-                info.addView(snip2);
-                TextView snip3 = new TextView(context);
-                snip3.setTextColor(Color.BLACK);
-                snip3.setText(Integer.toString(lNbEmptyPlace));
-                info.addView(snip3);
-                tc.setContentView(info);
-                Bitmap bp = tc.makeIcon(Integer.toString(p.getId()));
-                //Bitmap bp = loadBitmapFromView(info);
-                mPortalMarkers.add(mMap.addMarker(new MarkerOptions()
-                        .position(test).snippet("portal " + Integer.toString(p.getId()))
-                        .icon(BitmapDescriptorFactory.fromBitmap(bp))));
+                displayPortal(tc,test,p,R.mipmap.portneutral);
 
             } else {
                 if (p.getTeam().getColor().equals("blue")) {
-                    tc.setBackground(getResources().getDrawable(R.mipmap.portblue));
-                    List<CResonatorEntity> lResonatorTeam1 = p.getResonatorsTeamById(1);
-                    List<CResonatorEntity> lResonatorTeam2 = p.getResonatorsTeamById(2);
-                    int lNbResonatorTeam1 = lResonatorTeam1.size();
-                    Log.d("test",Integer.toString(lNbResonatorTeam1));
-                    int lNbResonatorTeam2 = lResonatorTeam2.size();
-                    Log.d("test",Integer.toString(lNbResonatorTeam2));
-                    int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
-                    Context context = getApplicationContext();
-                    LinearLayout info = new LinearLayout(context);
-                    info.setOrientation(LinearLayout.VERTICAL);
-                    TextView snip1 = new TextView(context);
-                    snip1.setTextColor(Color.BLUE);
-                    snip1.setText(Integer.toString(lNbResonatorTeam1));
-                    info.addView(snip1);
-                    TextView snip2 = new TextView(context);
-                    snip2.setTextColor(Color.RED);
-                    snip2.setText(Integer.toString(lNbResonatorTeam2));
-                    info.addView(snip2);
-                    TextView snip3 = new TextView(context);
-                    snip3.setTextColor(Color.BLACK);
-                    snip3.setText(Integer.toString(lNbEmptyPlace));
-                    info.addView(snip3);
-                    tc.setContentView(info);
-                    Bitmap bp = tc.makeIcon(Integer.toString(p.getId()));
-                    mPortalMarkers.add(mMap.addMarker(new MarkerOptions()
-                            .position(test).snippet("portal " + Integer.toString(p.getId())).icon(BitmapDescriptorFactory.fromBitmap(bp))));
+                    displayPortal(tc,test,p,R.mipmap.portblue);
 
                 }
                 if (p.getTeam().getColor().equals("red")) {
-                    tc.setBackground(getResources().getDrawable(R.mipmap.portred));
-                    List<CResonatorEntity> lResonatorTeam1 = p.getResonatorsTeamById(1);
-                    List<CResonatorEntity> lResonatorTeam2 = p.getResonatorsTeamById(2);
-                    int lNbResonatorTeam1 = lResonatorTeam1.size();
-                    Log.d("test",Integer.toString(lNbResonatorTeam1));
-                    int lNbResonatorTeam2 = lResonatorTeam2.size();
-                    Log.d("test",Integer.toString(lNbResonatorTeam2));
-                    int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
-                    Context context = getApplicationContext();
-                    LinearLayout info = new LinearLayout(context);
-                    info.setOrientation(LinearLayout.VERTICAL);
-                    TextView snip1 = new TextView(context);
-                    snip1.setTextColor(Color.BLUE);
-                    snip1.setText(Integer.toString(lNbResonatorTeam1));
-                    info.addView(snip1);
-                    TextView snip2 = new TextView(context);
-                    snip2.setTextColor(Color.RED);
-                    snip2.setText(Integer.toString(lNbResonatorTeam2));
-                    info.addView(snip2);
-                    TextView snip3 = new TextView(context);
-                    snip3.setTextColor(Color.BLACK);
-                    snip3.setText(Integer.toString(lNbEmptyPlace));
-                    info.addView(snip3);
-                    tc.setContentView(info);
-                    Bitmap bp = tc.makeIcon(Integer.toString(p.getId()));
-                    mPortalMarkers.add(mMap.addMarker(new MarkerOptions()
-                            .position(test).snippet("portal " + Integer.toString(p.getId()))
-                            .icon(BitmapDescriptorFactory.fromBitmap(bp))));
-
+                    displayPortal(tc,test,p,R.mipmap.portred);
                 }
             }
         }
@@ -321,6 +240,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+                Log.d("test10",Integer.toString(mPosition));
+                Log.d("test10",Integer.toString(mDrawState));
                 if (mPosition == 1) {
                     if (mDrawState == 1) {
                         mPosition = 0;
@@ -342,6 +263,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
             @Override
             public boolean onMarkerClick(Marker marker) {
+                Log.d("test10",Integer.toString(mPosition));
+                Log.d("test10",Integer.toString(mDrawState));
+                Log.d("test8","------>"+marker.getSnippet());
 
                 double lDistanceBetweenPortalAndPlayer =
                         new CMathFunction().haversine
@@ -353,6 +277,10 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     lMarker.remove();
                 }
                 mResonatorMarkers.clear();
+
+                //String lTitle = marker.getTitle();
+                //String[] lNb = lTitle.split(" ");
+                //int lI = Integer.parseInt(lNb[1]);
 
                  // Si le portail est dans le rayon d'action d'action du joueur, il peut interagir avec
                  // Players will only interact with portals which are in their radius action
@@ -367,20 +295,32 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     }
                     if (mPosition == 0) {
                         String lString = marker.getSnippet();
+                        Log.d("test8",lString);
                         String[] lSplitString = lString.split(" ");
                         if (lSplitString[0].equals("portal")) {
                             Log.d("test5", "DANS LE IF DU SPLIT 1");
-                            Log.d("test6", "ok" + lSplitString[1]);
+                            Log.d("test8", "ok " + lSplitString[1]);
                             CPortalEntity lPortal = new CRestGet().getPortalByIdRest(Integer.parseInt(lSplitString[1]));
+<<<<<<< HEAD
+=======
+/*<<<<<<< HEAD
+>>>>>>> bf36b11bac92ee34859e3ee9207a1d97c9f000d2
+                            // TODO delete this 382-> test
+                            mTestPortal = lPortal;
+                            Log.d("test8", "portail null ? " + Boolean.toString(lPortal==null));
+<<<<<<< HEAD
+=======
+>>>>>>> 831bb49017d5f0f5c77bb19d2dcf7c07ef65bc32*/
+>>>>>>> bf36b11bac92ee34859e3ee9207a1d97c9f000d2
                             displayResonators(lPortal.getResonators(), lPortal);
                             mPosition = 1;
                         /*mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));*/
                             mLinear.removeAllViews();
-                            initDrawerAction(lPortal);
+                            //initDrawerAction(lPortal);
                             mDrawerAction.openDrawer(mScroll);
                             //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
                             mDrawerAction.setScrimColor(getResources().getColor(R.color.transparent));
-                            Log.d("test2", "drawer null ? " + Boolean.toString(mDrawerAction == null));
+                            Log.d("tesmPlayert2", "drawer null ? " + Boolean.toString(mDrawerAction == null));
                             mDrawState = 1;
                         }
 
@@ -411,8 +351,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         @Override
         public void onMyLocationChange(Location location) {
             // current position player
-            mPlayer.setLat(location.getLatitude());
-            mPlayer.setLong(location.getLongitude());
+            //mPlayer.setLat(location.getLatitude());
+            //mPlayer.setLong(location.getLongitude());
             //location.setBearing(location.getBearing());
             //mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 18));
             mUserLatLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -427,7 +367,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 if (mUserActionRadius != null) {
                     mUserActionRadius.setCenter(mUserLatLng);
                 } else {
-                    mUserActionRadius = mMap.addCircle(new CircleOptions().center(mUserLatLng).radius(GPS_PLAYER_RADIUS).fillColor(Color.YELLOW));
+                    mUserActionRadius = mMap.addCircle(new CircleOptions().center(mUserLatLng).radius(GPS_PLAYER_RADIUS).fillColor(Color.TRANSPARENT));
                 }
 
             }
@@ -709,7 +649,33 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             mMapPolylinesWithInteger.put(pLink.getId(), lLinkLine);
         }
     }
-    
+
+    /**
+     * recuperer la cle possede par le joueur pour creer un lien avec le portail clique
+     * @param pView
+     */
+    // TODO first version -> to modify fastly
+    public void onCreateLink(View pView){
+        int lTeamColor;
+        // Link color
+        if (mPlayer.equals("blue")){
+            lTeamColor = Color.BLUE;
+        }
+        else{
+            lTeamColor = Color.RED;
+        }
+        // just for the first key
+        List<CKeyEntity> lPlayerKeysForPortal = mPlayer.getKeys();
+        CKeyEntity lKey = lPlayerKeysForPortal.get(0);
+        LatLng lBeginningPortal = new LatLng(lKey.getPortal().getLat(),lKey.getPortal().getLong());
+        LatLng lLastPortal = new LatLng(mTestPortal.getLat(),mTestPortal.getLong());
+        Polyline lLinkToDraw = mMap.addPolyline(new PolylineOptions()
+                .add(lBeginningPortal, lLastPortal)
+                .width(LINE_WIDTH)
+                .color(lTeamColor));
+    }
+
+
     /*
      * Actions disponibles du "drawer
      * action" après un click
@@ -724,33 +690,45 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void initDrawerAction(final CPortalEntity pPortal){
+
         ImageButton lButtonAttack = new ImageButton(this);
         Drawable mDrawable1 = getDrawable(R.mipmap.attack);
         lButtonAttack.setImageDrawable(mDrawable1);
         mLinear.addView(lButtonAttack);
-        lButtonAttack.setOnClickListener(new View.OnClickListener() {
+        /*lButtonAttack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        });
+        });*/
         ImageButton lButtonZone = new ImageButton(this);
+        Log.d("test5","---->"+lButtonZone.isEnabled());
+        lButtonZone.setEnabled(true);
         if (mPlayer.getBombs().size()>0) {
             Drawable mDrawable2 = getDrawable(R.mipmap.zoneattackvalid);
             lButtonZone.setImageDrawable(mDrawable2);
-            mLinear.addView(lButtonZone);
             lButtonZone.setClickable(true);
         }
         else {
             Drawable mDrawable2 = getDrawable(R.mipmap.zoneattack);
             lButtonZone.setImageDrawable(mDrawable2);
-            mLinear.addView(lButtonZone);
             lButtonZone.setClickable(false);
         }
+        mLinear.addView(lButtonZone);
         lButtonZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final CPortalEntity lPortal;
+                Log.d("test5", "dans le onclick !");
                 CClickPortalsAcitivity.useBombe(mPlayer.getBombs().get(0), pPortal, mPlayer);
+                /*for (CResonatorEntity lResonator : lPortal.getResonators()){
+                    Log.d("test15", "ds la map de progressbar ? " + mProgressBars.get(lResonator.getId()));
+                    mProgressBars.get(lResonator.getId()).setProgress(lResonator.getEnergy());
+                    Log.d("test15", "progress apres degat! " + mProgressBars.get(lResonator.getId()).getProgress());
+
+                }*/
+
+                Log.d("test5", "rte"+ pPortal.getResonators().get(0).getEnergy());
             }
         });
         ImageButton lButtonCreate = new ImageButton(this);
@@ -760,6 +738,17 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         ImageButton lButtonBuild = new ImageButton(this);
         Drawable mDrawable4 = getDrawable(R.mipmap.build);
         lButtonBuild.setImageDrawable(mDrawable4);
+        lButtonBuild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLinear.removeAllViews();
+                reparationDrawerExtend(mPortalMarker);
+                mDrawerAction.openDrawer(mScroll);
+                //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN,mScroll);
+                //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+                mDrawerAction.setScrimColor(getResources().getColor(R.color.transparent));
+            }
+        });
         mLinear.addView(lButtonBuild);
         ImageButton lButtonPirate = new ImageButton(this);
         Drawable mDrawable5 = getDrawable(R.mipmap.pirate);
@@ -779,6 +768,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
      * energy and team color
      *
      */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public Bitmap displayResonatorWithEnergy(IconGenerator pIg,int pId,CResonatorEntity pResonator){
         pIg.setBackground(null);
         Context lContext = getApplicationContext();
@@ -795,11 +785,62 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         lHealth.setMax(pResonator.getEnergyMax());
         lHealth.setProgress(pResonator.getEnergy());
         lHealth.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        mProgressBars.put(pResonator.getId(), lHealth);
         lLinearLayout.addView(lHealth);
         pIg.setContentView(lLinearLayout);
         Bitmap bp = pIg.makeIcon();
         return bp;
     }
+
+    public void displayPortal(IconGenerator pIg,LatLng pLatLng, CPortalEntity pPortal, int pId){
+        pIg.setBackground(getResources().getDrawable(pId));
+        List<CResonatorEntity> lResonatorTeam1 = pPortal.getResonatorsTeamById(1);
+        List<CResonatorEntity> lResonatorTeam2 = pPortal.getResonatorsTeamById(2);
+        int lNbResonatorTeam1 = lResonatorTeam1.size();
+        Log.d("test",Integer.toString(lNbResonatorTeam1));
+        int lNbResonatorTeam2 = lResonatorTeam2.size();
+        Log.d("test",Integer.toString(lNbResonatorTeam2));
+        int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
+        Context context = getApplicationContext();
+        LinearLayout info = new LinearLayout(context);
+        info.setOrientation(LinearLayout.VERTICAL);
+        TextView snip1 = new TextView(context);
+        snip1.setTextColor(Color.BLUE);
+        snip1.setText(Integer.toString(lNbResonatorTeam1));
+        info.addView(snip1);
+        TextView snip2 = new TextView(context);
+        snip2.setTextColor(Color.RED);
+        snip2.setText(Integer.toString(lNbResonatorTeam2));
+        info.addView(snip2);
+        TextView snip3 = new TextView(context);
+        snip3.setTextColor(Color.BLACK);
+        snip3.setText(Integer.toString(lNbEmptyPlace));
+        info.addView(snip3);
+        pIg.setContentView(info);
+        Bitmap bp = pIg.makeIcon(Integer.toString(pPortal.getId()));
+        mPortalMarkers.add(mMap.addMarker(new MarkerOptions()
+                .position(pLatLng).snippet("portal " + Integer.toString(pPortal.getId()))
+                .icon(BitmapDescriptorFactory.fromBitmap(bp))));
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void reparationDrawerExtend(final CPortalEntity pPortal) {
+
+        ImageButton lButtonCreate = new ImageButton(this);
+        Drawable mDrawable1 = getDrawable(R.mipmap.keyportal);
+        lButtonCreate.setImageDrawable(mDrawable1);
+        mLinear.addView(lButtonCreate);
+        ImageButton lButtonBuild = new ImageButton(this);
+        Drawable mDrawable2 = getDrawable(R.mipmap.virus);
+        lButtonBuild.setImageDrawable(mDrawable2);
+        mLinear.addView(lButtonBuild);
+        ImageButton lButtonPirate = new ImageButton(this);
+        Drawable mDrawable3 = getDrawable(R.mipmap.kitsoin);
+        lButtonPirate.setImageDrawable(mDrawable3);
+        mLinear.addView(lButtonPirate);
+    }
+
+
 
 }
 
