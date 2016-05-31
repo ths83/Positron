@@ -14,7 +14,7 @@ import fr.univtln.groupc.entities.CPlayerEntity;
  */
 public class CRestPlayer extends CRest {
 
-    public final static String API_URL = "http://10.9.185.48:9998";
+
 
     /**
      * get player by id from database
@@ -22,7 +22,7 @@ public class CRestPlayer extends CRest {
      */
     public CPlayerEntity getPlayerByID(int pId){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/players/"+Integer.toString(pId);
+        String lUrlString = CRest.API_URL + "/players/"+Integer.toString(pId);
         Log.d("test", "->-> " + lUrlString);
         String lPlayerJson = null;
         CPlayerEntity lPlayer = null;
@@ -45,7 +45,7 @@ public class CRestPlayer extends CRest {
 
     public CPlayerEntity getPlayerByMail(String pMail){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/players/mails"+pMail;
+        String lUrlString = CRest.API_URL + "/players/mails"+pMail;
 
         Log.d("test", "->-> " + lUrlString);
         String lPlayerJson = null;

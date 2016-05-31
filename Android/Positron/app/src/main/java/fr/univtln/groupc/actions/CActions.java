@@ -29,7 +29,6 @@ public class CActions {
 
 
                 pPortal.addResonator(pResonator);
-                //TODO add XP
                 if (pResonator.getPortal() != null){
                     pResonator.getOwner().addXP(pResonator.getLevel()*10);
                 }
@@ -50,13 +49,24 @@ public class CActions {
 
 public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuilding , CPlayerEntity pPlayer) {
 
-    if (pPortal.getBuildings().size() < 4 ) {
-        if ( pPlayer.getLevel() >= pBuilding.getLevel() ){
 
-            pPortal.addBuilding(pBuilding);
-            //TODO add XP
-            if (pBuilding.getPortal() != null) {
-                pPlayer.addXP(pBuilding.getLevel() * 20);
+    if (pPortal.getBuildings().size() < 4 ) {
+        if ( pPlayer.getLevel() >= pBuilding.getLevel() ) {
+            if (pBuilding instanceof CShieldEntity && pBuilding.getLevel() >2) {
+                if(pPlayer.havingSkill(11)){
+                    pPortal.addBuilding(pBuilding);
+                    if (pBuilding.getPortal() != null) {
+                        pPlayer.addXP(pBuilding.getLevel() * 20);
+                    }
+                }
+                else{
+                    System.out.println("Compétence non acquise");
+                }
+            } else {
+                pPortal.addBuilding(pBuilding);
+                if (pBuilding.getPortal() != null) {
+                    pPlayer.addXP(pBuilding.getLevel() * 20);
+                }
             }
         }
         else {
@@ -77,11 +87,21 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
     public void attackBuilding(CConsumableEntity pAmmunition, ABuildingEntity pBuilding, CPlayerEntity pPlayer) {
         int lBuildingEnergy = pBuilding.getEnergy();
 
-        if (pAmmunition.getName() == "Attack") {
-            pPlayer.attack(pBuilding, pAmmunition);
-            //TODO add XP
-            if(pBuilding.getEnergy()<lBuildingEnergy){
-                pPlayer.addXP((lBuildingEnergy-pBuilding.getEnergy())*10);
+        if (pAmmunition.getName().equals("Attack")) {
+            if(pAmmunition.getRarity() < 2) {
+                pPlayer.attack(pBuilding, pAmmunition);
+            }
+            else{
+                if ( (pAmmunition.getRarity() == 2 && pPlayer.havingSkill(21)) || ((pAmmunition.getRarity() == 2 && pPlayer.havingSkill(222))) ){
+                    pPlayer.attack(pBuilding, pAmmunition);
+                }
+                else{
+                    System.out.println("Skill Required");
+                }
+            }
+
+                if(pBuilding.getEnergy()<lBuildingEnergy){
+                pPlayer.addXP((lBuildingEnergy - pBuilding.getEnergy()) * 10);
             }
         } else {
             //Log.d("attackBuilding", "Consommable non approrié");

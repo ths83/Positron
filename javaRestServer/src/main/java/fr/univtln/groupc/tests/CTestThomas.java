@@ -94,6 +94,13 @@ public class CTestThomas {
         lCrud.update(lPortalGotten2);
         lCrud.update(lPortalGotten3);
 
+<<<<<<< HEAD
+=======
+        /*lCrud.create(lLink);
+        lCrud.create(lLink2);
+        lCrud.create(lLink3);
+        lCrud.create(lLink4);*/
+>>>>>>> 1f0dc45f12960911a802512fd074b71c08f9b762
 
 
         CLinkEntity lLink = new CLinkEntity.CLinkBuilder(1).portals(lPortalLinked).build();
