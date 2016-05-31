@@ -14,6 +14,7 @@ import com.pkmmte.view.CircularImageView;
 
 import fr.univtln.groupc.activities.google.CCurrentPlayer;
 import fr.univtln.groupc.entities.CPlayerEntity;
+import fr.univtln.groupc.rest.CRest;
 import fr.univtln.groupc.rest.CRestPlayer;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -27,10 +28,13 @@ public class CProfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cprofil);
         String mEnergy = null, mEnergyMax = null, mName = null, mXp = null, mTeam = null, mBagSize = null, mLevel = null;
+
+        // on met à jour le playeur courant
+        CCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(CCurrentPlayer.mMail);
+
         mCircularImageView = (CircularImageView) findViewById(R.id.yourCircularImageView);
         mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
-
-
+        
         if (CCurrentPlayer.mPlayer != null) {
 
             mTextName = (TextView) findViewById(R.id.textName);
