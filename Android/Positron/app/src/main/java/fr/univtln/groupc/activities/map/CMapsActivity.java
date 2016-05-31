@@ -58,7 +58,6 @@ import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
-import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.math.CMathFunction;
@@ -66,7 +65,6 @@ import fr.univtln.groupc.rest.CRestDelete;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.groupc.singleton.SPlayer;
-import fr.univtln.groupc.singleton.SPortals;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
@@ -118,9 +116,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private Map<CLinkEntity, Polyline> mMapPolylines = new HashMap<>();
     private Map<CFieldEntity, Polygon> mMapPolygons = new HashMap<>();
     //private CPlayerEntity mPlayer = new CRestGet().getPlayerByID(1);
+    private List<CPortalEntity> mPortals = new CRestGet().getPortalsRest();
     private ScrollView mScroll;
     private int mDrawState=0;
-    private SPortals mPortals = SPortals.getInstance();
     private SPlayer mPlayer = SPlayer.getInstance();
     private LinearLayout mLinear;
 
@@ -395,7 +393,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
     }
 
-    // user action radius when new position is detected
     @Override
     public void onLocationChanged(Location location) {
     }

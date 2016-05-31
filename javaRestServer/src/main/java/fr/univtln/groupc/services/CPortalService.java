@@ -82,7 +82,7 @@ public class CPortalService implements ContextResolver<ObjectMapper>{
         } catch (IOException e) {
             e.printStackTrace();
         }
-       // System.out.println("json ->\n" + lJsonValue);
+        System.out.println("json ->\n" + lJsonValue);
         return lJsonValue;
     }
 
