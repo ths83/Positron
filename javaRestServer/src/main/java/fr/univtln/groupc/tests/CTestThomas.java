@@ -94,11 +94,6 @@ public class CTestThomas {
         lCrud.update(lPortalGotten2);
         lCrud.update(lPortalGotten3);
 
-        /*lCrud.create(lLink);
-        lCrud.create(lLink2);
-        lCrud.create(lLink3);
-        lCrud.create(lLink4);*/
-
 
         CLinkEntity lLink = new CLinkEntity.CLinkBuilder(1).portals(lPortalLinked).build();
         String lJsonLinkToPost = null ;

@@ -14,6 +14,7 @@ import fr.univtln.groupc.entities.CPlayerEntity;
  */
 public class CRestPlayer extends CRest {
 
+    public final static String API_URL = "http://10.9.185.48:9998";
 
     /**
      * get player by id from database
