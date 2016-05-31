@@ -521,6 +521,15 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return false;
     }
 
+    public boolean havingSkill(int pIdSkill){
+
+        for(CSkillEntity lSkill : mSkills){
+            if (lSkill.getId() == pIdSkill) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }

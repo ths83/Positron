@@ -170,8 +170,8 @@ if(pPlayer.getTeam() == pPortal.getTeam()) {
 
         if(pAmmunition.getName().equals("Bombe")){
             Log.d("test5", "dans if bombe");
-           // TODO rajouter vérification du skill
-            if(true){
+            
+            if(pPlayer.havingSkill(23)){
                 Log.d("test5", "if true ok ");
                 lAction.bombeExplosion(pPortal,(pAmmunition.getRarity()*10)+20);
             }

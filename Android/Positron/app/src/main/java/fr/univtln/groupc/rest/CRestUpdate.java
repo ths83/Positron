@@ -24,8 +24,6 @@ import fr.univtln.groupc.entities.CShieldEntity;
  */
 public class CRestUpdate extends AsyncTask<String, String, Void> {
 
-    public final static String API_URL = "http://10.9.185.52:9998";
-
     @Override
     protected Void doInBackground(String... params) {
         String lUrlString = params[0]; // URL to call
@@ -63,7 +61,7 @@ public class CRestUpdate extends AsyncTask<String, String, Void> {
      */
     public void updatePortalRest(CPortalEntity pPortal){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/portals";
+        String lUrlString = CRest.API_URL + "/portals";
         Log.d("test", "->-> " + lUrlString);
         try {
             String lPortalJson = lMapper.writeValueAsString(pPortal);
@@ -87,7 +85,7 @@ public class CRestUpdate extends AsyncTask<String, String, Void> {
      */
     public void updateLinkRest(CLinkEntity pLink){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/links";
+        String lUrlString = CRest.API_URL + "/links";
         Log.d("test", "->-> " + lUrlString);
         try {
             String lLinkJson = lMapper.writeValueAsString(pLink);
@@ -112,7 +110,7 @@ public class CRestUpdate extends AsyncTask<String, String, Void> {
 
     public void updateBuildingRest(ABuildingEntity pBuilding){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL;
+        String lUrlString = CRest.API_URL;
 
         // Si la structure est un resonateur
         // If its a resonator
@@ -154,7 +152,7 @@ public class CRestUpdate extends AsyncTask<String, String, Void> {
      */
     public void updatePlayerRest(CPlayerEntity pPlayer){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/portals";
+        String lUrlString = CRest.API_URL + "/portals";
         Log.d("test", "->-> " + lUrlString);
         try {
             String lPortalJson = lMapper.writeValueAsString(pPlayer);
