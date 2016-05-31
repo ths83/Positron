@@ -1,57 +1,97 @@
 package fr.univtln.groupc.services;
 
-import android.app.Activity;
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
+import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.Service;
+import android.content.Intent;
 import android.hardware.SensorManager;
-import android.os.Bundle;
+import android.os.Binder;
+import android.os.Build;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
-public class CPodometerService extends Activity implements SensorEventListener {
-
-    private final static String PODOMETER_SENSOR_NOT_PRESENT_FRENCH = "Impossible de compter les pas ! ";
+public class CPodometerService extends Service {
 
     private SensorManager mSensorManager;
     private TextView mStepNumber;
     boolean mActivityIsRunning;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    // Unique Identification Number for the Notification.
+    // We use it on Notification start, and to cancel it.
+    private int NOTIFICATION = 0;
+    private NotificationManager mNM;
 
-        mStepNumber = (TextView) findViewById(R.id.affichage);
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mActivityIsRunning = true;
-        Sensor lCountSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        if (lCountSensor != null) {
-            mSensorManager.registerListener(this, lCountSensor, SensorManager.SENSOR_DELAY_UI);
-        } else {
-            Toast.makeText(this,PODOMETER_SENSOR_NOT_PRESENT_FRENCH, Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (mActivityIsRunning) {
-            mStepNumber.setText(String.valueOf(event.values[0]));
+    /**
+     * Class for clients to access.  Because we know this service always
+     * runs in the same process as its clients, we don't need to deal with
+     * IPC.
+     */
+    public class LocalBinder extends Binder {
+        CPodometerService getService() {
+            return CPodometerService.this;
         }
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    public void onCreate() {
+        mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
+        // Display a notification about us starting.  We put an icon in the status bar.
+        showNotification();
     }
 
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i("LocalService", "Received start id " + startId + ": " + intent);
+        return START_NOT_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        // Cancel the persistent notification.
+        mNM.cancel(NOTIFICATION);
+
+        // Tell the user we stopped.
+        Toast.makeText(this, "END", Toast.LENGTH_SHORT).show();
+    }
+
+    // This is the object that receives interactions from clients.  See
+    // RemoteService for a more complete example.
+    private final IBinder mBinder = new LocalBinder();
+
+    /**
+     * Show a notification while this service is running.
+     */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void showNotification() {
+        // In this sample, we'll use the same text for the ticker and the expanded notification
+       // CharSequence text = getText(0);
+
+        // Set the info for the views that show in the notification panel.
+        Notification notification = new Notification.Builder(this)
+                .setSmallIcon(R.mipmap.logpositronlarge)  // the status icon
+                .setWhen(System.currentTimeMillis())  // the time stamp
+                .setContentTitle("hello")  // the label of the entry
+                .setContentText("test")  // the contents of the entry
+                .build();
+                //.setContentIntent(contentIntent)  // The intent to send when the entry is clicked
+
+
+        // Send the notification.
+        mNM.notify(NOTIFICATION, notification);
+    }
+
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 }

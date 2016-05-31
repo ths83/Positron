@@ -117,7 +117,7 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
 
             // Mettre le compte courant disponible pour tout le programme globalement
             if (lAcct != null) {
-                CCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(lAcct.getEmail());
+                SCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(lAcct.getEmail());
             }
 
             String idToken = null;
