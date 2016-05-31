@@ -57,7 +57,6 @@ public class CTurretService {
      */
     @GET
     @Produces("application/json")
-    @Path("/all")
     public String readAll(){
         //return mCrudMethods.findWithNamedQuery(CTurretEntity.GET_ALL);
         String lJsonValue = null;

@@ -54,8 +54,8 @@ public class CPlayerService {
     @GET
     @Produces("application/json")
     public String readAll(){
-        String lJsonValue = null;
         mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String lJsonValue = null;
         List<CPlayerEntity> lPlayers = (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_ALL);
         try {
             lJsonValue = mMapper.writeValueAsString(lPlayers);

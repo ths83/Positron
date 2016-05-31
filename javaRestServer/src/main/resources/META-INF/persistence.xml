@@ -34,13 +34,8 @@
             <property name="javax.persistence.target-database" value="PostgreSQL"/>
 
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-<<<<<<< HEAD
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5433/postgres"/>
-=======
 
-          <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5433/postgres"/>
-            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://89.234.183.3:5432/postgres"/> -->
->>>>>>> 8d44bcfe2bb7dc751e116b40e23909de5ab125d8
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5433/postgres"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="groupc"/>
             <!-- Les options de générations des tables -->

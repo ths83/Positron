@@ -59,7 +59,6 @@ public class CShieldService {
          */
         @GET
         @Produces("application/json")
-        @Path("/all")
         public String readAll(){
             //return mCrudMethods.findWithNamedQuery(CShieldEntity.GET_ALL);
             String lJsonValue = null;

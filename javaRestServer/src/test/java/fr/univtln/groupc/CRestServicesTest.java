@@ -128,6 +128,7 @@ public class CRestServicesTest extends TestCase {
         // TODO : FIX WITH territory(lTerritoryEntity) class
 
         mJson = mMapper.writeValueAsString(lFieldEntity);
+        System.out.println(mJson);
         ClientResponse lResponse = mWebResource.path("/fields").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
     }

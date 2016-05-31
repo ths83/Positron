@@ -59,7 +59,7 @@ public class CTerritoryService {
      * @return List<CTerritoryEntity>
      */
     @GET
-    @Path("/all")
+    @Produces("application/json")
     public String readAll(){
         //return mCrudMethods.findWithNamedQuery(CTerritoryEntity.GET_ALL);
         String lJsonValue = null;

@@ -47,6 +47,7 @@ public class CSkillEntity implements Serializable {
         mName = pBuilder.mName;
         mLevel = pBuilder.mLevel;
         mCost = pBuilder.mCost;
+        mType = pBuilder.mType;
     }
 
     public int getId() {
@@ -90,7 +91,7 @@ public class CSkillEntity implements Serializable {
     }
 
 
-        @Override
+    @Override
     public String toString() {
         return "CSkillEntity{" +
                 "mId=" + mId +
