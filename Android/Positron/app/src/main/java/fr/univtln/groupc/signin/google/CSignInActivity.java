@@ -21,6 +21,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
 
+import fr.univtln.groupc.activities.google.CCurrentPlayer;
 import fr.univtln.groupc.activities.map.CMapsActivity;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -123,6 +124,7 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
 
+            CCurrentPlayer.mMail = acct.getEmail();
             Toast.makeText(getBaseContext(),"bienvenue : " + acct.getDisplayName(),Toast.LENGTH_SHORT).show();
             Toast.makeText(getBaseContext(),"server auth code : " + acct.getServerAuthCode(),Toast.LENGTH_SHORT).show();
             Toast.makeText(getBaseContext(),"granted scopres : " + acct.getGrantedScopes(),Toast.LENGTH_SHORT).show();

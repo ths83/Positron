@@ -120,7 +120,6 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
                 CCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(lAcct.getEmail());
             }
 
-
             String idToken = null;
             if (lAcct != null) {
                 idToken = lAcct.getIdToken();

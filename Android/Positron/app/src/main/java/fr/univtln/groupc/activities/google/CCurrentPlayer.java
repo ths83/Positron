@@ -10,6 +10,8 @@ import fr.univtln.groupc.entities.CPlayerEntity;
 public class CCurrentPlayer {
 
     public static CPlayerEntity mPlayer = null;
+    public static String  mMail = null;
+
     private static CCurrentPlayer ourInstance = new CCurrentPlayer();
 
     public static CCurrentPlayer getInstance() {
