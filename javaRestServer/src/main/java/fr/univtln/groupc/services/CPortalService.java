@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPortalEntity;
+import org.codehaus.jackson.map.DeserializationConfig;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ContextResolver;
 import java.io.IOException;
 import java.util.List;
 
@@ -16,7 +18,7 @@ import java.util.List;
  */
 
 @Path("/portals")
-public class CPortalService {
+public class CPortalService implements ContextResolver<ObjectMapper>{
 
     private CCrudMethods mCrudMethods = new CCrudMethods();
     private ObjectMapper mMapper = new ObjectMapper();
@@ -109,4 +111,8 @@ public class CPortalService {
     }
 
 
+    @Override
+    public ObjectMapper getContext(Class<?> aClass) {
+        return mMapper;
+    }
 }

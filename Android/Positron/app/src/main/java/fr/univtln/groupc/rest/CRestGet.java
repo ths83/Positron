@@ -35,7 +35,7 @@ import fr.univtln.groupc.entities.CSkillEntity;
  */
 public class CRestGet extends AsyncTask<String,String,String> {
 
-    public final static String API_URL = "http://10.9.185.52:9998";
+    public final static String API_URL = "http://10.9.185.48:9998";
 
 
     @Override
