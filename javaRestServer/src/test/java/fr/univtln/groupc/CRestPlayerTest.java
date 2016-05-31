@@ -31,6 +31,7 @@ public class CRestPlayerTest extends TestCase {
 
     public void testGetPlayerService() throws Exception {
         CPlayerEntity lPlayerEntity = mMapper.readValue(mWebResource.path("/players/78678").get(String.class), CPlayerEntity.class);
+        System.out.println(lPlayerEntity.toString());
         assertEquals(lPlayerEntity.getEmail(), "bobz@z.fr");
     }
 
