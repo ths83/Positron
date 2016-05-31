@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by arouani277 on 26/04/16.
@@ -18,8 +20,8 @@ import java.io.Serializable;
 @NamedQueries({@NamedQuery(name = CResonatorEntity.GET_ALL, query = "select r from CResonatorEntity r"),@NamedQuery(name = CResonatorEntity.GET_RESONATOR_BY_PORTAL, query = "select r from CResonatorEntity r  where r.mPortal = (select p from CPortalEntity p where p.mId = :mId)"),
         @NamedQuery(name = CResonatorEntity.GET_RESONATOR_BY_PORTAL_AND_TEAM, query = "select r from CResonatorEntity r  where r.mPortal = (select p from CPortalEntity p where p.mId = :mId) and r.mOwner = (select o from CPlayerEntity o where o.mTeam = ( select t from CTeamEntity t where t.mId=:mId2))")})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CResonatorEntity.class)
-//@JsonDeserialize(as = CResonatorEntity.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CResonatorEntity.class)
+@JsonDeserialize(as = CResonatorEntity.class)
 public class CResonatorEntity extends ABuildingEntity implements Serializable {
 
     @ManyToOne(cascade = CascadeType.MERGE)

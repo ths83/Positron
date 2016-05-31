@@ -1,7 +1,13 @@
 package fr.univtln.groupc.tests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.*;
+import fr.univtln.groupc.server.CServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,15 +41,17 @@ public class CTestThomas {
         CKeyEntity lKeyEntity3 = new CKeyEntity.CKeyBuilder(2002).build();
         lKeyPortals3.add(lKeyEntity3);
 
-
+/*
         CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(2003).latitude(45.1948).longitude(5.6045).keys(lKeyPortals1).build();
         CPortalEntity lPortal2 = new CPortalEntity.CPortalBuilder(2004).latitude(43.1948).longitude(5.6045).keys(lKeyPortals2).build();
         CPortalEntity lPortal3 = new CPortalEntity.CPortalBuilder(2005).latitude(42.1948).longitude(6.6045).keys(lKeyPortals3).build();
+*/
 
 
+        CTeamEntity lAtom = lCrud.find(CTeamEntity.class,1);
+        CTeamEntity lXenom = lCrud.find(CTeamEntity.class, 2);
 
-        CTeamEntity lAtom = new CTeamEntity.CTeamBuilder(1).color("red").build();
-        CTeamEntity lXenom = new CTeamEntity.CTeamBuilder(2).color("blue").build();
+        CPlayerEntity lPlayer = lCrud.find(CPlayerEntity.class,1);
 
         CPortalEntity lPortalGotten = lCrud.find(CPortalEntity.class, 1);
         CPortalEntity lPortalGotten2 = lCrud.find(CPortalEntity.class, 2);
@@ -64,53 +72,80 @@ public class CTestThomas {
         lPortalLinked4.add(lPortalGotten4);
         lPortalLinked4.add(lPortalGotten5);
 
-        CLinkEntity lLink = new CLinkEntity.CLinkBuilder(1).portals(lPortalLinked).build();
-        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(2).portals(lPortalLinked2).build();
-        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(3).portals(lPortalLinked3).build();
-        CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder(4).portals(lPortalLinked4).build();
+        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(10).owner(lPlayer).build();
+        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder(11).owner(lPlayer).build();
+        CResonatorEntity lResonator3 = new CResonatorEntity.CResonatorBuilder(12).owner(lPlayer).build();
 
-        List<CLinkEntity> lLinkForField = new ArrayList<>();
-        lLinkForField.add(lLink);
-        lLinkForField.add(lLink2);
-        lLinkForField.add(lLink3);
-
-        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(10).build();
-        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder(11).build();
         CKeyEntity lKey = new CKeyEntity.CKeyBuilder(500).build();
         CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(600).build();
         CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder(200).build();
 
-        lResonatorEntityList.add(lResonator);
-        lResonatorEntityList.add(lResonator2);
-        lPortal.setResonators(lResonatorEntityList);
-
-        //lPortalObject.add(lKey);
-        //lPortalObject.add(lTurret);
 
 
-        //lPortal.setObjects(lPortalObject);
+        lPortalGotten.addResonator(lResonator);
+        lPortalGotten2.addResonator(lResonator2);
+        lPortalGotten3.addResonator(lResonator3);
 
-        CFieldEntity lField = new CFieldEntity.CFieldBuilder(1).links(lLinkForField).build();
+        lPortalGotten.attributeTeam();
+        lPortalGotten2.attributeTeam();
+        lPortalGotten3.attributeTeam();
 
-        lLink.setField(lField);
-        lLink2.setField(lField);
-        lLink3.setField(lField);
+        lCrud.update(lPortalGotten);
+        lCrud.update(lPortalGotten2);
+        lCrud.update(lPortalGotten3);
 
-        lPortal.setTeam(lAtom);
-        lPortal2.setTeam(lAtom);
-        lPortal3.setTeam(lAtom);
-
-        lCrud.create(lAtom);
-        lCrud.create(lXenom);
-//        lCrud.create(lResonator);
-        lCrud.create(lPortal);
-        lCrud.create(lPortal2);
-        lCrud.create(lPortal3);
         lCrud.create(lLink);
         lCrud.create(lLink2);
         lCrud.create(lLink3);
         lCrud.create(lLink4);
-        lCrud.create(lField);
+
+
+        CLinkEntity lLink = new CLinkEntity.CLinkBuilder(1).portals(lPortalLinked).build();
+        String lJsonLinkToPost = null ;
+        ObjectMapper lMapper = new ObjectMapper();
+        Client c = Client.create();
+        WebResource webResource = c.resource(CServer.BASE_URI);
+        try {
+
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        ClientResponse lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(2).portals(lPortalLinked2).build();
+        try {
+
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink2);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(3).portals(lPortalLinked3).build();
+
+        try {
+
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink3);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
+        CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder(4).portals(lPortalLinked4).build();
+
+        try {
+
+            lJsonLinkToPost = lMapper.writeValueAsString(lLink4);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
+
 
     }
 }
