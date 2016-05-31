@@ -129,4 +129,20 @@ public class CTeamEntity implements Serializable {
                 ", mColor='" + mColor + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CTeamEntity that = (CTeamEntity) o;
+
+        return mId == that.mId;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return mId;
+    }
 }

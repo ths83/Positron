@@ -8,6 +8,7 @@ import java.util.List;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CConsumableEntity;
+import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
@@ -15,6 +16,7 @@ import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.CShieldEntity;
 import fr.univtln.groupc.entities.CTurretEntity;
+import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
 
 /**
@@ -346,6 +348,8 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
         */
         return pPlayer.getTeam() == pPortal.getTeam();
     }
+
+
 
 
 

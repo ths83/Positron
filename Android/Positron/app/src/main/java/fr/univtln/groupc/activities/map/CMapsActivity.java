@@ -395,6 +395,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     // user action radius when new position is detected
     @Override
     public void onLocationChanged(Location location) {
+        //TODO Envoie Un player au serveur pour appeler CAlgorithm.iNField()
+
     }
 
     @Override
