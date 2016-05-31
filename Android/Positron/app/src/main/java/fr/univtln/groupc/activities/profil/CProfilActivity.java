@@ -1,6 +1,8 @@
 package fr.univtln.groupc.activities.profil;
 
+import android.annotation.TargetApi;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -19,40 +21,42 @@ public class CProfilActivity extends AppCompatActivity {
 
     CircularImageView mCircularImageView;
     TextView mTextName, mTextLevel;
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cprofil);
         String mEnergy = null, mEnergyMax = null, mName = null, mXp = null, mTeam = null, mBagSize = null, mLevel = null;
+        mCircularImageView = (CircularImageView) findViewById(R.id.yourCircularImageView);
+        mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
+
 
         if (CCurrentPlayer.mPlayer != null) {
-            mEnergy = String.valueOf(CCurrentPlayer.mPlayer.getEnergy());
-            mEnergyMax = String.valueOf(CCurrentPlayer.mPlayer.getEnergyMax());
-            mName = String.valueOf(CCurrentPlayer.mPlayer.getNickName());
-            mXp = String.valueOf(CCurrentPlayer.mPlayer.getXp());
-            mTeam = String.valueOf(CCurrentPlayer.mPlayer.getTeam());
-            mBagSize = String.valueOf(CCurrentPlayer.mPlayer.getBagSize());
-            mLevel = String.valueOf(CCurrentPlayer.mPlayer.getLevel());
-
 
             mTextName = (TextView) findViewById(R.id.textName);
             if (mTextName != null) {
-                mTextName.setText(mName);
+                mTextName.setText(CCurrentPlayer.mPlayer.getNickName());
             }
 
             mTextLevel = (TextView) findViewById(R.id.textLevel);
             if (mTextLevel != null) {
-                mTextLevel.setText("Level " + mLevel);
+                mTextLevel.setText("Level " + CCurrentPlayer.mPlayer.getLevel());
             }
 
         // Récupere et intègre l'image pour la rendre circulaire et l'intégrérer à l'activité
 
-            mCircularImageView = (CircularImageView) findViewById(R.id.yourCircularImageView);
+            // on met le drapeau de la team à laquelle l'user courant appartient
+
+            if (CCurrentPlayer.mPlayer.getTeam().getColor() == "bleu")
+                mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
+            else
+                mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logxenom));
+
+
             mCircularImageView.setBorderColor(getResources().getColor(R.color.borderColor));
             mCircularImageView.setBorderWidth(20);
             mCircularImageView.setSelectorStrokeWidth(10);
             mCircularImageView.addShadow();
-
 
             // On configure les ronds à afficher
             TextDrawable drawableEnergy = TextDrawable.builder()
