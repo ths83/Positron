@@ -127,9 +127,7 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
 
             // Show signed-in UI.
             Log.d(TAG, "idToken:" + idToken);
-            mMapIntent = new Intent(this,CMapsActivity.class);
-            // on lance la map
-            startActivity(mMapIntent);
+
             Toast.makeText(getBaseContext(),AUTHENTIFICATION_SUCCESS_FRENCH,Toast.LENGTH_SHORT).show();
             /*mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             updateUI(true);*/
