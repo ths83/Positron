@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Table(name = "t_turret", schema = "positron")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries(@NamedQuery(name = CTurretEntity.GET_ALL, query = "select p from CTurretEntity p"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CTurretEntity.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CTurretEntity.class)
 @JsonDeserialize(as = CTurretEntity.class)
 
 public class CTurretEntity extends ABuildingEntity implements Serializable, IFighter {

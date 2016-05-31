@@ -57,7 +57,6 @@ public class CTeamService {
      */
     @GET
     @Produces("application/json")
-    @Path("/all")
     public String readAll(){
         //return mCrudMethods.findWithNamedQuery(CTeamEntity.GET_ALL);
         String lJsonValue = null;
