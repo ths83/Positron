@@ -13,7 +13,7 @@ import com.pkmmte.view.CircularImageView;
 
 import java.util.Objects;
 
-import fr.univtln.groupc.activities.google.CCurrentPlayer;
+import fr.univtln.groupc.activities.google.SCurrentPlayer;
 import fr.univtln.groupc.rest.CRestPlayer;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -29,28 +29,28 @@ public class CProfilActivity extends AppCompatActivity {
         String mEnergy = null, mEnergyMax = null, mName = null, mXp = null, mTeam = null, mBagSize = null, mLevel = null;
 
         // on met à jour le playeur courant
-        CCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(CCurrentPlayer.mMail);
+        SCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(SCurrentPlayer.mMail);
 
         mCircularImageView = (CircularImageView) findViewById(R.id.yourCircularImageView);
         mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
 
-        if (CCurrentPlayer.mPlayer != null) {
+        if (SCurrentPlayer.mPlayer != null) {
 
             mTextName = (TextView) findViewById(R.id.textName);
             if (mTextName != null) {
-                mTextName.setText(CCurrentPlayer.mPlayer.getNickName());
+                mTextName.setText(SCurrentPlayer.mPlayer.getNickName());
             }
 
             mTextLevel = (TextView) findViewById(R.id.textLevel);
             if (mTextLevel != null) {
-                mTextLevel.setText("Level " + CCurrentPlayer.mPlayer.getLevel());
+                mTextLevel.setText("Level " + SCurrentPlayer.mPlayer.getLevel());
             }
 
             // Récupere et intègre l'image pour la rendre circulaire et l'intégrérer à l'activité
 
             // on met le drapeau de la team à laquelle l'user courant appartient
 
-            if (Objects.equals(CCurrentPlayer.mPlayer.getTeam().getColor(), "bleu"))
+            if (Objects.equals(SCurrentPlayer.mPlayer.getTeam().getColor(), "bleu"))
                 mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
             else
                 mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logxenom));
@@ -65,22 +65,22 @@ public class CProfilActivity extends AppCompatActivity {
             TextDrawable drawableEnergy = TextDrawable.builder()
                     .beginConfig().textColor(Color.BLACK)
                     .endConfig()
-                    .buildRound(String.valueOf(CCurrentPlayer.mPlayer.getEnergy()), Color.LTGRAY);
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getEnergy()), Color.LTGRAY);
 
             TextDrawable drawableEnergyMax = TextDrawable.builder()
                     .beginConfig().textColor(Color.BLACK)
                     .endConfig()
-                    .buildRound(String.valueOf(CCurrentPlayer.mPlayer.getEnergyMax()), Color.LTGRAY);
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getEnergyMax()), Color.LTGRAY);
 
             TextDrawable drawableXp = TextDrawable.builder()
                     .beginConfig().textColor(Color.BLACK)
                     .endConfig()
-                    .buildRound(String.valueOf(CCurrentPlayer.mPlayer.getXp()), Color.LTGRAY);
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getXp()), Color.LTGRAY);
 
             TextDrawable drawableBagSize = TextDrawable.builder()
                     .beginConfig().textColor(Color.BLACK)
                     .endConfig()
-                    .buildRound(String.valueOf(CCurrentPlayer.mPlayer.getBagSize()), Color.LTGRAY);
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getBagSize()), Color.LTGRAY);
 
             // On affiche les ronds dans l'image_view
             ImageView image1 = (ImageView) findViewById(R.id.image_view1);
