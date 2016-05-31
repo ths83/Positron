@@ -488,6 +488,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return lIdPortals;
     }
 
+    @JsonIgnore
     public int getLevelOnSkillBranch(String pType){
         int lCount = 0;
         for (CSkillEntity lSkill : mSkills){
