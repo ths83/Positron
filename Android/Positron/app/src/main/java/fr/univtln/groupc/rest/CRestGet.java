@@ -81,6 +81,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
             //Log.d("test", "deserialisation !\n" + lPortalsJson);
 
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+            Log.d("test","lPortals -> " + lPortals);
             for (CPortalEntity lPortalTest : lPortals){
                 for (CResonatorEntity lResonatorTest : lPortalTest.getResonators()){
                     Log.d("test", "niveau de resonateur : " + lResonatorTest.getLevel());

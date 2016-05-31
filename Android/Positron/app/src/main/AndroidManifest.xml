@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.univtln.m1dapm.groupec.tperron710.positron" >
 
-    <!--<uses-sdk android:minSdkVersion="19" />-->
+    <!-- <uses-sdk android:minSdkVersion="19" /> -->
+
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -14,10 +15,13 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- podometer -->
+    <uses-feature android:name="android.hardware.sensor.stepcounter" android:required="false"></uses-feature>
+    <uses-feature android:name="android.hardware.sensor.stepdetector" android:required="false"></uses-feature>
 
     <application
         android:allowBackup="true"
@@ -25,6 +29,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+
+        <!-- service for Android device -->
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -51,6 +57,7 @@
         <activity android:name="fr.univtln.groupc.activities.google.CSignInActivity" >
             <intent-filter>
                 <action android:name="ANDROID.INTENT.ACTION.MAIN" />
+
                 <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -90,6 +97,10 @@
         <activity
             android:name="fr.univtln.groupc.activities.profil.CSkillTree"
             android:label="@string/title_activity_cskill_tree" >
+        </activity>
+        <activity
+            android:name="fr.univtln.groupc.services.CLocationService"
+            android:label="@string/title_activity_clocation_service" >
         </activity>
     </application>
 

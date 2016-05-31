@@ -25,6 +25,7 @@
     <string name="title_Hacking_Tree">Piratage :</string>
     <string name="title_Scout_Tree">Reconnaissance :</string>
     <string name="text_view_free_skill_point">Point de compétences libres : </string>
+    <string name="title_activity_clocation_service">CLocationServiceActivity</string>
 
 
 

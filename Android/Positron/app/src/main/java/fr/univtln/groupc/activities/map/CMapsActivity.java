@@ -58,13 +58,13 @@ import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
-import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.math.CMathFunction;
 import fr.univtln.groupc.rest.CRestDelete;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
+import fr.univtln.groupc.singleton.SPlayer;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
@@ -115,10 +115,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private Map<Integer, Polygon> mMapPolygonsWithInteger = new HashMap<>();
     private Map<CLinkEntity, Polyline> mMapPolylines = new HashMap<>();
     private Map<CFieldEntity, Polygon> mMapPolygons = new HashMap<>();
-    private CPlayerEntity mPlayer = new CRestGet().getPlayerByID(1);
+    //private CPlayerEntity mPlayer = new CRestGet().getPlayerByID(1);
+    private List<CPortalEntity> mPortals = new CRestGet().getPortalsRest();
     private ScrollView mScroll;
     private int mDrawState=0;
-    private final List<CPortalEntity> mPortals = new CRestGet().getPortalsRest();
+    private SPlayer mPlayer = SPlayer.getInstance();
     private LinearLayout mLinear;
 
     // TODO delete this attr -> just for test link creation
@@ -136,7 +137,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         //Button lTestButton = (Button) findViewById(R.id.link);
 
         // TODO singleton for player -> with token
-        mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
+       // mPlayer = new CRestGet().getPlayerByID(1); // ugly just a test :)
         //Log.d("test", "player null ? -> " + mPlayer);
 
         // Google Map fragment
@@ -392,7 +393,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
     }
 
-    // user action radius when new position is detected
     @Override
     public void onLocationChanged(Location location) {
     }
@@ -825,9 +825,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         List<CResonatorEntity> lResonatorTeam1 = pPortal.getResonatorsTeamById(1);
         List<CResonatorEntity> lResonatorTeam2 = pPortal.getResonatorsTeamById(2);
         int lNbResonatorTeam1 = lResonatorTeam1.size();
-        Log.d("test",Integer.toString(lNbResonatorTeam1));
+        Log.d("test", Integer.toString(lNbResonatorTeam1));
         int lNbResonatorTeam2 = lResonatorTeam2.size();
-        Log.d("test",Integer.toString(lNbResonatorTeam2));
+        Log.d("test", Integer.toString(lNbResonatorTeam2));
         int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
         Context context = getApplicationContext();
         LinearLayout info = new LinearLayout(context);
