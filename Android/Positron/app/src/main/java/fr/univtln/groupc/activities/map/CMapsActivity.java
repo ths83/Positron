@@ -53,6 +53,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import fr.univtln.groupc.activities.google.SCurrentPlayer;
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
@@ -64,7 +65,6 @@ import fr.univtln.groupc.math.CMathFunction;
 import fr.univtln.groupc.rest.CRestDelete;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
-import fr.univtln.groupc.singleton.SPlayer;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
@@ -119,7 +119,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     private List<CPortalEntity> mPortals = new CRestGet().getPortalsRest();
     private ScrollView mScroll;
     private int mDrawState=0;
-    private SPlayer mPlayer = SPlayer.getInstance();
     private LinearLayout mLinear;
 
     // TODO delete this attr -> just for test link creation
@@ -233,7 +232,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         // Display links on start session
         displayAllLinks();
         displayAllFields();
-        Log.d("test", "player null 2? -> " + mPlayer);
+        Log.d("test", "player null 2? -> " + SCurrentPlayer.mPlayer);
         // Location Service
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
@@ -274,7 +273,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 }*/
                 double lDistanceBetweenPortalAndPlayer =
                         new CMathFunction().haversine
-                                (mPlayer.getLat(), mPlayer.getLong(), marker.getPosition().latitude, marker.getPosition().longitude);
+                                (SCurrentPlayer.mPlayer.getLat(), SCurrentPlayer.mPlayer.getLong(), marker.getPosition().latitude, marker.getPosition().longitude);
 
                 // Supprime l'affichage des resonateurs d'un autre portail
                 // Deletes resonators display from another portal
@@ -355,8 +354,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         @Override
         public void onMyLocationChange(Location location) {
             // current position player
-            mPlayer.setLat(location.getLatitude());
-            mPlayer.setLong(location.getLongitude());
+            SCurrentPlayer.mPlayer.setLat(location.getLatitude());
+            SCurrentPlayer.mPlayer.setLong(location.getLongitude());
 
 //            mPlayer.setLat(location.getLatitude());
   //          mPlayer.setLong(location.getLongitude());
@@ -680,7 +679,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         int lTeamColor;
         String lStringTeamColor;
         // Link color
-        if (mPlayer.equals("blue")){
+        if (SCurrentPlayer.mPlayer.equals("blue")){
             lTeamColor = Color.BLUE;
             lStringTeamColor = "BLUE";
         }
@@ -690,7 +689,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
 
         // just for the first key
-        List<CKeyEntity> lPlayerKeysForPortal = mPlayer.getKeys();
+        List<CKeyEntity> lPlayerKeysForPortal = SCurrentPlayer.mPlayer.getKeys();
         CKeyEntity lKey = lPlayerKeysForPortal.get(0);
         String lStringPortalTeamColor = "NONE" ;
         if (lPlayerKeysForPortal.get(0).getPortal().getTeam() != null){
@@ -736,7 +735,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
             }
         });*/
-        if (mPlayer.getBombs().size()>0) {
+        if (SCurrentPlayer.mPlayer.getBombs().size()>0) {
             ImageButton lButtonZone = generateButton(R.mipmap.zoneattackvalid);
             lButtonZone.setEnabled(true);
             mLinear.addView(lButtonZone);
@@ -745,7 +744,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 public void onClick(View v) {
                     //final CPortalEntity lPortal;
                     Log.d("test5", "dans le onclick !");
-                    CClickPortalsAcitivity.useBombe(mPlayer.getBombs().get(0), mPortalClicked, mPlayer);
+                    CClickPortalsAcitivity.useBombe(SCurrentPlayer.mPlayer.getBombs().get(0), mPortalClicked, SCurrentPlayer.mPlayer);
                 /*for (CResonatorEntity lResonator : lPortal.getResonators()){
                     Log.d("test15", "ds la map de progressbar ? " + mProgressBars.get(lResonator.getId()));
                     mProgressBars.get(lResonator.getId()).setProgress(lResonator.getEnergy());
@@ -875,11 +874,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
     public void InitDrawerLink(){
-        Log.d("test60","-->"+mPlayer.getKeys());
-        Log.d("test60","-"+mPlayer.getIdPortalsOfKeys());
-        for (int i : mPlayer.getIdPortalsOfKeys()){
+        Log.d("test60", "-->" + SCurrentPlayer.mPlayer.getKeys());
+        Log.d("test60", "-" + SCurrentPlayer.mPlayer.getIdPortalsOfKeys());
+        for (int i : SCurrentPlayer.mPlayer.getIdPortalsOfKeys()){
             if (i!=mPortalClicked.getId()) {
-                List<CKeyEntity> lKeys = mPlayer.getKeysByPortal(i);
+                List<CKeyEntity> lKeys = SCurrentPlayer.mPlayer.getKeysByPortal(i);
                 ImageButton lButton = generateButton(R.mipmap.keyportal);
                 mLinear.addView(lButton);
             }
