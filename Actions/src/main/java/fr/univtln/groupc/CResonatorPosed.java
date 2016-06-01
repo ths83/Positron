@@ -7,6 +7,7 @@ import java.io.Serializable;
 /**
  * Created by marti on 30/05/2016.
  */
+
 public class CResonatorPosed implements Serializable {
 
     private CPortalEntity mPortal;

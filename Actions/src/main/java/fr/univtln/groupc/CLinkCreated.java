@@ -1,19 +1,21 @@
 package fr.univtln.groupc;
 
+
 import fr.univtln.groupc.entities.CLinkEntity;
 
 import java.io.Serializable;
 
+
 /**
- * Created by marti on 31/05/2016.
+ * Created by marti on 01/06/2016.
  */
-public class CCreateLink implements Serializable {
+public class CLinkCreated implements Serializable{
 
     private CLinkEntity mLink;
 
-    public CCreateLink(){}
+    public CLinkCreated(){}
 
-    public CCreateLink(CLinkEntity pLink){
+    public CLinkCreated(CLinkEntity pLink){
         mLink = pLink;
     }
 
@@ -24,11 +26,4 @@ public class CCreateLink implements Serializable {
     public CLinkEntity getLink(){
         return mLink;
     }
-/*
-    @Override
-    public String toString() {
-        return "CCreateLink{" +
-                "mLink=" + mLink +
-                '}';
-    }*/
 }
