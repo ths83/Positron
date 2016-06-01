@@ -388,4 +388,16 @@ public class CPortalEntity implements Serializable {
     return lLevel;
     }
 
+    @JsonIgnore
+    public List<CMultiHackEntity> getMultiHack(){
+        List<CMultiHackEntity> lMultiHackList = new ArrayList<CMultiHackEntity>();
+
+        for(ABuildingEntity lBuilding : mBuildings){
+            if(lBuilding instanceof CMultiHackEntity){
+                lMultiHackList.add((CMultiHackEntity)lBuilding);
+            }
+        }
+        return lMultiHackList;
+    }
+
 }
