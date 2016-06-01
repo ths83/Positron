@@ -21,14 +21,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.tavendo.autobahn.WebSocketConnection;
+/*import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
-import de.tavendo.autobahn.WebSocketHandler;
+import de.tavendo.autobahn.WebSocketHandler;*/
 import fr.univtln.groupc.CPayloadBean;
 import fr.univtln.groupc.EPayloadType;
 
 public class MainActivity extends AppCompatActivity {
-
+/*
     private String TAG = "tag";
     private ServiceWS mService;
     private boolean mBound = false;

@@ -1,8 +1,6 @@
 package nmartinez016.univtln.fr.websocketandroidclient;
 
-import android.os.Bundle;
-import android.os.Message;
-import android.os.RemoteException;
+
 import android.util.Log;
 
 import org.glassfish.tyrus.client.ClientManager;
@@ -14,6 +12,7 @@ import javax.websocket.ClientEndpoint;
 import javax.websocket.DeploymentException;
 import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;
+
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -59,7 +58,7 @@ public class ClientTyrus {
     }
 
     public void run() {
-        URI uri = URI.create("ws://10.21.174.206:8025/echo");
+        URI uri = URI.create("wss://10.9.185.55:8025/echo");
         Log.d(LOG_TAG, "Connecting to " + uri + ".");
         try {
             mClientManager = ClientManager.createClient();

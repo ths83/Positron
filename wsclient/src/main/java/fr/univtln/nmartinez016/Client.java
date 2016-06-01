@@ -29,7 +29,7 @@ public class Client {
     static {
         String ip = null;
         int port = 8025;
-        ip = "10.21.174.206";
+        ip = "localhost";
         //if (ip == null) ip = "localhost";
         //ip = "89.134.83.3";
         SERVER_IP = ip;
