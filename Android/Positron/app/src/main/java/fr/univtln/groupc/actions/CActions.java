@@ -11,6 +11,7 @@ import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CLinkImprovementEntity;
 import fr.univtln.groupc.entities.CMultiHackEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
@@ -142,8 +143,12 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
                 return lBombe;
             }
             case (5): {
-                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder(1).hackBonus((int) pLevelObject/2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build()
+                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder(1).hackBonus((int) pLevelObject/2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
                 return lMultiPiratage;
+            }
+            case (6): {
+                AObjectEntity lLinkImprovement = new CLinkImprovementEntity.CLinkImprovementBuilder(1).rangeBonus(pLevelObject/4).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                return lLinkImprovement;
             }
 
         }
