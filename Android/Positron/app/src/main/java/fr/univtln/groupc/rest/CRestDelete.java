@@ -23,6 +23,7 @@ import fr.univtln.groupc.entities.CShieldEntity;
 public class CRestDelete extends AsyncTask<String, String, Void> {
 
 
+
     @Override
     protected Void doInBackground(String... params) {
         String lUrlString = params[0]; // URL to call

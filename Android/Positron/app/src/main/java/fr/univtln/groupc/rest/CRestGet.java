@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
@@ -34,6 +35,8 @@ import fr.univtln.groupc.entities.CSkillEntity;
  * Created by toms on 5/3/16.
  */
 public class CRestGet extends AsyncTask<String,String,String> {
+
+    public final static String API_URL = "http://10.9.185.48:9998";
 
     @Override
     protected String doInBackground(String... params) {
@@ -81,6 +84,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
             //Log.d("test", "deserialisation !\n" + lPortalsJson);
 
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+            Log.d("test","lPortals -> " + lPortals);
             for (CPortalEntity lPortalTest : lPortals){
                 for (CResonatorEntity lResonatorTest : lPortalTest.getResonators()){
                     Log.d("test", "niveau de resonateur : " + lResonatorTest.getLevel());
@@ -373,4 +377,54 @@ public class CRestGet extends AsyncTask<String,String,String> {
     }
 
 
+
+// TODO a vérifier
+    /**
+     * get all fields from database to display them on Android Map
+     * @return
+     */
+    public List<CFieldEntity> getFieldsRest(){
+        ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
+        lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+        String lUrlString = CRest.API_URL + "/fields";
+        Log.d("test", "->-> " + lUrlString);
+        String lFieldsJson = null;
+        List<CFieldEntity> lFields = new ArrayList<>();
+        JSONObject lFieldObject = null;
+        try {
+            Log.d("test8","get fields :");
+            lFieldsJson = new CRestGet().execute(lUrlString).get();
+            //Log.d("test", "deserialisation !\n" + lfieldsJson);
+
+            lFields = lMapper.readValue(lFieldsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CFieldEntity.class));
+   /*         for (CFieldEntity lFieldTest : lFields){
+                for (CResonatorEntity lResonatorTest : lFieldTest.getResonators()){
+                    Log.d("test", "niveau de resonateur : " + lResonatorTest.getLevel());
+                }
+            }
+    */
+
+            Log.d("test8", "deserialized!!");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("test8", " tous les portails ->\n " + lFields);
+        return lFields;
+    }
 }

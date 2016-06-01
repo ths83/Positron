@@ -26,24 +26,24 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     @Column(name = "id")
     private int mId;
     @Column(name = "nickname")
-    private String mNickName;
+    private String mNickName= null;
     @Column(name = "email")
-    private String mEmail;
+    private String mEmail= null;
     @ManyToOne
     @JoinColumn(name = "team")
-    private CTeamEntity mTeam;
+    private CTeamEntity mTeam = null;
     @Column(name = "xp")
-    private int mXp;
+    private int mXp = 0;
     @Column(name = "bag_size")
-    private int mBagSize;
+    private int mBagSize = 0;
     @Column(name = "longitude")
     private double mLong;
     @Column(name = "mLatitude")
     private double mLat;
     @Column(name = "energy")
-    private int mEnergy;
+    private int mEnergy = 0;
     @Column(name = "energy_max")
-    private int mEnergyMax;
+    private int mEnergyMax = 0;
     @OneToMany
     @JoinTable(schema = "positron")
     private List<CSkillEntity> mSkills;
