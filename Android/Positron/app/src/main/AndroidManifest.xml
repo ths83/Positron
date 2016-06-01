@@ -31,6 +31,8 @@
         android:theme="@style/AppTheme" >
 
         <!-- service for Android device -->
+        <service
+            android:name="fr.univtln.groupc.services.services.CLaunchService" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
