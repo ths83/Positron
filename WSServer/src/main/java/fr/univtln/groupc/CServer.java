@@ -187,7 +187,10 @@ public class CServer {
             server.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Please press a key to stop the server.");
-            reader.readLine();
+            while(true){
+                reader.readLine();
+            }
+            //reader.readLine();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

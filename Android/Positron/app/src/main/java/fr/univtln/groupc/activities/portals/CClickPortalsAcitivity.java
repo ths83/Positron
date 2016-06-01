@@ -137,7 +137,7 @@ if(pPlayer.getTeam() == pPortal.getTeam()) {
     public void hacking(CPlayerEntity pPlayer, CPlayerEntity pPortal){
         int li =0;
         CActions lAction = new CActions();
-
+        //TODO prendre en compte Multi Piratage.
 
         if(pPortal.getTeam() == null){
             pPlayer.addXP(10);
