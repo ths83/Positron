@@ -428,7 +428,7 @@ public class CAlgorithm {
      *
      * @param pPlayer : Joueur à vérifier.
      * @param lFieldList : Liste de tout les champs existant dans la base de donnée.
-     * @return Retourne 0 si pas dans un champ, 1 si dans un champ allié et 2 si dans un champ ennemie. 
+     * @return Retourne 0 si pas dans un champ, 1 si dans un champ allié et 2 si dans un champ ennemie.
      */
     public int inAField (CPlayerEntity pPlayer, List<CFieldEntity> lFieldList ){
 
@@ -479,7 +479,6 @@ public class CAlgorithm {
         return 0;
 
     }
-
 
 
 
