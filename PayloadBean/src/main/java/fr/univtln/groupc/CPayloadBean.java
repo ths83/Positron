@@ -6,8 +6,6 @@ import java.io.Serializable;
  * Created by marti on 26/05/2016.
  */
 
-
-
 public class CPayloadBean implements Serializable {
     public final static class PayloadBeanCode extends
             CJSONCoder<CPayloadBean> {
@@ -16,13 +14,15 @@ public class CPayloadBean implements Serializable {
     private String mType;
     //private Object mObject;
     private CConnection mConnection;
-    //private CAttackBuilding mAttackBuilding;
+    private CAttackBuilding mAttackBuilding;
     private CPoseResonator mPoseResonator;
-    /*private CHackPortal mHackPortal;
-    private CAttackAOE mAttackAOE;*/
+    //private CHackPortal mHackPortal;
+    //private CAttackAOE mAttackAOE;
     private CTeamPortalChanged mTeamPortalChanged;
     private CResonatorPosed mResonatorPosed;
     private CCreateLink mCreateLink;
+    private CLinkCreated mLinkCreated;
+    private CFieldCreated mFieldCreated;
 
 
     public CPayloadBean() {
@@ -32,14 +32,16 @@ public class CPayloadBean implements Serializable {
         mType = pBuilder.mType;
        // mObject = pBuilder.mObject;
         mConnection = pBuilder.mConnection;
-        /*
-        mAttackAOE = pBuilder.mAttackAOE;
+
+        //mAttackAOE = pBuilder.mAttackAOE;
         mAttackBuilding = pBuilder.mAttackBuilding;
-        mHackPortal = pBuilder.mHackPortal;*/
+        //mHackPortal = pBuilder.mHackPortal;
         mPoseResonator = pBuilder.mPoseResonator;
         mTeamPortalChanged = pBuilder.mTeamPortalChanged;
         mResonatorPosed = pBuilder.mResonatorPosed;
         mCreateLink = pBuilder.mCreateLink;
+        mLinkCreated = pBuilder.mLinkCreated;
+        mFieldCreated = pBuilder.mFieldCreated;
     }
 
     public void setType(String pType) {
@@ -94,8 +96,8 @@ public class CPayloadBean implements Serializable {
     public void setHackPortal(CHackPortal pHackPortal){
         mHackPortal = pHackPortal;
     }
-
 */
+
     public CPoseResonator getPoseResonator(){
         return mPoseResonator;
     }
@@ -129,18 +131,35 @@ public class CPayloadBean implements Serializable {
         mTeamPortalChanged = pTeamPortalChanged;
     }
 
+    public CLinkCreated getLinkCreated(){
+        return mLinkCreated;
+    }
+
+    public void setLinkCreated(CLinkCreated pLinkCreated){
+        mLinkCreated = pLinkCreated;
+    }
+
+    public CFieldCreated getFieldCreated(){
+        return mFieldCreated;
+    }
+
+    public void setFieldCreated(CFieldCreated pFieldCreated){
+        mFieldCreated = pFieldCreated;
+    }
+
     @Override
     public String toString() {
         return "CPayloadBean{" +
                 "mType='" + mType + '\'' +
                 //", mObject=" + mObject +
-                ", mConnection=" + mConnection +
-                /*", mAttackBuilding=" + mAttackBuilding +*/
-                ", mPoseResonator=" + mPoseResonator +/*
+                //", mConnection=" + mConnection +
+                /*", mAttackBuilding=" + mAttackBuilding +
+                ", mPoseResonator=" + mPoseResonator +
                 ", mHackPortal=" + mHackPortal +
-                ", mAttackAOE=" + mAttackAOE +*/
+                ", mAttackAOE=" + mAttackAOE +
                 ", mTeamPortalChanged=" + mTeamPortalChanged +
-                ", mResonatorPosed=" + mResonatorPosed +
+                ", mResonatorPosed=" + mResonatorPosed +*/
+                "mLinkCreated='" + mLinkCreated +
                 '}';
     }
 
@@ -148,13 +167,15 @@ public class CPayloadBean implements Serializable {
         private String mType;
         private Object mObject;
         private CConnection mConnection;
-        //private CAttackBuilding mAttackBuilding;
-        private CPoseResonator mPoseResonator;/*
-        private CHackPortal mHackPortal;
-        private CAttackAOE mAttackAOE;*/
+        private CAttackBuilding mAttackBuilding;
+        private CPoseResonator mPoseResonator;
+        //private CHackPortal mHackPortal;
+        //private CAttackAOE mAttackAOE;
         private CTeamPortalChanged mTeamPortalChanged;
         private CResonatorPosed mResonatorPosed;
         private CCreateLink mCreateLink;
+        private CLinkCreated mLinkCreated;
+        private CFieldCreated mFieldCreated;
 
         public CPayloadBeanBuilder(){};
 /*
@@ -196,12 +217,22 @@ public class CPayloadBean implements Serializable {
             mResonatorPosed = pResonatorPosed;
             return this;
         }
-/*
+
         public CPayloadBeanBuilder objectAttackBuilding(CAttackBuilding pAttackBuilding){
             mAttackBuilding = pAttackBuilding;
             return this;
         }
-*/
+
+        public CPayloadBeanBuilder objectLinkCreated(CLinkCreated pLinkCreated){
+            mLinkCreated = pLinkCreated;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectFieldCreated(CFieldCreated pFieldCreated){
+            mFieldCreated = pFieldCreated;
+            return this;
+        }
+
 
 
         public CPayloadBeanBuilder type(String pType){

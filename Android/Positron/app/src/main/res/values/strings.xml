@@ -27,6 +27,12 @@
     <string name="text_view_free_skill_point">Point de compétences libres : </string>
     <string name="title_activity_clocation_service">CLocationServiceActivity</string>
 
+    <!-- launch service -->
+    <string name="text_positron_in_progress">Positron est lancé !</string>
+    <string name="title_positron_in_progress">Positron</string>
+    <string name="podo_sensor_not_present">Le podomètre n\'est pas disponible sur cet appareil !</string>
+
+
 
 
 </resources>

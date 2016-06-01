@@ -1,5 +1,7 @@
 package fr.univtln.groupc;
 
+import fr.univtln.groupc.entities.CResonatorEntity;
+
 /**
  * Created by marti on 31/05/2016.
  */
@@ -60,6 +62,55 @@ public class CAction {
         System.out.println("team apres methode attach : " + pPoseResonator.getPortal().getTeam());
         System.out.println("fin de la methode");
         return (lPreviousId != pPoseResonator.getPortal().getTeam().getId());
+    }
+
+    public static CAttackBuilding applyAttack(CAttackBuilding pAttackBuilding) {
+        if (pAttackBuilding.getConsumable().getName().equals("Attack")) {
+            pAttackBuilding.getPlayer().attack(pAttackBuilding.getBuilding(), pAttackBuilding.getConsumable());
+            //TODO add XP degat * 10
+            //pAttackBuilding.getPlayer().addXP();
+
+        } else {
+            System.out.println("Consommable non approrié");
+        }
+        return pAttackBuilding;
+    }
+
+    public static Boolean isDeadBuilding(CAttackBuilding pAttackBuilding){
+        System.out.println("pv building avant atq : " + pAttackBuilding.getBuilding().getEnergy());
+        //CAttackBuilding lAttackBuilding = applyAttack(pAttackBuilding);
+        System.out.println("pv building apres atq : " + pAttackBuilding.getBuilding().getEnergy());
+        if (pAttackBuilding.getBuilding().getEnergy() <= 0){
+            if (pAttackBuilding.getBuilding() instanceof CResonatorEntity){
+                pAttackBuilding.getBuilding().getPortal().removeResonator((CResonatorEntity)pAttackBuilding.getBuilding());
+            }
+            else{
+                pAttackBuilding.getBuilding().getPortal().removeBuilding(pAttackBuilding.getBuilding());
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static Boolean isPortalTeamOfBuildingChanged(CAttackBuilding pAttackBuilding){
+        CAttackBuilding lAttackBuilding = applyAttack(pAttackBuilding);
+        if (lAttackBuilding.getBuilding() instanceof CResonatorEntity){
+            if (isDeadBuilding(lAttackBuilding)){
+                int lTeamId = lAttackBuilding.getBuilding().getPortal().getTeam().getId();
+                lAttackBuilding.getBuilding().getPortal().attributeTeam();
+                int lTeamToCompare = lAttackBuilding.getBuilding().getPortal().getTeam().getId();
+                return (lTeamId != lTeamToCompare);
+                }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
     }
 
 }

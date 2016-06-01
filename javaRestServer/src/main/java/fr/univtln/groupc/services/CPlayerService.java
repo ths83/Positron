@@ -85,7 +85,6 @@ public class CPlayerService {
     @Path("/mail/{email}")
     public String readByMail(@PathParam("email") String pMail){
         String lJsonValue = null;
-
         List<CPlayerEntity> lPlayers = (List<CPlayerEntity>)mCrudMethods.findWithNamedQuery(CPlayerEntity.GET_BY_MAIL, CQueryParameter.with("mEmail", pMail).parameters());
         CPlayerEntity lPlayer = lPlayers.get(0);
         try {

@@ -250,8 +250,12 @@ public class CAlgorithm {
 
     public static List<CLinkEntity> detecteNewFields(CLinkEntity pLinkCreated){
         List<CLinkEntity> lLinkNewField = new ArrayList<CLinkEntity>();
-        CPortalEntity lPortalVerified1= null,lPortalVerified2= null;
-        CPortalEntity lPortals[]={pLinkCreated.getPortals().get(0),pLinkCreated.getPortals().get(1)};
+        CPortalEntity lPortalVerified1 = null,lPortalVerified2= null;
+        CPortalEntity lPortals[] = {pLinkCreated.getPortals().get(0), pLinkCreated.getPortals().get(1)};
+        System.out.println("lien dans detect portals 0 " + lPortals[0].getLinks());
+
+        System.out.println("lien dans detect portals 0 " + lPortals[1].getLinks());
+
 
         for(CLinkEntity lLinks : lPortals[0].getLinks()){
             lPortalVerified1= getOtherPortalOfLink(lPortals[0],lLinks);
