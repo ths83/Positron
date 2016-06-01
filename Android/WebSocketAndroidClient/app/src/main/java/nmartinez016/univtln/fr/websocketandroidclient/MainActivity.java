@@ -15,16 +15,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
+import fr.univtln.groupc.CPayloadBean;
+import fr.univtln.groupc.EPayloadType;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String TAG = "test";
+    private String TAG = "tag";
     private ServiceWS mService;
     private boolean mBound = false;
     TextView mConn;
@@ -33,15 +38,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void start() {
 
-        final String wsuri = "ws://89.234.183.3:8025/echo";
+        final String wsuri = "ws://10.21.174.206:8025/echo";
 
         try {
             mConnection.connect(wsuri, new WebSocketHandler() {
 
                 @Override
                 public void onOpen() {
+                    ObjectMapper lMapper = new ObjectMapper();
                     Log.d(TAG, "Status: Connected to " + wsuri);
-                    mConnection.sendTextMessage("Hello, world!");
+                    //mConnection.sendTextMessage("Hello, world!");
+                    try {
+                        mConnection.sendTextMessage(lMapper.writeValueAsString(new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.CONNECTED.toString()).build()));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
                 @Override

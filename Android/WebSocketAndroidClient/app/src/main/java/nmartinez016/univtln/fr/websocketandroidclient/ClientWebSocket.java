@@ -24,7 +24,7 @@ import javax.websocket.Session;
 @ClientEndpoint
 public class ClientWebSocket extends Thread {
 
-    private static String LOG_TAG = "test";
+    private static String LOG_TAG = "tag";
     private ClientManager clientManager;
     private  ServiceWS serviceWS;
     private Looper looper;
@@ -101,7 +101,7 @@ public class ClientWebSocket extends Thread {
         Log.d(LOG_TAG, "step 3");
         //This thread does nothing but waiting for
         // process incoming messages here
-        URI uri = URI.create("ws://89.234.183.3:8025/echo");
+        URI uri = URI.create("ws://10.21.174.206/echo");
         Log.d(LOG_TAG, "Connecting to " + uri + ".");
         try {
             clientManager = ClientManager.createClient();

@@ -29,7 +29,9 @@ public class Client {
     static {
         String ip = null;
         int port = 8025;
-        if (ip == null) ip = "localhost";
+        ip = "10.21.174.206";
+        //if (ip == null) ip = "localhost";
+        //ip = "89.134.83.3";
         SERVER_IP = ip;
         SERVER_PORT = port;
         System.out.println("Server IP:" + SERVER_IP + " Port: " + SERVER_PORT);
