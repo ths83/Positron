@@ -1,6 +1,8 @@
 package fr.univtln.groupc.activities.profil;
 
+import android.annotation.TargetApi;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -9,8 +11,8 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.pkmmte.view.CircularImageView;
 
-import fr.univtln.groupc.activities.google.CCurrentPlayer;
-import fr.univtln.groupc.entities.CPlayerEntity;
+import fr.univtln.groupc.activities.google.SCurrentPlayer;
+
 import fr.univtln.groupc.rest.CRestPlayer;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -18,82 +20,89 @@ public class CProfilActivity extends AppCompatActivity {
 
     CircularImageView mCircularImageView;
     TextView mTextName, mTextLevel;
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cprofil);
-        String mEnergy =null, mEnergyMax=null, mName=null, mXp=null, mTeam=null, mBagSize=null, mLevel = null;
+        String mEnergy = null, mEnergyMax = null, mName = null, mXp = null, mTeam = null, mBagSize = null, mLevel = null;
+
+        // on met à jour le playeur courant
+        SCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(SCurrentPlayer.mMail);
+
+        mCircularImageView = (CircularImageView) findViewById(R.id.yourCircularImageView);
+        mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
+
+        if (SCurrentPlayer.mPlayer != null) {
 
 
-        if (CCurrentPlayer.mPlayer!=null) {
-            mEnergy = String.valueOf(CCurrentPlayer.mPlayer.getEnergy());
-            mEnergyMax = String.valueOf(CCurrentPlayer.mPlayer.getEnergyMax());
-            mName = String.valueOf(CCurrentPlayer.mPlayer.getNickName());
-            mXp = String.valueOf(CCurrentPlayer.mPlayer.getXp());
-            mTeam = String.valueOf(CCurrentPlayer.mPlayer.getTeam());
-            mBagSize = String.valueOf(CCurrentPlayer.mPlayer.getBagSize());
-            mLevel = String .valueOf(CCurrentPlayer.mPlayer.getLevel());
-        }
+            mTextName = (TextView) findViewById(R.id.textName);
+            if (mTextName != null) {
+                mTextName.setText(SCurrentPlayer.mPlayer.getNickName());
+            }
 
-        mTextName = (TextView) findViewById(R.id.textName);
-        if (mTextName != null) {
-            mTextName.setText(mName);
-        }
+            mTextLevel = (TextView) findViewById(R.id.textLevel);
+            if (mTextLevel != null) {
+                mTextLevel.setText("Level " + SCurrentPlayer.mPlayer.getLevel());
+            }
 
-        mTextLevel = (TextView) findViewById(R.id.textLevel);
-        if (mTextLevel != null) {
-            mTextLevel.setText("Level " + mLevel);
-        }
+            // Récupere et intègre l'image pour la rendre circulaire et l'intégrérer à l'activité
 
-        // Récupere et intègre l'image pour la rendre circulaire et l'intégrérer à l'activité
-        mCircularImageView = (CircularImageView)findViewById(R.id.yourCircularImageView);
-        mCircularImageView.setBorderColor(getResources().getColor(R.color.borderColor));
-        mCircularImageView.setBorderWidth(20);
-        //mCircularImageView.setSelectorColor(getResources().getColor(R.color.BlueLightTransparent));
-        //mCircularImageView.setSelectorStrokeColor(getResources().getColor(R.color.BlueDark));
-        mCircularImageView.setSelectorStrokeWidth(10);
-        mCircularImageView.addShadow();
+            // on met le drapeau de la team à laquelle l'user courant appartient
 
-        // On configure les ronds à afficher
-        TextDrawable drawableEnergy = TextDrawable.builder()
-                .beginConfig().textColor(Color.BLACK)
-                .endConfig()
-                .buildRound(mEnergy, Color.LTGRAY);
+            if (SCurrentPlayer.mPlayer.getTeam().getColor() == "bleu")
 
-        TextDrawable drawableEnergyMax = TextDrawable.builder()
-                .beginConfig().textColor(Color.BLACK)
-                .endConfig()
-                .buildRound(mEnergyMax, Color.LTGRAY);
+                mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
+            else
+                mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logxenom));
 
-        TextDrawable drawableXp = TextDrawable.builder()
-                .beginConfig().textColor(Color.BLACK)
-                .endConfig()
-                .buildRound(mXp, Color.LTGRAY);
 
-        TextDrawable drawableBagSize = TextDrawable.builder()
-                .beginConfig().textColor(Color.BLACK)
-                .endConfig()
-                .buildRound(mBagSize, Color.LTGRAY);
+            mCircularImageView.setBorderColor(getResources().getColor(R.color.borderColor));
+            mCircularImageView.setBorderWidth(20);
+            mCircularImageView.setSelectorStrokeWidth(10);
+            mCircularImageView.addShadow();
 
-        // On affiche les ronds dans l'image_view
-        ImageView image1 = (ImageView) findViewById(R.id.image_view1);
-        if (image1 != null) {
-            image1.setImageDrawable(drawableEnergy);
-        }
+            // On configure les ronds à afficher
+            TextDrawable drawableEnergy = TextDrawable.builder()
+                    .beginConfig().textColor(Color.BLACK)
+                    .endConfig()
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getEnergy()), Color.LTGRAY);
 
-        ImageView image2 = (ImageView) findViewById(R.id.image_view2);
-        if (image2 != null) {
-            image2.setImageDrawable(drawableEnergyMax);
-        }
+            TextDrawable drawableEnergyMax = TextDrawable.builder()
+                    .beginConfig().textColor(Color.BLACK)
+                    .endConfig()
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getEnergyMax()), Color.LTGRAY);
 
-        ImageView image3 = (ImageView) findViewById(R.id.image_view3);
-        if (image3 != null) {
-            image3.setImageDrawable(drawableXp);
-        }
+            TextDrawable drawableXp = TextDrawable.builder()
+                    .beginConfig().textColor(Color.BLACK)
+                    .endConfig()
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getXp()), Color.LTGRAY);
 
-        ImageView image4 = (ImageView) findViewById(R.id.image_view4);
-        if (image4 != null) {
-            image4.setImageDrawable(drawableBagSize);
+            TextDrawable drawableBagSize = TextDrawable.builder()
+                    .beginConfig().textColor(Color.BLACK)
+                    .endConfig()
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getBagSize()), Color.LTGRAY);
+
+            // On affiche les ronds dans l'image_view
+            ImageView image1 = (ImageView) findViewById(R.id.image_view1);
+            if (image1 != null) {
+                image1.setImageDrawable(drawableEnergy);
+            }
+
+            ImageView image2 = (ImageView) findViewById(R.id.image_view2);
+            if (image2 != null) {
+                image2.setImageDrawable(drawableEnergyMax);
+            }
+
+            ImageView image3 = (ImageView) findViewById(R.id.image_view3);
+            if (image3 != null) {
+                image3.setImageDrawable(drawableXp);
+            }
+
+            ImageView image4 = (ImageView) findViewById(R.id.image_view4);
+            if (image4 != null) {
+                image4.setImageDrawable(drawableBagSize);
+            }
         }
     }
 

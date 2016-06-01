@@ -52,7 +52,7 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
      * @param pId
      */
     public void deleteLinkRest(int pId){
-        String lUrlString = API_URL + "/links/" + Integer.toString(pId);
+        String lUrlString = CRest.API_URL + "/links/" + Integer.toString(pId);
         Log.d("test2", "delete ->-> " + lUrlString);
         try {
             new CRestDelete().execute(lUrlString).get();
@@ -72,7 +72,7 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
      * @param pId
      */
     public void deleteConsumableRest(int pId){
-        String lUrlString = API_URL + "/consumables/" + Integer.toString(pId);
+        String lUrlString = CRest.API_URL + "/consumables/" + Integer.toString(pId);
         Log.d("test2", "delete ->-> " + lUrlString);
         try {
             new CRestDelete().execute(lUrlString).get();
@@ -90,7 +90,7 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
      * @param pId
      */
     public void deleteFieldRest(int pId){
-        String lUrlString =  API_URL + "/fields/" + Integer.toString(pId);
+        String lUrlString =  CRest.API_URL + "/fields/" + Integer.toString(pId);
         Log.d("test2", "delete ->-> " + lUrlString);
         try {
             new CRestDelete().execute(lUrlString).get();
@@ -109,7 +109,7 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
      */
     // TODO test this method -> Xavier
     public void deleteBuildingRest(ABuildingEntity pBuilding, int pId){
-        String lUrlString = API_URL;
+        String lUrlString = CRest.API_URL;
 
         // Si la structure est un resonateur
         // If its a resonator

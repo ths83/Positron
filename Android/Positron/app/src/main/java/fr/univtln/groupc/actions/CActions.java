@@ -8,6 +8,7 @@ import java.util.List;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CConsumableEntity;
+import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
@@ -15,6 +16,7 @@ import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.CShieldEntity;
 import fr.univtln.groupc.entities.CTurretEntity;
+import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
 
 /**
@@ -29,7 +31,6 @@ public class CActions {
 
 
                 pPortal.addResonator(pResonator);
-                //TODO add XP
                 if (pResonator.getPortal() != null){
                     pResonator.getOwner().addXP(pResonator.getLevel()*10);
                 }
@@ -50,13 +51,24 @@ public class CActions {
 
 public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuilding , CPlayerEntity pPlayer) {
 
-    if (pPortal.getBuildings().size() < 4 ) {
-        if ( pPlayer.getLevel() >= pBuilding.getLevel() ){
 
-            pPortal.addBuilding(pBuilding);
-            //TODO add XP
-            if (pBuilding.getPortal() != null) {
-                pPlayer.addXP(pBuilding.getLevel() * 20);
+    if (pPortal.getBuildings().size() < 4 ) {
+        if ( pPlayer.getLevel() >= pBuilding.getLevel() ) {
+            if (pBuilding instanceof CShieldEntity && pBuilding.getLevel() >2) {
+                if(pPlayer.havingSkill(11)){
+                    pPortal.addBuilding(pBuilding);
+                    if (pBuilding.getPortal() != null) {
+                        pPlayer.addXP(pBuilding.getLevel() * 20);
+                    }
+                }
+                else{
+                    System.out.println("Compétence non acquise");
+                }
+            } else {
+                pPortal.addBuilding(pBuilding);
+                if (pBuilding.getPortal() != null) {
+                    pPlayer.addXP(pBuilding.getLevel() * 20);
+                }
             }
         }
         else {
@@ -77,11 +89,21 @@ public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity
     public void attackBuilding(CConsumableEntity pAmmunition, ABuildingEntity pBuilding, CPlayerEntity pPlayer) {
         int lBuildingEnergy = pBuilding.getEnergy();
 
-        if (pAmmunition.getName() == "Attack") {
-            pPlayer.attack(pBuilding, pAmmunition);
-            //TODO add XP
-            if(pBuilding.getEnergy()<lBuildingEnergy){
-                pPlayer.addXP((lBuildingEnergy-pBuilding.getEnergy())*10);
+        if (pAmmunition.getName().equals("Attack")) {
+            if(pAmmunition.getRarity() < 2) {
+                pPlayer.attack(pBuilding, pAmmunition);
+            }
+            else{
+                if ( (pAmmunition.getRarity() == 2 && pPlayer.havingSkill(21)) || ((pAmmunition.getRarity() == 2 && pPlayer.havingSkill(222))) ){
+                    pPlayer.attack(pBuilding, pAmmunition);
+                }
+                else{
+                    System.out.println("Skill Required");
+                }
+            }
+
+                if(pBuilding.getEnergy()<lBuildingEnergy){
+                pPlayer.addXP((lBuildingEnergy - pBuilding.getEnergy()) * 10);
             }
         } else {
             //Log.d("attackBuilding", "Consommable non approrié");
@@ -326,6 +348,8 @@ public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity
         */
         return pPlayer.getTeam() == pPortal.getTeam();
     }
+
+
 
 
 

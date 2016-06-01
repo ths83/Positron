@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="NewPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <!-- Abstracts entities -->
+        <class>fr.univtln.groupc.entities.ABuildingEntity</class>
+        <class>fr.univtln.groupc.entities.CPortalEntity</class>
+
+        <!-- Entities -->
+        <class>fr.univtln.groupc.entities.CFieldEntity</class>
+        <class>fr.univtln.groupc.entities.CPlayerEntity</class>
+        <class>fr.univtln.groupc.entities.CPortalEntity</class>
+        <class>fr.univtln.groupc.entities.CKeyEntity</class>
+        <class>fr.univtln.groupc.entities.CConsumableEntity</class>
+        <class>fr.univtln.groupc.entities.AObjectEntity</class>
+        <class>fr.univtln.groupc.entities.CResonatorEntity</class>
+        <class>fr.univtln.groupc.entities.CLinkEntity</class>
+        <class>fr.univtln.groupc.entities.CTeamEntity</class>
+        <class>fr.univtln.groupc.entities.CTerritoryEntity</class>
+        <class>fr.univtln.groupc.entities.CSkillEntity</class>
+        <class>fr.univtln.groupc.entities.CTurretEntity</class>
+
+        <!-- Abstracts stats -->
+        <class>fr.univtln.groupc.stats.AStatsAttacked</class>
+
+        <!-- Stats -->
+        <class>fr.univtln.groupc.stats.CStatsBuildingsAttacked</class>
+        <class>fr.univtln.groupc.stats.CStatsPlayer</class>
+        <class>fr.univtln.groupc.stats.CStatsResonatorAttacked</class>
+
+        <properties>
+            <property name="javax.persistence.target-database" value="PostgreSQL"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/>
+            <property name="javax.persistence.jdbc.password" value="ludivine"/>
+
+            <!-- Les options de générations des tables -->
+            <property name="eclipselink.ddl-generation.output-mode" value="both"/>
+            <!-- property name=eclipselink.ddl-generation" value="create-tables"/-->
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <!-- et des scripts SQL -->
+            <property name="eclipselink.create-ddl-jdbc-file-name" value="createDDL_ddlGeneration.sql"/>
+            <property name="eclipselink.drop-ddl-jdbc-file-name" value="dropDDL_ddlGeneration.sql"/>
+        </properties>
+    </persistence-unit>
+</persistence>

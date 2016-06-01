@@ -13,6 +13,9 @@ import java.net.URL;
  * Created by arouani277 on 25/05/16.
  */
 public class CRest extends AsyncTask<String,String,String> {
+
+    public final static String API_URL = "http://10.9.185.55:9998";
+
     @Override
     protected String doInBackground(String... params) {
         String lUrlString = params[0]; // URL to call

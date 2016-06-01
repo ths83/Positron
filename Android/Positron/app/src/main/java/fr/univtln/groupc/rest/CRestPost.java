@@ -21,7 +21,6 @@ public class CRestPost extends AsyncTask<String, String, Void> {
 
     public final static String API_URL = "http://10.9.185.55:9998";
 
-
     @Override
     protected Void doInBackground(String... params) {
         String lUrlString = params[0]; // URL to call

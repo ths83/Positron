@@ -12,7 +12,6 @@
     <com.pkmmte.view.CircularImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/image"
         app:border="true"
         app:border_color="#EEEEEE"
         app:border_width="4dp"
@@ -21,6 +20,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp" />
+    <!--android:src="@drawable/image"-->
 
     <TextView
         android:layout_width="wrap_content"

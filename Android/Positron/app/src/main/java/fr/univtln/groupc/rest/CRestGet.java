@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
@@ -36,7 +37,6 @@ import fr.univtln.groupc.entities.CSkillEntity;
 public class CRestGet extends AsyncTask<String,String,String> {
 
     public final static String API_URL = "http://10.9.185.55:9998";
-
 
     @Override
     protected String doInBackground(String... params) {
@@ -73,7 +73,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
         lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
-        String lUrlString = API_URL + "/portals";
+        String lUrlString = CRest.API_URL + "/portals";
         Log.d("test", "->-> " + lUrlString);
         String lPortalsJson = null;
         List<CPortalEntity> lPortals = new ArrayList<>();
@@ -84,6 +84,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
             //Log.d("test", "deserialisation !\n" + lPortalsJson);
 
             lPortals = lMapper.readValue(lPortalsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+            Log.d("test","lPortals -> " + lPortals);
             for (CPortalEntity lPortalTest : lPortals){
                 for (CResonatorEntity lResonatorTest : lPortalTest.getResonators()){
                     Log.d("test", "niveau de resonateur : " + lResonatorTest.getLevel());
@@ -121,7 +122,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
     public List<CPlayerEntity> getPlayersRest(){
         ObjectMapper lMapper = new ObjectMapper();
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        String lUrlString = API_URL + "/players";
+        String lUrlString = CRest.API_URL + "/players";
         Log.d("test", "->-> " + lUrlString);
         String lPlayersJson = null;
         List<CPlayerEntity> lPlayers = null;
@@ -149,7 +150,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
      */
     public CPlayerEntity getPlayerByID(int pId){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/players/"+Integer.toString(pId);
+        String lUrlString = CRest.API_URL + "/players/"+Integer.toString(pId);
         Log.d("test", "->-> " + lUrlString);
         String lPlayerJson = null;
         CPlayerEntity lPlayer = null;
@@ -181,7 +182,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
      */
     public CPortalEntity getPortalByIdRest(int pId){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/portals/"+Integer.toString(pId);
+        String lUrlString = CRest.API_URL + "/portals/"+Integer.toString(pId);
         Log.d("test", "->-> " + lUrlString);
         String lPortalJson = null;
         CPortalEntity lPortal = null;
@@ -212,7 +213,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
         lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
-        String lUrlString = API_URL + "/resonators" + "/portals/" + Integer.toString(pId);
+        String lUrlString = CRest.API_URL + "/resonators" + "/portals/" + Integer.toString(pId);
         Log.d("test", "->-> " + lUrlString);
         String lResonatorsJson = null;
         List<CResonatorEntity> lResonators = new ArrayList<>();
@@ -254,7 +255,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
         lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
-        String lUrlString = API_URL + "/resonators" + "/portals" + "/teams" + "/"+Integer.toString(pId1) +"/"+ Integer.toString(pId2);
+        String lUrlString = CRest.API_URL + "/resonators" + "/portals" + "/teams" + "/"+Integer.toString(pId1) +"/"+ Integer.toString(pId2);
         Log.d("test", "->-> " + lUrlString);
         String lResonatorsJson = null;
         List<CResonatorEntity> lResonators = new ArrayList<>();
@@ -292,7 +293,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
     public List<CKeyEntity> getKeysByPlayerRest(CPlayerEntity pPlayer){
         ObjectMapper lMapper = new ObjectMapper();
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        String lUrlString = API_URL + "/keys/players/" + Integer.toString(pPlayer.getId());
+        String lUrlString = CRest.API_URL + "/keys/players/" + Integer.toString(pPlayer.getId());
         Log.d("test", "->-> " + lUrlString);
         String lKeysJson = null;
         List<CKeyEntity> lKeys = null;
@@ -317,7 +318,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
 
     public CLinkEntity getLinkByID(int pId){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/links/"+Integer.toString(pId);
+        String lUrlString = CRest.API_URL + "/links/"+Integer.toString(pId);
         String lLinkJson = null;
         CLinkEntity lLink = null;
         try {
@@ -351,7 +352,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
      */
     public CSkillEntity getSkillByID(int pId){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/skills/"+Integer.toString(pId);
+        String lUrlString = CRest.API_URL + "/skills/"+Integer.toString(pId);
         Log.d("test", "->-> " + lUrlString);
         String lSkillJson = null;
         CSkillEntity lSkill = null;
@@ -376,4 +377,54 @@ public class CRestGet extends AsyncTask<String,String,String> {
     }
 
 
+
+// TODO a vérifier
+    /**
+     * get all fields from database to display them on Android Map
+     * @return
+     */
+    public List<CFieldEntity> getFieldsRest(){
+        ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
+        lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+        String lUrlString = CRest.API_URL + "/fields";
+        Log.d("test", "->-> " + lUrlString);
+        String lFieldsJson = null;
+        List<CFieldEntity> lFields = new ArrayList<>();
+        JSONObject lFieldObject = null;
+        try {
+            Log.d("test8","get fields :");
+            lFieldsJson = new CRestGet().execute(lUrlString).get();
+            //Log.d("test", "deserialisation !\n" + lfieldsJson);
+
+            lFields = lMapper.readValue(lFieldsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CFieldEntity.class));
+   /*         for (CFieldEntity lFieldTest : lFields){
+                for (CResonatorEntity lResonatorTest : lFieldTest.getResonators()){
+                    Log.d("test", "niveau de resonateur : " + lResonatorTest.getLevel());
+                }
+            }
+    */
+
+            Log.d("test8", "deserialized!!");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("test8", " tous les portails ->\n " + lFields);
+        return lFields;
+    }
 }

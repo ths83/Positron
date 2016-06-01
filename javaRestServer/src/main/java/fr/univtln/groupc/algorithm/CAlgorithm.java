@@ -2,6 +2,7 @@ package fr.univtln.groupc.algorithm;
 
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import java.util.ArrayList;
@@ -331,6 +332,62 @@ public class CAlgorithm {
 
         return EARTH_RADIUS * lC * MILLE ;
     }
+
+
+
+
+    public int inAField (CPlayerEntity pPlayer, List<CFieldEntity> lFieldList ){
+
+        double lDet[] = {0, 0, 0};
+        int li;
+        double lAx = 0, lBx = 0, lAy = 0, lBy = 0;
+
+
+        // On parcours la liste des territoire et on verrifie que le Portail portail n'est pas à l'interrieur.
+
+        for(CFieldEntity lField : lFieldList){
+            lDet[0] = 0;
+            lDet[1] = 0;
+            lDet[2] = 0;
+
+
+            // Pour chaque territoire on calcule le déterminant pour chaque segment qui le constitue.
+            for (li = 0; li < 3; li++) {
+                lAx = lField.getmLinks().get(li).getPortals().get(0).getLong();
+                lAy = lField.getmLinks().get(li).getPortals().get(0).getLat();
+
+                if (li != 2) {
+
+                    lBx = lField.getmLinks().get(li + 1).getPortals().get(0).getLong();
+                    lBy = lField.getmLinks().get(li + 1).getPortals().get(0).getLat();
+                } else {
+                    lBx = lField.getmLinks().get(0).getPortals().get(0).getLong();
+                    lBy = lField.getmLinks().get(0).getPortals().get(0).getLat();
+                }
+
+                lDet[li] = calculDetermiant((lBx-lAx),(lBy-lAy),(pPlayer.getLong()-lAx),(pPlayer.getLat()-lAy));
+
+            }
+
+            // Si tout les déterminant sont du même signe, le point est dans le territoire et on renvoie faux.
+            if ((lDet[0] < 0 && lDet[1] < 0 && lDet[2] < 0) || (lDet[0] > 0 && lDet[1] > 0 && lDet[2] > 0)) {
+                if( pPlayer.getTeam().equals(lField.getLinks().get(0).getPortals().get(1).getTeam()) ){
+                    return 1;
+                }
+                else{
+                    return 2;
+                }
+            }
+        }
+
+
+        // Si on sort de la boucle c'est que le point n'est dans aucun territoire.
+        return 0;
+
+    }
+
+
+
 
 }
 
