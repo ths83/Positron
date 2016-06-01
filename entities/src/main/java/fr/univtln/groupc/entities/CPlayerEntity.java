@@ -44,10 +44,10 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     private int mEnergy;
     @Column(name = "energy_max")
     private int mEnergyMax;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(schema = "positron")
-    private List<CSkillEntity> mSkills;
-    @OneToMany
+    private List<CSkillEntity> mSkills =new ArrayList<CSkillEntity>();
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(schema = "positron")
     private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
 
@@ -427,14 +427,17 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
 
     @JsonIgnore
-    public List<CResonatorEntity> getResonators(){
+    public List<CResonatorEntity> getResonators() {
         List<CResonatorEntity> lResonators = new ArrayList<CResonatorEntity>();
-        for (AObjectEntity lObject : mObjects){
-            if (lObject instanceof CResonatorEntity){
-                lResonators.add((CResonatorEntity)lObject);
+        for (AObjectEntity lObject : mObjects) {
+            if (lObject instanceof CResonatorEntity) {
+                if (((CResonatorEntity) lObject).getPortal() == null) {
+                    lResonators.add((CResonatorEntity) lObject);
                 }
             }
-        return lResonators;
+        }
+            return lResonators;
+
     }
 
     @JsonIgnore

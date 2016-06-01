@@ -22,7 +22,7 @@ import fr.univtln.groupc.rest.CRestUpdate;
  */
 public class CActions {
 
-    public CPortalEntity buildResonator(CPortalEntity pPortal, CResonatorEntity pResonator) {
+    public static CPortalEntity buildResonator(CPortalEntity pPortal, CResonatorEntity pResonator) {
 
         if (pPortal.getResonators().size() < 8 ) {
             if ( pResonator.getOwner().getLevel() >= pResonator.getLevel()) {
@@ -48,7 +48,7 @@ public class CActions {
     }
 /////////////////////////////////////////////////////////////
 
-public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuilding , CPlayerEntity pPlayer) {
+public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuilding , CPlayerEntity pPlayer) {
 
     if (pPortal.getBuildings().size() < 4 ) {
         if ( pPlayer.getLevel() >= pBuilding.getLevel() ){
