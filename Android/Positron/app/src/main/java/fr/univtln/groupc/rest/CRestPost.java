@@ -19,7 +19,7 @@ import fr.univtln.groupc.entities.CLinkEntity;
  */
 public class CRestPost extends AsyncTask<String, String, Void> {
 
-    public final static String API_URL = "http://10.9.185.55:9998";
+    public final static String API_URL = "http://10.0.3.2:9998";
 
     @Override
     protected Void doInBackground(String... params) {

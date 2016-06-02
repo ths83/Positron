@@ -22,7 +22,7 @@ import java.util.List;
 @JsonSubTypes.Type(value = CShieldEntity.class, name = "CShieldEntity")})
 @JsonDeserialize(as = ABuildingEntity.class)
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ABuildingEntity.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ABuildingEntity.class)
 //@JsonIdentityReference(alwaysAsId = true)
 public abstract class ABuildingEntity extends AObjectEntity implements Serializable ,ITarget {
     /*

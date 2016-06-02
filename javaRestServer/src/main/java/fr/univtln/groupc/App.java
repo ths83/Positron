@@ -21,11 +21,11 @@ public class App
     {
         CCrudMethods crud = new CCrudMethods();
         CPlayerEntity p1 = crud.find(CPlayerEntity.class,1);
-        /*CPlayerEntity p2 = crud.find(CPlayerEntity.class,2);
+        CPlayerEntity p2 = crud.find(CPlayerEntity.class,2);
         CPortalEntity po1 = crud.find(CPortalEntity.class,7);
         CPortalEntity po2 = crud.find(CPortalEntity.class,8);
         CPortalEntity po3 = crud.find(CPortalEntity.class,6);
-        CPortalEntity po4 = crud.find(CPortalEntity.class,9);*/
+        CPortalEntity po4 = crud.find(CPortalEntity.class,9);
         /*p1.addObjects(new CConsumableEntity.CConsumableBuilder(11).name("Bombe").rarity(2).build());
         crud.update(p1);
         //po1.setRadius(40);
@@ -49,14 +49,14 @@ public class App
         CResonatorEntity r9= new CResonatorEntity.CResonatorBuilder(6).level(8).owner(p1).energy(100).energyMax(100).portal(po3).build();
         CResonatorEntity r10= new CResonatorEntity.CResonatorBuilder(7).level(5).owner(p2).energy(100).energyMax(100).portal(po2).build();
         CResonatorEntity r13= new CResonatorEntity.CResonatorBuilder(8).level(7).owner(p2).energy(100).energyMax(100).portal(po2).build();
-        CResonatorEntity r14= new CResonatorEntity.CResonatorBuilder(9).level(1).owner(p2).energy(100).energyMax(100).portal(po4).build();*/
+        CResonatorEntity r14= new CResonatorEntity.CResonatorBuilder(9).level(1).owner(p2).energy(100).energyMax(100).portal(po4).build();
         //CResonatorEntity r16= new CResonatorEntity.CResonatorBuilder(10).level(8).owner(p1).energy(100).energyMax(100).portal(po4).build();
-        /*crud.create(r9);
+        crud.create(r9);
         crud.create(r10);
         crud.create(r13);
-        crud.create(r14);
-        crud.create(r16);*/
-        /*List<CPortalEntity> pi1 = new ArrayList<CPortalEntity>();
+        crud.create(r14);*/
+        //crud.create(r16);
+        List<CPortalEntity> pi1 = new ArrayList<CPortalEntity>();
         pi1.add(po1);
         pi1.add(po3);
         CLinkEntity l1 = new CLinkEntity.CLinkBuilder(1).portals(pi1).build();
@@ -79,7 +79,7 @@ public class App
         crud.create(f2);
         //CFieldEntity p1 = crud.find(CFieldEntity.class,101);
         //crud.delete(CFieldEntity.class,101);*/
-        /*CKeyEntity k1 = new CKeyEntity.CKeyBuilder(14).name("Key 4").portal(po4).build();
+        CKeyEntity k1 = new CKeyEntity.CKeyBuilder(14).name("Key 4").portal(po4).build();
         CKeyEntity k2= new CKeyEntity.CKeyBuilder(12).name("Key 2").portal(po4).build();
         CKeyEntity k3 = new CKeyEntity.CKeyBuilder(13).name("Key 3").portal(po3).build();
         p1.addObjects(k1);
@@ -95,11 +95,11 @@ public class App
         crud.create(r22);
         crud.create(r21);
         CResonatorEntity r24= new CResonatorEntity.CResonatorBuilder(17).level(8).owner(p1).energy(100).energyMax(100).build();
-        CResonatorEntity r25= new CResonatorEntity.CResonatorBuilder(18).level(5).owner(p1).energy(100).energyMax(100).build();*/
+        //CResonatorEntity r25= new CResonatorEntity.CResonatorBuilder(18).level(5).owner(p1).energy(100).energyMax(100).build();*/
         //crud.create(r9);
         //crud.create(r10);
-        /*System.out.println(p1.getObjects());
-        System.out.println(p1.getResonators());*/
+        //System.out.println(p1.getObjects());
+        //System.out.println(p1.getResonators());
         p1.setXp(7700);
         crud.update(p1);
     }
