@@ -11,6 +11,8 @@ import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CLinkImprovementEntity;
+import fr.univtln.groupc.entities.CMultiHackEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
@@ -24,7 +26,7 @@ import fr.univtln.groupc.rest.CRestUpdate;
  */
 public class CActions {
 
-    public CPortalEntity buildResonator(CPortalEntity pPortal, CResonatorEntity pResonator) {
+    public static CPortalEntity buildResonator(CPortalEntity pPortal, CResonatorEntity pResonator) {
 
         if (pPortal.getResonators().size() < 8 ) {
             if ( pResonator.getOwner().getLevel() >= pResonator.getLevel()) {
@@ -32,7 +34,7 @@ public class CActions {
 
                 pPortal.addResonator(pResonator);
                 if (pResonator.getPortal() != null){
-                    pResonator.getOwner().addXP(pResonator.getLevel()*10);
+                    pResonator.getOwner().addXP(pResonator.getLevel() * 10);
                 }
             }
             else{
@@ -49,7 +51,7 @@ public class CActions {
     }
 /////////////////////////////////////////////////////////////
 
-public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuilding , CPlayerEntity pPlayer) {
+public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuilding , CPlayerEntity pPlayer) {
 
 
     if (pPortal.getBuildings().size() < 4 ) {
@@ -73,7 +75,7 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
         }
         else {
             //   Log.d("BuildResonator","Niveau pas assez élever pour poser ce portail");
-            System.out.println( "Niveau pas assez élever" );
+            System.out.println("Niveau pas assez élever");
         }
     }
     else {
@@ -121,19 +123,32 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
         switch (pTypeObjet) {
 
             case (0): {
-                return (AObjectEntity) new CResonatorEntity.CResonatorBuilder(10).energyMax(pLevelObject * 20).energy(pLevelObject * 20).level(pLevelObject).build();
+                AObjectEntity lResonator = new CResonatorEntity.CResonatorBuilder(10).energyMax(pLevelObject * 20).energy(pLevelObject * 20).level(pLevelObject).build();
+                return lResonator;
             }
             case (1): {
-                return (AObjectEntity) new CTurretEntity.CTurretBuilder(10).energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
+                AObjectEntity lTurret =new CTurretEntity.CTurretBuilder(10).energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
+                return lTurret;
             }
             case (2): {
-                return (AObjectEntity) new CShieldEntity.CShieldBuilder(10).level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
+                AObjectEntity lShield = new CShieldEntity.CShieldBuilder(10).level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
+                return lShield;
             }
             case (3): {
-                return (CConsumableEntity) new CConsumableEntity.CConsumableBuilder(10).name("Attack").rarity(pRarety).build();
+                AObjectEntity lAttack = new CConsumableEntity.CConsumableBuilder(10).name("Attack").rarity(pRarety).build();
+                return lAttack;
             }
             case (4): {
-                return (CConsumableEntity) new CConsumableEntity.CConsumableBuilder(10).name("Bombe").rarity(pRarety).build();
+                AObjectEntity lBombe =  new CConsumableEntity.CConsumableBuilder(10).name("Bombe").rarity(pRarety).build();
+                return lBombe;
+            }
+            case (5): {
+                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder(1).hackBonus((int) pLevelObject/2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                return lMultiPiratage;
+            }
+            case (6): {
+                AObjectEntity lLinkImprovement = new CLinkImprovementEntity.CLinkImprovementBuilder(1).rangeBonus(pLevelObject/4).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                return lLinkImprovement;
             }
 
         }
@@ -187,13 +202,9 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
         //  System.out.println(lRandom);
         switch (pPortalLevel) {
 
-
             // Return rarety Max
-
             case 8:
                 return 3;
-
-
             case 7:
                 if (lRandom > 90) {
                     return 3;
@@ -204,8 +215,6 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
                         return 1;
                     }
                 }
-
-
             case 6:
                 if (lRandom == 95) {
                     return 3;
@@ -217,7 +226,6 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
                         return 1;
                     }
                 }
-
             case 5:
                 if (lRandom == 100) {
                     return 3;
@@ -230,8 +238,6 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
                         return 1;
                     }
                 }
-
-
             case 4:
                 if (lRandom > 80) {
                     return 2;
@@ -244,7 +250,6 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
                         return 0;
                     }
                 }
-
             case 3:
                 if (lRandom > 60) {
                     return 1;
@@ -252,7 +257,6 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
                 else {
                     return 0;
                 }
-
             case 2:
                 if (lRandom > 80) {
                     return 1;
@@ -260,7 +264,6 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
                 else {
                     return 0;
                 }
-
             case 1:
                 return 0;
         }
@@ -348,6 +351,7 @@ public CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity pBuild
         */
         return pPlayer.getTeam() == pPortal.getTeam();
     }
+
 
 
 

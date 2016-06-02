@@ -1,20 +1,19 @@
 package fr.univtln.groupc;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+
+
 import fr.univtln.groupc.dao.CCrudMethods;
-import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -73,7 +72,9 @@ public class CServer {
             int lId = pBean.getConnection().getPlayerId();
             System.out.println("id de session : " + lId);
             pPeer.getBasicRemote().sendObject(new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.CONNECTED.toString()).build());
-        } else if (pBean.getType().equals(EPayloadType.POSE_RESONATOR.toString())) {
+        }
+
+        else if (pBean.getType().equals(EPayloadType.POSE_RESONATOR.toString())) {
             System.out.println("un cas de pose");
             System.out.println("la pose du resonator : " + pBean.getPoseResonator());
             System.out.println("team du player ! " + pBean.getPoseResonator().getResonator().getOwner().getTeam());
@@ -82,6 +83,7 @@ public class CServer {
                 CTeamPortalChanged lTeamPortalChanged = new CTeamPortalChanged(pBean.getPoseResonator().getPortal());
                 System.out.println("team du portal dans le if : " + lTeamPortalChanged.getPortal().getTeam());
                 CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_CHANGING_TEAM.toString()).objectTeamPortalChanged(lTeamPortalChanged).build();
+                mCrudMethods.update(lBeanToSend.getTeamPortalChanged().getPortal());
                 for (Session lSession : mSessions) {
                     lSession.getBasicRemote().sendObject(lBeanToSend);
                 }
@@ -90,12 +92,17 @@ public class CServer {
                 CResonatorPosed lResonatorPosed = new CResonatorPosed(pBean.getPoseResonator().getPortal());
                 System.out.println(" portal " + lResonatorPosed.getPortal().getTeam());
                 CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().objectResonatorPosed(lResonatorPosed).type(EPayloadType.RESONATOR_POSED.toString()).build();
+                mCrudMethods.update(lBeanToSend.getResonatorPosed().getPortal());
+
                 pPeer.getBasicRemote().sendObject(lBeanToSend);
 
             }
-        } else if (pBean.getType().equals(EPayloadType.CREATE_LINK)) {
+        }
+
+        else if (pBean.getType().equals(EPayloadType.CREATE_LINK.toString())) {
             System.out.println("un cas de creation de lien");
             CLinkEntity lLink = pBean.getCreateLink().getLink();
+            System.out.println("lLink nb portals -> " + lLink.getPortals().size());
             List<Integer> lListIDLinktoDestoy = new ArrayList<Integer>();
             List<CLinkEntity> lLinkStorageField = new ArrayList<CLinkEntity>();
             List<CLinkEntity> lLinkListField = new ArrayList<CLinkEntity>();
@@ -137,15 +144,32 @@ public class CServer {
                             System.out.println("Lien " + lID + " détruit");
                             mCrudMethods.delete(CLinkEntity.class, lID);
                         }
+                        CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.FIELD_CREATED.toString()).objectFieldCreated(new CFieldCreated(lField)).build();
+                        for (Session lSession : mSessions){
+                            lSession.getBasicRemote().sendObject(lBeanToSend);
+                        }
                     }
                 } else {
                     System.out.println("Pas de field à créer");
+                    CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.LINK_CREATED.toString()).objectLinkCreated(new CLinkCreated(lLink)).build();
+                    System.out.println(lBeanToSend);
+                    for (Session lSession : mSessions){
+                        lSession.getBasicRemote().sendObject(lBeanToSend);
+                    }
                 }
 
 
             }
         }
-    }
+
+        else if (pBean.getType().equals(EPayloadType.ATTACK_BUILDING.toString())){
+            System.out.println("un cas d'attaque de building");
+            //if (pBean.get)
+        }
+
+
+        }
+
 
 
     @OnClose
@@ -163,7 +187,10 @@ public class CServer {
             server.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Please press a key to stop the server.");
-            reader.readLine();
+            while(true){
+                reader.readLine();
+            }
+            //reader.readLine();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

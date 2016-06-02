@@ -24,11 +24,11 @@ public class CCreateLink implements Serializable {
     public CLinkEntity getLink(){
         return mLink;
     }
-
+/*
     @Override
     public String toString() {
         return "CCreateLink{" +
                 "mLink=" + mLink +
                 '}';
-    }
+    }*/
 }

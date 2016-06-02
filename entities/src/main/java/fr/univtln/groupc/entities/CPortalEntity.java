@@ -230,6 +230,26 @@ public class CPortalEntity implements Serializable {
         }
     }
 
+    public void removeResonator(CResonatorEntity pResonator){
+        if (mResonators != null){
+            mResonators.remove(pResonator);
+            //pResonator.setPortal(null);
+        }
+        else{
+            System.out.println("resonators null");
+        }
+    }
+
+    public void removeBuilding(ABuildingEntity pBuilding){
+        if (mBuildings != null){
+            mBuildings.remove(pBuilding);
+            //pBuilding.setPortal(null);
+        }
+        else{
+            System.out.println("buildings null");
+        }
+    }
+
     public void addBuilding(ABuildingEntity pBuilding){
         if (mBuildings != null){
             mBuildings.add(pBuilding);
@@ -366,6 +386,18 @@ public class CPortalEntity implements Serializable {
        }
      lLevel =  lLevel/8;
     return lLevel;
+    }
+
+    @JsonIgnore
+    public List<CMultiHackEntity> getMultiHack(){
+        List<CMultiHackEntity> lMultiHackList = new ArrayList<CMultiHackEntity>();
+
+        for(ABuildingEntity lBuilding : mBuildings){
+            if(lBuilding instanceof CMultiHackEntity){
+                lMultiHackList.add((CMultiHackEntity)lBuilding);
+            }
+        }
+        return lMultiHackList;
     }
 
 }

@@ -31,7 +31,7 @@ public class CProfilActivity extends AppCompatActivity {
 
         mCircularImageView = (CircularImageView) findViewById(R.id.yourCircularImageView);
         mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
-        
+
         if (SCurrentPlayer.mPlayer != null) {
 
 

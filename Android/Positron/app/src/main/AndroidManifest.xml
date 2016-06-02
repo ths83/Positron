@@ -64,10 +64,9 @@
             android:name="fr.univtln.groupc.activities.map.CTacticalActivity"
             android:screenOrientation="landscape" >
         </activity>
-        <activity android:name="fr.univtln.groupc.activities.google.CSignInActivity" >
+        <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity" >
             <intent-filter>
                 <action android:name="ANDROID.INTENT.ACTION.MAIN" />
-
                 <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
             </intent-filter>
         </activity>

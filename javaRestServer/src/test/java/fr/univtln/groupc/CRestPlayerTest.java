@@ -44,6 +44,14 @@ public class CRestPlayerTest extends TestCase {
         assertEquals(lClientResponse.getStatus(), 200);
     }
 
+    public void testGetPlayerByIdService() throws Exception {
+        CPlayerEntity lPlayerEntity = mMapper.readValue(mWebResource.path("/players/1").get(String.class), CPlayerEntity.class);
+        System.out.println(lPlayerEntity);
+        System.out.println(lPlayerEntity.getObjects());
+        System.out.println("--->"+lPlayerEntity.getResonators().toString());
+        assertEquals(lPlayerEntity.getId(), 1);
+    }
+
 
 
     /*

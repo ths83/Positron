@@ -1,7 +1,10 @@
 package fr.univtln.groupc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +21,10 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity"),
         @JsonSubTypes.Type(value = CConsumableEntity.class, name = "CConsumableEntity"),
         @JsonSubTypes.Type(value = CKeyEntity.class, name = "CKeyEntity"),
-        @JsonSubTypes.Type(value = CShieldEntity.class, name = "CShieldEntity")})
+        @JsonSubTypes.Type(value = CShieldEntity.class, name = "CShieldEntity")
+, @JsonSubTypes.Type(value = ABuildingEntity.class, name = "ABuildingEntity")})
+//@JsonDeserialize(as = AObjectEntity.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = AObjectEntity.class)
 //@JsonIdentityReference(alwaysAsId = true)
 public abstract class AObjectEntity implements Serializable {
     @Id

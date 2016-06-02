@@ -1,6 +1,5 @@
 package fr.univtln.groupc;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 

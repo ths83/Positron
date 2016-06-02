@@ -51,16 +51,7 @@ public class CAttackBuilding implements Serializable {
         mConsumable = pConsumable;
     }
 
-    public void applyAttack() {
-        int lDammage = 0;
-        if (mConsumable.getName().equals("Attack")) {
-            mPlayer.attack(mBuilding, mConsumable);
-            //TODO add XP
-        } else {
-            System.out.println("Consommable non approrié");
-        }
 
-    }
 
 
     public static class CAttackBuildingBuilder{

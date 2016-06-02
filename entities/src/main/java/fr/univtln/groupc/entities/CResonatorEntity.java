@@ -22,6 +22,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CResonatorEntity.class)
 @JsonDeserialize(as = CResonatorEntity.class)
+
 public class CResonatorEntity extends ABuildingEntity implements Serializable {
 
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -43,6 +44,9 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
         mOwner = pBuilder.mOwner;
         if (getPortal() != null){
             getPortal().addResonator(this);
+        }
+        if (getOwner() != null){
+            getOwner().addObjects(this);
         }
     }
 
