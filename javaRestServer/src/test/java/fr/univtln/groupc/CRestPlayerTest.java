@@ -5,7 +5,6 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.CPlayerEntity;
-import fr.univtln.groupc.server.CServer;
 import junit.framework.TestCase;
 
 /**
@@ -70,3 +69,4 @@ public class CRestPlayerTest extends TestCase {
         assertEquals(lResponse.getStatus(), 200);
     }
 }
+

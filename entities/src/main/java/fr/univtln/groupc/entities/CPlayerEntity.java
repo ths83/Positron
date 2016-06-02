@@ -399,6 +399,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
     public void removeObject (AObjectEntity pObject){
         mObjects.remove(pObject);
+        //TODO DELETE OBJECT
     }
 
     public void loseEnergy(int pEnergyLose){

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package fr.univtln.groupc.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -115,3 +116,5 @@ public class CPortalService implements ContextResolver<ObjectMapper>{
         return mMapper;
     }
 }
+=======
+>>>>>>> 2e54ce538742ffdd84b51d1fb08dfebc7131399b

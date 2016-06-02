@@ -1,3 +1,4 @@
+
 package fr.univtln.groupc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -97,3 +98,4 @@ public class CRestPortalTest extends TestCase {
 
 
 }
+

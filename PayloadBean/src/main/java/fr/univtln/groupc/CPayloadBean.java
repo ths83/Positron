@@ -16,6 +16,7 @@ public class CPayloadBean implements Serializable {
     private CConnection mConnection;
     private CAttackBuilding mAttackBuilding;
     private CPoseResonator mPoseResonator;
+    private CPoseVirus mPoseVirus;
     //private CHackPortal mHackPortal;
     //private CAttackAOE mAttackAOE;
     private CTeamPortalChanged mTeamPortalChanged;
@@ -23,6 +24,13 @@ public class CPayloadBean implements Serializable {
     private CCreateLink mCreateLink;
     private CLinkCreated mLinkCreated;
     private CFieldCreated mFieldCreated;
+
+    private CVirusPosed mPosedVirus;
+
+    private CHackPortal mHackPortal;
+    private CPortalHacked mPortalHacked;
+    private CHackPortalKey mHackPortalKey;
+    private CPortalKeyHacked mPortalKeyHacked;
 
 
     public CPayloadBean() {
@@ -42,6 +50,11 @@ public class CPayloadBean implements Serializable {
         mCreateLink = pBuilder.mCreateLink;
         mLinkCreated = pBuilder.mLinkCreated;
         mFieldCreated = pBuilder.mFieldCreated;
+        mHackPortal = pBuilder.mHackPortal;
+        mPortalHacked = pBuilder.mPortalHacked;
+        mHackPortalKey = pBuilder.mHackPortalKey;
+        mPortalKeyHacked = pBuilder.mPortalKeyHacked;
+
     }
 
     public void setType(String pType) {
@@ -102,6 +115,21 @@ public class CPayloadBean implements Serializable {
         return mPoseResonator;
     }
 
+    public CVirusPosed getPosedVirus() {
+        return mPosedVirus;
+    }
+
+    public void setPosedVirus(CVirusPosed mPosedVirus) {
+        this.mPosedVirus = mPosedVirus;
+    }
+
+    public CPoseVirus getPoseVirus() {
+        return mPoseVirus;
+    }
+
+    public void setPoseVirus(CPoseVirus mPoseVirus) {
+        this.mPoseVirus = mPoseVirus;
+    }
 
     public void setPoseResonator(CPoseResonator pPoseResonator){
         mPoseResonator = pPoseResonator;
@@ -147,6 +175,26 @@ public class CPayloadBean implements Serializable {
         mFieldCreated = pFieldCreated;
     }
 
+    public CHackPortal getHackPortal() { return mHackPortal; }
+
+    public void setHackPortal(CHackPortal pHackPortal) { this.mHackPortal = pHackPortal; }
+
+    public CPortalHacked getPortalHacked() { return mPortalHacked; }
+
+    public void setPortalHacked(CPortalHacked pPortalHacked) { this.mPortalHacked = pPortalHacked; }
+
+    public CHackPortalKey getHackPortalKey() { return mHackPortalKey;}
+
+    public void setHackPortalKey(CHackPortalKey mHackPortalKey) { this.mHackPortalKey = mHackPortalKey; }
+
+    public CPortalKeyHacked getPortalKeyHacked() { return mPortalKeyHacked; }
+
+    public void setPortalKeyHacked(CPortalKeyHacked mPortalKeyHacked) { this.mPortalKeyHacked = mPortalKeyHacked;}
+
+    public CAttackBuilding getAttackBuilding() {return mAttackBuilding;}
+
+    public void setAttackBuilding(CAttackBuilding pAttackBuilding) {this.mAttackBuilding = pAttackBuilding;}
+
     @Override
     public String toString() {
         return "CPayloadBean{" +
@@ -169,6 +217,7 @@ public class CPayloadBean implements Serializable {
         private CConnection mConnection;
         private CAttackBuilding mAttackBuilding;
         private CPoseResonator mPoseResonator;
+        private CPoseVirus mPoseVirus;
         //private CHackPortal mHackPortal;
         //private CAttackAOE mAttackAOE;
         private CTeamPortalChanged mTeamPortalChanged;
@@ -176,6 +225,14 @@ public class CPayloadBean implements Serializable {
         private CCreateLink mCreateLink;
         private CLinkCreated mLinkCreated;
         private CFieldCreated mFieldCreated;
+
+        private CVirusPosed mVirusPosed;
+
+        private CHackPortal mHackPortal;
+        private CPortalHacked mPortalHacked;
+        private CHackPortalKey mHackPortalKey;
+        private CPortalKeyHacked mPortalKeyHacked;
+
 
         public CPayloadBeanBuilder(){};
 /*
@@ -195,6 +252,11 @@ public class CPayloadBean implements Serializable {
 
         public CPayloadBeanBuilder objectCreateLink(CCreateLink pCreateLink){
             mCreateLink = pCreateLink;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectPoseVirus(CPoseVirus pPoseVirus){
+            mPoseVirus = pPoseVirus;
             return this;
         }
 /*
@@ -233,10 +295,35 @@ public class CPayloadBean implements Serializable {
             return this;
         }
 
+        public CPayloadBeanBuilder objectVirusPosed(CVirusPosed pVirusPosed){
+            mVirusPosed = pVirusPosed;
+            return this;
+        }
+
 
 
         public CPayloadBeanBuilder type(String pType){
             mType = pType;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectHackPortal (CHackPortal pHackportal){
+            mHackPortal = pHackportal;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectPortalHacked(CPortalHacked pPortalHacked){
+            mPortalHacked = pPortalHacked;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectHackPortalKey (CHackPortalKey pHackPortalKey){
+            mHackPortalKey = pHackPortalKey;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectPortalKeyHacked(CPortalKeyHacked pPortalKeyHacked){
+            mPortalKeyHacked = pPortalKeyHacked;
             return this;
         }
 

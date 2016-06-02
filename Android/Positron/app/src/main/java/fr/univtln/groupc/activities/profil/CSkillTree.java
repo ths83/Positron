@@ -1,5 +1,6 @@
 package fr.univtln.groupc.activities.profil;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -107,35 +108,52 @@ public class CSkillTree extends AppCompatActivity {
         int lLevelScout = pPlayer.getLevelOnSkillBranch("Scout");
 
         mButtonMaintenance_1.setEnabled(false);
+        mButtonMaintenance_1.setBackgroundColor(Color.GRAY);
         mButtonMaintenance_21.setEnabled(false);
+        mButtonScout_21.setBackgroundColor(Color.GRAY);
         mButtonMaintenance_22.setEnabled(false);
+        mButtonMaintenance_22.setBackgroundColor(Color.GRAY);
         mButtonMaintenance_3.setEnabled(false);
-
+        mButtonMaintenance_3.setBackgroundColor(Color.GRAY);
         mButtonAttack_1.setEnabled(false);
+        mButtonAttack_1.setBackgroundColor(Color.GRAY);
         mButtonAttack_21.setEnabled(false);
+        mButtonAttack_21.setBackgroundColor(Color.GRAY);
         mButtonAttack_22.setEnabled(false);
+        mButtonAttack_22.setBackgroundColor(Color.GRAY);
         mButtonAttack_3.setEnabled(false);
-
+        mButtonAttack_3.setBackgroundColor(Color.GRAY);
         mButtonHacker_1.setEnabled(false);
+        mButtonHacker_1.setBackgroundColor(Color.GRAY);
         mButtonHacker_21.setEnabled(false);
+        mButtonHacker_21.setBackgroundColor(Color.GRAY);
         mButtonHacker_22.setEnabled(false);
+        mButtonHacker_22.setBackgroundColor(Color.GRAY);
         mButtonHacker_3.setEnabled(false);
-
+        mButtonHacker_3.setBackgroundColor(Color.GRAY);
         mButtonScout_1.setEnabled(false);
+        mButtonScout_1.setBackgroundColor(Color.GRAY);
         mButtonScout_21.setEnabled(false);
+        mButtonScout_21.setBackgroundColor(Color.GRAY);
         mButtonScout_22.setEnabled(false);
+        mButtonScout_22.setBackgroundColor(Color.GRAY);
         mButtonScout_3.setEnabled(false);
+        mButtonScout_3.setBackgroundColor(Color.GRAY);
 
 
         if(lLevelMaintenance < 3){
             mButtonMaintenance_3.setEnabled(true);
+            mButtonMaintenance_3.setBackgroundColor(Color.CYAN);
 
             if(lLevelMaintenance <2){
                 mButtonMaintenance_21.setEnabled(true);
+                mButtonMaintenance_21.setBackgroundColor(Color.CYAN);
                 mButtonMaintenance_22.setEnabled(true);
+                mButtonMaintenance_22.setBackgroundColor(Color.CYAN);
 
                 if(lLevelMaintenance < 1){
                     mButtonMaintenance_1.setEnabled(true);
+                    mButtonMaintenance_1.setBackgroundColor(Color.CYAN);
                 }
             }
         }
@@ -143,13 +161,17 @@ public class CSkillTree extends AppCompatActivity {
 
         if(lLevelAttack < 3){
             mButtonAttack_3.setEnabled(true);
+            mButtonAttack_3.setBackgroundColor(Color.CYAN);
 
             if(lLevelAttack <2){
                 mButtonAttack_22.setEnabled(true);
+                mButtonAttack_22.setBackgroundColor(Color.CYAN);
                 mButtonAttack_21.setEnabled(true);
+                mButtonAttack_21.setBackgroundColor(Color.CYAN);
 
                 if(lLevelAttack < 1){
                     mButtonAttack_1.setEnabled(true);
+                    mButtonAttack_1.setBackgroundColor(Color.CYAN);
                 }
             }
         }
@@ -157,32 +179,39 @@ public class CSkillTree extends AppCompatActivity {
 
         if(lLevelHack < 3){
             mButtonHacker_3.setEnabled(true);
+            mButtonHacker_3.setBackgroundColor(Color.CYAN);
 
             if(lLevelHack <2){
                 mButtonHacker_21.setEnabled(true);
+                mButtonHacker_21.setBackgroundColor(Color.CYAN);
                 mButtonHacker_22.setEnabled(true);
+                mButtonHacker_22.setBackgroundColor(Color.CYAN);
 
                 if(lLevelHack < 1){
                     mButtonHacker_1.setEnabled(true);
+                    mButtonHacker_1.setBackgroundColor(Color.CYAN);
                 }
             }
         }
 
         if(lLevelScout < 3){
             mButtonScout_3.setEnabled(true);
+            mButtonScout_3.setBackgroundColor(Color.CYAN);
 
             if(lLevelScout <2){
                 mButtonScout_21.setEnabled(true);
+                mButtonScout_21.setBackgroundColor(Color.CYAN);
                 mButtonScout_22.setEnabled(true);
+                mButtonScout_22.setBackgroundColor(Color.CYAN);
 
                 if(lLevelScout < 1){
                     mButtonScout_1.setEnabled(true);
+                    mButtonScout_1.setBackgroundColor(Color.CYAN);
                 }
             }
         }
 
     }
-
     public int calculateFreeSkillPoint(CPlayerEntity pPlayer){
         int lSkillPoints = pPlayer.getLevel()*2;
         int lSkillPointOwned = 0, lFreePoint = 0;
