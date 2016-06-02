@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package fr.univtln.groupc.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPortalEntity;
+import org.codehaus.jackson.map.DeserializationConfig;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -116,5 +116,3 @@ public class CPortalService implements ContextResolver<ObjectMapper>{
         return mMapper;
     }
 }
-=======
->>>>>>> 2e54ce538742ffdd84b51d1fb08dfebc7131399b

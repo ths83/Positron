@@ -5,6 +5,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import fr.univtln.groupc.entities.CPlayerEntity;
+import fr.univtln.groupc.server.CServer;
 import junit.framework.TestCase;
 
 /**
@@ -47,7 +48,7 @@ public class CRestPlayerTest extends TestCase {
         CPlayerEntity lPlayerEntity = mMapper.readValue(mWebResource.path("/players/1").get(String.class), CPlayerEntity.class);
         System.out.println(lPlayerEntity);
         System.out.println(lPlayerEntity.getObjects());
-        System.out.println("--->" + lPlayerEntity.getResonators().toString());
+        System.out.println("--->"+lPlayerEntity.getResonators().toString());
         assertEquals(lPlayerEntity.getId(), 1);
     }
 
@@ -69,4 +70,3 @@ public class CRestPlayerTest extends TestCase {
         assertEquals(lResponse.getStatus(), 200);
     }
 }
-

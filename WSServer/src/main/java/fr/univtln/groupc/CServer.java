@@ -1,14 +1,5 @@
 package fr.univtln.groupc;
 
-
-<<<<<<< HEAD
-
-
-
-
-
-=======
->>>>>>> 2e54ce538742ffdd84b51d1fb08dfebc7131399b
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.*;
 

@@ -1,4 +1,3 @@
-
 package fr.univtln.groupc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,9 +49,8 @@ public class CRestPortalTest extends TestCase {
     }
 
     public void testGetPortalService() throws Exception {
-        CPortalEntity lPortalEntity = mMapper.readValue(mWebResource.path("/portals/7").get(String.class), CPortalEntity.class);
-        System.out.println(mMapper.writeValueAsString(lPortalEntity));
-        assertEquals(lPortalEntity.getId(), 7);
+        CPortalEntity lPortalEntity = mMapper.readValue(mWebResource.path("/portals/1").get(String.class), CPortalEntity.class);
+        assertEquals(lPortalEntity.getId(), 1);
     }
 
     public void testDeletePortalService() throws Exception {
@@ -90,12 +88,12 @@ public class CRestPortalTest extends TestCase {
 
     public void testgetPortals() throws Exception {
         String lJson = null;
+        List<CPortalEntity> lPortals = new ArrayList<>();
         lJson = mWebResource.path("/portals").get(String.class);
-        List <CPortalEntity> lPortals = mMapper.readValue(lJson, mMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+        lPortals = mMapper.readValue(lJson, mMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
         System.out.println("portals : " + lPortals);
 
     }
 
 
 }
-

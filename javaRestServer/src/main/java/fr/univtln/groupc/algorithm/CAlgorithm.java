@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 package fr.univtln.groupc.algorithm;
 
 import fr.univtln.groupc.entities.CFieldEntity;
@@ -482,7 +480,8 @@ public class CAlgorithm {
 
     }
 
+
+
 }
 
 
->>>>>>> d5a696d67359a01e6ffaafa1e0a728a4221b9819
