@@ -28,7 +28,7 @@ public class CBDDSqlite extends SQLiteOpenHelper{
 
 
     private static final String CREATE_BDD_PLAYER = "CREATE TABLE " + TABLE_PLAYER + " ("
-            + COL_ID + " INTEGER PRIMARY KEY, "
+            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COL_Nickname + " TEXT, "+ COL_Email + " TEXT, "
             + COL_Xp + " INTEGER, "+ COL_BagSize + " INTEGER, "+ COL_Longitude + " DOUBLE, "
             + COL_Latitude + " DOUBLE, "+ COL_Energy + " INTEGER, "+ COL_EnergyMax + " INTEGER);";

@@ -100,7 +100,7 @@ public class CPlayerDAO implements IDAO<CPlayerEntity> {
         //Création d'un ContentValues (fonctionne comme une HashMap)
         ContentValues values = new ContentValues();
         //on lui ajoute une valeur associé à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
-        values.put(COL_ID,t.getId());
+        //values.put(COL_ID,t.getId());
         values.put(COL_Email,t.getEmail());
         values.put(COL_Nickname, t.getNickName());
         values.put(COL_Xp, t.getXp());
