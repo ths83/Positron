@@ -368,8 +368,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         @Override
         public void onMyLocationChange(Location location) {
             // current position player
-//            SCurrentPlayer.mPlayer.setLat(location.getLatitude());
-  //          SCurrentPlayer.mPlayer.setLong(location.getLongitude());
+            SCurrentPlayer.mPlayer.setLat(location.getLatitude());
+            SCurrentPlayer.mPlayer.setLong(location.getLongitude());
 
 //            mPlayer.setLat(location.getLatitude());
   //          mPlayer.setLong(location.getLongitude());

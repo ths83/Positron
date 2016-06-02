@@ -94,4 +94,6 @@ public class CRestPortalTest extends TestCase {
         System.out.println("portals : " + lPortals);
 
     }
+
+
 }
