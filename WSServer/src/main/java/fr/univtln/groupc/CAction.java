@@ -26,6 +26,7 @@ public class CAction {
                 System.out.println("salut attach 3");
                 pPoseResonator.getPortal().addResonator(pPoseResonator.getResonator());
                 System.out.println("nb reso au portail : " + pPoseResonator.getPortal().getResonators().size());
+                System.out.println("getportal null ? " + pPoseResonator.getPortal() == null);
                 pPoseResonator.getPortal().attributeTeam();
                 // todo : add xp to player
             }

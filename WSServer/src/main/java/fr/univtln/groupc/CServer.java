@@ -83,7 +83,7 @@ public class CServer {
                 CTeamPortalChanged lTeamPortalChanged = new CTeamPortalChanged(pBean.getPoseResonator().getPortal());
                 System.out.println("team du portal dans le if : " + lTeamPortalChanged.getPortal().getTeam());
                 CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_CHANGING_TEAM.toString()).objectTeamPortalChanged(lTeamPortalChanged).build();
-                mCrudMethods.update(lBeanToSend.getTeamPortalChanged().getPortal());
+                //mCrudMethods.update(lBeanToSend.getTeamPortalChanged().getPortal());
                 for (Session lSession : mSessions) {
                     lSession.getBasicRemote().sendObject(lBeanToSend);
                 }
