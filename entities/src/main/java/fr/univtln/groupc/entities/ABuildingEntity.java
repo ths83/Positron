@@ -2,7 +2,6 @@ package fr.univtln.groupc.entities;
 
 
 import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import sun.rmi.runtime.Log;
 
 import javax.persistence.*;
@@ -20,9 +19,9 @@ import java.util.List;
 @JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
         @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity"),
 @JsonSubTypes.Type(value = CShieldEntity.class, name = "CShieldEntity")})
-
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ABuildingEntity.class)
 //@JsonIdentityReference(alwaysAsId = true)
+
 public abstract class ABuildingEntity extends AObjectEntity implements Serializable ,ITarget {
     /*
     @Column(name = "long")
@@ -45,6 +44,7 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
     private int mEnergy;
 
     public ABuildingEntity(){
+        super();
     }
 
 
