@@ -80,9 +80,19 @@ public enum EPayloadType{
             return "field_destroyed";
         }
     },
-    TEAM_PORTAL_CHANGED{
-        public String toString(){
-            return "team_portal_changed";
-        }
+    TEAM_PORTAL_CHANGED {
+        public String toString() { return "team_portal_changed";}
+    },
+    HACK_PORTAL{
+            public String toString () {return "hack_portal";}
+    },
+    PORTAL_HACKED{
+        public String toString () {return  "portal_hacked";}
+    },
+    HACK_PORTAL_KEY{
+        public String toString () {return  "hack_portal_key";}
+    },
+    PORTAL_KEY_HACKED{
+        public String toString () {return  "portal_key_hacked";}
     }
 }

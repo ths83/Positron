@@ -480,8 +480,6 @@ public class CAlgorithm {
 
     }
 
-
-
 }
 
 
