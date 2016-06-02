@@ -32,6 +32,10 @@
     <string name="title_positron_in_progress">Positron</string>
     <string name="podo_sensor_not_present">Le podomètre n\'est pas disponible sur cet appareil !</string>
 
+    <!-- podometer service -->
+    <string name="podo_text_value">Vous avez fait </string>
+    <string name="step_string"> pas.</string>
+
 
 
 

@@ -19,12 +19,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +55,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
+import fr.univtln.groupc.actions.CActions;
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
@@ -66,13 +70,14 @@ import fr.univtln.groupc.rest.CRestDelete;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.groupc.services.services.CLaunchService;
+import fr.univtln.groupc.services.services.CPodometerService;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
 
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
-    public final static int GPS_PLAYER_RADIUS = 50;
+    public final static int GPS_PLAYER_RADIUS = 150;
     public final static float MAX_ZOOM_MAP = 17f;
     public static final int NB_PORTALS_LINK = 2 ;
     public static final float LINE_WIDTH = 5f ;
@@ -132,11 +137,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // Launcher service
         Intent lLauncherIntent = new Intent(this, CLaunchService.class);
+        Intent lPodoIntent = new Intent(this, CPodometerService.class);
         startService(lLauncherIntent);
+        startService(lPodoIntent);
 
         mDrawerAction = (DrawerLayout) findViewById(R.id.drawerlayout);
         mScroll = (ScrollView) findViewById(R.id.drawerleft);
         mLinear = (LinearLayout) findViewById(R.id.initaction);
+        SCurrentPlayer.mPlayer = new CRestGet().getPlayerByID(1);
 
         // TODO test for links
         //Button lTestButton = (Button) findViewById(R.id.link);
@@ -320,7 +328,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                             // TODO delete this 382-> test
                             //mTestPortal = lPortal;
                             //Log.d("test8", "portail null ? " + Boolean.toString(lPortal==null));
-
+                            mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN,mScroll);
                             displayResonators(mPortalClicked);
                             mPosition = 1;
                         /*mMap.animateCamera(CameraUpdateFactory.newLatLng(lUserLatLng));*/
@@ -378,7 +386,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             //mUserLatLng = new LatLng(mPlayer.getLat(),mPlayer.getLong());
             mUserLatLng = new LatLng(location.getLatitude(),location.getLongitude());
             if (mPosition != 1) {
-                //mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(mUserLatLng));
             }
@@ -760,7 +768,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
                 }*/
 
-                    Log.d("test5", "rte" + pPortal.getResonators().get(0).getEnergy());
+                    //Log.d("test5", "rte" + pPortal.getResonators().get(0).getEnergy());
                 }
             });
         }
@@ -772,6 +780,17 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
         ImageButton lButtonCreate = generateButton(R.mipmap.create);
         mLinear.addView(lButtonCreate);
+        lButtonCreate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mLinear.removeAllViews();
+                InitDrawerBuild();
+                mDrawerAction.openDrawer(mScroll);
+                //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+                mDrawerAction.setScrimColor(getResources().getColor(R.color.transparent));
+
+            }
+        });
         ImageButton lButtonBuild = generateButton(R.mipmap.build);
         lButtonBuild.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -787,8 +806,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mLinear.addView(lButtonBuild);
         ImageButton lButtonPirate = generateButton(R.mipmap.pirate);
         mLinear.addView(lButtonPirate);
-        ImageButton lButtonCancel = generateButton(R.mipmap.cancel);
-        mLinear.addView(lButtonCancel);
+        /*ImageButton lButtonCancel = generateButton(R.mipmap.cancel);
+        mLinear.addView(lButtonCancel);*/
+        buttonCanceled();
     }
 
 
@@ -879,16 +899,35 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mLinear.addView(lButtonBuild);
         ImageButton lButtonPirate = generateButton(R.mipmap.kitsoin);
         mLinear.addView(lButtonPirate);
+        buttonCanceled();
     }
 
     public void InitDrawerLink(){
-        Log.d("test60", "-->" + SCurrentPlayer.mPlayer.getKeys());
-        Log.d("test60", "-" + SCurrentPlayer.mPlayer.getIdPortalsOfKeys());
+        //Log.d("test60", "-->" + mPlayer.getKeys());
+        //Log.d("test60", "-" + mPlayer.getIdPortalsOfKeys());
+        buttonCanceled();
         for (int i : SCurrentPlayer.mPlayer.getIdPortalsOfKeys()){
             if (i!=mPortalClicked.getId()) {
+                Context context = getApplicationContext();
+                RelativeLayout info = new RelativeLayout(context);
                 List<CKeyEntity> lKeys = SCurrentPlayer.mPlayer.getKeysByPortal(i);
                 ImageButton lButton = generateButton(R.mipmap.keyportal);
-                mLinear.addView(lButton);
+                info.addView(lButton);
+                TextView lText = new TextView(context);
+                lText.setText(Integer.toString(i));
+                lText.setTextColor(ColorStateList.valueOf(Color.WHITE));
+                RelativeLayout.LayoutParams lParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+                //lParams.
+                lParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                //lParams.addRule(RelativeLayout.);
+                lText.setLayoutParams(lParams);
+                info.addView(lText);
+                TextView lText2 = new TextView(context);
+                lText2.setText("x"+Integer.toString(SCurrentPlayer.mPlayer.getKeysByPortal(i).size()));
+                lText2.setTextColor(ColorStateList.valueOf(Color.BLACK));
+                info.addView(lText2);
+                Log.d("test21","---->"+i);
+                mLinear.addView(info);
             }
         }
 
@@ -901,6 +940,58 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         Drawable mDrawable = getDrawable(pIdMipMap);
         lButton.setImageDrawable(mDrawable);
         return lButton;
+    }
+
+
+    public void InitDrawerBuild(){
+        buttonCanceled();
+        //Log.d("test60", "objects -> " + mPlayer.getObjects());
+        //Log.d("test60","-->"+mPlayer.getResonators());
+        //Log.d("test60", "-" + mPlayer.getLevelsOfResonators());
+        for (int i : SCurrentPlayer.mPlayer.getLevelsOfResonators()){
+                Context context = getApplicationContext();
+                RelativeLayout info = new RelativeLayout(context);
+                final List<CResonatorEntity> lResonators = SCurrentPlayer.mPlayer.getResonatorsByLevel(i);
+                ImageButton lButton = generateButton(R.mipmap.resneutral);
+                info.addView(lButton);
+                lButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPortalClicked = CActions.buildResonator(mPortalClicked, lResonators.get(0));
+                        CRestUpdate lUpdate = new CRestUpdate();
+                        SCurrentPlayer.mPlayer.removeObject((AObjectEntity) lResonators.get(0));
+                        lUpdate.updatePortalRest(mPortalClicked);
+                        mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mScroll);
+                    }
+                });
+                TextView lText = new TextView(new ContextThemeWrapper(context,R.style.iconGenText),null,0);
+                lText.setText(Integer.toString(i));
+                lText.setTextColor(ColorStateList.valueOf(Color.WHITE));
+                RelativeLayout.LayoutParams lParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+                //lParams.
+                lParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                //lParams.addRule(RelativeLayout.);
+                lText.setLayoutParams(lParams);
+                info.addView(lText);
+                TextView lText2 = new TextView(context);
+                lText2.setText("x"+Integer.toString(SCurrentPlayer.mPlayer.getResonatorsByLevel(i).size()));
+                lText2.setTextColor(ColorStateList.valueOf(Color.BLACK));
+                info.addView(lText2);
+                Log.d("test21","---->"+i);
+                mLinear.addView(info);
+        }
+
+    }
+
+    public void buttonCanceled(){
+        ImageButton lButtonCancel = generateButton(R.mipmap.cancel);
+        mLinear.addView(lButtonCancel);
+        lButtonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,mScroll);
+            }
+        });
     }
 
 

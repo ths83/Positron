@@ -22,7 +22,7 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         mHealthBar = (ProgressBar)findViewById(R.id.healthbar);
         mText = (TextView) findViewById(R.id.text);
-        mHealthBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        //mHealthBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
 
     }
 

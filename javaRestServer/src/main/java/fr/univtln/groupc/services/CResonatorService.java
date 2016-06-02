@@ -101,7 +101,7 @@ public class CResonatorService {
     @Consumes("application/json")
     @Produces("application/json")
     public Response updateResonator(String pResonatorJson){
-        mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        //mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         CResonatorEntity lResonator = null;
         System.out.println("dans update reso");
         try {

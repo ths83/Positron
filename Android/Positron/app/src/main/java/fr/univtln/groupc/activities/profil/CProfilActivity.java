@@ -3,8 +3,8 @@ package fr.univtln.groupc.activities.profil;
 import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,7 +12,6 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.pkmmte.view.CircularImageView;
 
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
-
 import fr.univtln.groupc.rest.CRestPlayer;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 

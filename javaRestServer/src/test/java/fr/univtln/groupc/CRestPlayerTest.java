@@ -44,21 +44,29 @@ public class CRestPlayerTest extends TestCase {
         assertEquals(lClientResponse.getStatus(), 200);
     }
 
+    public void testGetPlayerByIdService() throws Exception {
+        CPlayerEntity lPlayerEntity = mMapper.readValue(mWebResource.path("/players/1").get(String.class), CPlayerEntity.class);
+        System.out.println(lPlayerEntity);
+        System.out.println(lPlayerEntity.getObjects());
+        System.out.println("--->"+lPlayerEntity.getResonators().toString());
+        assertEquals(lPlayerEntity.getId(), 1);
+    }
 
 
-    /*
+
+
 
 
 
     public void testUpdatePlayerService() throws Exception {
         String lPlayerJson = null;
         String lUpdatedPlayer = null;
-        lPlayerJson = mWebResource.path("/players/50").accept("application/json").type("application/json").get(String.class);
+        lPlayerJson = mWebResource.path("/players/1").accept("application/json").type("application/json").get(String.class);
         CPlayerEntity lPlayerToUpdate = mMapper.readValue(lPlayerJson, CPlayerEntity.class);
         lPlayerToUpdate.setNickName("update");
         lUpdatedPlayer = mMapper.writeValueAsString(lPlayerToUpdate);
         ClientResponse lResponse = mWebResource.path("/players").accept("application/json").type("application/json").put(ClientResponse.class, lPlayerJson);
 
         assertEquals(lResponse.getStatus(), 200);
-    }*/
+    }
 }

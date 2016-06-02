@@ -92,7 +92,7 @@ public class CPortalService implements ContextResolver<ObjectMapper>{
     public Response updatePortal(String pPortalJson){
         mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         CPortalEntity lPortal = null;
-        System.out.println("json -> " + pPortalJson);
+        System.out.println("-------->"+pPortalJson);
         try {
             lPortal = mMapper.readValue(pPortalJson, CPortalEntity.class);
         } catch (IOException e) {

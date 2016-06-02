@@ -16,6 +16,8 @@ import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 public class CLaunchService extends IntentService {
 
     public static final int NOTIF_ID = 0;
+
+
     private Notification mNoti;
     private NotificationManager mNotificationManager;
 
@@ -68,4 +70,5 @@ public class CLaunchService extends IntentService {
         // mId allows you to update the notification later on.
         mNotificationManager.notify(NOTIF_ID, mNoti);
     }
+
 }
