@@ -1,12 +1,11 @@
 package fr.univtln.groupc;
 
 
-
-
-
 import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CPortalEntity;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -99,6 +98,22 @@ public class CServer {
             }
         }
 
+        else if (pBean.getType().equals(EPayloadType.POSE_VIRUS.toString())){
+            System.out.println("Pose d'un virus !!!!!!");
+            System.out.println("Pose du virus par le joueur : " + pBean.getPoseVirus().getPlayer().toString());
+            System.out.println();
+            CPortalEntity lPortal = pBean.getPoseVirus().getPortal();
+            lPortal.clearLinks();
+            if (pBean.getPoseVirus().getVirus().getRarity() == 3 ){
+                for (ABuildingEntity lBuilding : lPortal.getBuildings()){
+                    lPortal.removeBuilding(lBuilding);
+                }
+            }
+            CVirusPosed lVirusPosed = new CVirusPosed(lPortal);
+            CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().objectVirusPosed(lVirusPosed).type(EPayloadType.VIRUS_POSED.toString()).build();
+            mCrudMethods.update(lBeanToSend.getPosedVirus().getPortal());
+        }
+
         else if (pBean.getType().equals(EPayloadType.CREATE_LINK.toString())) {
             System.out.println("un cas de creation de lien");
             CLinkEntity lLink = pBean.getCreateLink().getLink();
@@ -166,6 +181,8 @@ public class CServer {
             System.out.println("un cas d'attaque de building");
             //if (pBean.get)
         }
+
+
 
 
         }

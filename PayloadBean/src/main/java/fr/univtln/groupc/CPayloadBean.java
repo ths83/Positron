@@ -16,6 +16,7 @@ public class CPayloadBean implements Serializable {
     private CConnection mConnection;
     private CAttackBuilding mAttackBuilding;
     private CPoseResonator mPoseResonator;
+    private CPoseVirus mPoseVirus;
     //private CHackPortal mHackPortal;
     //private CAttackAOE mAttackAOE;
     private CTeamPortalChanged mTeamPortalChanged;
@@ -23,7 +24,7 @@ public class CPayloadBean implements Serializable {
     private CCreateLink mCreateLink;
     private CLinkCreated mLinkCreated;
     private CFieldCreated mFieldCreated;
-
+    private CVirusPosed mPosedVirus;
 
     public CPayloadBean() {
     }
@@ -102,6 +103,21 @@ public class CPayloadBean implements Serializable {
         return mPoseResonator;
     }
 
+    public CVirusPosed getPosedVirus() {
+        return mPosedVirus;
+    }
+
+    public void setPosedVirus(CVirusPosed mPosedVirus) {
+        this.mPosedVirus = mPosedVirus;
+    }
+
+    public CPoseVirus getPoseVirus() {
+        return mPoseVirus;
+    }
+
+    public void setPoseVirus(CPoseVirus mPoseVirus) {
+        this.mPoseVirus = mPoseVirus;
+    }
 
     public void setPoseResonator(CPoseResonator pPoseResonator){
         mPoseResonator = pPoseResonator;
@@ -169,6 +185,7 @@ public class CPayloadBean implements Serializable {
         private CConnection mConnection;
         private CAttackBuilding mAttackBuilding;
         private CPoseResonator mPoseResonator;
+        private CPoseVirus mPoseVirus;
         //private CHackPortal mHackPortal;
         //private CAttackAOE mAttackAOE;
         private CTeamPortalChanged mTeamPortalChanged;
@@ -176,6 +193,7 @@ public class CPayloadBean implements Serializable {
         private CCreateLink mCreateLink;
         private CLinkCreated mLinkCreated;
         private CFieldCreated mFieldCreated;
+        private CVirusPosed mVirusPosed;
 
         public CPayloadBeanBuilder(){};
 /*
@@ -195,6 +213,11 @@ public class CPayloadBean implements Serializable {
 
         public CPayloadBeanBuilder objectCreateLink(CCreateLink pCreateLink){
             mCreateLink = pCreateLink;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectPoseVirus(CPoseVirus pPoseVirus){
+            mPoseVirus = pPoseVirus;
             return this;
         }
 /*
@@ -230,6 +253,11 @@ public class CPayloadBean implements Serializable {
 
         public CPayloadBeanBuilder objectFieldCreated(CFieldCreated pFieldCreated){
             mFieldCreated = pFieldCreated;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectVirusPosed(CVirusPosed pVirusPosed){
+            mVirusPosed = pVirusPosed;
             return this;
         }
 
