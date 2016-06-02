@@ -21,6 +21,7 @@ public class CConsumableEntity extends AObjectEntity implements Serializable {
     public final static String GET_ALL = "consumable.getAll";
 
     public CConsumableEntity(){
+        super();
     }
 
     public CConsumableEntity(CConsumableBuilder pBuilder){
