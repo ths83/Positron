@@ -9,9 +9,8 @@
     </style>
 
     <style name="iconGenText">
-        <item name="android:textColor">#ffffff</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">30dp</item>
     </style>
 
     <style name="Transparent" parent="android:Theme.Light">
@@ -30,6 +29,11 @@
     <style name="stylemap">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">40sp</item>
+    </style>
+
+    <style name="buttonchoice">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">bottom </item>
     </style>
 
 

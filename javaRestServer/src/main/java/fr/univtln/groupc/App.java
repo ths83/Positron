@@ -26,7 +26,7 @@ public class App
         CPortalEntity po2 = crud.find(CPortalEntity.class,8);
         CPortalEntity po3 = crud.find(CPortalEntity.class,6);
         CPortalEntity po4 = crud.find(CPortalEntity.class,9);
-        p1.addObjects(new CConsumableEntity.CConsumableBuilder(11).name("Bombe").rarity(2).build());
+        /*p1.addObjects(new CConsumableEntity.CConsumableBuilder(11).name("Bombe").rarity(2).build());
         crud.update(p1);
         //po1.setRadius(40);
         //crud.update(po1);
@@ -50,12 +50,12 @@ public class App
         CResonatorEntity r10= new CResonatorEntity.CResonatorBuilder(7).level(5).owner(p2).energy(100).energyMax(100).portal(po2).build();
         CResonatorEntity r13= new CResonatorEntity.CResonatorBuilder(8).level(7).owner(p2).energy(100).energyMax(100).portal(po2).build();
         CResonatorEntity r14= new CResonatorEntity.CResonatorBuilder(9).level(1).owner(p2).energy(100).energyMax(100).portal(po4).build();
-        CResonatorEntity r16= new CResonatorEntity.CResonatorBuilder(10).level(8).owner(p1).energy(100).energyMax(100).portal(po4).build();
+        //CResonatorEntity r16= new CResonatorEntity.CResonatorBuilder(10).level(8).owner(p1).energy(100).energyMax(100).portal(po4).build();
         crud.create(r9);
         crud.create(r10);
         crud.create(r13);
-        crud.create(r14);
-        crud.create(r16);
+        crud.create(r14);*/
+        //crud.create(r16);
         List<CPortalEntity> pi1 = new ArrayList<CPortalEntity>();
         pi1.add(po1);
         pi1.add(po3);
@@ -89,5 +89,18 @@ public class App
         //crud.create(k1);
         //crud.create(k2);
         //crud.create(k3);
+
+        CResonatorEntity r21= new CResonatorEntity.CResonatorBuilder(15).level(8).owner(p1).energy(100).energyMax(100).build();
+        CResonatorEntity r22= new CResonatorEntity.CResonatorBuilder(16).level(5).owner(p1).energy(100).energyMax(100).build();
+        crud.create(r22);
+        crud.create(r21);
+        CResonatorEntity r24= new CResonatorEntity.CResonatorBuilder(17).level(8).owner(p1).energy(100).energyMax(100).build();
+        //CResonatorEntity r25= new CResonatorEntity.CResonatorBuilder(18).level(5).owner(p1).energy(100).energyMax(100).build();*/
+        //crud.create(r9);
+        //crud.create(r10);
+        //System.out.println(p1.getObjects());
+        //System.out.println(p1.getResonators());
+        p1.setXp(7700);
+        crud.update(p1);
     }
 }

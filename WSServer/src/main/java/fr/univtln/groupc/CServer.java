@@ -2,6 +2,8 @@ package fr.univtln.groupc;
 
 
 
+
+
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -11,9 +13,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**

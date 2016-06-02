@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "t_key", schema = "positron")
 @NamedQueries({@NamedQuery(name = CKeyEntity.GET_ALL, query = "select k from CKeyEntity k"),@NamedQuery(name = CKeyEntity.GET_BY_PORTAL, query = "select k from CKeyEntity k where k.mPortal=(select p from CPortalEntity p where p.mId=:id )")})
-
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonDeserialize(as = CKeyEntity.class)
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CKeyEntity.class)
 
@@ -29,7 +29,7 @@ public class CKeyEntity extends AObjectEntity implements Serializable {
     public final static String GET_BY_PORTAL = "Key.getByPortal";
     public final static String GET_BY_PLAYER = "Key.getByPlayer";
 
-    public CKeyEntity(){super();}
+    public CKeyEntity(){}
 
     public CKeyEntity(CKeyBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName);
