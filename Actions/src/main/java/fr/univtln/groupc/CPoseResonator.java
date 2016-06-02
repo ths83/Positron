@@ -1,5 +1,6 @@
 package fr.univtln.groupc;
 
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 
@@ -14,7 +15,7 @@ public class CPoseResonator implements Serializable {
 
     private CPortalEntity mPortal;
     private CResonatorEntity mResonator;
-    private int mPlayerId;
+    private CPlayerEntity mPlayer;
 
     public CPoseResonator(){
     }
@@ -22,7 +23,7 @@ public class CPoseResonator implements Serializable {
     public CPoseResonator(CPoseResonatorBuilder pBuilder){
         mPortal = pBuilder.mPortal;
         mResonator = pBuilder.mResonator;
-        mPlayerId = pBuilder.mPlayerId;
+        mPlayer = pBuilder.mPlayer;
     }
 
     public void setPortal(CPortalEntity pPortal){
@@ -41,12 +42,12 @@ public class CPoseResonator implements Serializable {
         return mResonator;
     }
 
-    public int getPlayerId(){
-        return mPlayerId;
+    public CPlayerEntity getPlayer(){
+        return mPlayer;
     }
 
-    public void setPlayerId(int pId){
-        mPlayerId = pId;
+    public void setPlayer(CPlayerEntity pPlayer){
+        mPlayer = pPlayer;
     }
 
     @Override
@@ -54,14 +55,14 @@ public class CPoseResonator implements Serializable {
         return "CPoseResonator{" +
                 "mPortal=" + mPortal +
                 ", mResonator=" + mResonator +
-                ", mPlayerId=" + mPlayerId +
+                ", mPlayer=" + mPlayer +
                 '}';
     }
 
     public static class CPoseResonatorBuilder{
         private CPortalEntity mPortal;
         private CResonatorEntity mResonator;
-        private int mPlayerId;
+        private CPlayerEntity mPlayer;
 
         public CPoseResonatorBuilder(){
         }
@@ -76,8 +77,8 @@ public class CPoseResonator implements Serializable {
             return this;
         }
 
-        public CPoseResonatorBuilder playerId(int pPlayerId){
-            mPlayerId = pPlayerId;
+        public CPoseResonatorBuilder playerId(CPlayerEntity pPlayer){
+            mPlayer = pPlayer;
             return this;
         }
 

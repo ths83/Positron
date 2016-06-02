@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.CPortalEntity;
-import org.codehaus.jackson.map.DeserializationConfig;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;

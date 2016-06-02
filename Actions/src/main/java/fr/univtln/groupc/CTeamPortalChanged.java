@@ -1,5 +1,6 @@
 package fr.univtln.groupc;
 
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import java.io.Serializable;
@@ -12,10 +13,15 @@ public class CTeamPortalChanged implements Serializable {
 
     private CPortalEntity mPortal;
 
+    private CPlayerEntity mPlayer;
+
     public CTeamPortalChanged(){}
 
-    public CTeamPortalChanged(CPortalEntity pPortal){
-        mPortal = pPortal;
+    public CTeamPortalChanged(CTeamPortalChangedBuilder pBuilder){
+
+        mPortal = pBuilder.mPortal;
+        mPlayer = pBuilder.mPlayer;
+
     }
 
     public void setPortal(CPortalEntity pPortal){
@@ -24,6 +30,14 @@ public class CTeamPortalChanged implements Serializable {
 
     public CPortalEntity getPortal(){
         return mPortal;
+    }
+
+    public void setPlayer(CPlayerEntity pPlayer){
+        mPlayer = pPlayer;
+    }
+
+    public CPlayerEntity getPlayer(){
+        return mPlayer;
     }
 
     @Override
@@ -47,5 +61,26 @@ public class CTeamPortalChanged implements Serializable {
         return "CTeamPortalChanged{" +
                 "mPortal=" + mPortal +
                 '}';
+    }
+
+    public static class CTeamPortalChangedBuilder{
+        private CPortalEntity mPortal;
+        private CPlayerEntity mPlayer;
+
+        public CTeamPortalChangedBuilder(){}
+
+        public CTeamPortalChangedBuilder portal(CPortalEntity pPortal){
+            mPortal = pPortal;
+            return this;
+        }
+
+        public CTeamPortalChangedBuilder player(CPlayerEntity pPlayer){
+            mPlayer = pPlayer;
+            return this;
+        }
+
+        public CTeamPortalChanged build(){
+            return new CTeamPortalChanged(this);
+        }
     }
 }

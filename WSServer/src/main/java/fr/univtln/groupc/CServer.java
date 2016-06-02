@@ -4,6 +4,8 @@ package fr.univtln.groupc;
 
 
 
+
+
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -80,7 +82,7 @@ public class CServer {
             System.out.println("team du player ! " + pBean.getPoseResonator().getResonator().getOwner().getTeam());
             if (CAction.isTeamChangedAfterResonatorPoseOnPortal(pBean.getPoseResonator())) {
                 System.out.println("changement de team");
-                CTeamPortalChanged lTeamPortalChanged = new CTeamPortalChanged(pBean.getPoseResonator().getPortal());
+                CTeamPortalChanged lTeamPortalChanged = new CTeamPortalChanged.CTeamPortalChangedBuilder().portal(pBean.getPoseResonator().getPortal()).player(pBean.getPoseResonator().getPlayer()).build();
                 System.out.println("team du portal dans le if : " + lTeamPortalChanged.getPortal().getTeam());
                 CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_CHANGING_TEAM.toString()).objectTeamPortalChanged(lTeamPortalChanged).build();
                 //mCrudMethods.update(lBeanToSend.getTeamPortalChanged().getPortal());
@@ -89,11 +91,10 @@ public class CServer {
                 }
             } else {
                 System.out.println("pas de changement");
-                CResonatorPosed lResonatorPosed = new CResonatorPosed(pBean.getPoseResonator().getPortal());
+                CResonatorPosed lResonatorPosed = new CResonatorPosed.CResonatorPosedBuilder().portal((pBean.getPoseResonator().getPortal())).player(pBean.getPoseResonator().getPlayer()).build();
                 System.out.println(" portal " + lResonatorPosed.getPortal().getTeam());
                 CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().objectResonatorPosed(lResonatorPosed).type(EPayloadType.RESONATOR_POSED.toString()).build();
-                mCrudMethods.update(lBeanToSend.getResonatorPosed().getPortal());
-
+                //mCrudMethods.update(lBeanToSend.getResonatorPosed().getPortal());
                 pPeer.getBasicRemote().sendObject(lBeanToSend);
 
             }

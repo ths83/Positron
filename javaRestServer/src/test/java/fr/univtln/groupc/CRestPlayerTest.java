@@ -48,7 +48,7 @@ public class CRestPlayerTest extends TestCase {
         CPlayerEntity lPlayerEntity = mMapper.readValue(mWebResource.path("/players/1").get(String.class), CPlayerEntity.class);
         System.out.println(lPlayerEntity);
         System.out.println(lPlayerEntity.getObjects());
-        System.out.println("--->"+lPlayerEntity.getResonators().toString());
+        System.out.println("--->" + lPlayerEntity.getResonators().toString());
         assertEquals(lPlayerEntity.getId(), 1);
     }
 
