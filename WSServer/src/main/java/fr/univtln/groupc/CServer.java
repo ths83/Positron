@@ -178,8 +178,14 @@ public class CServer {
                 } else {
                     System.out.println("Attaque non réussis");
                 }
-                //TODO a faire renvoie de Building & Attack.
-            
+
+
+            CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.BUILDING_ATTACKED.toString()).objectBuildingAttacked(new CBuildingAttacked.CBuildingAttackedBuilder().building(lBuilding).player(lPlayer).build()).build();
+            System.out.println(lBeanToSend);
+            for (Session lSession : mSessions){
+                lSession.getBasicRemote().sendObject(lBeanToSend);
+            }
+
             //if (pBean.get)
         }
 

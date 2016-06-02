@@ -27,6 +27,7 @@ public class CPayloadBean implements Serializable {
     private CPortalHacked mPortalHacked;
     private CHackPortalKey mHackPortalKey;
     private CPortalKeyHacked mPortalKeyHacked;
+    private CBuildingAttacked mBuildingAttacked;
 
 
 
@@ -51,6 +52,7 @@ public class CPayloadBean implements Serializable {
         mPortalHacked = pBuilder.mPortalHacked;
         mHackPortalKey = pBuilder.mHackPortalKey;
         mPortalKeyHacked = pBuilder.mPortalKeyHacked;
+        mBuildingAttacked = pBuilder.mBuildingAttacked;
 
     }
 
@@ -177,6 +179,14 @@ public class CPayloadBean implements Serializable {
 
     public void setAttackBuilding(CAttackBuilding pAttackBuilding) {this.mAttackBuilding = pAttackBuilding;}
 
+    public CBuildingAttacked getBuildingAttacked() {
+        return mBuildingAttacked;
+    }
+
+    public void setBuildingAttacked(CBuildingAttacked pBuildingAttacked) {
+        this.mBuildingAttacked = pBuildingAttacked;
+    }
+
     @Override
     public String toString() {
         return "CPayloadBean{" +
@@ -210,6 +220,7 @@ public class CPayloadBean implements Serializable {
         private CPortalHacked mPortalHacked;
         private CHackPortalKey mHackPortalKey;
         private CPortalKeyHacked mPortalKeyHacked;
+        private CBuildingAttacked mBuildingAttacked;
 
         public CPayloadBeanBuilder(){};
 /*
@@ -294,7 +305,10 @@ public class CPayloadBean implements Serializable {
             return this;
         }
 
-
+        public CPayloadBeanBuilder objectBuildingAttacked(CBuildingAttacked pBuildingAttacked){
+            mBuildingAttacked = pBuildingAttacked;
+            return this;
+        }
         public CPayloadBean build(){
             return new CPayloadBean(this);
         }
