@@ -219,7 +219,7 @@ public class CServer {
             System.out.println("Hack de clef du portail : "+lPortal.getId()+" par le joueur : "+lPlayer.getNickName()+" "+lPlayer.getId());
             AObjectEntity lKey = new CKeyEntity.CKeyBuilder(1).portal(lPortal).build();
             lPlayer.addObjects(lKey);
-
+            //
             CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_KEY_HACKED.toString()).objectPortalKeyHacked(new CPortalKeyHacked(lPlayer)).build();
             System.out.println(lBeanToSend);
             for (Session lSession : mSessions){
