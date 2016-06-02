@@ -3,21 +3,15 @@ package fr.univtln.groupc.activities.profil;
 import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.pkmmte.view.CircularImageView;
 
-<<<<<<< HEAD
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
-=======
-import java.util.Objects;
-
-import fr.univtln.groupc.activities.google.CCurrentPlayer;
->>>>>>> 03723e28068a38f5afcae4664eec38b4ebf457ae
 import fr.univtln.groupc.rest.CRestPlayer;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -37,13 +31,9 @@ public class CProfilActivity extends AppCompatActivity {
 
         mCircularImageView = (CircularImageView) findViewById(R.id.yourCircularImageView);
         mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
-<<<<<<< HEAD
         
         if (SCurrentPlayer.mPlayer != null) {
-=======
 
-        if (CCurrentPlayer.mPlayer != null) {
->>>>>>> 03723e28068a38f5afcae4664eec38b4ebf457ae
 
             mTextName = (TextView) findViewById(R.id.textName);
             if (mTextName != null) {
@@ -59,11 +49,8 @@ public class CProfilActivity extends AppCompatActivity {
 
             // on met le drapeau de la team à laquelle l'user courant appartient
 
-<<<<<<< HEAD
             if (SCurrentPlayer.mPlayer.getTeam().getColor() == "bleu")
-=======
-            if (Objects.equals(CCurrentPlayer.mPlayer.getTeam().getColor(), "bleu"))
->>>>>>> 03723e28068a38f5afcae4664eec38b4ebf457ae
+
                 mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
             else
                 mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logxenom));
@@ -78,22 +65,22 @@ public class CProfilActivity extends AppCompatActivity {
             TextDrawable drawableEnergy = TextDrawable.builder()
                     .beginConfig().textColor(Color.BLACK)
                     .endConfig()
-                    .buildRound(String.valueOf(CCurrentPlayer.mPlayer.getEnergy()), Color.LTGRAY);
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getEnergy()), Color.LTGRAY);
 
             TextDrawable drawableEnergyMax = TextDrawable.builder()
                     .beginConfig().textColor(Color.BLACK)
                     .endConfig()
-                    .buildRound(String.valueOf(CCurrentPlayer.mPlayer.getEnergyMax()), Color.LTGRAY);
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getEnergyMax()), Color.LTGRAY);
 
             TextDrawable drawableXp = TextDrawable.builder()
                     .beginConfig().textColor(Color.BLACK)
                     .endConfig()
-                    .buildRound(String.valueOf(CCurrentPlayer.mPlayer.getXp()), Color.LTGRAY);
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getXp()), Color.LTGRAY);
 
             TextDrawable drawableBagSize = TextDrawable.builder()
                     .beginConfig().textColor(Color.BLACK)
                     .endConfig()
-                    .buildRound(String.valueOf(CCurrentPlayer.mPlayer.getBagSize()), Color.LTGRAY);
+                    .buildRound(String.valueOf(SCurrentPlayer.mPlayer.getBagSize()), Color.LTGRAY);
 
             // On affiche les ronds dans l'image_view
             ImageView image1 = (ImageView) findViewById(R.id.image_view1);

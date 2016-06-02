@@ -6,24 +6,21 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.util.Log;
 import android.widget.Toast;
 
-public class CPodometer extends Activity implements SensorEventListener {
+import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
-    private final static String PODOMETER_SENSOR_NOT_PRESENT_FRENCH = "Impossible de compter les pas ! ";
+public class CPodometer extends Activity implements SensorEventListener{
 
     private SensorManager mSensorManager;
-    private TextView mStepNumber;
+    private float mStepNumber;
     boolean mActivityIsRunning;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_podometer);
-
-        //mStepNumber = (TextView) findViewById(R.id.affichage);
-        //mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     }
 
     @Override
@@ -34,19 +31,15 @@ public class CPodometer extends Activity implements SensorEventListener {
         if (lCountSensor != null) {
             mSensorManager.registerListener(this, lCountSensor, SensorManager.SENSOR_DELAY_UI);
         } else {
-            Toast.makeText(this,PODOMETER_SENSOR_NOT_PRESENT_FRENCH, Toast.LENGTH_LONG).show();
+            Toast.makeText(this,getText(R.string.podo_sensor_not_present), Toast.LENGTH_LONG).show();
         }
-
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (mActivityIsRunning) {
-            //mStepNumber.setText(String.valueOf(event.values[0]));
-            if (event.values[0] % 10 == 0){
-                new CPodometerService();
-                Toast.makeText(getBaseContext(),"10",Toast.LENGTH_SHORT).show();
-            }
+            mStepNumber = (event.values[0]);
+            Log.d("test","step -> " + mStepNumber);
         }
     }
 
@@ -55,4 +48,13 @@ public class CPodometer extends Activity implements SensorEventListener {
 
     }
 
+    /**
+     * retourne le nb de pas effectue par le joueur
+     * -----
+     * number of player steps
+     * @return
+     */
+    public float getStepNumber() {
+        return mStepNumber;
+    }
 }

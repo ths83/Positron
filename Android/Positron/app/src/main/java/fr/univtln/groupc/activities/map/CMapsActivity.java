@@ -66,6 +66,7 @@ import fr.univtln.groupc.rest.CRestDelete;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
 import fr.univtln.groupc.services.services.CLaunchService;
+import fr.univtln.groupc.services.services.CPodometerService;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CMapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
@@ -132,7 +133,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // Launcher service
         Intent lLauncherIntent = new Intent(this, CLaunchService.class);
+        Intent lPodoIntent = new Intent(this, CPodometerService.class);
         startService(lLauncherIntent);
+        startService(lPodoIntent);
 
         mDrawerAction = (DrawerLayout) findViewById(R.id.drawerlayout);
         mScroll = (ScrollView) findViewById(R.id.drawerleft);
@@ -360,8 +363,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         @Override
         public void onMyLocationChange(Location location) {
             // current position player
-            SCurrentPlayer.mPlayer.setLat(location.getLatitude());
-            SCurrentPlayer.mPlayer.setLong(location.getLongitude());
+//            SCurrentPlayer.mPlayer.setLat(location.getLatitude());
+  //          SCurrentPlayer.mPlayer.setLong(location.getLongitude());
 
 //            mPlayer.setLat(location.getLatitude());
   //          mPlayer.setLong(location.getLongitude());
