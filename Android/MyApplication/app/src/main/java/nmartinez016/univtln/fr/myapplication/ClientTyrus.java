@@ -33,7 +33,7 @@ import fr.univtln.groupc.EPayloadType;
 public class ClientTyrus extends Thread{
 
     private String LOG_TAG = "tag";
-    private String IP_ADRESS = "10.21.174.206";
+    private String IP_ADRESS = "10.9.185.55";
     private String PORT = "8025";
     private WebSocketService mServiceWS;
     private static Handler mHandler;

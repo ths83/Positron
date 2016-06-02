@@ -18,6 +18,7 @@ import java.util.Set;
         @NamedQuery(name = CPlayerEntity.GET_BY_NAME, query = "select p from CPlayerEntity p where p.mNickName = :mNickName"),
         @NamedQuery(name = CPlayerEntity.GET_BY_MAIL, query = "select p from CPlayerEntity p where p.mEmail = :mEmail")
 })
+
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CPlayerEntity.class)
 
 public class CPlayerEntity implements Serializable, ITarget, IFighter {
@@ -43,10 +44,10 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     private int mEnergy = 0;
     @Column(name = "energy_max")
     private int mEnergyMax = 0;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     @JoinTable(schema = "positron")
-    private List<CSkillEntity> mSkills =new ArrayList<CSkillEntity>();
-    @OneToMany(fetch = FetchType.EAGER)
+    private List<CSkillEntity> mSkills;
+    @OneToMany
     @JoinTable(schema = "positron")
     private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
 
@@ -426,17 +427,14 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
 
     @JsonIgnore
-    public List<CResonatorEntity> getResonators() {
+    public List<CResonatorEntity> getResonators(){
         List<CResonatorEntity> lResonators = new ArrayList<CResonatorEntity>();
-        for (AObjectEntity lObject : mObjects) {
-            if (lObject instanceof CResonatorEntity) {
-                if (((CResonatorEntity) lObject).getPortal() == null) {
-                    lResonators.add((CResonatorEntity) lObject);
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CResonatorEntity){
+                lResonators.add((CResonatorEntity)lObject);
                 }
             }
-        }
-            return lResonators;
-
+        return lResonators;
     }
 
     @JsonIgnore
