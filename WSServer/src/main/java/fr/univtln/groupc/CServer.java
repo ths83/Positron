@@ -94,6 +94,7 @@ public class CServer {
             }
         }
 
+
         else if (pBean.getType().equals(EPayloadType.POSE_VIRUS.toString())){
             System.out.println("Pose d'un virus !!!!!!");
             System.out.println("Pose du virus par le joueur : " + pBean.getPoseVirus().getPlayer().toString());
@@ -110,7 +111,9 @@ public class CServer {
             mCrudMethods.update(lBeanToSend.getPosedVirus().getPortal());
         }
 
+
         else if (pBean.getType().equals(EPayloadType.CREATE_LINK.toString())) {
+
             System.out.println("un cas de creation de lien");
             CLinkEntity lLink = pBean.getCreateLink().getLink();
             System.out.println("lLink nb portals -> " + lLink.getPortals().size());
@@ -121,6 +124,7 @@ public class CServer {
             List<CFieldEntity> lListAllFields = new ArrayList<CFieldEntity>();
             List<CLinkEntity> lLinks = mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
             List<CFieldEntity> lFields = mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
+
             if (CAlgorithm.detectColision(lLink, lLinks, lFields)) {
                 System.out.println("Aucune colision detectee");// \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
                 mCrudMethods.create(lLink);
@@ -190,8 +194,14 @@ public class CServer {
                 } else {
                     System.out.println("Attaque non réussis");
                 }
-                //TODO a faire renvoie de Building & Attack.
-            
+
+
+            CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.BUILDING_ATTACKED.toString()).objectBuildingAttacked(new CBuildingAttacked.CBuildingAttackedBuilder().building(lBuilding).player(lPlayer).build()).build();
+            System.out.println(lBeanToSend);
+            for (Session lSession : mSessions){
+                lSession.getBasicRemote().sendObject(lBeanToSend);
+            }
+
             //if (pBean.get)
         }
 
