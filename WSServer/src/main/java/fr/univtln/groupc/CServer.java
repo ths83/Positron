@@ -180,7 +180,6 @@ public class CServer {
             System.out.println("Attaque de la structure : " + lBuilding.getId() + " par le joueur : " + lPlayer.getNickName() + " " + lPlayer.getId());
             int lBuildStartEnergy = lBuilding.getEnergy();
 
-
                 lPlayer.attack(lBuilding, lConsumable);
 
                 if (lBuildStartEnergy > lBuilding.getEnergy()) {
