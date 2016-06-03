@@ -17,8 +17,7 @@ public class CPoseResonator implements Serializable {
     private CResonatorEntity mResonator;
     private CPlayerEntity mPlayer;
 
-    public CPoseResonator(){
-    }
+    public CPoseResonator(){}
 
     public CPoseResonator(CPoseResonatorBuilder pBuilder){
         mPortal = pBuilder.mPortal;

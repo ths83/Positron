@@ -74,6 +74,7 @@ public class CServer {
             System.out.println("un cas de pose");
             System.out.println("la pose du resonator : " + pBean.getPoseResonator());
             System.out.println("team du player ! " + pBean.getPoseResonator().getResonator().getOwner().getTeam());
+
             if (CAction.isTeamChangedAfterResonatorPoseOnPortal(pBean.getPoseResonator())) {
                 System.out.println("changement de team");
                 CTeamPortalChanged lTeamPortalChanged = new CTeamPortalChanged.CTeamPortalChangedBuilder().portal(pBean.getPoseResonator().getPortal()).player(pBean.getPoseResonator().getPlayer()).build();
@@ -191,7 +192,8 @@ public class CServer {
                     System.out.println("Attaque réussie pour " + (lBuildStartEnergy - lBuilding.getEnergy()) + " pts de dégàts");
                     lPlayer.removeObject(lConsumable);
                     lPlayer.addXP((lBuildStartEnergy - lBuilding.getEnergy()) * 10);
-                } else {
+                }
+                else {
                     System.out.println("Attaque non réussis");
                 }
 
@@ -229,6 +231,26 @@ public class CServer {
             lPlayer.addObjects(lKey);
             //
             CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_KEY_HACKED.toString()).objectPortalKeyHacked(new CPortalKeyHacked(lPlayer)).build();
+            System.out.println(lBeanToSend);
+            for (Session lSession : mSessions){
+                lSession.getBasicRemote().sendObject(lBeanToSend);
+            }
+
+        }
+
+        else if (pBean.getType().equals(EPayloadType.POSE_BUILDING.toString())){
+
+            CPortalEntity lPortal = pBean.getPoseBulding().getPortal();
+            ABuildingEntity lBuilding = pBean.getPoseBulding().getBuilding();
+            CPlayerEntity lPlayer = pBean.getPoseBulding().getmPlayer();
+
+            // TODO Metre double sécurité pour les vérification Team, Level et place libre.
+
+            lPlayer.removeObject(lBuilding);
+            lPortal.addBuilding(lBuilding);
+
+            CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.BUILDING_POSED.toString()).objectBuildingPosed(new CBuildingPosed.CBuildingPosedBuilder().player(lPlayer).portal(lPortal).build()).build();
+
             System.out.println(lBeanToSend);
             for (Session lSession : mSessions){
                 lSession.getBasicRemote().sendObject(lBeanToSend);

@@ -89,19 +89,32 @@ public enum EPayloadType{
         }
     },
     TEAM_PORTAL_CHANGED {
-        public String toString() { return "team_portal_changed";}
+        public String toString() { return "team_portal_changed";
+        }
     },
     HACK_PORTAL{
-            public String toString () {return "hack_portal";}
+            public String toString () {return "hack_portal";
+            }
     },
     PORTAL_HACKED{
-        public String toString () {return  "portal_hacked";}
+        public String toString () {return  "portal_hacked";
+        }
     },
     HACK_PORTAL_KEY{
-        public String toString () {return  "hack_portal_key";}
+        public String toString () {return  "hack_portal_key";
+        }
     },
     PORTAL_KEY_HACKED{
-        public String toString () {return  "portal_key_hacked";}
+        public String toString () {return  "portal_key_hacked";
+        }
 
-    }
+    },
+    POSE_BUILDING{
+        public String toString () {return "pose_building";
+        }
+    },
+    BUILDING_POSED{
+        public String toString () {return "building_posed";
+        }
+    },
 }
