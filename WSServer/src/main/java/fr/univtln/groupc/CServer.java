@@ -98,7 +98,7 @@ public class CServer {
             }
         }
 
-        
+
         else if (pBean.getType().equals(EPayloadType.CREATE_LINK.toString())) {
 
             System.out.println("un cas de creation de lien");
