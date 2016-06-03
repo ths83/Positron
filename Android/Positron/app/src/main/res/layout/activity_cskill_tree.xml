@@ -5,8 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="fr.univtln.groupc.activities.profil.CSkillTree"
-    android:background="#0087c5"
-    android:id="@+id/">
+    android:background="#0087c5">
 
 <TextView
     android:layout_width="wrap_content"
@@ -34,9 +33,8 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="@string/title_Maintenance_Tree"
-            android:id="@+id/"
             android:contextClickable="false"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:textColor="#ffffff" />
 
         <Button
@@ -157,7 +155,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="@string/title_Hacking_Tree"
-            android:id="@+id/"
             android:textSize="20dp"
             android:textColor="#ffffff" />
 
@@ -218,7 +215,7 @@
             android:layout_centerVertical="true"
             android:text="@string/title_Scout_Tree"
             android:textColor="#ffffff"
-            android:textSize="15dp" />
+            android:textSize="12dp" />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"

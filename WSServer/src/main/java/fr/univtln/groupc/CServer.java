@@ -98,7 +98,9 @@ public class CServer {
             }
         }
 
+        
         else if (pBean.getType().equals(EPayloadType.CREATE_LINK.toString())) {
+
             System.out.println("un cas de creation de lien");
             CLinkEntity lLink = pBean.getCreateLink().getLink();
             System.out.println("lLink nb portals -> " + lLink.getPortals().size());
@@ -109,6 +111,7 @@ public class CServer {
             List<CFieldEntity> lListAllFields = new ArrayList<CFieldEntity>();
             List<CLinkEntity> lLinks = mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
             List<CFieldEntity> lFields = mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
+
             if (CAlgorithm.detectColision(lLink, lLinks, lFields)) {
                 System.out.println("Aucune colision detectee");// \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
                 mCrudMethods.create(lLink);

@@ -9,9 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import fr.univtln.groupc.activities.google.SCurrentPlayer;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CSkillEntity;
 import fr.univtln.groupc.rest.CRestGet;
@@ -20,13 +23,9 @@ import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CSkillTree extends AppCompatActivity {
 
-    TextView mFree_SkillPoints = (TextView) findViewById(R.id.text_View_free_skill_point);
-
-    CPlayerEntity mPlayer = new CPlayerEntity.CPlayerBuilder(1).xp(5000).build();
-   // Map<Button, CSkillEntity> mSkillByButton = new HashMap<>();
-
-
-    Button mButtonReset = (Button) findViewById(R.id.button_Reset_Skill);
+    TextView mFree_SkillPoints ;
+    CPlayerEntity mPlayer;
+    Button mButtonReset ;
 
     Button mButtonMaintenance_1;
     Button mButtonMaintenance_21;
@@ -53,6 +52,17 @@ public class CSkillTree extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cskill_tree);
+
+        mFree_SkillPoints = (TextView) findViewById(R.id.text_View_free_skill_point);
+        mButtonReset = (Button) findViewById(R.id.button_Reset_Skill);
+
+        CSkillEntity lSkill = new CSkillEntity.CSkillBuilder(1).level(1).cost(1).type("Maintenance").build();
+        List<CSkillEntity> mListSkill = new ArrayList<>();
+        mListSkill.add(lSkill);
+
+        mPlayer = new CPlayerEntity.CPlayerBuilder(1).skills(mListSkill).xp(5000).build();
+        // Map<Button, CSkillEntity> mSkillByButton = new HashMap<>();
+
 
         mButtonReset = (Button) findViewById(R.id.button_Reset_Skill);
 
@@ -143,17 +153,17 @@ public class CSkillTree extends AppCompatActivity {
 
         if(lLevelMaintenance < 3){
             mButtonMaintenance_3.setEnabled(true);
-            mButtonMaintenance_3.setBackgroundColor(Color.CYAN);
+            mButtonMaintenance_3.setBackgroundColor(Color.WHITE);
 
             if(lLevelMaintenance <2){
                 mButtonMaintenance_21.setEnabled(true);
-                mButtonMaintenance_21.setBackgroundColor(Color.CYAN);
+                mButtonMaintenance_21.setBackgroundColor(Color.WHITE);
                 mButtonMaintenance_22.setEnabled(true);
-                mButtonMaintenance_22.setBackgroundColor(Color.CYAN);
+                mButtonMaintenance_22.setBackgroundColor(Color.WHITE);
 
                 if(lLevelMaintenance < 1){
                     mButtonMaintenance_1.setEnabled(true);
-                    mButtonMaintenance_1.setBackgroundColor(Color.CYAN);
+                    mButtonMaintenance_1.setBackgroundColor(Color.WHITE);
                 }
             }
         }
@@ -161,17 +171,17 @@ public class CSkillTree extends AppCompatActivity {
 
         if(lLevelAttack < 3){
             mButtonAttack_3.setEnabled(true);
-            mButtonAttack_3.setBackgroundColor(Color.CYAN);
+            mButtonAttack_3.setBackgroundColor(Color.WHITE);
 
             if(lLevelAttack <2){
                 mButtonAttack_22.setEnabled(true);
-                mButtonAttack_22.setBackgroundColor(Color.CYAN);
+                mButtonAttack_22.setBackgroundColor(Color.WHITE);
                 mButtonAttack_21.setEnabled(true);
-                mButtonAttack_21.setBackgroundColor(Color.CYAN);
+                mButtonAttack_21.setBackgroundColor(Color.WHITE);
 
                 if(lLevelAttack < 1){
                     mButtonAttack_1.setEnabled(true);
-                    mButtonAttack_1.setBackgroundColor(Color.CYAN);
+                    mButtonAttack_1.setBackgroundColor(Color.WHITE);
                 }
             }
         }
@@ -179,34 +189,34 @@ public class CSkillTree extends AppCompatActivity {
 
         if(lLevelHack < 3){
             mButtonHacker_3.setEnabled(true);
-            mButtonHacker_3.setBackgroundColor(Color.CYAN);
+            mButtonHacker_3.setBackgroundColor(Color.WHITE);
 
             if(lLevelHack <2){
                 mButtonHacker_21.setEnabled(true);
-                mButtonHacker_21.setBackgroundColor(Color.CYAN);
+                mButtonHacker_21.setBackgroundColor(Color.WHITE);
                 mButtonHacker_22.setEnabled(true);
-                mButtonHacker_22.setBackgroundColor(Color.CYAN);
+                mButtonHacker_22.setBackgroundColor(Color.WHITE);
 
                 if(lLevelHack < 1){
                     mButtonHacker_1.setEnabled(true);
-                    mButtonHacker_1.setBackgroundColor(Color.CYAN);
+                    mButtonHacker_1.setBackgroundColor(Color.WHITE);
                 }
             }
         }
 
         if(lLevelScout < 3){
             mButtonScout_3.setEnabled(true);
-            mButtonScout_3.setBackgroundColor(Color.CYAN);
+            mButtonScout_3.setBackgroundColor(Color.WHITE);
 
             if(lLevelScout <2){
                 mButtonScout_21.setEnabled(true);
-                mButtonScout_21.setBackgroundColor(Color.CYAN);
+                mButtonScout_21.setBackgroundColor(Color.WHITE);
                 mButtonScout_22.setEnabled(true);
-                mButtonScout_22.setBackgroundColor(Color.CYAN);
+                mButtonScout_22.setBackgroundColor(Color.WHITE);
 
                 if(lLevelScout < 1){
                     mButtonScout_1.setEnabled(true);
-                    mButtonScout_1.setBackgroundColor(Color.CYAN);
+                    mButtonScout_1.setBackgroundColor(Color.WHITE);
                 }
             }
         }
