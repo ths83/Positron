@@ -1,7 +1,9 @@
 package fr.univtln.groupc;
 
 
+import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
+import fr.univtln.groupc.entities.CTeamEntity;
 
 /**
  * Created by marti on 31/05/2016.
@@ -17,9 +19,10 @@ public class CAction {
      * Add the resonator to the portal
      * and increases the player xp.
      */
-
+/*
     public static CPoseResonator attachResonatorToPortal(CPoseResonator pPoseResonator){
         System.out.println("salut attach 1");
+        pPoseResonator.getmResonatorId()
         if (pPoseResonator.getPortal().getResonators().size() < 8){
             System.out.println("salut attach 2");
             // todo : demander a xavier d expliquer ce if
@@ -41,6 +44,35 @@ public class CAction {
         }
         System.out.println("team dans attach : " + pPoseResonator.getPortal().getTeam());
         return pPoseResonator;
+    }*/
+
+
+    public static CPortalEntity attachResonatorToPortal(CPortalEntity pPortal, CResonatorEntity pResonator){
+        System.out.println("salut attach 1");
+        if (pPortal.getResonators().size() < 8){
+            System.out.println("salut attach 2");
+            // todo : demander a xavier d expliquer ce if
+            System.out.println("owner null ? " + pResonator.getOwner() == null);
+            System.out.println("resonator null ? " + pResonator == null);
+            System.out.println("owner level null ? " + pResonator.getOwner().getLevel() == null);
+            System.out.println("resonator level null ? " + pResonator.getLevel() == null);
+            if (pResonator.getOwner().getLevel() >= pResonator.getLevel()){
+                System.out.println("salut attach 3");
+                pPortal.addResonator(pResonator);
+
+                pPortal.attributeTeam();
+                pResonator.getOwner().removeObject(pResonator);
+                // todo : add xp to player
+            }
+            else{
+                System.out.println("Niveau pas assez eleve");
+            }
+        }
+        else {
+            System.out.println("Plus de place sur le portail");
+        }
+        System.out.println("team dans attach : " + pPortal.getTeam());
+        return pPortal;
     }
 
     /*
@@ -54,7 +86,7 @@ public class CAction {
      * Returns true if the resonator's team changed,
      * false otherwise.
      */
-
+/*
     public static Boolean isTeamChangedAfterResonatorPoseOnPortal(CPoseResonator pPoseResonator){
         System.out.println("dans la methode");
         int lPreviousId = 0;
@@ -65,6 +97,21 @@ public class CAction {
         System.out.println("team apres methode attach : " + pPoseResonator.getPortal().getTeam());
         System.out.println("fin de la methode");
         return (lPreviousId != pPoseResonator.getPortal().getTeam().getId());
+    }*/
+
+    public static Boolean isTeamChangedAfterResonatorPoseOnPortal(CPortalEntity pPortal, CTeamEntity pTeam){
+        System.out.println("dans la methode");
+        if (pTeam != null){
+            int lPreviousId = pTeam.getId();
+            return (lPreviousId != pPortal.getTeam().getId());
+        }
+        else{
+            if (pPortal.getTeam() != null){
+                return true;
+            }
+            return false;
+        }
+
     }
 
     public static CAttackBuilding applyAttack(CAttackBuilding pAttackBuilding) {

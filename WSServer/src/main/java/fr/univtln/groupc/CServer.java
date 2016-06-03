@@ -73,22 +73,39 @@ public class CServer {
         else if (pBean.getType().equals(EPayloadType.POSE_RESONATOR.toString())) {
             System.out.println("un cas de pose");
             System.out.println("la pose du resonator : " + pBean.getPoseResonator());
-            System.out.println("team du player ! " + pBean.getPoseResonator().getResonator().getOwner().getTeam());
-            if (CAction.isTeamChangedAfterResonatorPoseOnPortal(pBean.getPoseResonator())) {
+            CResonatorEntity lResonator = mCrudMethods.find(CResonatorEntity.class,pBean.getPoseResonator().getResonatorId());
+            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class,pBean.getPoseResonator().getPortalId());
+            CTeamEntity lTeam = lPortal.getTeam();
+            lPortal = CAction.attachResonatorToPortal(lPortal, lResonator);
+            //System.out.println("team du player ! " + pBean.getPoseResonator().getResonator().getOwner().getTeam());
+            //System.out.println("avant -->"+pBean.getPoseResonator().getPortal().getResonators().size());
+            if (CAction.isTeamChangedAfterResonatorPoseOnPortal(lPortal, lTeam)) {
+
                 System.out.println("changement de team");
-                CTeamPortalChanged lTeamPortalChanged = new CTeamPortalChanged.CTeamPortalChangedBuilder().portal(pBean.getPoseResonator().getPortal()).player(pBean.getPoseResonator().getPlayer()).build();
+                if (lPortal.getTeam() != null){
+                    System.out.println("team portal avant attribute " + lPortal.getTeam().getId());
+                }
+                else{
+                    System.out.println("avant attribute : portal null");
+                }
+                lPortal.attributeTeam();
+                System.out.println("team portal apres attribute " + lPortal.getTeam().getId());
+
+
+                CTeamPortalChanged lTeamPortalChanged = new CTeamPortalChanged.CTeamPortalChangedBuilder().portal(lPortal).player(lResonator.getOwner()).build();
                 System.out.println("team du portal dans le if : " + lTeamPortalChanged.getPortal().getTeam());
                 CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_CHANGING_TEAM.toString()).objectTeamPortalChanged(lTeamPortalChanged).build();
-                //mCrudMethods.update(lBeanToSend.getTeamPortalChanged().getPortal());
+                mCrudMethods.update(lBeanToSend.getTeamPortalChanged().getPortal());
+                System.out.println("après -->"+mCrudMethods.find(CPortalEntity.class,lBeanToSend.getTeamPortalChanged().getPortal().getId()).getResonators().size());
                 for (Session lSession : mSessions) {
                     lSession.getBasicRemote().sendObject(lBeanToSend);
                 }
             } else {
                 System.out.println("pas de changement");
-                CResonatorPosed lResonatorPosed = new CResonatorPosed.CResonatorPosedBuilder().portal((pBean.getPoseResonator().getPortal())).player(pBean.getPoseResonator().getPlayer()).build();
+                CResonatorPosed lResonatorPosed = new CResonatorPosed.CResonatorPosedBuilder().portal((lPortal)).player(lResonator.getOwner()).build();
                 System.out.println(" portal " + lResonatorPosed.getPortal().getTeam());
                 CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().objectResonatorPosed(lResonatorPosed).type(EPayloadType.RESONATOR_POSED.toString()).build();
-                //mCrudMethods.update(lBeanToSend.getResonatorPosed().getPortal());
+                mCrudMethods.update(lBeanToSend.getResonatorPosed().getPortal());
                 pPeer.getBasicRemote().sendObject(lBeanToSend);
 
             }

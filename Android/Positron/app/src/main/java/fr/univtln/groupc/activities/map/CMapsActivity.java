@@ -178,7 +178,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     replacePortal(lPortal);
                     SCurrentPlayer.mPlayer = lPlayer;
                 }
-                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED))
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED.toString()))
                 for (Marker lMarker : mResonatorMarkers) {
                     lMarker.remove();
                 }
@@ -1014,7 +1014,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                         //SCurrentPlayer.mPlayer.removeObject((AObjectEntity) lResonators.get(0));
                         //lUpdate.updatePortalRest(mPortalClicked);
                         Log.d("test_ws", "dans la methode");
-                        CPoseResonator lPose = new CPoseResonator.CPoseResonatorBuilder().portal(mPortalClicked).resonator(lResonators.get(0)).playerId(SCurrentPlayer.mPlayer).build();
+                        CPoseResonator lPose = new CPoseResonator.CPoseResonatorBuilder().portalId(mPortalClicked.getId()).resonatorId(lResonators.get(0).getId()).build();
                         CPayloadBean lBean = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.POSE_RESONATOR.toString()).objectPoseResonator(lPose).build();
                         Log.d("test_ws", "bean null ? " + Boolean.toString(lBean == null));
                         CTyrusClient.sendMessage(lBean);
