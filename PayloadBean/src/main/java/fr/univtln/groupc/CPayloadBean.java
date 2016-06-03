@@ -17,8 +17,7 @@ public class CPayloadBean implements Serializable {
     private CAttackBuilding mAttackBuilding;
     private CPoseResonator mPoseResonator;
     private CPoseVirus mPoseVirus;
-    //private CHackPortal mHackPortal;
-    //private CAttackAOE mAttackAOE;
+ private CAttackAOE mAttackAOE;
     private CTeamPortalChanged mTeamPortalChanged;
     private CResonatorPosed mResonatorPosed;
     private CCreateLink mCreateLink;
@@ -43,9 +42,8 @@ public class CPayloadBean implements Serializable {
        // mObject = pBuilder.mObject;
         mConnection = pBuilder.mConnection;
 
-        //mAttackAOE = pBuilder.mAttackAOE;
+        mAttackAOE = pBuilder.mAttackAOE;
         mAttackBuilding = pBuilder.mAttackBuilding;
-        //mHackPortal = pBuilder.mHackPortal;
         mPoseResonator = pBuilder.mPoseResonator;
         mTeamPortalChanged = pBuilder.mTeamPortalChanged;
         mResonatorPosed = pBuilder.mResonatorPosed;
@@ -85,7 +83,7 @@ public class CPayloadBean implements Serializable {
     public void setConnection(CConnection pConnection){
         mConnection = pConnection;
     }
-/*
+
     public CAttackAOE getAttackAOE(){
         return mAttackAOE;
     }
@@ -95,26 +93,6 @@ public class CPayloadBean implements Serializable {
         mAttackAOE = pAttackAOE;
     }
 
-
-    public CAttackBuilding getAttackBuilding(){
-        return mAttackBuilding;
-    }
-
-
-    public void setAttackBuilding(CAttackBuilding pAttackBuilding){
-        mAttackBuilding = pAttackBuilding;
-    }
-
-
-    public CHackPortal getHackPortal(){
-        return mHackPortal;
-    }
-
-
-    public void setHackPortal(CHackPortal pHackPortal){
-        mHackPortal = pHackPortal;
-    }
-*/
 
     public CPoseResonator getPoseResonator(){
         return mPoseResonator;
@@ -247,8 +225,7 @@ public class CPayloadBean implements Serializable {
         private CAttackBuilding mAttackBuilding;
         private CPoseResonator mPoseResonator;
         private CPoseVirus mPoseVirus;
-        //private CHackPortal mHackPortal;
-        //private CAttackAOE mAttackAOE;
+       private CAttackAOE mAttackAOE;
         private CTeamPortalChanged mTeamPortalChanged;
         private CResonatorPosed mResonatorPosed;
         private CCreateLink mCreateLink;
@@ -291,17 +268,13 @@ public class CPayloadBean implements Serializable {
             mPoseVirus = pPoseVirus;
             return this;
         }
-/*
-        public CPayloadBeanBuilder objectHackPortal(CHackPortal pHackPortal){
-            mHackPortal = pHackPortal;
-            return this;
-        }
+
 
         public CPayloadBeanBuilder objectAttackAOE(CAttackAOE pAttackAOE){
             mAttackAOE = pAttackAOE;
             return this;
         }
-*/
+
         public CPayloadBeanBuilder objectTeamPortalChanged(CTeamPortalChanged pTeamPortalChanged){
             mTeamPortalChanged = pTeamPortalChanged;
             return this;
