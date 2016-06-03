@@ -2,6 +2,7 @@ package fr.univtln.groupc;
 
 
 import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 
 import java.io.Serializable;
 
@@ -12,11 +13,13 @@ import java.io.Serializable;
 public class CLinkCreated implements Serializable{
 
     private CLinkEntity mLink;
+    private CPlayerEntity mPlayer;
 
     public CLinkCreated(){}
 
-    public CLinkCreated(CLinkEntity pLink){
-        mLink = pLink;
+    public CLinkCreated(CLinkCreatedBuilder pBuilder){
+        mLink = pBuilder.mLink;
+        mPlayer = pBuilder.mPlayer;
     }
 
     public void setLink(CLinkEntity pLink){
@@ -25,5 +28,33 @@ public class CLinkCreated implements Serializable{
 
     public CLinkEntity getLink(){
         return mLink;
+    }
+
+    public CPlayerEntity getPlayer(){
+        return mPlayer;
+    }
+    public void setPlayer(CPlayerEntity pPlayer){
+        mPlayer = pPlayer;
+    }
+
+    public static class CLinkCreatedBuilder{
+        private CLinkEntity mLink;
+        private CPlayerEntity mPlayer;
+
+        public CLinkCreatedBuilder(){}
+
+        public CLinkCreatedBuilder link(CLinkEntity pLink){
+            mLink = pLink;
+            return this;
+        }
+
+        public CLinkCreatedBuilder player(CPlayerEntity pPlayer){
+            mPlayer = pPlayer;
+            return this;
+        }
+
+        public CLinkCreated build(){
+            return new CLinkCreated(this);
+        }
     }
 }

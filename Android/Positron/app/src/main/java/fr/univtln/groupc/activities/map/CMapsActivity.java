@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -57,11 +58,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 import fr.univtln.groupc.CPayloadBean;
 import fr.univtln.groupc.CPoseResonator;
 import fr.univtln.groupc.EPayloadType;
-import fr.univtln.groupc.actions.CActions;
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
@@ -75,8 +74,6 @@ import fr.univtln.groupc.math.CMathFunction;
 import fr.univtln.groupc.rest.CRestDelete;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
-import fr.univtln.groupc.services.services.CLaunchService;
-import fr.univtln.groupc.services.services.CPodometerService;
 import fr.univtln.groupc.wsclient.CMessageHandler;
 import fr.univtln.groupc.wsclient.CTyrusClient;
 import fr.univtln.groupc.wsclient.CWebSocketService;
@@ -263,7 +260,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         // Portals from database with REST
 
         for (CPortalEntity p : mPortals) {
-           p.attributeTeam();
+           //p.attributeTeam();
             if (p.getId() == 7){
                 Log.d("test", "!!!!!!!!!!! PORTAIL QUI DOIT ETRE CHANGE !!!!!!!!!");
             }
@@ -414,8 +411,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         @Override
         public void onMyLocationChange(Location location) {
             // current position player
-            SCurrentPlayer.mPlayer.setLat(location.getLatitude());
-            SCurrentPlayer.mPlayer.setLong(location.getLongitude());
+//            SCurrentPlayer.mPlayer.setLat(location.getLatitude());
+  //          SCurrentPlayer.mPlayer.setLong(location.getLongitude());
 
 //            mPlayer.setLat(location.getLatitude());
   //          mPlayer.setLong(location.getLongitude());
@@ -962,9 +959,20 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             if (i!=mPortalClicked.getId()) {
                 Context context = getApplicationContext();
                 RelativeLayout info = new RelativeLayout(context);
-                List<CKeyEntity> lKeys = SCurrentPlayer.mPlayer.getKeysByPortal(i);
+                final List<CKeyEntity> lKeys = SCurrentPlayer.mPlayer.getKeysByPortal(i);
                 ImageButton lButton = generateButton(R.mipmap.keyportal);
                 info.addView(lButton);
+                lButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CPortalEntity lPortal = lKeys.get(0).getPortal();
+                        List<CPortalEntity> lPortals = new ArrayList<CPortalEntity>();
+                        lPortals.add(mPortalClicked);
+                        lPortals.add(lPortal);
+                        CLinkEntity lLinkToCreate = new CLinkEntity.CLinkBuilder(90).portals(lPortals).build();
+                        
+                    }
+                });
                 TextView lText = new TextView(context);
                 lText.setText(Integer.toString(i));
                 lText.setTextColor(ColorStateList.valueOf(Color.WHITE));
@@ -1058,8 +1066,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
      *
      * Replaces a portal in the list by his updated version.
      */
-
-
     public void replacePortal(CPortalEntity pPortal){
         int lIdToReplace = 0;
         for (int i = 0; i < mPortals.size(); i++){
@@ -1098,6 +1104,22 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mBroadCastReceiverWS);
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        /**
+         * Si l'ecran est oriente en mode paysage -> declenchement activite vue globale CTacticalActivity
+         * ------
+         * Landscape screen -> new ActivityCTacticalActivity
+         */
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            startActivity(new Intent(this,CTacticalActivity.class));
+        }
     }
 }
 

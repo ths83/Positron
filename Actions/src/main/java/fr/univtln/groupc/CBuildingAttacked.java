@@ -4,10 +4,12 @@ import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 
+import java.io.Serializable;
+
 /**
  * Created by xdurbec066 on 02/06/16.
  */
-public class CBuildingAttacked {
+public class CBuildingAttacked implements Serializable {
 
     private CPlayerEntity mPlayer;
     private ABuildingEntity mBuilding;
@@ -27,6 +29,7 @@ public class CBuildingAttacked {
     public void setBuilding(ABuildingEntity pBuilding) {
         this.mBuilding = pBuilding;
     }
+
     public CBuildingAttacked(CBuildingAttackedBuilder pBuildingAttacked){
         mBuilding = pBuildingAttacked.mBuilding;
         mPlayer = pBuildingAttacked.mPlayer;

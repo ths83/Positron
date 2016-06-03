@@ -19,8 +19,7 @@ public class CPoseResonator implements Serializable {
     private int mResonatorId;
     private int mPortalId;
 
-    public CPoseResonator(){
-    }
+    public CPoseResonator(){}
 
     public CPoseResonator(CPoseResonatorBuilder pBuilder){
         /*mPortal = pBuilder.mPortal;
