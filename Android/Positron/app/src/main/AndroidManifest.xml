@@ -36,11 +36,7 @@
 
         <service android:name="fr.univtln.groupc.services.services.CPodometerService" />
 
-        <!-- receivers for Android device -->
-        <receiver
-            android:name="fr.univtln.groupc.services.messengers.CSimpleReceiver"
-            android:process=":remote" >
-        </receiver>
+
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -111,10 +107,7 @@
                 <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="fr.univtln.groupc.services.CLocationService"
-            android:label="@string/title_activity_clocation_service" >
-        </activity>
+        <service android:name="fr.univtln.groupc.wsclient.CWebSocketService"/>
     </application>
 
 </manifest>

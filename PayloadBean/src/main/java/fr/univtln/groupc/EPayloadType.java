@@ -10,6 +10,9 @@ public enum EPayloadType{
             return "pose_resonator";
         }
     },
+    POSE_VIRUS{
+        public String toString() { return "pose_virus"; }
+    },
     ATTACK_BUILDING {
         public String toString() {
             return "attack_building";
@@ -80,6 +83,11 @@ public enum EPayloadType{
             return "field_destroyed";
         }
     },
+    VIRUS_POSED {
+        public String toString() {
+            return "virus_posed";
+        }
+    },
     TEAM_PORTAL_CHANGED {
         public String toString() { return "team_portal_changed";}
     },
@@ -94,5 +102,6 @@ public enum EPayloadType{
     },
     PORTAL_KEY_HACKED{
         public String toString () {return  "portal_key_hacked";}
+
     }
 }

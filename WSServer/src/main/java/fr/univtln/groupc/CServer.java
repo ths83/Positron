@@ -1,11 +1,8 @@
 package fr.univtln.groupc;
 
-
-
-
-
 import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.*;
+
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -79,7 +76,7 @@ public class CServer {
             System.out.println("team du player ! " + pBean.getPoseResonator().getResonator().getOwner().getTeam());
             if (CAction.isTeamChangedAfterResonatorPoseOnPortal(pBean.getPoseResonator())) {
                 System.out.println("changement de team");
-                CTeamPortalChanged lTeamPortalChanged = new CTeamPortalChanged(pBean.getPoseResonator().getPortal());
+                CTeamPortalChanged lTeamPortalChanged = new CTeamPortalChanged.CTeamPortalChangedBuilder().portal(pBean.getPoseResonator().getPortal()).player(pBean.getPoseResonator().getPlayer()).build();
                 System.out.println("team du portal dans le if : " + lTeamPortalChanged.getPortal().getTeam());
                 CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_CHANGING_TEAM.toString()).objectTeamPortalChanged(lTeamPortalChanged).build();
                 //mCrudMethods.update(lBeanToSend.getTeamPortalChanged().getPortal());
@@ -88,14 +85,30 @@ public class CServer {
                 }
             } else {
                 System.out.println("pas de changement");
-                CResonatorPosed lResonatorPosed = new CResonatorPosed(pBean.getPoseResonator().getPortal());
+                CResonatorPosed lResonatorPosed = new CResonatorPosed.CResonatorPosedBuilder().portal((pBean.getPoseResonator().getPortal())).player(pBean.getPoseResonator().getPlayer()).build();
                 System.out.println(" portal " + lResonatorPosed.getPortal().getTeam());
                 CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().objectResonatorPosed(lResonatorPosed).type(EPayloadType.RESONATOR_POSED.toString()).build();
-                mCrudMethods.update(lBeanToSend.getResonatorPosed().getPortal());
-
+                //mCrudMethods.update(lBeanToSend.getResonatorPosed().getPortal());
                 pPeer.getBasicRemote().sendObject(lBeanToSend);
 
             }
+        }
+
+
+        else if (pBean.getType().equals(EPayloadType.POSE_VIRUS.toString())){
+            System.out.println("Pose d'un virus !!!!!!");
+            System.out.println("Pose du virus par le joueur : " + pBean.getPoseVirus().getPlayer().toString());
+            System.out.println();
+            CPortalEntity lPortal = pBean.getPoseVirus().getPortal();
+            lPortal.clearLinks();
+            if (pBean.getPoseVirus().getVirus().getRarity() == 3 ){
+                for (ABuildingEntity lBuilding : lPortal.getBuildings()){
+                    lPortal.removeBuilding(lBuilding);
+                }
+            }
+            CVirusPosed lVirusPosed = new CVirusPosed(lPortal);
+            CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().objectVirusPosed(lVirusPosed).type(EPayloadType.VIRUS_POSED.toString()).build();
+            mCrudMethods.update(lBeanToSend.getPosedVirus().getPortal());
         }
 
 
@@ -214,7 +227,7 @@ public class CServer {
             System.out.println("Hack de clef du portail : "+lPortal.getId()+" par le joueur : "+lPlayer.getNickName()+" "+lPlayer.getId());
             AObjectEntity lKey = new CKeyEntity.CKeyBuilder(1).portal(lPortal).build();
             lPlayer.addObjects(lKey);
-
+            //
             CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_KEY_HACKED.toString()).objectPortalKeyHacked(new CPortalKeyHacked(lPlayer)).build();
             System.out.println(lBeanToSend);
             for (Session lSession : mSessions){
@@ -222,6 +235,8 @@ public class CServer {
             }
 
         }
+
+
 
 
         }

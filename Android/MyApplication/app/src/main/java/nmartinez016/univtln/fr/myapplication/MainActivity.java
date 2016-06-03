@@ -49,11 +49,16 @@ public class MainActivity extends AppCompatActivity {
     public void clickPose(View view){
         CTeamEntity lTeam = new CTeamEntity.CTeamBuilder(1).color("bleu").build();
         CPlayerEntity lPlayer = new CPlayerEntity.CPlayerBuilder(1).nickname("raul").team(lTeam).xp(8000).build();
+        CResonatorEntity lResonator1 = new CResonatorEntity.CResonatorBuilder(2).level(3).owner(lPlayer).build();
+        List<CResonatorEntity> lResonators = new ArrayList<>();
+        lResonators.add(lResonator1);
+
         CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(1).build();
         System.out.println("team du portal de base : " + lPortal.getTeam());
         Log.d("tag","nb reso portail base : " + lPortal.getResonators().size());
         CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(2).name("reso1").level(5).owner(lPlayer).build();
-        CPoseResonator lPose = new CPoseResonator.CPoseResonatorBuilder().playerId(1).portal(lPortal).resonator(lResonator).build();
+        lPortal.addResonator(lResonator1);
+        CPoseResonator lPose = new CPoseResonator.CPoseResonatorBuilder().playerId(lPlayer).portal(lPortal).resonator(lResonator).build();
         CPayloadBean lBean = new CPayloadBean.CPayloadBeanBuilder()
                 .type(EPayloadType.POSE_RESONATOR.toString())
                 .objectPoseResonator(lPose).build();

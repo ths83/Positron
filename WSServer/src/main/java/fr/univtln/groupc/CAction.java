@@ -1,5 +1,6 @@
 package fr.univtln.groupc;
 
+
 import fr.univtln.groupc.entities.CResonatorEntity;
 
 /**
@@ -28,6 +29,7 @@ public class CAction {
                 System.out.println("nb reso au portail : " + pPoseResonator.getPortal().getResonators().size());
                 System.out.println("getportal null ? " + pPoseResonator.getPortal() == null);
                 pPoseResonator.getPortal().attributeTeam();
+                pPoseResonator.getPlayer().removeObject(pPoseResonator.getResonator());
                 // todo : add xp to player
             }
             else{
@@ -113,5 +115,6 @@ public class CAction {
         }
 
     }
+
 
 }
