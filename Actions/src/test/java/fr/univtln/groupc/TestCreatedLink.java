@@ -16,6 +16,6 @@ public class TestCreatedLink extends TestCase{
     }
 
     public void testSerDeserCreateLink() throws Exception {
-        System.out.println(mMapper.writeValueAsString(new CCreateLink(new CLinkEntity.CLinkBuilder(1).build())));
+        System.out.println(mMapper.writeValueAsString(new CCreateLink.CCreateLinkBuilder().build()));
     }
 }

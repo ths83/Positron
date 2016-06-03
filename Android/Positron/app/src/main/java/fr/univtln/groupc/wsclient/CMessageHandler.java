@@ -70,5 +70,6 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             mWebSocketService.sendBroadcast(lIntent);
         }
 
+
     }
 }

@@ -957,9 +957,20 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             if (i!=mPortalClicked.getId()) {
                 Context context = getApplicationContext();
                 RelativeLayout info = new RelativeLayout(context);
-                List<CKeyEntity> lKeys = SCurrentPlayer.mPlayer.getKeysByPortal(i);
+                final List<CKeyEntity> lKeys = SCurrentPlayer.mPlayer.getKeysByPortal(i);
                 ImageButton lButton = generateButton(R.mipmap.keyportal);
                 info.addView(lButton);
+                lButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CPortalEntity lPortal = lKeys.get(0).getPortal();
+                        List<CPortalEntity> lPortals = new ArrayList<CPortalEntity>();
+                        lPortals.add(mPortalClicked);
+                        lPortals.add(lPortal);
+                        CLinkEntity lLinkToCreate = new CLinkEntity.CLinkBuilder(90).portals(lPortals).build();
+                        
+                    }
+                });
                 TextView lText = new TextView(context);
                 lText.setText(Integer.toString(i));
                 lText.setTextColor(ColorStateList.valueOf(Color.WHITE));

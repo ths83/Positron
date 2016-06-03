@@ -128,6 +128,10 @@ public class CServer {
             if (CAlgorithm.detectColision(lLink, lLinks, lFields)) {
                 System.out.println("Aucune colision detectee");// \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
                 mCrudMethods.create(lLink);
+                CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getCreateLink().getPlayerId());
+                CKeyEntity lKey = mCrudMethods.find(CKeyEntity.class, pBean.getCreateLink().getKeyId());
+                lPlayer.removeObject(lKey);
+                mCrudMethods.update(lPlayer);
                 System.out.println(" ! ! ! ! ! ! ! ! ! ! Link Cree ! ! ! ! !! ! ! ! !  :" + lLink.getId());
                 System.out.println("Pre-Detection Field");
 
@@ -172,8 +176,6 @@ public class CServer {
                         lSession.getBasicRemote().sendObject(lBeanToSend);
                     }
                 }
-
-
             }
         }
 
@@ -191,7 +193,7 @@ public class CServer {
                     lPlayer.removeObject(lConsumable);
                     lPlayer.addXP((lBuildStartEnergy - lBuilding.getEnergy()) * 10);
                 } else {
-                    System.out.println("Attaque non réussis");
+                    System.out.println("Attaque non réussie");
                 }
 
 
