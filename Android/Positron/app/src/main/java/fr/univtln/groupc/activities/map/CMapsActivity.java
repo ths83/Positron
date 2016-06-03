@@ -170,7 +170,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     SCurrentPlayer.mPlayer = lPlayer;
                 }
 
-                else /*if (pIntent.getStringExtra(CMessageHandler.TYPE).equals("portal_changing_team"))*/{
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.PORTAL_CHANGING_TEAM.toString())){
                     Log.d("tag", "ok jusque la");
                     CPortalEntity lPortal = (CPortalEntity) pIntent.getSerializableExtra(CMessageHandler.PORTAL);
                     CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
@@ -178,6 +178,11 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     replacePortal(lPortal);
                     SCurrentPlayer.mPlayer = lPlayer;
                 }
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED))
+                for (Marker lMarker : mResonatorMarkers) {
+                    lMarker.remove();
+                }
+                mResonatorMarkers.clear();
                 Log.d("tag", "peu importe ");
             }
         };
@@ -1074,6 +1079,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         LatLng test = new LatLng(pPortal.getLat(), pPortal.getLong());
         IconGenerator tc = new IconGenerator(this);
         tc.setTextAppearance(R.style.iconGenText);
+        Toast.makeText(this,"Résonator Posed",Toast.LENGTH_SHORT);
         if (pPortal.getTeam() == null) {
             displayPortal(tc,test,pPortal,R.mipmap.portneutral);
 
