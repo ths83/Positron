@@ -1,5 +1,7 @@
 package fr.univtln.groupc;
 
+import fr.univtln.groupc.entities.CPlayerEntity;
+
 import java.io.Serializable;
 
 /**
@@ -17,15 +19,14 @@ public class CPayloadBean implements Serializable {
     private CAttackBuilding mAttackBuilding;
     private CPoseResonator mPoseResonator;
     private CPoseVirus mPoseVirus;
- private CAttackAOE mAttackAOE;
+    private CAttackAOE mAttackAOE;
+    private CAOEAttacked mAOEAttacked;
     private CTeamPortalChanged mTeamPortalChanged;
     private CResonatorPosed mResonatorPosed;
     private CCreateLink mCreateLink;
     private CLinkCreated mLinkCreated;
     private CFieldCreated mFieldCreated;
-
-    private CVirusPosed mPosedVirus;
-
+    private CVirusPosed mVirusPosed;
     private CHackPortal mHackPortal;
     private CPortalHacked mPortalHacked;
     private CHackPortalKey mHackPortalKey;
@@ -57,16 +58,15 @@ public class CPayloadBean implements Serializable {
         mBuildingAttacked = pBuilder.mBuildingAttacked;
         mPoseBulding = pBuilder.mPoseBuilding;
         mBuildingPosed = pBuilder.mBuildingPosed;
+        mAOEAttacked = pBuilder.mAOEAttacked;
+        mVirusPosed = pBuilder.mVirusPosed;
+        mPoseVirus = pBuilder.mPoseVirus;
 
     }
 
-    public void setType(String pType) {
-        mType = pType;
-    }
+    public void setType(String pType) {mType = pType;}
 
-    public String getType() {
-        return mType;
-    }
+    public String getType() {return mType;}
 /*
     public void setObject(Object pObject){
         mObject = pObject;
@@ -76,67 +76,37 @@ public class CPayloadBean implements Serializable {
         return mObject;
     }
 */
-    public CConnection getConnection(){
-        return mConnection;
-    }
+    public CConnection getConnection(){return mConnection;}
 
-    public void setConnection(CConnection pConnection){
-        mConnection = pConnection;
-    }
+    public void setConnection(CConnection pConnection){mConnection = pConnection;}
 
-    public CAttackAOE getAttackAOE(){
-        return mAttackAOE;
-    }
+    public CAttackAOE getAttackAOE(){return mAttackAOE;}
 
 
-    public void setAttackAOE(CAttackAOE pAttackAOE){
-        mAttackAOE = pAttackAOE;
-    }
+    public void setAttackAOE(CAttackAOE pAttackAOE){mAttackAOE = pAttackAOE;}
 
 
-    public CPoseResonator getPoseResonator(){
-        return mPoseResonator;
-    }
+    public CPoseResonator getPoseResonator(){return mPoseResonator;}
 
-    public CVirusPosed getPosedVirus() {
-        return mPosedVirus;
-    }
+    public CVirusPosed getPosedVirus() {return mVirusPosed;}
 
-    public void setPosedVirus(CVirusPosed mPosedVirus) {
-        this.mPosedVirus = mPosedVirus;
-    }
+    public void setPosedVirus(CVirusPosed mPosedVirus) {this.mVirusPosed = mPosedVirus;}
 
-    public CPoseVirus getPoseVirus() {
-        return mPoseVirus;
-    }
+    public CPoseVirus getPoseVirus() {return mPoseVirus;}
 
-    public void setPoseVirus(CPoseVirus mPoseVirus) {
-        this.mPoseVirus = mPoseVirus;
-    }
+    public void setPoseVirus(CPoseVirus mPoseVirus) {this.mPoseVirus = mPoseVirus;}
 
-    public void setPoseResonator(CPoseResonator pPoseResonator){
-        mPoseResonator = pPoseResonator;
-    }
+    public void setPoseResonator(CPoseResonator pPoseResonator){mPoseResonator = pPoseResonator;}
 
-    public CCreateLink getCreateLink(){
-        return mCreateLink;
-    }
+    public CCreateLink getCreateLink(){return mCreateLink;}
 
-    public void setCreateLink(CCreateLink pCreateLink){
-        mCreateLink = pCreateLink;
-    }
+    public void setCreateLink(CCreateLink pCreateLink){mCreateLink = pCreateLink;}
 
-    public CResonatorPosed getResonatorPosed(){
-        return mResonatorPosed;
-    }
+    public CResonatorPosed getResonatorPosed(){return mResonatorPosed;}
 
-    public void setResonatorPosed(CResonatorPosed pResonatorPosed){
-        mResonatorPosed = pResonatorPosed;
-    }
+    public void setResonatorPosed(CResonatorPosed pResonatorPosed){mResonatorPosed = pResonatorPosed;}
 
-    public CTeamPortalChanged getTeamPortalChanged(){
-        return mTeamPortalChanged;
-    }
+    public CTeamPortalChanged getTeamPortalChanged(){return mTeamPortalChanged;}
 
     public void setTeamPortalChanged(CTeamPortalChanged pTeamPortalChanged){
         mTeamPortalChanged = pTeamPortalChanged;
@@ -178,29 +148,21 @@ public class CPayloadBean implements Serializable {
 
     public void setAttackBuilding(CAttackBuilding pAttackBuilding) {this.mAttackBuilding = pAttackBuilding;}
 
-    public CPoseBuilding getPoseBulding() {
-        return mPoseBulding;
-    }
+    public CAOEAttacked getAOEAttacked() {return mAOEAttacked;}
 
-    public void setPoseBulding(CPoseBuilding pPoseBulding) {
-        this.mPoseBulding = pPoseBulding;
-    }
+    public void setAOEAttacked(CAOEAttacked pAOEAttacked) {this.mAOEAttacked = pAOEAttacked;}
 
-    public CBuildingAttacked getBuildingAttacked() {
-        return mBuildingAttacked;
-    }
+    public CPoseBuilding getPoseBulding() {return mPoseBulding;}
 
-    public void setBuildingAttacked(CBuildingAttacked pBuildingAttacked) {
-        this.mBuildingAttacked = pBuildingAttacked;
-    }
+    public void setPoseBulding(CPoseBuilding pPoseBulding) {this.mPoseBulding = pPoseBulding;}
 
-    public CBuildingPosed getBuildingPosed() {
-        return mBuildingPosed;
-    }
+    public CBuildingAttacked getBuildingAttacked() {return mBuildingAttacked;}
 
-    public void setBuildingPosed(CBuildingPosed pBuildingPosed) {
-        this.mBuildingPosed = pBuildingPosed;
-    }
+    public void setBuildingAttacked(CBuildingAttacked pBuildingAttacked) {this.mBuildingAttacked = pBuildingAttacked;}
+
+    public CBuildingPosed getBuildingPosed() {return mBuildingPosed;}
+
+    public void setBuildingPosed(CBuildingPosed pBuildingPosed) {this.mBuildingPosed = pBuildingPosed;}
 
     @Override
     public String toString() {
@@ -231,9 +193,7 @@ public class CPayloadBean implements Serializable {
         private CCreateLink mCreateLink;
         private CLinkCreated mLinkCreated;
         private CFieldCreated mFieldCreated;
-
         private CVirusPosed mVirusPosed;
-
         private CHackPortal mHackPortal;
         private CPortalHacked mPortalHacked;
         private CHackPortalKey mHackPortalKey;
@@ -241,6 +201,7 @@ public class CPayloadBean implements Serializable {
         private CBuildingAttacked mBuildingAttacked;
         private CPoseBuilding mPoseBuilding;
         private CBuildingPosed mBuildingPosed;
+        private CAOEAttacked mAOEAttacked;
 
 
         public CPayloadBeanBuilder(){};
@@ -344,6 +305,11 @@ public class CPayloadBean implements Serializable {
 
         public CPayloadBeanBuilder objectBuildingPosed (CBuildingPosed pBuildingPosed){
             mBuildingPosed = pBuildingPosed;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectAOEAttacked (CAOEAttacked pAOEAttakced){
+            mAOEAttacked = pAOEAttakced;
             return this;
         }
 

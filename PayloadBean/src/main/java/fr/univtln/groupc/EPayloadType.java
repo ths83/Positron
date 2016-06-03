@@ -121,4 +121,7 @@ public enum EPayloadType{
         public String toString () {return "attack_aoe";
         }
     },
+    AOE_ATTACKED{
+        public String toString () { return "aoe_attacked";}
+    }
 }
