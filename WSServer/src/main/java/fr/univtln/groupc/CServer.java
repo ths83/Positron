@@ -260,7 +260,29 @@ public class CServer {
 
         }
 
+        else if (pBean.getType().equals(EPayloadType.ATTACK_AOE)){
+            CPortalEntity lPortal = pBean.getAttackAOE().getPortal();
+            CPlayerEntity lPlayer = pBean.getAttackAOE().getPlayer();
+            CConsumableEntity lAmmuniton = pBean.getAttackAOE().getConsumable();
+            int OriginalEnergy =0;
 
+            for(ABuildingEntity lBuilding : lPortal.getBuildings()){
+                OriginalEnergy = lBuilding.getEnergy();
+                lBuilding.takeDamage(null, (lAmmuniton.getRarity() * 20) + lPlayer.getLevel() * 2);
+                lPlayer.addXP((OriginalEnergy-lBuilding.getEnergy())/10);
+            }
+            lPlayer.removeObject(lAmmuniton);
+
+            //TODO renvoie Portal & Player
+
+            CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.AOE_ATTACKED.toString()).objectAOEAttacked(new CAOEAttacked.CAOEAttackedBuilder().player(lPlayer).portal(lPortal).build()).build();
+
+            System.out.println(lBeanToSend);
+            for (Session lSession : mSessions){
+                lSession.getBasicRemote().sendObject(lBeanToSend);
+            }
+
+        }
 
 
         }
