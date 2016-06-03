@@ -32,7 +32,8 @@ public class CPayloadBean implements Serializable {
     private CHackPortalKey mHackPortalKey;
     private CPortalKeyHacked mPortalKeyHacked;
     private CBuildingAttacked mBuildingAttacked;
-
+    private CPoseBuilding mPoseBulding;
+    private CBuildingPosed mBuildingPosed;
 
     public CPayloadBean() {
     }
@@ -56,6 +57,8 @@ public class CPayloadBean implements Serializable {
         mHackPortalKey = pBuilder.mHackPortalKey;
         mPortalKeyHacked = pBuilder.mPortalKeyHacked;
         mBuildingAttacked = pBuilder.mBuildingAttacked;
+        mPoseBulding = pBuilder.mPoseBuilding;
+        mBuildingPosed = pBuilder.mBuildingPosed;
 
     }
 
@@ -197,12 +200,28 @@ public class CPayloadBean implements Serializable {
 
     public void setAttackBuilding(CAttackBuilding pAttackBuilding) {this.mAttackBuilding = pAttackBuilding;}
 
+    public CPoseBuilding getPoseBulding() {
+        return mPoseBulding;
+    }
+
+    public void setPoseBulding(CPoseBuilding pPoseBulding) {
+        this.mPoseBulding = pPoseBulding;
+    }
+
     public CBuildingAttacked getBuildingAttacked() {
         return mBuildingAttacked;
     }
 
     public void setBuildingAttacked(CBuildingAttacked pBuildingAttacked) {
         this.mBuildingAttacked = pBuildingAttacked;
+    }
+
+    public CBuildingPosed getBuildingPosed() {
+        return mBuildingPosed;
+    }
+
+    public void setBuildingPosed(CBuildingPosed pBuildingPosed) {
+        this.mBuildingPosed = pBuildingPosed;
     }
 
     @Override
@@ -243,6 +262,8 @@ public class CPayloadBean implements Serializable {
         private CHackPortalKey mHackPortalKey;
         private CPortalKeyHacked mPortalKeyHacked;
         private CBuildingAttacked mBuildingAttacked;
+        private CPoseBuilding mPoseBuilding;
+        private CBuildingPosed mBuildingPosed;
 
 
         public CPayloadBeanBuilder(){};
@@ -342,6 +363,17 @@ public class CPayloadBean implements Serializable {
             mBuildingAttacked = pBuildingAttacked;
             return this;
         }
+
+        public CPayloadBeanBuilder objectPoseBuilding(CPoseBuilding pPoseBuilding){
+            mPoseBuilding = pPoseBuilding;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectBuildingPosed (CBuildingPosed pBuildingPosed){
+            mBuildingPosed = pBuildingPosed;
+            return this;
+        }
+
         public CPayloadBean build(){
             return new CPayloadBean(this);
         }
