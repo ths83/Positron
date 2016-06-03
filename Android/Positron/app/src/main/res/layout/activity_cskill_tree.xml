@@ -5,14 +5,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="fr.univtln.groupc.activities.profil.CSkillTree"
-    android:background="@color/backgroundaction">
+    android:background="#0087c5">
 
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/title_Skill_Tree"
     android:id="@+id/skill_tree_title"
-    android:layout_centerHorizontal="true"/>
+    android:layout_centerHorizontal="true"
+    android:textSize="25dp"
+    android:textColor="#000000" />
 
 
     <!-- 1er Arbre Maintenance -->
@@ -30,7 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/title_Maintenance_Tree"/>
+            android:text="@string/title_Maintenance_Tree"
+            android:contextClickable="false"
+            android:textSize="15dp"
+            android:textColor="#ffffff" />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
@@ -39,7 +44,8 @@
             android:layout_toLeftOf="@+id/Maintenance_21"
             android:layout_centerVertical="true"
             android:text="Shield +"
-            android:onClick="selectSkill_Maintenance_1"/>
+            android:onClick="selectSkill_Maintenance_1"
+            android:textSize="12dp" />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
@@ -68,7 +74,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:text="Turret +"
-            android:onClick="selectSkill_Maintenance_3"/>
+            android:onClick="selectSkill_Maintenance_3"
+            android:textSize="12dp" />
 
 
     </RelativeLayout>
@@ -87,7 +94,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/title_Attack_Tree"/>
+            android:text="@string/title_Attack_Tree"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
@@ -96,7 +105,8 @@
             android:layout_toLeftOf="@+id/Attack_21"
             android:layout_centerVertical="true"
             android:text="Weapon +"
-            android:onClick="selectSkill_Attack_1"/>
+            android:onClick="selectSkill_Attack_1"
+            android:textSize="11dp" />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
@@ -114,7 +124,8 @@
             android:layout_toRightOf="@+id/Attack_1"
             android:layout_marginTop="@dimen/skill_tree_button_margin"
             android:text="Weapon ++"
-            android:onClick="selectSkill_Attack_22"/>
+            android:onClick="selectSkill_Attack_22"
+            android:textSize="10dp" />
 
 
         <Button
@@ -143,7 +154,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/title_Hacking_Tree"/>
+            android:text="@string/title_Hacking_Tree"
+            android:textSize="20dp"
+            android:textColor="#ffffff" />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
@@ -169,8 +182,9 @@
             android:id="@+id/Hacking_22"
             android:layout_toRightOf="@+id/Hacking_1"
             android:layout_marginTop="@dimen/skill_tree_button_margin"
-            android:text="HackDistrube"
-            android:onClick="selectSkill_Hacking_22"/>
+            android:text="Intercept"
+            android:onClick="selectSkill_Hacking_22"
+            android:textSize="10dp" />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
@@ -178,8 +192,9 @@
             android:id="@+id/Hacking_3"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="MultiHacking"
-            android:onClick="selectSkill_Hacking_3"/>
+            android:text="MultiHack"
+            android:onClick="selectSkill_Hacking_3"
+            android:textSize="9dp" />
 
     </RelativeLayout>
 
@@ -198,7 +213,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/title_Scout_Tree"/>
+            android:text="@string/title_Scout_Tree"
+            android:textColor="#ffffff"
+            android:textSize="12dp" />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
@@ -224,8 +241,9 @@
             android:id="@+id/Scout_22"
             android:layout_toRightOf="@+id/Scout_1"
             android:layout_marginTop="@dimen/skill_tree_button_margin"
-            android:text="F***"
-            android:onClick="selectSkill_Scout_22"/>
+            android:text="CAMERA"
+            android:onClick="selectSkill_Scout_22"
+            android:textSize="12dp" />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
@@ -251,7 +269,8 @@
             android:text="@string/text_view_free_skill_point"
             android:layout_centerVertical="true"
             android:id="@+id/text_View_free_skill_point"
-            />
+            android:textSize="20dp"
+            android:textColor="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -260,7 +279,8 @@
             android:layout_toRightOf="@+id/text_View_free_skill_point"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            />
+            android:textSize="20dp"
+            android:textColor="#000000" />
 
         <Button
             android:layout_width="@dimen/skill_tree_button_width"
@@ -278,7 +298,9 @@
             android:text="1"
             android:id="@+id/num_colone_1"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="150dp"/>
+            android:layout_marginLeft="150dp"
+            android:textSize="20dp"
+            android:textColor="#000000" />
 
 
         <TextView
@@ -288,7 +310,9 @@
             android:id="@+id/num_colone_2"
             android:layout_toRightOf="@+id/num_colone_1"
             android:layout_marginLeft="@dimen/skill_tree_colon_margin"
-            android:text="2"/>
+            android:text="2"
+            android:textColor="#000000"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -297,7 +321,9 @@
             android:id="@+id/num_colone_3"
             android:layout_toRightOf="@+id/num_colone_2"
             android:layout_marginLeft="@dimen/skill_tree_colon_margin"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true"
+            android:textSize="20dp"
+            android:textColor="#000000" />
 
     </RelativeLayout>
 

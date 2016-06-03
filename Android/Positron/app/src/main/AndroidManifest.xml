@@ -102,6 +102,10 @@
         <activity
             android:name="fr.univtln.groupc.activities.profil.CSkillTree"
             android:label="@string/title_activity_cskill_tree" >
+            <intent-filter>
+                <action android:name="ANDROID.INTENT.ACTION.MAIN" />
+                <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
+            </intent-filter>
         </activity>
         <service android:name="fr.univtln.groupc.wsclient.CWebSocketService"/>
     </application>
