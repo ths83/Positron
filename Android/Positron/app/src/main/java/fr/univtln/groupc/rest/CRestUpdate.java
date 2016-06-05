@@ -24,7 +24,7 @@ import fr.univtln.groupc.entities.CShieldEntity;
  */
 public class CRestUpdate extends AsyncTask<String, String, Void> {
 
-    public final static String API_URL = "http://10.9.185.52:9998";
+    public final static String API_URL = "http://192.168.1.83:9998";
 
     @Override
     protected Void doInBackground(String... params) {
