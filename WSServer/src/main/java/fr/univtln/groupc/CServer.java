@@ -288,8 +288,8 @@ public class CServer {
 
         else if (pBean.getType().equals(EPayloadType.HACK_PORTAL.toString())){
 
-            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class,pBean.getHackPortal().getPlayer().getId());
-            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getHackPortal().getmPortal().getId());
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class,pBean.getHackPortal().getPlayerId());
+            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getHackPortal().getmPortalId());
             System.out.println("Hack du portail : " + lPortal.getId() + " par le joueur : " + lPlayer.getNickName() + " " + lPlayer.getId());
             AObjectEntity lObjetCreated = CAlgorithm.createObject(CAlgorithm.calculTypeObject(), CAlgorithm.calculLevel(lPortal.getLevel(), lPlayer.getLevel()), CAlgorithm.calculRarety(lPortal.getLevel()));
             lPlayer.addObjects(lObjetCreated);
@@ -303,8 +303,8 @@ public class CServer {
         }
 
         else if (pBean.getType().equals(EPayloadType.HACK_PORTAL_KEY.toString())){
-            CPortalEntity lPortal = pBean.getHackPortalKey().getmPortal();
-            CPlayerEntity lPlayer = pBean.getHackPortalKey().getmPlayer();
+            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class,pBean.getHackPortalKey().getPortalId());
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class,pBean.getHackPortalKey().getPlayerId());
             System.out.println("Hack de clef du portail : " + lPortal.getId() + " par le joueur : " + lPlayer.getNickName() + " " + lPlayer.getId());
             AObjectEntity lKey = new CKeyEntity.CKeyBuilder(1).portal(lPortal).build();
             lPlayer.addObjects(lKey);
@@ -319,9 +319,9 @@ public class CServer {
 
         else if (pBean.getType().equals(EPayloadType.POSE_BUILDING.toString())){
 
-            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getPoseBulding().getPortal().getId());
-            ABuildingEntity lBuilding = mCrudMethods.find(ABuildingEntity.class, pBean.getPoseBulding().getBuilding().getId());
-            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getPoseBulding().getmPlayer().getId());
+            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getPoseBulding().getPortalId());
+            ABuildingEntity lBuilding = mCrudMethods.find(ABuildingEntity.class, pBean.getPoseBulding().getBuildingId());
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getPoseBulding().getPlayerId());
 
             // TODO Metre double sécurité pour les vérification Team, Level et place libre.
 
@@ -339,9 +339,9 @@ public class CServer {
         }
 
         else if (pBean.getType().equals(EPayloadType.ATTACK_AOE)){
-            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getAttackAOE().getPortal().getId());
-            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getAttackAOE().getPlayer().getId());
-            CConsumableEntity lAmmuniton = mCrudMethods.find(CConsumableEntity.class, pBean.getAttackAOE().getConsumable());
+            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getAttackAOE().getPortalId());
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getAttackAOE().getPlayerId());
+            CConsumableEntity lAmmuniton = mCrudMethods.find(CConsumableEntity.class, pBean.getAttackAOE().getConsumableId());
             int OriginalEnergy =0;
 
             for(ABuildingEntity lBuilding : lPortal.getBuildings()){
