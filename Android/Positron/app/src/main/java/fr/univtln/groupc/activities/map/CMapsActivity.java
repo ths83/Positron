@@ -34,6 +34,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -63,6 +64,7 @@ import fr.univtln.groupc.CPoseResonator;
 import fr.univtln.groupc.EPayloadType;
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
+import fr.univtln.groupc.activities.profil.CChoiceActivity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
@@ -139,10 +141,18 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     // TODO delete this attr -> just for test link creation
     private CPortalEntity mTestPortal;
 
+    // TODO add multiple buttons for each subMenu
+    private FloatingActionButton mMenuButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        mMenuButton = (FloatingActionButton) findViewById(R.id.menu_button);
+
+
         Intent lIntent = new Intent(CMapsActivity.this, CWebSocketService.class);
         startService(lIntent);
 
@@ -852,7 +862,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
 
-    /*
+    /**
      * Affiche les résonateurs avec leur
      * niveau de vie et leur équipe
      *
@@ -1052,7 +1062,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         });
     }
 
-    /*
+    /**
      * Remplace un portail dans la liste des portails par sa mise à jour.
      *
      * ----------
@@ -1093,6 +1103,17 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+    /**
+     *  acces au menu
+     *  -----
+     *  access to Positron Menu
+     * @param view
+     */
+    public void displayCompetencesTree(View view){
+        Intent lMenuIntent = new Intent(this, CChoiceActivity.class);
+        startActivity(lMenuIntent);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -1111,7 +1132,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
          */
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // university center
-            Toast.makeText(getBaseContext(),getText(R.string.landscape_map),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(),getText(R.string.tactical_view),Toast.LENGTH_SHORT).show();
             LatLng lLoc = new LatLng(43.136478, 6.017839);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(lLoc));
             mMap.animateCamera(CameraUpdateFactory.zoomTo((float) 16));
@@ -1125,11 +1146,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
-            mMap.setMyLocationEnabled(false);
         }
         else {
             Toast.makeText(getBaseContext(),getText(R.string.portrait_view),Toast.LENGTH_SHORT).show();
-            mMap.setMyLocationEnabled(true);
         }
     }
 }
