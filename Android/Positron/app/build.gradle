@@ -48,6 +48,7 @@ dependencies {
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.github.clans:fab:1.6.4'
     compile 'co.lemonlabs:expandable-button-menu:1.0.0'
+    compile 'com.github.markushi:circlebutton:1.1'
     compile 'com.android.support:support-v4:23.+'
 
     compile 'com.loopj.android:android-async-http:1.4.5'
