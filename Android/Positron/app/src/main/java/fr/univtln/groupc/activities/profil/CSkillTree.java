@@ -369,7 +369,8 @@ public class CSkillTree extends AppCompatActivity {
        CRestGet lGet = new CRestGet();
         CRestUpdate lUpDate = new CRestUpdate();
        CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(11).cost(1).level(1).type("Maintenance").build();
-        Log.d("SkillTree","Skill 1 avaiable? :"+mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer)));
+       // CSkillEntity lSkillWanted = lGet.getSkillByID(11);
+        Log.d("SkillTree", "Skill 1 avaiable? :" + mPlayer.skillAvailable(lSkillWanted, calculateFreeSkillPoint(mPlayer)));
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
             mPlayer.addSkill(lSkillWanted);
             calculateFreeSkillPoint(mPlayer);
@@ -383,6 +384,7 @@ public class CSkillTree extends AppCompatActivity {
         CRestGet lGet = new CRestGet();
         CRestUpdate lUpDate = new CRestUpdate();
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(121).cost(1).level(2).type("Maintenance").build();
+        // CSkillEntity lSkillWanted = lGet.getSkillByID(121);
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
             mPlayer.addSkill(lSkillWanted);
@@ -398,7 +400,7 @@ public class CSkillTree extends AppCompatActivity {
         CRestUpdate lUpDate = new CRestUpdate();
 
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(122).cost(2).level(2).type("Maintenance").build();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(122);
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
             mPlayer.addSkill(lSkillWanted);
             calculateFreeSkillPoint(mPlayer);
@@ -413,7 +415,7 @@ public class CSkillTree extends AppCompatActivity {
         CRestUpdate lUpDate = new CRestUpdate();
 
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(13).cost(1).level(3).type("Maintenance").build();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(13);
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
             mPlayer.addSkill(lSkillWanted);
@@ -428,6 +430,7 @@ public class CSkillTree extends AppCompatActivity {
         CRestUpdate lUpDate = new CRestUpdate();
 
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(21).cost(1).level(1).type("Attack").build();
+// CSkillEntity lSkillWanted = lGet.getSkillByID(21);
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
             mPlayer.addSkill(lSkillWanted);
@@ -441,7 +444,7 @@ public class CSkillTree extends AppCompatActivity {
         CRestUpdate lUpDate = new CRestUpdate();
 
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(221).cost(1).level(2).type("Attack").build();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(221);
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
             mPlayer.addSkill(lSkillWanted);
             calculateFreeSkillPoint(mPlayer);
@@ -452,7 +455,7 @@ public class CSkillTree extends AppCompatActivity {
     public void selectSkill_Attack_22(View pView){
         CRestGet lGet = new CRestGet();
         CRestUpdate lUpDate = new CRestUpdate();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(222);
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(222).cost(2).level(2).type("Attack").build();
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
@@ -468,7 +471,7 @@ public class CSkillTree extends AppCompatActivity {
         CRestUpdate lUpDate = new CRestUpdate();
 
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(23).cost(1).level(3).type("Attack").build();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(23);
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
             mPlayer.addSkill(lSkillWanted);
             calculateFreeSkillPoint(mPlayer);
@@ -482,7 +485,7 @@ public class CSkillTree extends AppCompatActivity {
         CRestUpdate lUpDate = new CRestUpdate();
 
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(31).cost(1).level(1).type("Hack").build();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(31);
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
             mPlayer.addSkill(lSkillWanted);
             calculateFreeSkillPoint(mPlayer);
@@ -494,7 +497,7 @@ public class CSkillTree extends AppCompatActivity {
     public void selectSkill_Hacking_21(View pView){
         CRestGet lGet = new CRestGet();
         CRestUpdate lUpDate = new CRestUpdate();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(321);
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(321).cost(1).level(2).type("Hack").build();
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
@@ -508,7 +511,7 @@ public class CSkillTree extends AppCompatActivity {
     public void selectSkill_Hacking_22(View pView){
         CRestGet lGet = new CRestGet();
         CRestUpdate lUpDate = new CRestUpdate();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(322);
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(322).cost(2).level(2).type("Hack").build();
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
@@ -523,7 +526,7 @@ public class CSkillTree extends AppCompatActivity {
     public void selectSkill_Hacking_3(View pView){
         CRestGet lGet = new CRestGet();
         CRestUpdate lUpDate = new CRestUpdate();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(33);
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(33).cost(1).level(3).type("Hack").build();
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
@@ -537,7 +540,7 @@ public class CSkillTree extends AppCompatActivity {
     public void selectSkill_Scout_1(View pView){
         CRestGet lGet = new CRestGet();
         CRestUpdate lUpDate = new CRestUpdate();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(41);
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(41).cost(1).level(1).type("Scout").build();
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
@@ -551,7 +554,7 @@ public class CSkillTree extends AppCompatActivity {
     public void selectSkill_Scout_21(View pView){
         CRestGet lGet = new CRestGet();
         CRestUpdate lUpDate = new CRestUpdate();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(421);
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(421).cost(1).level(2).type("Scout").build();
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
@@ -565,7 +568,7 @@ public class CSkillTree extends AppCompatActivity {
     public void selectSkill_Scout_22(View pView){
         CRestGet lGet = new CRestGet();
         CRestUpdate lUpDate = new CRestUpdate();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(422);
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(422).cost(2).level(2).type("Scout").build();
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){
@@ -579,7 +582,7 @@ public class CSkillTree extends AppCompatActivity {
     public void selectSkill_Scout_3(View pView){
         CRestGet lGet = new CRestGet();
         CRestUpdate lUpDate = new CRestUpdate();
-
+// CSkillEntity lSkillWanted = lGet.getSkillByID(43);
         CSkillEntity lSkillWanted = new CSkillEntity.CSkillBuilder(43).cost(1).level(3).type("Scout").build();
 
         if(mPlayer.skillAvailable(lSkillWanted,calculateFreeSkillPoint(mPlayer))){

@@ -117,7 +117,7 @@ public class CServer {
             System.out.println("Pose d'un virus !!!!!!");
             System.out.println("Pose du virus par le joueur : " + pBean.getPoseVirus().getPlayer().toString());
             System.out.println();
-            CPortalEntity lPortal = pBean.getPoseVirus().getPortal();
+            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class,pBean.getPoseVirus().getPortal().getId());
             lPortal.clearLinks();
             if (pBean.getPoseVirus().getVirus().getRarity() == 3 ){
                 for (ABuildingEntity lBuilding : lPortal.getBuildings()){
@@ -227,9 +227,9 @@ public class CServer {
         }*/
 
         else if (pBean.getType().equals(EPayloadType.ATTACK_BUILDING.toString())){
-            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class,pBean.getAttackBuilding().getPlayerId());
-            ABuildingEntity lBuilding = mCrudMethods.find(ABuildingEntity.class,pBean.getAttackBuilding().getBuildingId());
-            CConsumableEntity lConsumable = mCrudMethods.find(CConsumableEntity.class,pBean.getAttackBuilding().getConsumableId());
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getAttackBuilding().getPlayerId());
+            ABuildingEntity lBuilding = mCrudMethods.find(ABuildingEntity.class, pBean.getAttackBuilding().getBuildingId());
+            CConsumableEntity lConsumable = mCrudMethods.find(CConsumableEntity.class, pBean.getAttackBuilding().getConsumableId());
             System.out.println("Attaque de la structure : " + lBuilding.getId() + " par le joueur : " + lPlayer.getNickName() + " " + lPlayer.getId());
             int lBuildStartEnergy = lBuilding.getEnergy();
             lBuilding = CAction.applyAttack(lBuilding,lConsumable,lPlayer);
@@ -258,13 +258,13 @@ public class CServer {
 
         else if (pBean.getType().equals(EPayloadType.HACK_PORTAL.toString())){
 
-            CPlayerEntity lPlayer = pBean.getHackPortal().getPlayer();
-            CPortalEntity lPortal = pBean.getHackPortal().getmPortal();
-            System.out.println("Hack du portail : "+lPortal.getId()+" par le joueur : "+lPlayer.getNickName()+" "+lPlayer.getId());
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class,pBean.getHackPortal().getPlayer().getId());
+            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getHackPortal().getmPortal().getId());
+            System.out.println("Hack du portail : " + lPortal.getId() + " par le joueur : " + lPlayer.getNickName() + " " + lPlayer.getId());
             AObjectEntity lObjetCreated = CAlgorithm.createObject(CAlgorithm.calculTypeObject(), CAlgorithm.calculLevel(lPortal.getLevel(), lPlayer.getLevel()), CAlgorithm.calculRarety(lPortal.getLevel()));
             lPlayer.addObjects(lObjetCreated);
 
-
+            mCrudMethods.update(lPlayer);
             CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_HACKED.toString()).objectPortalHacked(new CPortalHacked(lPlayer)).build();
             System.out.println(lBeanToSend);
             for (Session lSession : mSessions){
@@ -289,15 +289,16 @@ public class CServer {
 
         else if (pBean.getType().equals(EPayloadType.POSE_BUILDING.toString())){
 
-            CPortalEntity lPortal = pBean.getPoseBulding().getPortal();
-            ABuildingEntity lBuilding = pBean.getPoseBulding().getBuilding();
-            CPlayerEntity lPlayer = pBean.getPoseBulding().getmPlayer();
+            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getPoseBulding().getPortal().getId());
+            ABuildingEntity lBuilding = mCrudMethods.find(ABuildingEntity.class, pBean.getPoseBulding().getBuilding().getId());
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getPoseBulding().getmPlayer().getId());
 
             // TODO Metre double sécurité pour les vérification Team, Level et place libre.
 
             lPlayer.removeObject(lBuilding);
             lPortal.addBuilding(lBuilding);
-
+            mCrudMethods.update(lPlayer);
+            mCrudMethods.update(lPortal);
             CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.BUILDING_POSED.toString()).objectBuildingPosed(new CBuildingPosed.CBuildingPosedBuilder().player(lPlayer).portal(lPortal).build()).build();
 
             System.out.println(lBeanToSend);
@@ -308,9 +309,9 @@ public class CServer {
         }
 
         else if (pBean.getType().equals(EPayloadType.ATTACK_AOE)){
-            CPortalEntity lPortal = pBean.getAttackAOE().getPortal();
-            CPlayerEntity lPlayer = pBean.getAttackAOE().getPlayer();
-            CConsumableEntity lAmmuniton = pBean.getAttackAOE().getConsumable();
+            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getAttackAOE().getPortal().getId());
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getAttackAOE().getPlayer().getId());
+            CConsumableEntity lAmmuniton = mCrudMethods.find(CConsumableEntity.class, pBean.getAttackAOE().getConsumable());
             int OriginalEnergy =0;
 
             for(ABuildingEntity lBuilding : lPortal.getBuildings()){
@@ -320,8 +321,8 @@ public class CServer {
             }
             lPlayer.removeObject(lAmmuniton);
 
-            //TODO renvoie Portal & Player
-
+            mCrudMethods.update(lPlayer);
+            mCrudMethods.update(lPortal);
             CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.AOE_ATTACKED.toString()).objectAOEAttacked(new CAOEAttacked.CAOEAttackedBuilder().player(lPlayer).portal(lPortal).build()).build();
 
             System.out.println(lBeanToSend);
