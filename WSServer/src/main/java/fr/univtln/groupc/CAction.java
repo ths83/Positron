@@ -124,7 +124,37 @@ public class CAction {
         return pAttackBuilding;
     }*/
 
+
+    public static Boolean isPortalTeamOfBuildingChanged(ABuildingEntity pBuilding){
+        //CAttackBuilding lAttackBuilding = applyAttack(pAttackBuilding);
+        if (pBuilding instanceof CResonatorEntity){
+            if (isDeadBuilding(pBuilding)){
+                int lTeamId = pBuilding.getPortal().getTeam().getId();
+                pBuilding.getPortal().attributeTeam();
+                int lTeamToCompare = pBuilding.getPortal().getTeam().getId();
+                return (lTeamId != lTeamToCompare);
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public static Boolean isDeadBuilding(ABuildingEntity pBuilding){
+        /*System.out.println("pv building avant atq : " + pAttackBuilding.getBuilding().getEnergy());
+        //CAttackBuilding lAttackBuilding = applyAttack(pAttackBuilding);
+        System.out.println("pv building apres atq : " + pAttackBuilding.getBuilding().getEnergy());*/
+        return pBuilding.getEnergy() <= 0 ;
+    }
+
     public static ABuildingEntity applyAttack(ABuildingEntity pBuilding, CConsumableEntity pConsumable, CPlayerEntity pPlayer) {
+        System.out.println("--->" +pConsumable==null);
+        System.out.println("((((" +pBuilding==null);
+        System.out.println("pppppppppp->" +pPlayer==null);
         if (pConsumable.getName().equals("Attack")) {
             pPlayer.attack(pBuilding, pConsumable);
             //TODO add XP degat * 10
@@ -174,43 +204,6 @@ public class CAction {
 =======
 
     }*/
-
-    public static Boolean isPortalTeamOfBuildingChanged(ABuildingEntity pBuilding){
-        //CAttackBuilding lAttackBuilding = applyAttack(pAttackBuilding);
-        if (pBuilding instanceof CResonatorEntity){
-            if (isDeadBuilding(pBuilding)){
-                int lTeamId = pBuilding.getPortal().getTeam().getId();
-                pBuilding.getPortal().attributeTeam();
-                int lTeamToCompare = pBuilding.getPortal().getTeam().getId();
-                return (lTeamId != lTeamToCompare);
-            }
-            else{
-                return false;
-            }
-        }
-        else{
-            return false;
-        }
-
-    }
-
-    public static Boolean isDeadBuilding(ABuildingEntity pBuilding){
-        /*System.out.println("pv building avant atq : " + pAttackBuilding.getBuilding().getEnergy());
-        //CAttackBuilding lAttackBuilding = applyAttack(pAttackBuilding);
-        System.out.println("pv building apres atq : " + pAttackBuilding.getBuilding().getEnergy());*/
-        if (pBuilding.getEnergy() <= 0){
-            if (pBuilding instanceof CResonatorEntity){
-                pBuilding.getPortal().removeResonator((CResonatorEntity)pBuilding);
-            }
-            else{
-                pBuilding.getPortal().removeBuilding(pBuilding);
-            }
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
 
 

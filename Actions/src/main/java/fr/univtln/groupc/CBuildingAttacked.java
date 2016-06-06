@@ -9,35 +9,38 @@ import java.io.Serializable;
 /**
  * Created by xdurbec066 on 02/06/16.
  */
+
 public class CBuildingAttacked implements Serializable {
 
     private CPlayerEntity mPlayer;
-    private ABuildingEntity mBuilding;
+    private CPortalEntity mPortal;
+
+    public CBuildingAttacked() {}
 
     public CPlayerEntity getPlayer() {
         return mPlayer;
     }
 
     public void setPlayer(CPlayerEntity pPlayer) {
-        this.mPlayer = pPlayer;
+        mPlayer = pPlayer;
     }
 
-    public ABuildingEntity getBuilding() {
-        return mBuilding;
+    public CPortalEntity getPortal() {
+        return mPortal;
     }
 
-    public void setBuilding(ABuildingEntity pBuilding) {
-        this.mBuilding = pBuilding;
+    public void setPortal(CPortalEntity pPortal) {
+        mPortal = pPortal;
     }
 
     public CBuildingAttacked(CBuildingAttackedBuilder pBuildingAttacked){
-        mBuilding = pBuildingAttacked.mBuilding;
+        mPortal = pBuildingAttacked.mPortal;
         mPlayer = pBuildingAttacked.mPlayer;
     }
 
     public static class CBuildingAttackedBuilder{
         CPlayerEntity mPlayer;
-        ABuildingEntity mBuilding;
+        CPortalEntity mPortal;
 
         public CBuildingAttackedBuilder(){}
 
@@ -46,8 +49,8 @@ public class CBuildingAttacked implements Serializable {
             return this;
         }
 
-        public CBuildingAttackedBuilder building (ABuildingEntity pBuilding){
-            mBuilding = pBuilding;
+        public CBuildingAttackedBuilder portal (CPortalEntity pPortal){
+            mPortal = pPortal;
             return this;
         }
         public CBuildingAttacked build(){
