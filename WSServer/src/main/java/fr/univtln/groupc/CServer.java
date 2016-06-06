@@ -198,7 +198,7 @@ public class CServer {
             }
         }
 
-        else if (pBean.getType().equals(EPayloadType.ATTACK_BUILDING.toString())){
+        /*else if (pBean.getType().equals(EPayloadType.ATTACK_BUILDING.toString())){
             CPlayerEntity lPlayer = pBean.getAttackBuilding().getPlayer();
             ABuildingEntity lBuilding = pBean.getAttackBuilding().getBuilding();
             CConsumableEntity lConsumable = pBean.getAttackBuilding().getConsumable();
@@ -224,6 +224,36 @@ public class CServer {
             }
 
             //if (pBean.get)
+        }*/
+
+        else if (pBean.getType().equals(EPayloadType.ATTACK_BUILDING.toString())){
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class,pBean.getAttackBuilding().getPlayerId());
+            ABuildingEntity lBuilding = mCrudMethods.find(ABuildingEntity.class,pBean.getAttackBuilding().getBuildingId());
+            CConsumableEntity lConsumable = mCrudMethods.find(CConsumableEntity.class,pBean.getAttackBuilding().getConsumableId());
+            System.out.println("Attaque de la structure : " + lBuilding.getId() + " par le joueur : " + lPlayer.getNickName() + " " + lPlayer.getId());
+            int lBuildStartEnergy = lBuilding.getEnergy();
+            lBuilding = CAction.applyAttack(lBuilding,lConsumable,lPlayer);
+            //lPlayer.attack(lBuilding, lConsumable);
+            if (CAction.isPortalTeamOfBuildingChanged(lBuilding)) {
+                if (lBuildStartEnergy > lBuilding.getEnergy()) {
+                    System.out.println("Attaque réussie pour " + (lBuildStartEnergy - lBuilding.getEnergy()) + " pts de dégàts");
+                    lPlayer.removeObject(lConsumable);
+                    lPlayer.addXP((lBuildStartEnergy - lBuilding.getEnergy()) * 10);
+                    mCrudMethods.update(lPlayer);
+                } else {
+                    System.out.println("Attaque non réussie");
+
+                }
+
+                CBuildingAttacked lBuildingAttacked = new CBuildingAttacked.CBuildingAttackedBuilder().building(lBuilding).player(lPlayer).build();
+                CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.BUILDING_ATTACKED.toString()).objectBuildingAttacked(lBuildingAttacked).build();
+                System.out.println(lBeanToSend);
+                for (Session lSession : mSessions) {
+                    lSession.getBasicRemote().sendObject(lBeanToSend);
+                }
+            }
+
+            //if (pBean.get)
         }
 
         else if (pBean.getType().equals(EPayloadType.HACK_PORTAL.toString())){
@@ -245,7 +275,7 @@ public class CServer {
         else if (pBean.getType().equals(EPayloadType.HACK_PORTAL_KEY.toString())){
             CPortalEntity lPortal = pBean.getHackPortalKey().getmPortal();
             CPlayerEntity lPlayer = pBean.getHackPortalKey().getmPlayer();
-            System.out.println("Hack de clef du portail : "+lPortal.getId()+" par le joueur : "+lPlayer.getNickName()+" "+lPlayer.getId());
+            System.out.println("Hack de clef du portail : " + lPortal.getId() + " par le joueur : " + lPlayer.getNickName() + " " + lPlayer.getId());
             AObjectEntity lKey = new CKeyEntity.CKeyBuilder(1).portal(lPortal).build();
             lPlayer.addObjects(lKey);
             //

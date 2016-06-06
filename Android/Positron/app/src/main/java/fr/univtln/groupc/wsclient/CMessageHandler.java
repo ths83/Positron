@@ -23,6 +23,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
     public static String PORTAL = "portal";
     public static String PLAYER = "player";
     public static String LINK = "link";
+    public static String BUILDING = "building";
 
     public CMessageHandler(CWebSocketService pService){
         mWebSocketService = pService;
@@ -71,11 +72,11 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             mWebSocketService.sendBroadcast(lIntent);
         }
 
-        else if (pBean.getType().equals(EPayloadType.ATTACK_SUCCESFUL.toString())){
+        else if (pBean.getType().equals(EPayloadType.BUILDING_ATTACKED.toString())){
             Intent lIntent = new Intent("test");
-            lIntent.putExtra(TYPE,EPayloadType.ATTACK_SUCCESFUL.toString());
-            lIntent.putExtra(PORTAL, pBean.getTeamPortalChanged().getPortal());
-            lIntent.putExtra(PLAYER, pBean.getTeamPortalChanged().getPlayer());
+            lIntent.putExtra(TYPE, EPayloadType.BUILDING_ATTACKED.toString());
+            lIntent.putExtra(BUILDING, pBean.getBuildingAttacked().getBuilding());
+            lIntent.putExtra(PLAYER, pBean.getBuildingAttacked().getPlayer());
             mWebSocketService.sendBroadcast(lIntent);
         }
 

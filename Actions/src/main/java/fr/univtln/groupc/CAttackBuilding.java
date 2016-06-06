@@ -13,68 +13,75 @@ import java.io.Serializable;
 
 
 public class CAttackBuilding implements Serializable {
-    private ABuildingEntity mBuilding;
+    /*private ABuildingEntity mBuilding;
     private CPlayerEntity mPlayer;
-    private CConsumableEntity mConsumable;
+    private CConsumableEntity mConsumable;*/
+
+    private int mBuildingId;
+    private int mPlayerId;
+    private int mConsumableId;
+
 
     public CAttackBuilding(){
     }
 
     public CAttackBuilding(CAttackBuildingBuilder pBuilder){
-
-        mPlayer = pBuilder.mPlayer;
-        mBuilding = pBuilder.mBuilding;
-        mConsumable = pBuilder.mConsumable;
+        mPlayerId = pBuilder.mPlayerId;
+        mBuildingId = pBuilder.mBuildingId;
+        mConsumableId = pBuilder.mConsumableId;
     }
 
-    public void setBuilding(ABuildingEntity pBuilding){
-        mBuilding = pBuilding;
+    public void setBuildingId(int pBuildingId){
+        mBuildingId = pBuildingId;
     }
 
-    public ABuildingEntity getBuilding(){
-        return mBuilding;
+    public int getBuildingId(){
+        return mBuildingId;
     }
 
-    public CPlayerEntity getPlayer(){
-        return mPlayer;
+    public int getPlayerId(){
+        return mPlayerId;
     }
 
-    public void setPlayer(CPlayerEntity pPlayer){
-        mPlayer = pPlayer;
+    public void setPlayerId(int pPlayerId){
+        mPlayerId = pPlayerId;
     }
 
-    public CConsumableEntity getConsumable(){
-        return mConsumable;
+    public int getConsumableId(){
+        return mConsumableId;
     }
 
-    public void setConsumable(CConsumableEntity pConsumable){
-        mConsumable = pConsumable;
+    public void setConsumableId(int pConsumableId){
+        mConsumableId = pConsumableId;
     }
 
 
 
 
     public static class CAttackBuildingBuilder{
-        private ABuildingEntity mBuilding;
+        /*private ABuildingEntity mBuilding;
         private CPlayerEntity mPlayer;
-        private CConsumableEntity mConsumable;
+        private CConsumableEntity mConsumable;*/
+        private int mBuildingId;
+        private int mPlayerId;
+        private int mConsumableId;
 
         public CAttackBuildingBuilder(){
         }
 
-        public CAttackBuildingBuilder building(ABuildingEntity pBuilding){
-            mBuilding = pBuilding;
+        public CAttackBuildingBuilder buildingId(int pBuildingId){
+            mBuildingId = pBuildingId;
             return this;
         }
 
 
-        public CAttackBuildingBuilder playerId(CPlayerEntity pPlayer){
-            mPlayer = pPlayer;
+        public CAttackBuildingBuilder playerId(int pPlayerId){
+            mPlayerId = pPlayerId;
             return this;
         }
 
-        public CAttackBuildingBuilder consumable(CConsumableEntity pConsumable){
-            mConsumable = pConsumable;
+        public CAttackBuildingBuilder consumableId(int pConsumableId){
+            mConsumableId = pConsumableId;
             return this;
         }
 
