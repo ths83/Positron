@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12sp"
                 android:layout_marginBottom="12sp"
+                android:src="@mipmap/menu"
                 app:fab_colorNormal="#3E3482"
                 app:fab_showShadow="true"
                 app:fab_shadowColor="#66000000"

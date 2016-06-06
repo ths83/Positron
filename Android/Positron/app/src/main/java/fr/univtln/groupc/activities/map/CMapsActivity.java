@@ -67,7 +67,6 @@ import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.activities.profil.CChoiceActivity;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
-import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -1199,6 +1198,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
 
+<<<<<<< HEAD
+=======
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void InitDrawerAttack() {
@@ -1254,6 +1255,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
 
+>>>>>>> eaa0e51698217e52670baf08584592e574ff2438
     /**
      *  acces au menu via un bouton flottant sur la carte
      *  -----
