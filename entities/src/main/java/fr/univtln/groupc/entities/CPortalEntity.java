@@ -233,7 +233,7 @@ public class CPortalEntity implements Serializable {
     public void removeResonator(CResonatorEntity pResonator){
         if (mResonators != null){
             mResonators.remove(pResonator);
-            //pResonator.setPortal(null);
+            pResonator.setPortal(null);
         }
         else{
             System.out.println("resonators null");
@@ -243,7 +243,7 @@ public class CPortalEntity implements Serializable {
     public void removeBuilding(ABuildingEntity pBuilding){
         if (mBuildings != null){
             mBuildings.remove(pBuilding);
-            //pBuilding.setPortal(null);
+            pBuilding.setPortal(null);
         }
         else{
             System.out.println("buildings null");

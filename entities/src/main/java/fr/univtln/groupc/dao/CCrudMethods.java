@@ -35,6 +35,7 @@ public class CCrudMethods {
     }
 
     public  <T> T find(Class<T> type,Object id) {
+        em.clear();
         T t = this.em.find(type, id);
         //em.refresh(t);
         //return (T) this.em.find(type, id);

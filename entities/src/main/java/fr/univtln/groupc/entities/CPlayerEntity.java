@@ -204,8 +204,12 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         mObjects = pObjects;
     }
 
-    public void addObjects(AObjectEntity o) {
-        mObjects.add(o);
+    public void addObjects(AObjectEntity pObject) {
+        mObjects.add(pObject);
+        if (pObject instanceof CResonatorEntity){
+            ((CResonatorEntity) pObject).setOwner(this);
+        }
+
     }
 
     public void attack(ITarget pTarget,CConsumableEntity pAmmunition) {
@@ -405,7 +409,9 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
     public void removeObject (AObjectEntity pObject){
         mObjects.remove(pObject);
-        //TODO DELETE OBJECT
+        if (pObject instanceof CResonatorEntity){
+            ((CResonatorEntity) pObject).setOwner(null);
+        }
     }
 
     public void loseEnergy(int pEnergyLose){
@@ -564,5 +570,38 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return lConsumables;
     }
 
+
+    @JsonIgnore
+    public List<CConsumableEntity> getMunitions(){
+        List<CConsumableEntity> lMunitions= new ArrayList<CConsumableEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CConsumableEntity){
+                if (lObject.getName().equals("Attack")){
+                    lMunitions.add((CConsumableEntity)lObject);
+                }
+            }
+        }
+        return lMunitions;
+    }
+
+    @JsonIgnore
+    public List<CConsumableEntity> getMunitionsByRarity(int pRarity){
+        List<CConsumableEntity> lMunitions = new ArrayList<CConsumableEntity>();
+        for (CConsumableEntity lMunition : getMunitions()) {
+            if (lMunition.getRarity()==pRarity){
+                lMunitions.add(lMunition);
+            }
+        }
+        return lMunitions;
+    }
+
+    @JsonIgnore
+    public Set<Integer> getRaritiesOfMunition(){
+        Set<Integer> lRarities = new HashSet<Integer>();
+        for (CConsumableEntity lMunition : getMunitions()) {
+            lRarities.add(lMunition.getRarity());
+        }
+        return lRarities;
+    }
 
 }

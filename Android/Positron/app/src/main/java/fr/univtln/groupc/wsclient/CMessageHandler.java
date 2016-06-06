@@ -69,9 +69,9 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
 
 
         else if (pBean.getType().equals(EPayloadType.BUILDING_ATTACKED.toString())){
-            Intent lIntent = new Intent("test");
+            Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.BUILDING_ATTACKED.toString());
-            lIntent.putExtra(BUILDING, pBean.getBuildingAttacked().getBuilding());
+            lIntent.putExtra(PORTAL, pBean.getBuildingAttacked().getPortal());
             lIntent.putExtra(PLAYER, pBean.getBuildingAttacked().getPlayer());
             mWebSocketService.sendBroadcast(lIntent);
         }
