@@ -35,8 +35,8 @@
     <!-- podometer service -->
     <string name="podo_text_value">Vous avez fait </string>
     <string name="step_string"> pas.</string>
-
-
+    <string name="landscape_map">Vue tactique</string>
+    <string name="portrait_view">vue classique</string>
 
 
 </resources>

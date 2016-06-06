@@ -54,11 +54,6 @@
             android:label="@string/title_activity_maps"
             android:configChanges="screenLayout|screenSize|orientation" >>
         </activity>
-        <activity
-            android:name="fr.univtln.groupc.activities.map.CTacticalActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="screenLayout|screenSize|orientation" >
-        </activity>
         <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity" >
             <intent-filter>
                 <action android:name="ANDROID.INTENT.ACTION.MAIN" />

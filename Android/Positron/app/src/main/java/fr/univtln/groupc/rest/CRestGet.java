@@ -79,6 +79,7 @@ public class CRestGet extends AsyncTask<String,String,String> {
         JSONObject lPortalObject = null;
         try {
             Log.d("test8","get portals :");
+            Log.d("test","hello");
             lPortalsJson = new CRestGet().execute(lUrlString).get();
             //Log.d("test", "deserialisation !\n" + lPortalsJson);
 
