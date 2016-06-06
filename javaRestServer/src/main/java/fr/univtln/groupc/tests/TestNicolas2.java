@@ -60,8 +60,8 @@ public class TestNicolas2 {
         lList2_3.add(lPortalDeTest2);
         lList2_3.add(lPortalDeTest3);
 
-        CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder(77).portals(lList1_2).build();
-        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(78).portals(lList1_3).build();
+        CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder().portals(lList1_2).build();
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder().portals(lList1_3).build();
 
         lCrud.create(lPortalDeTest1);
         lCrud.create(lPortalDeTest2);
@@ -88,7 +88,7 @@ public class TestNicolas2 {
         System.out.println(lPortalGotten);
         System.out.println(lPortalGotten.getLinks());
 
-        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(80).portals(lList2_3).build();
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder().portals(lList2_3).build();
 
         String lJsonLinkToPost = null;
         try {

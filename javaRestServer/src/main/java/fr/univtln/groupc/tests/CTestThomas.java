@@ -95,7 +95,7 @@ public class CTestThomas {
         lCrud.update(lPortalGotten3);
 
 
-        CLinkEntity lLink = new CLinkEntity.CLinkBuilder(1).portals(lPortalLinked).build();
+        CLinkEntity lLink = new CLinkEntity.CLinkBuilder().portals(lPortalLinked).build();
         String lJsonLinkToPost = null ;
         ObjectMapper lMapper = new ObjectMapper();
         Client c = Client.create();
@@ -109,7 +109,7 @@ public class CTestThomas {
 
         ClientResponse lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
 
-        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(2).portals(lPortalLinked2).build();
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder().portals(lPortalLinked2).build();
         try {
 
             lJsonLinkToPost = lMapper.writeValueAsString(lLink2);
@@ -119,7 +119,7 @@ public class CTestThomas {
 
         lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
 
-        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(3).portals(lPortalLinked3).build();
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder().portals(lPortalLinked3).build();
 
         try {
 
@@ -130,7 +130,7 @@ public class CTestThomas {
 
         lResponsePostLink = webResource.path("/links").accept("application/json").type("application/json").post(ClientResponse.class, lJsonLinkToPost);
 
-        CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder(4).portals(lPortalLinked4).build();
+        CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder().portals(lPortalLinked4).build();
 
         try {
 
