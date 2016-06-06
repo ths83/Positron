@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="fr.univtln.groupc.activities.menu.CLanguagesActivity">
+    tools:context=".CLanguagesActivity">
     
     <Toolbar
         android:layout_width="match_parent"
@@ -13,46 +13,33 @@
         android:title="@string/Langues">
     </Toolbar>
 
-    <com.github.clans.fab.FloatingActionButton
+    <Button
         android:id="@+id/arabian_language_button"
-        android:onClick="setArabianLanguage"
+        android:onClick=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12sp"
         android:layout_marginBottom="12sp"
-        android:src="@drawable/saudi_arabia"
-        app:fab_showShadow="true"
-        app:fab_shadowColor="#66000000"
-        app:fab_shadowRadius="4dp"
-        app:fab_shadowXOffset="1dp"
-        app:fab_shadowYOffset="3dp" />
+        android:text="a"
+         />
 
-    <com.github.clans.fab.FloatingActionButton
+    <Button
         android:id="@+id/english_language_button"
         android:onClick="setEnglishLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12sp"
         android:layout_marginBottom="12sp"
-        android:src="@drawable/united_kingdom"
-        app:fab_showShadow="true"
-        app:fab_shadowColor="#66000000"
-        app:fab_shadowRadius="4dp"
-        app:fab_shadowXOffset="1dp"
-        app:fab_shadowYOffset="3dp" />
+        android:text="e"
+       />
 
-    <com.github.clans.fab.FloatingActionButton
+    <Button
         android:id="@+id/french_language_button"
         android:onClick="setFrenchLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12sp"
         android:layout_marginBottom="12sp"
-        android:src="@drawable/france"
-        app:fab_showShadow="true"
-        app:fab_shadowColor="#66000000"
-        app:fab_shadowRadius="4dp"
-        app:fab_shadowXOffset="1dp"
-        app:fab_shadowYOffset="3dp" />
+        android:text="f" />
 
 </LinearLayout>
