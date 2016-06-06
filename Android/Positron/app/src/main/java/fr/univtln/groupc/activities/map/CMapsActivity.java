@@ -66,7 +66,6 @@ import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.activities.profil.CChoiceActivity;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
-import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -1172,6 +1171,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
         mPortals.set(lIdx, pPortal);
     }
+
+
     /**
      *  acces au menu via un bouton flottant sur la carte
      *  -----

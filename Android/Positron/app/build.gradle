@@ -33,7 +33,7 @@ dependencies {
     compile 'com.google.maps.android:android-maps-utils:0.3.4'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.google.android.gms:play-services:8.4.0'
-    compile 'com.github.clans:fab:1.6.4'
+
     compile files('libs/payloadbean-1.0-SNAPSHOT.jar')
     compile files('libs/actions-1.0-SNAPSHOT.jar')
     compile files('libs/entities-1.0-SNAPSHOT.jar')
@@ -46,6 +46,8 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.pkmmte.view:circularimageview:1.1'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    compile 'com.github.clans:fab:1.6.4'
+    compile 'co.lemonlabs:expandable-button-menu:1.0.0'
     compile 'com.android.support:support-v4:23.+'
 
     compile 'com.loopj.android:android-async-http:1.4.5'
