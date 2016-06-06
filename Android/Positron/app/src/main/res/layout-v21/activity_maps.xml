@@ -26,7 +26,7 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/menu_button"
-                android:onClick="displayCompetencesTree"
+                android:onClick="displayMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12sp"

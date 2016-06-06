@@ -1255,12 +1255,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
 
     /**
-     *  acces au menu
+     *  acces au menu via un bouton flottant sur la carte
      *  -----
-     *  access to Positron Menu
+     *  access to Positron Menu with floating button on map
      * @param view
      */
-    public void displayCompetencesTree(View view){
+    public void displayMenu(View view){
         Intent lMenuIntent = new Intent(this, CChoiceActivity.class);
         startActivity(lMenuIntent);
     }
