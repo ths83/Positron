@@ -65,6 +65,7 @@ import fr.univtln.groupc.EPayloadType;
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.activities.profil.CChoiceActivity;
+import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
@@ -182,10 +183,16 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     Log.d("tag", "portal recupere : " + lPortal);
                     replacePortal(lPortal);
                     SCurrentPlayer.mPlayer = lPlayer;
-                } else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED.toString()))
-                    for (Marker lMarker : mResonatorMarkers) {
-                        lMarker.remove();
-                    }
+
+                }
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED.toString())) {
+                    CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
+                    ABuildingEntity lBuilding = (ABuildingEntity) pIntent.getSerializableExtra(CMessageHandler.BUILDING);
+
+                }
+                for (Marker lMarker : mResonatorMarkers) {
+                    lMarker.remove();
+                }
                 mResonatorMarkers.clear();
                 Log.d("tag", "peu importe ");
             }
@@ -419,8 +426,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         @Override
         public void onMyLocationChange(Location location) {
             // current position player
+            SCurrentPlayer.mPlayer.setLat(location.getLatitude());
+            SCurrentPlayer.mPlayer.setLong(location.getLongitude());
+
 //            SCurrentPlayer.mPlayer.setLat(location.getLatitude());
             //          SCurrentPlayer.mPlayer.setLong(location.getLongitude());
+
 
 //            mPlayer.setLat(location.getLatitude());
             //          mPlayer.setLong(location.getLongitude());
@@ -897,8 +908,9 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         return bp;
     }
 
-    public void displayPortal(IconGenerator pIg, LatLng pLatLng, CPortalEntity pPortal, int pId) {
-        pIg.setBackground(getResources().getDrawable(pId));
+
+    public void displayPortal(IconGenerator pIg,LatLng pLatLng, CPortalEntity pPortal, int pId){
+        pIg.setBackground(null);
         List<CResonatorEntity> lResonatorTeam1 = pPortal.getResonatorsTeamById(1);
         List<CResonatorEntity> lResonatorTeam2 = pPortal.getResonatorsTeamById(2);
         int lNbResonatorTeam1 = lResonatorTeam1.size();
@@ -908,19 +920,36 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         int lNbEmptyPlace = 8 - lNbResonatorTeam1 - lNbResonatorTeam2;
         Context context = getApplicationContext();
         LinearLayout info = new LinearLayout(context);
-        info.setOrientation(LinearLayout.VERTICAL);
+        info.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout info2 = new LinearLayout(context);
+        info2.setOrientation(LinearLayout.VERTICAL);
         TextView snip1 = new TextView(context);
         snip1.setTextColor(Color.BLUE);
         snip1.setText(Integer.toString(lNbResonatorTeam1));
-        info.addView(snip1);
+        info2.addView(snip1);
         TextView snip2 = new TextView(context);
         snip2.setTextColor(Color.RED);
         snip2.setText(Integer.toString(lNbResonatorTeam2));
-        info.addView(snip2);
+        info2.addView(snip2);
         TextView snip3 = new TextView(context);
         snip3.setTextColor(Color.BLACK);
         snip3.setText(Integer.toString(lNbEmptyPlace));
-        info.addView(snip3);
+        info2.addView(snip3);
+        info.addView(info2);
+        RelativeLayout info3 = new RelativeLayout(context);
+        ImageView Im = new ImageView(context);
+        Im.setImageDrawable(getResources().getDrawable(pId));
+        info3.addView(Im);
+        TextView lText = new TextView(new ContextThemeWrapper(context,R.style.iconPortal),null,0);
+        lText.setText(Integer.toString(pPortal.getId()));
+        lText.setTextColor(ColorStateList.valueOf(Color.WHITE));
+        RelativeLayout.LayoutParams lParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //lParams.
+        lParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        //lParams.addRule(RelativeLayout.);
+        lText.setLayoutParams(lParams);
+        info3.addView(lText);
+        info.addView(info3);
         pIg.setContentView(info);
         Bitmap bp = pIg.makeIcon(Integer.toString(pPortal.getId()));
         Marker lMarker = mMap.addMarker(new MarkerOptions()
@@ -995,7 +1024,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         }
 
     }
-
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ImageButton generateButton(int pIdMipMap) {

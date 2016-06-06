@@ -100,7 +100,8 @@
         </activity>
         <activity
             android:name="fr.univtln.groupc.activities.profil.CSkillTree"
-            android:label="@string/title_activity_cskill_tree" >
+            android:label="@string/title_activity_cskill_tree"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="ANDROID.INTENT.ACTION.MAIN" />
 

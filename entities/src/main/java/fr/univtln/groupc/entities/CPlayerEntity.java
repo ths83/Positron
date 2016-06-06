@@ -508,11 +508,11 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
     public boolean skillAvailable(CSkillEntity pSkillWanted ,int pFreeSkillPoint){
 
-        if(pFreeSkillPoint<pSkillWanted.getCost()){
+        if(pFreeSkillPoint < pSkillWanted.getLevel()){
             return false;
         }
         else if(pSkillWanted.getLevel() == 1) {
-            return false;
+            return true;
         }
         else{
 
@@ -528,11 +528,13 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return false;
     }
 
-    public boolean havingSkill(int pIdSkill){
+    public boolean havingSkill(int pIdSkillVerified){
 
         for(CSkillEntity lSkill : mSkills){
-            if (lSkill.getId() == pIdSkill) {
+
+            if (pIdSkillVerified == lSkill.getId()) {
                 return true;
+
             }
         }
         return false;
