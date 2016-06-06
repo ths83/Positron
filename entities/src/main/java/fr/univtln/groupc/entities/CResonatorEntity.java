@@ -44,6 +44,9 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
         if (getPortal() != null){
             getPortal().addResonator(this);
         }
+        if (mOwner != null){
+            mOwner.addObjects((AObjectEntity) this);
+        }
     }
 
 

@@ -47,7 +47,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     @OneToMany
     @JoinTable(schema = "positron")
     private List<CSkillEntity> mSkills;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(schema = "positron")
     private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
 
@@ -71,6 +71,12 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         mEnergy = pBuilder.mEnergy;
         mEnergyMax = pBuilder.mEnergyMax;
         mBagSize = pBuilder.mBagSize;
+
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CResonatorEntity){
+                ((CResonatorEntity) lObject).setOwner(this);
+            }
+        }
     }
 
     public void print(){
@@ -242,32 +248,32 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     @JsonIgnore
     public int getLevel(){
         int lLevel = 0;
-        int lXp = getXp();
-        if (lXp < 500){
+        if (mXp < 500){
             lLevel = 1;
         }
-        else if(500 <= lXp && lXp < 1200){
+        else if(500 <= mXp && mXp < 1200){
             lLevel = 2;
         }
 
-        else if(1200 <= lXp && lXp < 2100){
+        else if(1200 <= mXp && mXp < 2100){
             lLevel = 3;
         }
-        else if(2100 <= lXp && lXp < 3200){
+        else if(2100 <= mXp && mXp < 3200){
             lLevel = 4;
         }
-        else if(3200 <= lXp && lXp < 4500){
+        else if(3200 <= mXp && mXp < 4500){
             lLevel = 5;
         }
-        else if(4500 <= lXp && lXp < 6000){
+        else if(4500 <= mXp && mXp < 6000){
             lLevel = 6;
         }
-        else if(6000 <= lXp && lXp < 7700){
+        else if(6000 <= mXp && mXp < 7700){
             lLevel = 7;
         }
-        else if(lXp >= 7700){
+        else if(mXp >= 7700){
             lLevel = 8;
         }
+        System.out.println("level => " + lLevel);
         return lLevel;
     }
 
