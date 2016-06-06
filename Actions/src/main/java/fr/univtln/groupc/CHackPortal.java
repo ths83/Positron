@@ -1,7 +1,7 @@
 package fr.univtln.groupc;
 
-import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 
 import java.io.Serializable;
 
@@ -9,46 +9,46 @@ import java.io.Serializable;
  * Created by xdurbec066 on 02/06/16.
  */
 public class CHackPortal implements Serializable {
-    private CPortalEntity mPortal;
-    private CPlayerEntity mPlayer;
+    private int mPortalId;
+    private int mPlayerId;
 
 
     public CHackPortal (CHackPortalBuilder pBuilder){
-        mPlayer = pBuilder.mPlayer;
-        mPortal = pBuilder.mPortal;
+        mPlayerId = pBuilder.mPlayer;
+        mPortalId = pBuilder.mPortal;
     }
 
 
-    public CPortalEntity getmPortal() {
-        return mPortal;
+    public int getmPortalId() {
+        return mPortalId;
     }
 
-    public void setPortal(CPortalEntity pPortal) {
-        this.mPortal = pPortal;
+    public void setPortalId(int pPortal) {
+        this.mPortalId = pPortal;
     }
 
-    public CPlayerEntity getPlayer() {
-        return mPlayer;
+    public int getPlayerId() {
+        return mPlayerId;
     }
 
-    public void setPlayer(CPlayerEntity pPlayer) {
-        this.mPlayer = pPlayer;
+    public void setPlayerId(int pPlayer) {
+        this.mPlayerId = pPlayer;
     }
 
 
 
     public static class CHackPortalBuilder{
-        private CPortalEntity mPortal;
-        private CPlayerEntity mPlayer;
+        private int mPortal;
+        private int mPlayer;
 
         public CHackPortalBuilder(){}
 
-        public CHackPortalBuilder portal (CPortalEntity pPortal){
+        public CHackPortalBuilder portal (int pPortal){
             mPortal = pPortal;
             return this;
         }
 
-        public CHackPortalBuilder player (CPlayerEntity pPlayer){
+        public CHackPortalBuilder player (int pPlayer){
             mPlayer = pPlayer;
             return this;
         }

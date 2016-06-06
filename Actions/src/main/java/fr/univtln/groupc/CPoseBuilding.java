@@ -1,9 +1,5 @@
 package fr.univtln.groupc;
 
-import fr.univtln.groupc.entities.ABuildingEntity;
-import fr.univtln.groupc.entities.CPlayerEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
-
 import java.io.Serializable;
 
 /**
@@ -11,61 +7,59 @@ import java.io.Serializable;
  */
 public class CPoseBuilding implements Serializable{
 
-    private CPortalEntity mPortal;
-    private ABuildingEntity mBuilding;
-    private CPlayerEntity mPlayer;
+    private int mPortalId;
+    private int mBuildingId;
+    private int mPlayerId;
 
     public CPoseBuilding(CPoseBuildingBuilder pBuilder){
-        mPortal =  pBuilder.mPortal;
-        mBuilding = pBuilder.mBuilding;
-        mPlayer = pBuilder.mPlayer;
+        mPortalId =  pBuilder.mPortal;
+        mBuildingId = pBuilder.mBuilding;
+        mPlayerId = pBuilder.mPlayer;
     }
 
     public CPoseBuilding (){}
 
-    public CPortalEntity getPortal() {
-        return mPortal;
+    public int getPortalId() {
+        return mPortalId;
     }
 
-    public void setPortal(CPortalEntity pPortal) {
-        this.mPortal = pPortal;
+    public void setPortalId(int pPortal) {
+        this.mPortalId = pPortal;
     }
 
-    public ABuildingEntity getBuilding() {
-        return mBuilding;
+    public int getBuildingId() { return mBuildingId; }
+
+    public void setBuildingId(int pBuilding) {
+        this.mBuildingId = pBuilding;
     }
 
-    public void setBuilding(ABuildingEntity pBuilding) {
-        this.mBuilding = pBuilding;
+    public int getPlayerId() {
+        return mPlayerId;
     }
 
-    public CPlayerEntity getmPlayer() {
-        return mPlayer;
-    }
-
-    public void setmPlayer(CPlayerEntity mPlayer) {
-        this.mPlayer = mPlayer;
+    public void setPlayerId(int pPlayer) {
+        this.mPlayerId = pPlayer;
     }
 
     public  static class CPoseBuildingBuilder{
 
-        private CPortalEntity mPortal;
-        private ABuildingEntity mBuilding;
-        private CPlayerEntity mPlayer;
+        private int mPortal;
+        private int mBuilding;
+        private int mPlayer;
 
         public CPoseBuildingBuilder(){}
 
-        public CPoseBuildingBuilder portal (CPortalEntity pPortal){
+        public CPoseBuildingBuilder portal (int pPortal){
             mPortal = pPortal;
             return this;
         }
 
-        public  CPoseBuildingBuilder building (ABuildingEntity pBuilding){
+        public  CPoseBuildingBuilder building (int pBuilding){
             mBuilding = pBuilding;
             return this;
         }
 
-        public CPoseBuildingBuilder player (CPlayerEntity pPlayer){
+        public CPoseBuildingBuilder player (int pPlayer){
             mPlayer = pPlayer;
             return this;
         }

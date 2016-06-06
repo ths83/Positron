@@ -14,7 +14,6 @@ public class CPayloadBean implements Serializable {
     }
 
     private String mType;
-    //private Object mObject;
     private CConnection mConnection;
     private CAttackBuilding mAttackBuilding;
     private CPoseResonator mPoseResonator;
@@ -40,7 +39,6 @@ public class CPayloadBean implements Serializable {
 
     public CPayloadBean(CPayloadBeanBuilder pBuilder){
         mType = pBuilder.mType;
-       // mObject = pBuilder.mObject;
         mConnection = pBuilder.mConnection;
 
         mAttackAOE = pBuilder.mAttackAOE;
@@ -67,15 +65,7 @@ public class CPayloadBean implements Serializable {
     public void setType(String pType) {mType = pType;}
 
     public String getType() {return mType;}
-/*
-    public void setObject(Object pObject){
-        mObject = pObject;
-    }
 
-    public Object getObject(){
-        return mObject;
-    }
-*/
     public CConnection getConnection(){return mConnection;}
 
     public void setConnection(CConnection pConnection){mConnection = pConnection;}
@@ -88,13 +78,13 @@ public class CPayloadBean implements Serializable {
 
     public CPoseResonator getPoseResonator(){return mPoseResonator;}
 
-    public CVirusPosed getPosedVirus() {return mVirusPosed;}
+    public CVirusPosed getVirusPosed() {return mVirusPosed;}
 
-    public void setPosedVirus(CVirusPosed mPosedVirus) {this.mVirusPosed = mPosedVirus;}
+    public void setVirusPosed(CVirusPosed mPosedVirus) {mVirusPosed = mPosedVirus;}
 
     public CPoseVirus getPoseVirus() {return mPoseVirus;}
 
-    public void setPoseVirus(CPoseVirus mPoseVirus) {this.mPoseVirus = mPoseVirus;}
+    public void setPoseVirus(CPoseVirus pPoseVirus) {mPoseVirus = pPoseVirus;}
 
     public void setPoseResonator(CPoseResonator pPoseResonator){mPoseResonator = pPoseResonator;}
 
@@ -182,7 +172,6 @@ public class CPayloadBean implements Serializable {
 
     public static class CPayloadBeanBuilder{
         private String mType;
-        private Object mObject;
         private CConnection mConnection;
         private CAttackBuilding mAttackBuilding;
         private CPoseResonator mPoseResonator;
