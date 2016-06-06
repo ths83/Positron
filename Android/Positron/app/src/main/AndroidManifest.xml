@@ -58,11 +58,6 @@
 >
         </activity>
         <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity" >
-            <intent-filter>
-                <action android:name="ANDROID.INTENT.ACTION.MAIN" />
-
-                <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="fr.univtln.groupc.activities.CDrawerActivity" />
         <activity
@@ -84,11 +79,6 @@
         <activity
             android:name="fr.univtln.groupc.activities.profil.CProfilActivity"
             android:label="@string/title_activity_cprofil" >
-            <intent-filter>
-                <action android:name="ANDROID.INTENT.ACTION.MAIN" />
-
-                <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="fr.univtln.groupc.activities.settings.CSettingsAcitvity"
@@ -102,11 +92,6 @@
             android:name="fr.univtln.groupc.activities.profil.CSkillTree"
             android:label="@string/title_activity_cskill_tree"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="ANDROID.INTENT.ACTION.MAIN" />
-
-                <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service android:name="fr.univtln.groupc.wsclient.CWebSocketService" />
@@ -119,6 +104,16 @@
         <activity android:name="fr.univtln.groupc.activities.menu.CParametersActivity"/>
 
         <activity android:name="fr.univtln.groupc.activities.menu.CManualActivity"/>
+
+        <activity android:name="fr.univtln.groupc.activities.menu.CLanguagesActivity"/>
+
+        <activity android:name="fr.univtln.groupc.activities.launcher.CWelcomeActivity">
+            <intent-filter>
+                <action android:name="ANDROID.INTENT.ACTION.MAIN" />
+
+                <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

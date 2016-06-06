@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Langues">Langues</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="competences_tree">Arbre de compétences</string>
+    <string name="landscape_map">vue tactique</string>
+    <string name="menu">Menu</string>
+    <string name="player_profil">Votre profil</string>
+    <string name="podo_sensor_not_present">Le podomètre n\'est pas disponible sur cet appareil !</string>
+    <string name="podo_text_value">Vous avez fait</string>
+    <string name="portrait_view">vue classique</string>
+    <string name="positron_manual">Manuel d\'utilisation</string>
+    <string name="positron_parameters">Paramètres de Positron</string>
+    <string name="return_map">retourner sur la carte</string>
+    <string name="select_language">Langues</string>
+    <string name="step_string">pas.</string>
+    <string name="tactical_view">vue tactique</string>
+    <string name="text_positron_in_progress">Positron est lancé !</string>
+    <string name="text_view_free_skill_point">Point de compétences libres :</string>
+    <string name="themes">Thèmes</string>
+    <string name="title_Attack_Tree">Offensif :</string>
+    <string name="title_Hacking_Tree">Piratage :</string>
+    <string name="title_Maintenance_Tree">Maintenance :</string>
+    <string name="title_Scout_Tree">Reconnaissance :</string>
+    <string name="title_Skill_Tree">Arbre de compétences</string>
+    <string name="toAttack">Attaquer</string>
+    <string name="toHack">Pirater</string>
+    <string name="toMaintain">Maintenir</string>
+    <string name="toPut">Poser</string>
+</resources>
