@@ -37,6 +37,7 @@
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="ludivine"/>
 
+
             <!-- Les options de générations des tables -->
             <property name="eclipselink.ddl-generation.output-mode" value="both"/>
             <!-- property name=eclipselink.ddl-generation" value="create-tables"/-->

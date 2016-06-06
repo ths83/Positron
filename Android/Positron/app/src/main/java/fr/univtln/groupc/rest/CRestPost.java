@@ -19,7 +19,6 @@ import fr.univtln.groupc.entities.CLinkEntity;
  */
 public class CRestPost extends AsyncTask<String, String, Void> {
 
-    public final static String API_URL = "http://10.9.185.52:9998";
 
     @Override
     protected Void doInBackground(String... params) {
@@ -52,7 +51,7 @@ public class CRestPost extends AsyncTask<String, String, Void> {
 
     public void postLinkRest(CLinkEntity pLink){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = API_URL + "/links";
+        String lUrlString = CRest.API_URL + "/links";
         Log.d("test", "->-> " + lUrlString);
         try {
             String lLinkJson = lMapper.writeValueAsString(pLink);

@@ -17,6 +17,7 @@ import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.CShieldEntity;
+import fr.univtln.groupc.entities.CSkillEntity;
 import fr.univtln.groupc.entities.CTurretEntity;
 import fr.univtln.groupc.rest.CRestGet;
 import fr.univtln.groupc.rest.CRestUpdate;
@@ -96,7 +97,7 @@ public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity
                 pPlayer.attack(pBuilding, pAmmunition);
             }
             else{
-                if ( (pAmmunition.getRarity() == 2 && pPlayer.havingSkill(21)) || ((pAmmunition.getRarity() == 2 && pPlayer.havingSkill(222))) ){
+                if ( (pAmmunition.getRarity() == 2 && pPlayer.havingSkill(21)) || ((pAmmunition.getRarity() == 2 && pPlayer.havingSkill(222)))  ){
                     pPlayer.attack(pBuilding, pAmmunition);
                 }
                 else{

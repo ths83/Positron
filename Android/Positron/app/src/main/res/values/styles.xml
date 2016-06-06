@@ -13,6 +13,11 @@
         <item name="android:textSize">30dp</item>
     </style>
 
+    <style name="iconPortal">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
     <style name="Transparent" parent="android:Theme.Light">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
