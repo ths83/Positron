@@ -23,6 +23,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
     public static String PORTAL = "portal";
     public static String PLAYER = "player";
     public static String LINK = "link";
+    public static String INTENT_TYPE = "intent_type";
 
     public CMessageHandler(CWebSocketService pService){
         mWebSocketService = pService;
@@ -39,7 +40,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             Log.d("tag", "ok connected recu!");
         }
         else if (pBean.getType().equals(EPayloadType.RESONATOR_POSED.toString())){
-            Intent lIntent = new Intent("test");
+            Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.RESONATOR_POSED.toString());
             lIntent.putExtra(PORTAL, pBean.getResonatorPosed().getPortal());
             lIntent.putExtra(PLAYER, pBean.getResonatorPosed().getPlayer());
@@ -48,16 +49,8 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
 
         else if (pBean.getType().equals(EPayloadType.PORTAL_CHANGING_TEAM.toString())){
             Log.d("tag", "taille des reso du portal recu : " + pBean.getTeamPortalChanged().getPortal().getResonators().size());
-            //ObjectMapper lMapper = new ObjectMapper();
-            /*String lPortalJson = null;
-            String lPlayerJson = null;
-            try {
-                lPortalJson = lMapper.writeValueAsString(pBean.getTeamPortalChanged().getPortal());
-                lPlayerJson = lMapper.writeValueAsString(pBean.getTeamPortalChanged().getPlayer());
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }*/
-            Intent lIntent = new Intent("test");
+
+            Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.PORTAL_CHANGING_TEAM.toString());
             lIntent.putExtra(PORTAL, pBean.getTeamPortalChanged().getPortal());
             lIntent.putExtra(PLAYER, pBean.getTeamPortalChanged().getPlayer());
@@ -65,20 +58,26 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
         }
 
         else if (pBean.getType().equals(EPayloadType.LINK_CREATED.toString())){
-            Intent lIntent = new Intent();
+            Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.LINK_CREATED.toString());
             lIntent.putExtra(LINK, pBean.getLinkCreated().getLink());
             mWebSocketService.sendBroadcast(lIntent);
         }
 
         else if (pBean.getType().equals(EPayloadType.ATTACK_SUCCESFUL.toString())){
-            Intent lIntent = new Intent("test");
+            Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE,EPayloadType.ATTACK_SUCCESFUL.toString());
             lIntent.putExtra(PORTAL, pBean.getTeamPortalChanged().getPortal());
             lIntent.putExtra(PLAYER, pBean.getTeamPortalChanged().getPlayer());
             mWebSocketService.sendBroadcast(lIntent);
         }
 
+        else if (pBean.getType().equals(EPayloadType.VIRUS_POSED.toString())){
+            Intent lIntent = new Intent(INTENT_TYPE);
+            lIntent.putExtra(TYPE, EPayloadType.VIRUS_POSED.toString());
+            lIntent.putExtra(PORTAL, pBean.getVirusPosed().getPortal());
+            lIntent.putExtra(PLAYER, pBean.getVirusPosed().getPlayer());
+        }
 
     }
 }

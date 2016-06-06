@@ -538,5 +538,29 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return false;
     }
 
+    @JsonIgnore
+    public List<CConsumableEntity> getViruses(){
+        List<CConsumableEntity> lConsumables = new ArrayList<CConsumableEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CConsumableEntity){
+                lConsumables.add((CConsumableEntity)lObject);
+            }
+        }
+        return lConsumables;
+    }
+
+    @JsonIgnore
+    public List<CConsumableEntity> getVirusesByRarity(int pId){
+        List<CConsumableEntity> lConsumables = new ArrayList<CConsumableEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CConsumableEntity){
+                if (((CConsumableEntity) lObject).getRarity() == pId){
+                    lConsumables.add((CConsumableEntity)lObject);
+                }
+            }
+        }
+        return lConsumables;
+    }
+
 
 }

@@ -10,11 +10,11 @@ import junit.framework.TestCase;
 public class TestCreatedLink extends TestCase{
     private ObjectMapper mMapper = new ObjectMapper();
 
-/*
+
     public void testSerDeser() throws Exception {
-        System.out.println(mMapper.writeValueAsString(new CLinkCreated.CLinkCreatedBuilder()));
+        System.out.println(mMapper.writeValueAsString(new CLinkCreated.CLinkCreatedBuilder().build()));
     }
-*/
+
     public void testSerDeserCreateLink() throws Exception {
         System.out.println(mMapper.writeValueAsString(new CCreateLink.CCreateLinkBuilder().build()));
     }

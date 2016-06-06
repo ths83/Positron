@@ -64,6 +64,7 @@ import fr.univtln.groupc.EPayloadType;
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.entities.AObjectEntity;
+import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -175,15 +176,22 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     replacePortal(lPortal);
                     SCurrentPlayer.mPlayer = lPlayer;
                 }
-                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED.toString()))
-                for (Marker lMarker : mResonatorMarkers) {
-                    lMarker.remove();
+
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED.toString())){
+                    for (Marker lMarker : mResonatorMarkers) {
+                        lMarker.remove();
+                    }
+                    mResonatorMarkers.clear();
+                    Log.d("tag", "peu importe ");
                 }
-                mResonatorMarkers.clear();
-                Log.d("tag", "peu importe ");
+
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.LINK_CREATED.toString())){
+                    CLinkEntity lLink = (CLinkEntity) pIntent.getSerializableExtra(CMessageHandler.LINK);
+                }
+
             }
         };
-        registerReceiver(mBroadCastReceiverWS,new IntentFilter("test"));
+        registerReceiver(mBroadCastReceiverWS,new IntentFilter(CMessageHandler.INTENT_TYPE));
         mDrawerAction = (DrawerLayout) findViewById(R.id.drawerlayout);
         mScroll = (ScrollView) findViewById(R.id.drawerleft);
         mLinear = (LinearLayout) findViewById(R.id.initaction);
@@ -609,7 +617,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         }
         for (CLinkEntity lLink : lSetLink){
-            onDisplayLink(lLink);
+            displayLink(lLink);
         }
     }
 
@@ -631,7 +639,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         }
         for (CFieldEntity lField : lSetField) {
-            onDisplayField(lField);
+            displayField(lField);
         }
     }
 
@@ -646,7 +654,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
      *
      * @param pField
      */
-    public void onDisplayField(CFieldEntity pField) {
+    public void displayField(CFieldEntity pField) {
 
         if (pField != null) {
             List<CLinkEntity> lLinkArray = new ArrayList<>();
@@ -703,7 +711,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
      * applies the right color matching
      * his team.
      */
-    public void onDisplayLink(CLinkEntity pLink) {
+    public void displayLink(CLinkEntity pLink) {
 
         Polyline lLinkLine;
         List<CPortalEntity> lPortalLinkedArray = pLink.getPortals();
@@ -936,7 +944,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 mLinear.removeAllViews();
-                InitDrawerLink();
+                initDrawerLink();
                 mDrawerAction.openDrawer(mScroll);
                 //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN,mScroll);
                 //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
@@ -951,7 +959,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         buttonCanceled();
     }
 
-    public void InitDrawerLink(){
+    public void initDrawerLink(){
         //Log.d("test60", "-->" + mPlayer.getKeys());
         //Log.d("test60", "-" + mPlayer.getIdPortalsOfKeys());
         buttonCanceled();
@@ -969,7 +977,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                         List<CPortalEntity> lPortals = new ArrayList<CPortalEntity>();
                         lPortals.add(mPortalClicked);
                         lPortals.add(lPortal);
-                        CLinkEntity lLinkToCreate = new CLinkEntity.CLinkBuilder(90).portals(lPortals).build();
+                        CLinkEntity lLinkToCreate = new CLinkEntity.CLinkBuilder().portals(lPortals).build();
                         
                     }
                 });
@@ -1098,6 +1106,34 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 displayPortal(tc,test,pPortal,R.mipmap.portred);
             }
         }
+    }
+
+    public void createLink(CLinkEntity pLink){
+        displayLink(pLink);
+        if (pLink.getField() != null){
+            displayField(pLink.getField());
+        }
+        for (CPortalEntity lPortal : pLink.getPortals()){
+            for (int i = 0; i < mPortals.size(); i++){
+                if (mPortals.get(i).getId() == lPortal.getId()){
+                    mPortals.set(i, lPortal);
+                }
+            }
+        }
+    }
+
+    public void applyVirus(CPortalEntity pPortal){
+        int lIdx = 0;
+        for (int i = 0; i < mPortals.size(); i++){
+            if (mPortals.get(i).getId() == pPortal.getId()){
+                for (CLinkEntity lLink : mPortals.get(i).getLinks()){
+                    deleteLinkInGoogleMapAndHashMap(lLink);
+                }
+                lIdx = i;
+                break;
+            }
+        }
+        mPortals.set(lIdx, pPortal);
     }
 
     @Override

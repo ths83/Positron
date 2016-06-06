@@ -1,5 +1,6 @@
 package fr.univtln.groupc;
 
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import java.io.Serializable;
@@ -10,12 +11,15 @@ import java.io.Serializable;
 public class CVirusPosed implements Serializable {
 
     private CPortalEntity mPortal;
+    private CPlayerEntity mPlayer;
 
     public CVirusPosed() {
     }
 
-    public CVirusPosed(CPortalEntity mPortal) {
-        this.mPortal = mPortal;
+    public CVirusPosed(CVirusPosedBuilder pBuilder) {
+
+        mPortal = pBuilder.mPortal;
+        mPlayer = pBuilder.mPlayer;
     }
 
     public CPortalEntity getPortal() {
@@ -24,6 +28,14 @@ public class CVirusPosed implements Serializable {
 
     public void setPortal(CPortalEntity mPortal) {
         this.mPortal = mPortal;
+    }
+
+    public CPlayerEntity getPlayer(){
+        return mPlayer;
+    }
+
+    public void setPlayer(CPlayerEntity pPlayer){
+        mPlayer = pPlayer;
     }
 
     @Override
@@ -40,5 +52,26 @@ public class CVirusPosed implements Serializable {
     @Override
     public int hashCode() {
         return mPortal != null ? mPortal.hashCode() : 0;
+    }
+
+    public static class CVirusPosedBuilder{
+        private CPlayerEntity mPlayer;
+        private CPortalEntity mPortal;
+
+        public CVirusPosedBuilder(){}
+
+        public CVirusPosedBuilder player(CPlayerEntity  pPlayer){
+            mPlayer = pPlayer;
+            return this;
+        }
+
+        public CVirusPosedBuilder portal(CPortalEntity pPortal){
+            mPortal = pPortal;
+            return this;
+        }
+
+        public CVirusPosed build(){
+            return new CVirusPosed(this);
+        }
     }
 }

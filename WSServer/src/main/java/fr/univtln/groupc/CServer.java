@@ -115,25 +115,51 @@ public class CServer {
 
         else if (pBean.getType().equals(EPayloadType.POSE_VIRUS.toString())){
             System.out.println("Pose d'un virus !!!!!!");
-            System.out.println("Pose du virus par le joueur : " + pBean.getPoseVirus().getPlayer().toString());
-            System.out.println();
-            CPortalEntity lPortal = pBean.getPoseVirus().getPortal();
+            CConsumableEntity lVirus = mCrudMethods.find(CConsumableEntity.class, pBean.getPoseVirus().getVirusId());
+            CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getPoseVirus().getPortalId());
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getPoseVirus().getPlayerId());
+            System.out.println("Pose du virus par le joueur : " + lPlayer);
+            System.out.println("liens du portail pre clear : " + lPortal.getLinks().size());
+            for (CLinkEntity lLink : lPortal.getLinks()){
+                lLink.getPortals().remove(lPortal);
+            }
             lPortal.clearLinks();
-            if (pBean.getPoseVirus().getVirus().getRarity() == 3 ){
+            lPlayer.removeObject(lVirus);
+            System.out.println("liens du portail post clear : " + lPortal.getLinks().size());
+            if (lVirus.getRarity() == 3 ){
                 for (ABuildingEntity lBuilding : lPortal.getBuildings()){
                     lPortal.removeBuilding(lBuilding);
                 }
             }
-            CVirusPosed lVirusPosed = new CVirusPosed(lPortal);
+
+            mCrudMethods.update(lPortal);
+            mCrudMethods.update(lPlayer);
+
+            CVirusPosed lVirusPosed = new CVirusPosed.CVirusPosedBuilder().player(lPlayer).portal(lPortal).build();
             CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().objectVirusPosed(lVirusPosed).type(EPayloadType.VIRUS_POSED.toString()).build();
-            mCrudMethods.update(lBeanToSend.getPosedVirus().getPortal());
+            for (Session lSession : mSessions){
+                lSession.getBasicRemote().sendObject(lBeanToSend);
+            }
         }
 
 
         else if (pBean.getType().equals(EPayloadType.CREATE_LINK.toString())) {
 
             System.out.println("un cas de creation de lien");
-            CLinkEntity lLink = pBean.getCreateLink().getLink();
+            System.out.println("id de clef : " + pBean.getCreateLink().getKeyId());
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getCreateLink().getPlayerId());
+            CKeyEntity lKey = mCrudMethods.find(CKeyEntity.class, pBean.getCreateLink().getKeyId());
+            System.out.println("key null ? " + lKey == null);
+            System.out.println("on me voit ?");
+            CPortalEntity lPortal1 = mCrudMethods.find(CPortalEntity.class, pBean.getCreateLink().getPortalId());
+            System.out.println("lPortal1 null ? " + lPortal1 == null);
+            System.out.println("key -> " + lKey);
+            System.out.println("key - portal : " + lKey.getPortal().getId());
+            CPortalEntity lPortal2 = lKey.getPortal();
+            List<CPortalEntity> lPortals = new ArrayList<CPortalEntity>();
+            lPortals.add(lPortal1);
+            lPortals.add(lPortal2);
+            CLinkEntity lLink = new CLinkEntity.CLinkBuilder().portals(lPortals).build();
             System.out.println("lLink nb portals -> " + lLink.getPortals().size());
             List<Integer> lListIDLinktoDestoy = new ArrayList<Integer>();
             List<CLinkEntity> lLinkStorageField = new ArrayList<CLinkEntity>();
@@ -146,8 +172,6 @@ public class CServer {
             if (CAlgorithm.detectColision(lLink, lLinks, lFields)) {
                 System.out.println("Aucune colision detectee");// \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
                 mCrudMethods.create(lLink);
-                CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getCreateLink().getPlayerId());
-                CKeyEntity lKey = mCrudMethods.find(CKeyEntity.class, pBean.getCreateLink().getKeyId());
                 lPlayer.removeObject(lKey);
                 mCrudMethods.update(lPlayer);
                 System.out.println(" ! ! ! ! ! ! ! ! ! ! Link Cree ! ! ! ! !! ! ! ! !  :" + lLink.getId());
@@ -189,7 +213,8 @@ public class CServer {
                 } else {
                     System.out.println("Pas de field à créer");
                     // todo : linkcreated to change
-                    CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.LINK_CREATED.toString()).objectLinkCreated(new CLinkCreated()).build();
+                    CLinkCreated lLinkCreated = new CLinkCreated.CLinkCreatedBuilder().link(lLink).player(lPlayer).build();
+                    CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.LINK_CREATED.toString()).objectLinkCreated(lLinkCreated).build();
                     System.out.println(lBeanToSend);
                     for (Session lSession : mSessions){
                         lSession.getBasicRemote().sendObject(lBeanToSend);
@@ -300,7 +325,6 @@ public class CServer {
             }
 
         }
-
 
         }
 
