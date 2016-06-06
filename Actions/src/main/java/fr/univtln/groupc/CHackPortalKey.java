@@ -9,43 +9,43 @@ import java.io.Serializable;
  * Created by xdurbec066 on 02/06/16.
  */
 public class CHackPortalKey implements Serializable{
-    public CPortalEntity mPortal;
-    public CPlayerEntity mPlayer;
+    public int mPortalId;
+    public int mPlayerId;
 
 
     public CHackPortalKey(CHackPortalKeyBuilder pBuilder){
-        mPlayer = pBuilder.mPlayer;
-        mPortal = pBuilder.mPortal;
+        mPlayerId = pBuilder.mPlayerId;
+        mPortalId = pBuilder.mPortalId;
     }
 
-    public CPortalEntity getmPortal() {
-        return mPortal;
+    public int getPortalId() {
+        return mPortalId;
     }
 
-    public void setmPortal(CPortalEntity mPortal) {
-        this.mPortal = mPortal;
+    public void setPortalId(int mPortalId) {
+        this.mPortalId = mPortalId;
     }
 
-    public CPlayerEntity getmPlayer() {
-        return mPlayer;
+    public int getPlayerId() {
+        return mPlayerId;
     }
 
-    public void setmPlayer(CPlayerEntity mPlayer) {
-        this.mPlayer = mPlayer;
+    public void setPlayerId(int mPlayerId) {
+        this.mPlayerId = mPlayerId;
     }
 
     public static class CHackPortalKeyBuilder{
-        private CPortalEntity mPortal;
-        private CPlayerEntity mPlayer;
+        private int mPortalId;
+        private int mPlayerId;
 
         public CHackPortalKeyBuilder(){}
 
-        public CHackPortalKeyBuilder portal (CPortalEntity pPortal){
-            mPortal = pPortal;
+        public CHackPortalKeyBuilder portal (int pPortal){
+            mPortalId = pPortal;
             return this;
         }
-        public CHackPortalKeyBuilder player (CPlayerEntity pPlayer){
-            mPlayer = pPlayer;
+        public CHackPortalKeyBuilder player (int pPlayer){
+            mPlayerId = pPlayer;
             return this;
         }
 
