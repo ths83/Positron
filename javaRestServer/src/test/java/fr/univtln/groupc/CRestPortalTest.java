@@ -49,8 +49,8 @@ public class CRestPortalTest extends TestCase {
     }
 
     public void testGetPortalService() throws Exception {
-        CPortalEntity lPortalEntity = mMapper.readValue(mWebResource.path("/portals/150").get(String.class), CPortalEntity.class);
-        assertEquals(lPortalEntity.getId(), 150);
+        CPortalEntity lPortalEntity = mMapper.readValue(mWebResource.path("/portals/1").get(String.class), CPortalEntity.class);
+        assertEquals(lPortalEntity.getId(), 1);
     }
 
     public void testDeletePortalService() throws Exception {
@@ -94,4 +94,6 @@ public class CRestPortalTest extends TestCase {
         System.out.println("portals : " + lPortals);
 
     }
+
+
 }

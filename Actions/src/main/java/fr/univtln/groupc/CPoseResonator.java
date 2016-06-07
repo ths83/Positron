@@ -1,6 +1,6 @@
 package fr.univtln.groupc;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 
@@ -13,20 +13,23 @@ import java.io.Serializable;
 
 public class CPoseResonator implements Serializable {
 
-    private CPortalEntity mPortal;
+    /*private CPortalEntity mPortal;
     private CResonatorEntity mResonator;
-    private int mPlayerId;
+    private CPlayerEntity mPlayer;*/
+    private int mResonatorId;
+    private int mPortalId;
 
-    public CPoseResonator(){
-    }
+    public CPoseResonator(){}
 
     public CPoseResonator(CPoseResonatorBuilder pBuilder){
-        mPortal = pBuilder.mPortal;
+        /*mPortal = pBuilder.mPortal;
         mResonator = pBuilder.mResonator;
-        mPlayerId = pBuilder.mPlayerId;
+        mPlayer = pBuilder.mPlayer;*/
+        mResonatorId = pBuilder.mResonatorId;
+        mPortalId = pBuilder.mPortalId;
     }
 
-    public void setPortal(CPortalEntity pPortal){
+    /*public void setPortal(CPortalEntity pPortal){
         mPortal = pPortal;
     }
 
@@ -42,45 +45,64 @@ public class CPoseResonator implements Serializable {
         return mResonator;
     }
 
-    public int getPlayerId(){
-        return mPlayerId;
+    public CPlayerEntity getPlayer(){
+        return mPlayer;
+    }*/
+
+    /*public void setPlayer(CPlayerEntity pPlayer){
+        mPlayer = pPlayer;
+    }*/
+
+    public int getResonatorId() {
+        return mResonatorId;
     }
 
-    public void setPlayerId(int pId){
-        mPlayerId = pId;
+    public int getPortalId(){
+        return  mPortalId;
     }
+
+    public void setResonatorId(int pResonatorId) {
+        mResonatorId = pResonatorId;
+    }
+
+    public void setPortalId(int pPortalId){
+        mPortalId = pPortalId;
+    }
+
 
     @Override
     public String toString() {
         return "CPoseResonator{" +
-                "mPortal=" + mPortal +
-                ", mResonator=" + mResonator +
-                ", mPlayerId=" + mPlayerId +
+                /*"mPortal=" + mPortal +*/
+                ", mResonatorId=" + mResonatorId +
+                /*", mPlayer=" + mPlayer +*/
                 '}';
     }
 
     public static class CPoseResonatorBuilder{
-        private CPortalEntity mPortal;
+        /*private CPortalEntity mPortal;
         private CResonatorEntity mResonator;
-        private int mPlayerId;
+        private CPlayerEntity mPlayer;*/
+        private int mResonatorId;
+        private int mPortalId;
 
         public CPoseResonatorBuilder(){
         }
 
-        public CPoseResonatorBuilder portal(CPortalEntity pPortal){
-            mPortal = pPortal;
+        public CPoseResonatorBuilder portalId(int pPortalId){
+            mPortalId = pPortalId;
             return this;
         }
 
-        public CPoseResonatorBuilder resonator(CResonatorEntity pResonator){
-            mResonator = pResonator;
+        public CPoseResonatorBuilder resonatorId(int pResonatorId){
+            mResonatorId = pResonatorId;
             return this;
         }
 
-        public CPoseResonatorBuilder playerId(int pPlayerId){
-            mPlayerId = pPlayerId;
+        /*public CPoseResonatorBuilder playerId(CPlayerEntity pPlayer){
+            mPlayer = pPlayer;
             return this;
-        }
+        }*/
 
         public CPoseResonator build(){
             return new CPoseResonator(this);

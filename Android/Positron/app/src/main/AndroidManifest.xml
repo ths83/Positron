@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.univtln.m1dapm.groupec.tperron710.positron" >
+    package="fr.univtln.m1dapm.groupec.tperron710.positron">
 
     <!-- <uses-sdk android:minSdkVersion="19" /> -->
 
@@ -20,17 +20,23 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- podometer -->
-    <uses-feature android:name="android.hardware.sensor.stepcounter" android:required="false"></uses-feature>
-    <uses-feature android:name="android.hardware.sensor.stepdetector" android:required="false"></uses-feature>
+    <uses-feature
+        android:name="android.hardware.sensor.stepcounter"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.stepdetector"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <!-- service for Android device -->
+        <service android:name="fr.univtln.groupc.services.services.CLaunchService" />
+        <service android:name="fr.univtln.groupc.services.services.CPodometerService" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -46,62 +52,55 @@
 
         <activity
             android:name="fr.univtln.groupc.activities.map.CMapsActivity"
+            android:configChanges="screenLayout|screenSize|orientation"
             android:exported="true"
-            android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_maps">
+            >
         </activity>
+        <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity"></activity>
+        <activity android:name="fr.univtln.groupc.activities.CDrawerActivity" />
         <activity
-            android:name="fr.univtln.groupc.activities.map.CTacticalActivity"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity android:name="fr.univtln.groupc.activities.google.CSignInActivity" >
+            android:name="fr.univtln.groupc.activities.portals.CHackPortalsView"
+            android:label="@string/title_activity_chack_portals_view"></activity>
+        <activity
+            android:name="fr.univtln.groupc.activities.portals.CMaintainPortalsView"
+            android:label="@string/title_activity_cmaintain_portals_view"></activity>
+        <activity
+            android:name="fr.univtln.groupc.activities.portals.CPutPortalsView"
+            android:label="@string/title_activity_cput_portals_view"></activity>
+        <activity
+            android:name="fr.univtln.groupc.activities.portals.CClickPortalsAcitivity"
+            android:label="@string/title_activity_cclick_portals_acitivity"></activity>
+        <activity
+            android:name="fr.univtln.groupc.activities.profil.CProfilActivity"
+            android:label="@string/title_activity_cprofil"></activity>
+        <activity
+            android:name="fr.univtln.groupc.activities.settings.CSettingsAcitvity"
+            android:label="@string/title_activity_csettings_acitvity"></activity>
+        <activity
+            android:name="fr.univtln.groupc.activities.profil.CStatsActivity"
+            android:label="@string/title_activity_cstats"></activity>
+        <activity
+            android:name="fr.univtln.groupc.activities.profil.CSkillTree"
+            android:label="@string/title_activity_cskill_tree"
+            android:screenOrientation="portrait"></activity>
+
+        <service android:name="fr.univtln.groupc.wsclient.CWebSocketService" />
+
+        <activity
+            android:name="fr.univtln.groupc.activities.profil.CChoiceActivity"
+            android:label="@string/title_activity_cchoice"></activity>
+        <activity android:name="fr.univtln.groupc.activities.menu.CParametersActivity" />
+        <activity android:name="fr.univtln.groupc.activities.menu.CManualActivity" />
+        <activity android:name="fr.univtln.groupc.activities.menu.CLanguagesActivity" />
+        <activity android:name="fr.univtln.groupc.activities.launcher.CWelcomeActivity">
             <intent-filter>
                 <action android:name="ANDROID.INTENT.ACTION.MAIN" />
 
                 <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="fr.univtln.groupc.activities.CDrawerActivity" />
-        <activity
-            android:name="fr.univtln.groupc.activities.portals.CHackPortalsView"
-            android:label="@string/title_activity_chack_portals_view" >
-        </activity>
-        <activity
-            android:name="fr.univtln.groupc.activities.portals.CMaintainPortalsView"
-            android:label="@string/title_activity_cmaintain_portals_view" >
-        </activity>
-        <activity
-            android:name="fr.univtln.groupc.activities.portals.CPutPortalsView"
-            android:label="@string/title_activity_cput_portals_view" >
-        </activity>
-        <activity
-            android:name="fr.univtln.groupc.activities.portals.CClickPortalsAcitivity"
-            android:label="@string/title_activity_cclick_portals_acitivity" >
-        </activity>
-        <activity
-            android:name="fr.univtln.groupc.activities.profil.CProfilActivity"
-            android:label="@string/title_activity_cprofil" >
-            <intent-filter>
-                <action android:name="ANDROID.INTENT.ACTION.MAIN" />
-                <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="fr.univtln.groupc.activities.settings.CSettingsAcitvity"
-            android:label="@string/title_activity_csettings_acitvity" >
-        </activity>
-        <activity
-            android:name="fr.univtln.groupc.activities.profil.CStatsActivity"
-            android:label="@string/title_activity_cstats" >
-        </activity>
-        <activity
-            android:name="fr.univtln.groupc.activities.profil.CSkillTree"
-            android:label="@string/title_activity_cskill_tree" >
-        </activity>
-        <activity
-            android:name="fr.univtln.groupc.services.CLocationService"
-            android:label="@string/title_activity_clocation_service" >
-        </activity>
+        <activity android:name="fr.univtln.groupc.activities.launcher.CSelectTeamActivity"></activity>
     </application>
 
 </manifest>

@@ -34,9 +34,9 @@ public class CAlgorithmeTest  extends TestCase {
         lLP3.add(lp5);
         lLP3.add(lp6);
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP1).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP2).build();
-        CLinkEntity lL3= new CLinkEntity.CLinkBuilder(300).portals(lLP3).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP1).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP2).build();
+        CLinkEntity lL3= new CLinkEntity.CLinkBuilder().portals(lLP3).build();
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
         lListL1.add(lL2);
@@ -68,9 +68,9 @@ public class CAlgorithmeTest  extends TestCase {
         lLP3.add(lp5);
         lLP3.add(lp6);
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP1).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP2).build();
-        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP3).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP1).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP2).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder().portals(lLP3).build();
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
         lListL1.add(lL2);
@@ -101,9 +101,9 @@ public class CAlgorithmeTest  extends TestCase {
         lLP3.add(lp5);
         lLP3.add(lp6);
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP1).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP2).build();
-        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP3).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP1).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP2).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder().portals(lLP3).build();
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
         lListL1.add(lL2);
@@ -156,15 +156,15 @@ public class CAlgorithmeTest  extends TestCase {
         lLP31.add(lp8);
 
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP12).build();
-        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP11).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP12).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder().portals(lLP13).build();
 
-        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder(400).portals(lLP21).build();
-        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder(500).portals(lLP22).build();
-        CLinkEntity lL6 = new CLinkEntity.CLinkBuilder(600).portals(lLP23).build();
+        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder().portals(lLP21).build();
+        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder().portals(lLP22).build();
+        CLinkEntity lL6 = new CLinkEntity.CLinkBuilder().portals(lLP23).build();
 
-        CLinkEntity lL7 = new CLinkEntity.CLinkBuilder(700).portals(lLP31).build();
+        CLinkEntity lL7 = new CLinkEntity.CLinkBuilder().portals(lLP31).build();
 
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
@@ -228,15 +228,15 @@ public class CAlgorithmeTest  extends TestCase {
         lLP31.add(lp8);
 
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP12).build();
-        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP11).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP12).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder().portals(lLP13).build();
 
-        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder(400).portals(lLP21).build();
-        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder(500).portals(lLP22).build();
-        CLinkEntity lL6 = new CLinkEntity.CLinkBuilder(600).portals(lLP23).build();
+        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder().portals(lLP21).build();
+        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder().portals(lLP22).build();
+        CLinkEntity lL6 = new CLinkEntity.CLinkBuilder().portals(lLP23).build();
 
-        CLinkEntity lL7 = new CLinkEntity.CLinkBuilder(700).portals(lLP31).build();
+        CLinkEntity lL7 = new CLinkEntity.CLinkBuilder().portals(lLP31).build();
 
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
@@ -277,9 +277,9 @@ public class CAlgorithmeTest  extends TestCase {
         lLP13.add(lp4);
 
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP12).build();
-        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP11).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP12).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder().portals(lLP13).build();
 
 
         assertEquals("Test OK", CAlgorithm.detecteNewFields(lL2).size(), 0);
@@ -307,9 +307,9 @@ public class CAlgorithmeTest  extends TestCase {
         lLP13.add(lp1);
 
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP12).build();
-        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP11).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP12).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder().portals(lLP13).build();
 
 
         assertEquals("Test OK", CAlgorithm.detecteNewFields(lL2).size() / 3, 1);
@@ -347,12 +347,12 @@ public class CAlgorithmeTest  extends TestCase {
         lLP12.add(lp2);
 
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP12).build();
-        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP11).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP12).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder().portals(lLP13).build();
 
-        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder(400).portals(lLP21).build();
-        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder(500).portals(lLP22).build();
+        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder().portals(lLP21).build();
+        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder().portals(lLP22).build();
 
         assertEquals("Test OK", CAlgorithm.detecteNewFields(lL2).size() / 3, 2);
 
@@ -370,7 +370,7 @@ public class CAlgorithmeTest  extends TestCase {
         lLP11.add(lp2);
 
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP11).build();
 
 
         assertEquals("Test OK", CAlgorithm.getOtherPortalOfLink(lp1, lL1), lp2);
@@ -396,9 +396,9 @@ public class CAlgorithmeTest  extends TestCase {
         lLP13.add(lp3);
         lLP13.add(lp1);
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP12).build();
-        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP11).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP12).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder().portals(lLP13).build();
 
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
@@ -447,13 +447,13 @@ public class CAlgorithmeTest  extends TestCase {
         lLP23.add(lp6);
 
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP12).build();
-        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP11).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP12).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder().portals(lLP13).build();
 
-        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder(400).portals(lLP21).build();
-        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder(500).portals(lLP22).build();
-        CLinkEntity lL6 = new CLinkEntity.CLinkBuilder(600).portals(lLP23).build();
+        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder().portals(lLP21).build();
+        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder().portals(lLP22).build();
+        CLinkEntity lL6 = new CLinkEntity.CLinkBuilder().portals(lLP23).build();
 
 
         List<CLinkEntity> lListL1 = new ArrayList<>();
@@ -505,12 +505,12 @@ public class CAlgorithmeTest  extends TestCase {
         lLP23.add(lp6);
 
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(100).portals(lLP11).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(200).portals(lLP12).build();
-        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder(300).portals(lLP13).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lLP11).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lLP12).build();
+        CLinkEntity lL3 = new CLinkEntity.CLinkBuilder().portals(lLP13).build();
 
-        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder(400).portals(lLP21).build();
-        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder(500).portals(lLP22).build();
+        CLinkEntity lL4 = new CLinkEntity.CLinkBuilder().portals(lLP21).build();
+        CLinkEntity lL5 = new CLinkEntity.CLinkBuilder().portals(lLP22).build();
 
 
         List<CLinkEntity> lLinksForField = new ArrayList<>();

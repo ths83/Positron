@@ -23,11 +23,7 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>fr.univtln.groupc</groupId>
-      <artifactId>entities</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+
 
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
@@ -62,6 +58,12 @@
       <artifactId>google-api-client</artifactId>
       <version>1.20.0</version>
     </dependency>
+
+    <!--<dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>6.0</version>
+    </dependency>-->
 
   </dependencies>
 </project>

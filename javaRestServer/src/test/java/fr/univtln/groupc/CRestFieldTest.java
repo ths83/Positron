@@ -33,7 +33,7 @@ public class CRestFieldTest extends TestCase {
 
         CTerritoryEntity lTerritoryEntity = new CTerritoryEntity.CTerritoryBuilder(1).build();
 
-        CLinkEntity lLinkEntity = new CLinkEntity.CLinkBuilder(1).portals(lPortals).build();
+        CLinkEntity lLinkEntity = new CLinkEntity.CLinkBuilder().portals(lPortals).build();
         ArrayList<CLinkEntity> lLinks = new ArrayList<>();
         lLinks.add(lLinkEntity);
         CFieldEntity lFieldEntity = new CFieldEntity.CFieldBuilder(2).links(lLinks).territory(lTerritoryEntity).build();

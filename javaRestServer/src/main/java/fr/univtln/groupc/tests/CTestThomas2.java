@@ -76,9 +76,9 @@ public class CTestThomas2 {
         lPortalLinked3.add(lPortalGotten);
         lPortalLinked3.add(lPortalGotten3);
 
-        CLinkEntity lLink = new CLinkEntity.CLinkBuilder(10).portals(lPortalLinked).build();
-        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(20).portals(lPortalLinked2).build();
-        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(30).portals(lPortalLinked3).build();
+        CLinkEntity lLink = new CLinkEntity.CLinkBuilder().portals(lPortalLinked).build();
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder().portals(lPortalLinked2).build();
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder().portals(lPortalLinked3).build();
 
         List<CLinkEntity> lLinkForField = new ArrayList<>();
         lLinkForField.add(lLink);

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPlayerEntity;
@@ -33,7 +34,37 @@ import fr.univtln.groupc.entities.CSkillEntity;
 /**
  * Created by toms on 5/3/16.
  */
+<<<<<<< HEAD
 public class CRestGet extends CRest {
+=======
+public class CRestGet extends AsyncTask<String,String,String> {
+
+
+    @Override
+    protected String doInBackground(String... params) {
+        String lUrlString = params[0]; // URL to call
+        String lResultToDisplay = "";
+        InputStream lIn = null;
+        String lJson = "";
+        try {
+            URL lUrl = new URL(lUrlString);
+            HttpURLConnection urlConnection = (HttpURLConnection) lUrl.openConnection();
+            lIn = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader lReader = new BufferedReader(new InputStreamReader(lIn), 8);
+            StringBuilder lSb = new StringBuilder();
+            String lLine = null;
+            while ((lLine = lReader.readLine()) != null) {
+                lSb.append(lLine + "\n");
+            }
+            lIn.close();
+            lJson = lSb.toString();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+        return lJson;
+    }
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
 
     /**
      * get all portals from database to display them on Android Map
@@ -52,6 +83,7 @@ public class CRestGet extends CRest {
         JSONObject lPortalObject = null;
         try {
             Log.d("test8","get portals :");
+            Log.d("test","hello");
             lPortalsJson = new CRestGet().execute(lUrlString).get();
             //Log.d("test", "deserialisation !\n" + lPortalsJson);
 
@@ -349,4 +381,54 @@ public class CRestGet extends CRest {
     }
 
 
+
+// TODO a vérifier
+    /**
+     * get all fields from database to display them on Android Map
+     * @return
+     */
+    public List<CFieldEntity> getFieldsRest(){
+        ObjectMapper lMapper = new ObjectMapper();
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        lMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
+        lMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+        String lUrlString = CRest.API_URL + "/fields";
+        Log.d("test", "->-> " + lUrlString);
+        String lFieldsJson = null;
+        List<CFieldEntity> lFields = new ArrayList<>();
+        JSONObject lFieldObject = null;
+        try {
+            Log.d("test8","get fields :");
+            lFieldsJson = new CRestGet().execute(lUrlString).get();
+            //Log.d("test", "deserialisation !\n" + lfieldsJson);
+
+            lFields = lMapper.readValue(lFieldsJson, lMapper.getTypeFactory().constructCollectionType(List.class, CFieldEntity.class));
+   /*         for (CFieldEntity lFieldTest : lFields){
+                for (CResonatorEntity lResonatorTest : lFieldTest.getResonators()){
+                    Log.d("test", "niveau de resonateur : " + lResonatorTest.getLevel());
+                }
+            }
+    */
+
+            Log.d("test8", "deserialized!!");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+            Log.d("test", e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("test8", " tous les portails ->\n " + lFields);
+        return lFields;
+    }
 }

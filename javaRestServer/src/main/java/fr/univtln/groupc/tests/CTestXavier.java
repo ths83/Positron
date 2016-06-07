@@ -104,7 +104,7 @@ public class CTestXavier {
         lList4.add(lPortalDeTest9);
         lList4.add(lPortalDeTest10);
 
-        CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder(101).portals(lList1_1).build();
+        CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder().portals(lList1_1).build();
 
 
         String lJsonLinkToPost = null;
@@ -123,7 +123,7 @@ public class CTestXavier {
         /////////////////////////////////////
         System.out.println("Creation lien 7");
 
-        CLinkEntity lLink7 = new CLinkEntity.CLinkBuilder(120).portals(lList3).build();
+        CLinkEntity lLink7 = new CLinkEntity.CLinkBuilder().portals(lList3).build();
 
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink7);
@@ -135,7 +135,7 @@ public class CTestXavier {
 
         /////////////////////////////////////
         System.out.println("Creation lien 8");
-        CLinkEntity lLink8 = new CLinkEntity.CLinkBuilder(130).portals(lList4).build();
+        CLinkEntity lLink8 = new CLinkEntity.CLinkBuilder().portals(lList4).build();
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink8);
         } catch (JsonProcessingException e) {
@@ -147,7 +147,7 @@ public class CTestXavier {
         /////////////////////////////////////
         System.out.println("Creation lien 2");
 
-        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder(102).portals(lList1_2).build();
+        CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder().portals(lList1_2).build();
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink2);
         } catch (JsonProcessingException e) {
@@ -159,7 +159,7 @@ public class CTestXavier {
    /////////////////////////////////////
         System.out.println("Creation lien 3");
 
-        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder(103).portals(lList1_3).build();
+        CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder().portals(lList1_3).build();
 
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink3);
@@ -172,7 +172,7 @@ public class CTestXavier {
         ///////////////////////////////////////
         System.out.println("Creation lien 4");
 
-        CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder(111).portals(lList2_1).build();
+        CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder().portals(lList2_1).build();
 
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink4);
@@ -187,7 +187,7 @@ public class CTestXavier {
         System.out.println("Creation lien 5");
 
 
-        CLinkEntity lLink5 = new CLinkEntity.CLinkBuilder(112).portals(lList2_2).build();
+        CLinkEntity lLink5 = new CLinkEntity.CLinkBuilder().portals(lList2_2).build();
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink5);
         } catch (JsonProcessingException e) {
@@ -198,7 +198,7 @@ public class CTestXavier {
 
         ////////////////////////////////////
         System.out.println("Creation lien 6 & Field");
-        CLinkEntity lLink6 = new CLinkEntity.CLinkBuilder(113).portals(lList2_3).build();
+        CLinkEntity lLink6 = new CLinkEntity.CLinkBuilder().portals(lList2_3).build();
         try {
             lJsonLinkToPost = lMapper.writeValueAsString(lLink6);
         } catch (JsonProcessingException e) {

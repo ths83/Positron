@@ -27,14 +27,14 @@ public class TestXavierAlgo {
         lPortals2.add(lP3);
 
 
-        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder(101).portals(lPortals1).build();
-        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder(102).portals(lPortals2).build();
+        CLinkEntity lL1 = new CLinkEntity.CLinkBuilder().portals(lPortals1).build();
+        CLinkEntity lL2 = new CLinkEntity.CLinkBuilder().portals(lPortals2).build();
 
         List<CPortalEntity> lPortals3 = new ArrayList<>();
         lPortals3.add(lP1);
         lPortals3.add(lP3);
 
-        CLinkEntity lL3= new CLinkEntity.CLinkBuilder(103).portals(lPortals3).build();
+        CLinkEntity lL3= new CLinkEntity.CLinkBuilder().portals(lPortals3).build();
 
         List<CLinkEntity> lLinks = new ArrayList<>();
         lLinks.add(lL1);
@@ -57,7 +57,7 @@ public class TestXavierAlgo {
         lPortalsA.add(lPA);
         lPortalsA.add(lPB);
 
-        CLinkEntity lLA = new CLinkEntity.CLinkBuilder(150).portals(lPortalsA).build();
+        CLinkEntity lLA = new CLinkEntity.CLinkBuilder().portals(lPortalsA).build();
 
 
         lFiels.add(new CFieldEntity.CFieldBuilder(123).links(lLinks).build() );
@@ -97,9 +97,9 @@ public class TestXavierAlgo {
 
 
         List<CLinkEntity> GrosFieldLink = new ArrayList<>();
-        GrosFieldLink.add(new CLinkEntity.CLinkBuilder(201).portals(PortalGRos1).build());
-        GrosFieldLink.add(new CLinkEntity.CLinkBuilder(202).portals(PortalGRos2).build());
-        GrosFieldLink.add(new CLinkEntity.CLinkBuilder(203).portals(PortalGRos3).build());
+        GrosFieldLink.add(new CLinkEntity.CLinkBuilder().portals(PortalGRos1).build());
+        GrosFieldLink.add(new CLinkEntity.CLinkBuilder().portals(PortalGRos2).build());
+        GrosFieldLink.add(new CLinkEntity.CLinkBuilder().portals(PortalGRos3).build());
 
         lLinks.add(GrosFieldLink.get(0));
         lLinks.add(GrosFieldLink.get(1));

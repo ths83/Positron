@@ -1,9 +1,6 @@
 package fr.univtln.groupc;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -33,13 +30,13 @@ import javax.swing.SwingUtilities;
 
 public class CAddPortalsPanel {
 
-    private JPanel panel;
-    private JFrame frame;
-    private JList todoItemsList;
-    private boolean introduceBugs;
-    private List<String> todoItems = new ArrayList<String>();
-    private Pattern pattern1 = Pattern.compile("\\b,.*\\b");
-    private Pattern pattern2 = Pattern.compile("\\b.*,");
+    private JPanel mPanel;
+    private JFrame mFrame;
+    private JList mTodoItemsList;
+    private boolean mIntroduceBugs;
+    private List<String> mTodoItems = new ArrayList<String>();
+    private Pattern mPattern1 = Pattern.compile("\\b,.*\\b");
+    private Pattern mPattern2 = Pattern.compile("\\b.*,");
     String match1 = null, match2 = null;
 
     public void postPortal(String pPortalLong, String pPortalLat) throws IOException {
@@ -60,7 +57,7 @@ public class CAddPortalsPanel {
     }
 
     public CAddPortalsPanel(boolean introduceBugs) {
-        this.introduceBugs = introduceBugs;
+        this.mIntroduceBugs = introduceBugs;
         createFrame();
         createMainPanel();
         addComponentsToMainPanel();
@@ -70,28 +67,28 @@ public class CAddPortalsPanel {
     public void display() {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                frame.pack();
-                frame.setVisible(true);
+                mFrame.pack();
+                mFrame.setVisible(true);
             }
         });
     }
 
     private void createFrame() {
-        frame = new JFrame("Portals displays List");
-        frame.setPreferredSize(new Dimension(800, 800));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mFrame = new JFrame("Portals displays List");
+        mFrame.setPreferredSize(new Dimension(800, 800));
+        mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void addMainPanelToFrame() {
-        Container contentPane = frame.getContentPane();
+        Container contentPane = mFrame.getContentPane();
         contentPane.setLayout(new BorderLayout());
-        contentPane.add(panel, BorderLayout.CENTER);
+        contentPane.add(mPanel, BorderLayout.CENTER);
     }
 
     private void createMainPanel() {
-        panel = new JPanel();
-        panel.setName("Main Panel");
-        panel.setLayout(new BorderLayout());
+        mPanel = new JPanel();
+        mPanel.setName("CMap Panel");
+        mPanel.setLayout(new BorderLayout());
     }
 
     private void addComponentsToMainPanel() {
@@ -106,7 +103,7 @@ public class CAddPortalsPanel {
         final JTextField textField = usernameField();
         topPanel.add(textField);
         topPanel.add(submitButton(textField));
-        panel.add(topPanel, BorderLayout.NORTH);
+        mPanel.add(topPanel, BorderLayout.NORTH);
     }
 
     private JButton submitButton(final JTextField textField) {
@@ -114,18 +111,18 @@ public class CAddPortalsPanel {
         final JButton submitButton = new JButton("Add Portal") {{
             addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
-                    todoItems.add(textField.getText());
+                    mTodoItems.add(textField.getText());
 
                     // regex to separate long and lat
                     // Long regex
-                    Matcher matcher1 = pattern1.matcher(textField.getText());
+                    Matcher matcher1 = mPattern1.matcher(textField.getText());
                     while (matcher1.find()) {
                         match1 = matcher1.group().replace(", ","");
                         System.out.println("Long : "+ match1) ;
                     }
 
                     // Lat regex
-                    Matcher matcher2 = pattern2.matcher(textField.getText());
+                    Matcher matcher2 = mPattern2.matcher(textField.getText());
                     while (matcher2.find()) {
                         match2 = matcher2.group().replace(",","");
                         System.out.println("Lat : "+ match2) ;
@@ -145,7 +142,7 @@ public class CAddPortalsPanel {
     }
 
     private void updateTodoItems() {
-        todoItemsList.setListData(todoItems.toArray());
+        mTodoItemsList.setListData(mTodoItems.toArray());
     }
 
     private JTextField usernameField() {
@@ -158,14 +155,14 @@ public class CAddPortalsPanel {
         JPanel usersPanel = usersPanel();
         usersPanel.add(usersList(), BorderLayout.CENTER);
         usersPanel.add(deleteButton(), BorderLayout.SOUTH);
-        panel.add(usersPanel, BorderLayout.CENTER);
+        mPanel.add(usersPanel, BorderLayout.CENTER);
     }
 
     private JList usersList() {
-        todoItemsList = new JList();
-        todoItemsList.setName("todolist");
+        mTodoItemsList = new JList();
+        mTodoItemsList.setName("todolist");
         updateTodoItems();
-        return todoItemsList;
+        return mTodoItemsList;
     }
 
     private JPanel usersPanel() {
@@ -192,10 +189,10 @@ public class CAddPortalsPanel {
     }
 
     private void removeTodoItem() {
-        Object possibleSelection = todoItemsList.getSelectedValue();
-        if (introduceBugs || possibleSelection != null) {
+        Object possibleSelection = mTodoItemsList.getSelectedValue();
+        if (mIntroduceBugs || possibleSelection != null) {
             System.out.println("portal deleted : "+ possibleSelection.toString());
-            todoItems.remove(possibleSelection.toString());
+            mTodoItems.remove(possibleSelection.toString());
             updateTodoItems();
         }
     }

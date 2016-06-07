@@ -1,8 +1,6 @@
 package fr.univtln.groupc;
 
-import fr.univtln.groupc.entities.CFieldEntity;
-import fr.univtln.groupc.entities.CLinkEntity;
-import fr.univtln.groupc.entities.CPortalEntity;
+import fr.univtln.groupc.entities.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -250,8 +248,12 @@ public class CAlgorithm {
 
     public static List<CLinkEntity> detecteNewFields(CLinkEntity pLinkCreated){
         List<CLinkEntity> lLinkNewField = new ArrayList<CLinkEntity>();
-        CPortalEntity lPortalVerified1= null,lPortalVerified2= null;
-        CPortalEntity lPortals[]={pLinkCreated.getPortals().get(0),pLinkCreated.getPortals().get(1)};
+        CPortalEntity lPortalVerified1 = null,lPortalVerified2= null;
+        CPortalEntity lPortals[] = {pLinkCreated.getPortals().get(0), pLinkCreated.getPortals().get(1)};
+        System.out.println("lien dans detect portals 0 " + lPortals[0].getLinks());
+
+        System.out.println("lien dans detect portals 0 " + lPortals[1].getLinks());
+
 
         for(CLinkEntity lLinks : lPortals[0].getLinks()){
             lPortalVerified1= getOtherPortalOfLink(lPortals[0],lLinks);
@@ -333,6 +335,213 @@ public class CAlgorithm {
 
         return EARTH_RADIUS * lC * MILLE ;
     }
+
+
+    /**
+     *  Créer un objet en fonction des trois attributs qui lui son donné.
+     *
+     * @param pTypeObjet Un entier qui détermine le type d'objet à créer.
+     * @param pLevelObject Un entier qui donne le level de l'objet.
+     * @param pRarety Un entier qui donne la rareté de l'objet.
+     * @return Un Objet qui peut être une fille de building ou un consomable.
+     */
+    public static AObjectEntity createObject(int pTypeObjet, int pLevelObject, int pRarety) {
+
+        switch (pTypeObjet) {
+
+            case (0): {
+                AObjectEntity lResonator = new CResonatorEntity.CResonatorBuilder(10).energyMax(pLevelObject * 20).energy(pLevelObject * 20).level(pLevelObject).build();
+                return lResonator;
+            }
+            case (1): {
+                AObjectEntity lTurret =new CTurretEntity.CTurretBuilder(10).energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
+                return lTurret;
+            }
+            case (2): {
+                AObjectEntity lShield = new CShieldEntity.CShieldBuilder(10).level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
+                return lShield;
+            }
+            case (3): {
+                AObjectEntity lAttack = new CConsumableEntity.CConsumableBuilder(10).name("Attack").rarity(pRarety).build();
+                return lAttack;
+            }
+            case (4): {
+                AObjectEntity lBombe =  new CConsumableEntity.CConsumableBuilder(10).name("Bombe").rarity(pRarety).build();
+                return lBombe;
+            }
+            case (5): {
+                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder(1).hackBonus((int) pLevelObject/2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                return lMultiPiratage;
+            }
+            case (6): {
+                AObjectEntity lLinkImprovement = new CLinkImprovementEntity.CLinkImprovementBuilder(1).rangeBonus(pLevelObject/4).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                return lLinkImprovement;
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     *  Determine de façon aléatoire le level de l'objet. Les fourchettes de tirage sont dépendant du level du Joueur et du
+     *  portail.
+     *
+     * @param pPortalLevel
+     * @param pPlayerLevel
+     * @return Un entier qui est le level de l'objet.
+     */
+    public static int calculLevel(int pPortalLevel, int pPlayerLevel) {
+        int lLevel = 0;
+        // Niveau Max
+        if (pPlayerLevel == 8 && pPortalLevel == 8) {
+            lLevel = 8;
+        }
+        else {
+            int lMinima =0;
+            // On garde la valeur la plus basse
+            if(pPlayerLevel <= pPortalLevel){
+                lMinima = pPlayerLevel;
+            }
+            else{
+                lMinima = pPortalLevel;
+            }
+
+
+            if(lMinima <= 2){
+                // Pour 1
+                if(lMinima == 1) {
+                    lLevel = 1 + (int) (Math.random() * 2);
+                }
+                // Pour 2
+                else {
+                    lLevel = 1 + (int) (Math.random() * 3);
+                }
+            }
+            else{
+                // Pour 7
+                if (lMinima ==7){
+                    lLevel = 5 + (int)(Math.random() * 3);
+                }
+                // Normal
+                else{
+                    lLevel = (lMinima -2 ) + ((int)(Math.random()*5));
+                }
+            }
+        }
+
+        return lLevel;
+    }
+
+    /**
+     * Determine e la rareté de l'objet de façon aléatoire.
+     * Le portail joue sur la fourchette de rareté.
+     * @param pPortalLevel
+     * @return Un entier déterminant la rareté de l'objet.
+     */
+    public static int calculRarety(int pPortalLevel) {
+        double lRandom = (int) (Math.random() * (100));
+        //  System.out.println(lRandom);
+        switch (pPortalLevel) {
+
+            // Return rarety Max
+            case 8:
+                return 3;
+            case 7:
+                if (lRandom > 90) {
+                    return 3;
+                } else {
+                    if (lRandom > 20) {
+                        return 2;
+                    } else {
+                        return 1;
+                    }
+                }
+            case 6:
+                if (lRandom == 95) {
+                    return 3;
+                } else {
+                    if (lRandom > 40) {
+                        return 2;
+                    }
+                    else {
+                        return 1;
+                    }
+                }
+            case 5:
+                if (lRandom == 100) {
+                    return 3;
+                }
+                else {
+                    if (lRandom > 60) {
+                        return 2;
+                    }
+                    else {
+                        return 1;
+                    }
+                }
+            case 4:
+                if (lRandom > 80) {
+                    return 2;
+                }
+                else {
+                    if (lRandom > 40) {
+                        return 1;
+                    }
+                    else {
+                        return 0;
+                    }
+                }
+            case 3:
+                if (lRandom > 60) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            case 2:
+                if (lRandom > 80) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            case 1:
+                return 0;
+        }
+
+        return 0;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////
+
+    /**
+     *  Calcule de façon aléatoire le type de l'objet.
+     * @return Un entier qui détermine le type de l'objet.
+     */
+    public static int calculTypeObject(){
+        int lType = 0, lRandom=0;
+        lRandom = (int)(Math.random() * (100));
+
+        if(lRandom > 90){
+            lType = 0;
+        }
+        else if(60 < lRandom && lRandom <= 90){
+            lType = 1;
+        }
+        else if(40 < lRandom && lRandom <= 60){
+            lType = 2;
+        }
+        else if(lRandom <= 40){
+            lType = 3;
+        }
+
+        return lType;
+    }
+
+
+
+
 
 }
 

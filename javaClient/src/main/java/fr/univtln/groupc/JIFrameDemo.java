@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 package fr.univtln.groupc;/*
+=======
+package fr.univtln.groupc;
+
+/*
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
  * Copyright (c) Ian F. Darwin, http://www.darwinsys.com/, 1996-2002.
  * All rights reserved. Software written by Ian F. Darwin and others.
  * $Id: LICENSE,v 1.8 2004/02/09 03:33:38 ian Exp $
@@ -23,23 +29,47 @@ package fr.univtln.groupc;/*
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
+<<<<<<< HEAD
  * 
  * Java, the Duke mascot, and all variants of Sun's Java "steaming coffee
  * cup" logo are trademarks of Sun Microsystems. Sun's, and James Gosling's,
  * pioneering role in inventing and promulgating (and standardizing) the Java 
  * language and environment is gratefully acknowledged.
  * 
+=======
+ *
+ * Java, the Duke mascot, and all variants of Sun's Java "steaming coffee
+ * cup" logo are trademarks of Sun Microsystems. Sun's, and James Gosling's,
+ * pioneering role in inventing and promulgating (and standardizing) the Java
+ * language and environment is gratefully acknowledged.
+ *
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
  * The pioneering role of Dennis Ritchie and Bjarne Stroustrup, of AT&T, for
  * inventing predecessor languages C and C++ is also gratefully acknowledged.
  */
 
+<<<<<<< HEAD
 import java.awt.*;
+=======
+import java.awt.Dimension;
+import java.awt.Toolkit;
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+<<<<<<< HEAD
 import javax.swing.*;
+=======
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
 
 /**
  * Internal Frames Demo
@@ -48,9 +78,15 @@ import javax.swing.*;
  */
 public class JIFrameDemo {
 
+<<<<<<< HEAD
     /* Main View */
     public static void main(String[] a) {
         final JFrame jf = new JFrame("JIFrameDemo Main Window");
+=======
+    /* CMap View */
+    public static void main(String[] a) {
+        final JFrame jf = new JFrame("JIFrameDemo CMap Window");
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenSize.width -= 42;
@@ -92,11 +128,19 @@ public class JIFrameDemo {
         compFrame.setVisible(true);
         dtp.add(compFrame);
 
+<<<<<<< HEAD
         JInternalFrame listFrame = new JInternalFrame("UERS TOP LIST", true, true,
                 true, true);
         JLabel list = new JLabel("List of Users Would Be Here");
         listFrame.setContentPane(list);
         listFrame.setLocation(800, 800);
+=======
+        JInternalFrame listFrame = new JInternalFrame("Users", true, true,
+                true, true);
+        JLabel list = new JLabel("List of Users Would Be Here");
+        listFrame.setContentPane(list);
+        listFrame.setLocation(400, 400);
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
         listFrame.setSize(500, 200);
         listFrame.setVisible(true);
         dtp.add(listFrame);
@@ -110,9 +154,13 @@ public class JIFrameDemo {
             }
         });
     }
+<<<<<<< HEAD
 }
 
 
 
 
            
+=======
+}
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3

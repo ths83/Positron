@@ -29,7 +29,7 @@ public class CRestLinkTest extends TestCase {
         ArrayList <CPortalEntity> portals = new ArrayList<>();
         portals.add(lPortal1);
 
-        CLinkEntity lLinkEntity = new CLinkEntity.CLinkBuilder(2).portals(portals).build();
+        CLinkEntity lLinkEntity = new CLinkEntity.CLinkBuilder().portals(portals).build();
         mJson = mMapper.writeValueAsString(lLinkEntity);
         ClientResponse lResponse = mWebResource.path("/links").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);

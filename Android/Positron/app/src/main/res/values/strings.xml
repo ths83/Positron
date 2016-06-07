@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Positron</string>
+    <string name="app_name" translatable="false">Positron</string>
     <string name="title_activity_maps">Map</string>
     <string name="toHack">Pirater</string>
     <string name="toAttack">Attaquer</string>
@@ -8,7 +8,7 @@
     <string name="toMaintain">Maintenir</string>
     <string name="title_activity_chack_poratls_view">CHackPoratlsView</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world" translatable="false">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_chack_portals_view">CHackPortalsView</string>
     <string name="title_activity_cmaintain_portals_view">CMaintainPortalsView</string>
@@ -27,6 +27,30 @@
     <string name="text_view_free_skill_point">Point de compétences libres : </string>
     <string name="title_activity_clocation_service">CLocationServiceActivity</string>
 
+    <!-- launch service -->
+    <string name="text_positron_in_progress">Positron est lancé !</string>
+    <string name="title_positron_in_progress" translatable="false">Positron</string>
+    <string name="podo_sensor_not_present">Le podomètre n\'est pas disponible sur cet appareil !</string>
+
+    <!-- podometer service -->
+    <string name="podo_text_value">Vous avez fait </string>
+    <string name="step_string"> pas.</string>
+    <string name="landscape_map">vue tactique</string>
+    <string name="portrait_view">vue classique</string>
+    <string name="title_activity_cchoice">CChoiceActivity</string>
+
+    <!-- menu string -->
+    <string name="positron_parameters">Paramètres de Positron</string>
+    <string name="player_profil">Votre profil</string>
+    <string name="positron_manual">Manuel d\'utilisation</string>
+    <string name="competences_tree">Arbre de compétences</string>
+    <string name="return_map">retourner sur la carte</string>
+    <string name="tactical_view">vue tactique</string>
+    <string name="menu">Menu</string>
+    <string name="select_language">Langues</string>
+    <string name="themes">Thèmes</string>
+    <string name="Langues">Langues</string>
+    <string name="select_team">Sélection de l\'équipe</string>
 
 
 </resources>

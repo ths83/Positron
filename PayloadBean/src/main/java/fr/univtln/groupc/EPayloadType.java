@@ -10,6 +10,9 @@ public enum EPayloadType{
             return "pose_resonator";
         }
     },
+    POSE_VIRUS{
+        public String toString() { return "pose_virus"; }
+    },
     ATTACK_BUILDING {
         public String toString() {
             return "attack_building";
@@ -80,9 +83,45 @@ public enum EPayloadType{
             return "field_destroyed";
         }
     },
-    TEAM_PORTAL_CHANGED{
-        public String toString(){
-            return "team_portal_changed";
+    VIRUS_POSED {
+        public String toString() {
+            return "virus_posed";
         }
+    },
+    TEAM_PORTAL_CHANGED {
+        public String toString() { return "team_portal_changed";
+        }
+    },
+    HACK_PORTAL{
+            public String toString () {return "hack_portal";
+            }
+    },
+    PORTAL_HACKED{
+        public String toString () {return  "portal_hacked";
+        }
+    },
+    HACK_PORTAL_KEY{
+        public String toString () {return  "hack_portal_key";
+        }
+    },
+    PORTAL_KEY_HACKED{
+        public String toString () {return  "portal_key_hacked";
+        }
+
+    },
+    POSE_BUILDING{
+        public String toString () {return "pose_building";
+        }
+    },
+    BUILDING_POSED{
+        public String toString () {return "building_posed";
+        }
+    },
+    ATTACK_AOE{
+        public String toString () {return "attack_aoe";
+        }
+    },
+    AOE_ATTACKED{
+        public String toString () { return "aoe_attacked";}
     }
 }

@@ -230,6 +230,26 @@ public class CPortalEntity implements Serializable {
         }
     }
 
+    public void removeResonator(CResonatorEntity pResonator){
+        if (mResonators != null){
+            mResonators.remove(pResonator);
+            pResonator.setPortal(null);
+        }
+        else{
+            System.out.println("resonators null");
+        }
+    }
+
+    public void removeBuilding(ABuildingEntity pBuilding){
+        if (mBuildings != null){
+            mBuildings.remove(pBuilding);
+            pBuilding.setPortal(null);
+        }
+        else{
+            System.out.println("buildings null");
+        }
+    }
+
     public void addBuilding(ABuildingEntity pBuilding){
         if (mBuildings != null){
             mBuildings.add(pBuilding);
@@ -239,6 +259,7 @@ public class CPortalEntity implements Serializable {
     }
 
     public List<CLinkEntity> attributeTeam() {
+        System.out.println("debut methode attribute team !!");
 
         List<CResonatorEntity> lResonators1 = new ArrayList<CResonatorEntity>();
         List<CResonatorEntity> lResonators2 = new ArrayList<CResonatorEntity>();
@@ -247,11 +268,19 @@ public class CPortalEntity implements Serializable {
         int i=0;
 
         // Séparation des résonateur en team.
+        System.out.println("pre for each !");
+        System.out.println("taille ->" + mResonators.size());
         for(CResonatorEntity lResonator : mResonators){
+            System.out.println("dans le for resonators !");
+            System.out.println("owner reso null : " + lResonator.getOwner() == null);
+            System.out.println("team owner null : " + lResonator.getOwner().getTeam());
+            System.out.println("team id owner null : " + lResonator.getOwner().getTeam().getId());
             if(lResonator.getOwner().getTeam().getId() == 1 ){
+                System.out.println("step 1");
                 lResonators1.add(lResonator);
             }
             else{
+                System.out.println("step 2");
                 lResonators2.add(lResonator);
             }
         }
@@ -268,11 +297,14 @@ public class CPortalEntity implements Serializable {
         //Changement de team si nécessaire.
         if (lLevel1>lLevel2) {
             if (mTeam == null) {
+                System.out.println("la dedans if !");
                 mTeam = lResonators1.get(0).getOwner().getTeam();
                 //new CRestUpdate().updatePortalRest(this);
                return getLinks();
             } else {
+                System.out.println("la dedans else !");
                 if (getTeam().getId() != 1) {
+                    System.out.println("erreur ici !!");
                     mTeam = lResonators1.get(0).getOwner().getTeam();
 
                 }
@@ -366,6 +398,18 @@ public class CPortalEntity implements Serializable {
        }
      lLevel =  lLevel/8;
     return lLevel;
+    }
+
+    @JsonIgnore
+    public List<CMultiHackEntity> getMultiHack(){
+        List<CMultiHackEntity> lMultiHackList = new ArrayList<CMultiHackEntity>();
+
+        for(ABuildingEntity lBuilding : mBuildings){
+            if(lBuilding instanceof CMultiHackEntity){
+                lMultiHackList.add((CMultiHackEntity)lBuilding);
+            }
+        }
+        return lMultiHackList;
     }
 
 }

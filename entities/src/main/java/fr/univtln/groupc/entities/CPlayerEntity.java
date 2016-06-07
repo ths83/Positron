@@ -26,28 +26,28 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     @Column(name = "id")
     private int mId;
     @Column(name = "nickname")
-    private String mNickName;
+    private String mNickName= null;
     @Column(name = "email")
-    private String mEmail;
+    private String mEmail= null;
     @ManyToOne
     @JoinColumn(name = "team")
-    private CTeamEntity mTeam;
+    private CTeamEntity mTeam = null;
     @Column(name = "xp")
-    private int mXp;
+    private int mXp = 0;
     @Column(name = "bag_size")
-    private int mBagSize;
+    private int mBagSize = 0;
     @Column(name = "longitude")
     private double mLong;
     @Column(name = "mLatitude")
     private double mLat;
     @Column(name = "energy")
-    private int mEnergy;
+    private int mEnergy = 0;
     @Column(name = "energy_max")
-    private int mEnergyMax;
+    private int mEnergyMax = 0;
     @OneToMany
     @JoinTable(schema = "positron")
     private List<CSkillEntity> mSkills;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(schema = "positron")
     private List<AObjectEntity> mObjects =new ArrayList<AObjectEntity>();
 
@@ -71,6 +71,12 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         mEnergy = pBuilder.mEnergy;
         mEnergyMax = pBuilder.mEnergyMax;
         mBagSize = pBuilder.mBagSize;
+
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CResonatorEntity){
+                ((CResonatorEntity) lObject).setOwner(this);
+            }
+        }
     }
 
     public void print(){
@@ -198,8 +204,12 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         mObjects = pObjects;
     }
 
-    public void addObjects(AObjectEntity o) {
-        mObjects.add(o);
+    public void addObjects(AObjectEntity pObject) {
+        mObjects.add(pObject);
+        if (pObject instanceof CResonatorEntity){
+            ((CResonatorEntity) pObject).setOwner(this);
+        }
+
     }
 
     public void attack(ITarget pTarget,CConsumableEntity pAmmunition) {
@@ -242,32 +252,32 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     @JsonIgnore
     public int getLevel(){
         int lLevel = 0;
-        int lXp = getXp();
-        if (lXp < 500){
+        if (mXp < 500){
             lLevel = 1;
         }
-        else if(500 <= lXp && lXp < 1200){
+        else if(500 <= mXp && mXp < 1200){
             lLevel = 2;
         }
 
-        else if(1200 <= lXp && lXp < 2100){
+        else if(1200 <= mXp && mXp < 2100){
             lLevel = 3;
         }
-        else if(2100 <= lXp && lXp < 3200){
+        else if(2100 <= mXp && mXp < 3200){
             lLevel = 4;
         }
-        else if(3200 <= lXp && lXp < 4500){
+        else if(3200 <= mXp && mXp < 4500){
             lLevel = 5;
         }
-        else if(4500 <= lXp && lXp < 6000){
+        else if(4500 <= mXp && mXp < 6000){
             lLevel = 6;
         }
-        else if(6000 <= lXp && lXp < 7700){
+        else if(6000 <= mXp && mXp < 7700){
             lLevel = 7;
         }
-        else if(lXp >= 7700){
+        else if(mXp >= 7700){
             lLevel = 8;
         }
+        System.out.println("level => " + lLevel);
         return lLevel;
     }
 
@@ -399,6 +409,9 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
     public void removeObject (AObjectEntity pObject){
         mObjects.remove(pObject);
+        if (pObject instanceof CResonatorEntity){
+            ((CResonatorEntity) pObject).setOwner(null);
+        }
     }
 
     public void loseEnergy(int pEnergyLose){
@@ -501,11 +514,11 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
     public boolean skillAvailable(CSkillEntity pSkillWanted ,int pFreeSkillPoint){
 
-        if(pFreeSkillPoint<pSkillWanted.getCost()){
+        if(pFreeSkillPoint < pSkillWanted.getLevel()){
             return false;
         }
         else if(pSkillWanted.getLevel() == 1) {
-            return false;
+            return true;
         }
         else{
 
@@ -521,15 +534,74 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return false;
     }
 
-    public boolean havingSkill(int pIdSkill){
+    public boolean havingSkill(int pIdSkillVerified){
 
         for(CSkillEntity lSkill : mSkills){
-            if (lSkill.getId() == pIdSkill) {
+
+            if (pIdSkillVerified == lSkill.getId()) {
                 return true;
+
             }
         }
         return false;
     }
 
+    @JsonIgnore
+    public List<CConsumableEntity> getViruses(){
+        List<CConsumableEntity> lConsumables = new ArrayList<CConsumableEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CConsumableEntity){
+                lConsumables.add((CConsumableEntity)lObject);
+            }
+        }
+        return lConsumables;
+    }
+
+    @JsonIgnore
+    public List<CConsumableEntity> getVirusesByRarity(int pId){
+        List<CConsumableEntity> lConsumables = new ArrayList<CConsumableEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CConsumableEntity){
+                if (((CConsumableEntity) lObject).getRarity() == pId){
+                    lConsumables.add((CConsumableEntity)lObject);
+                }
+            }
+        }
+        return lConsumables;
+    }
+
+
+    @JsonIgnore
+    public List<CConsumableEntity> getMunitions(){
+        List<CConsumableEntity> lMunitions= new ArrayList<CConsumableEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CConsumableEntity){
+                if (lObject.getName().equals("Attack")){
+                    lMunitions.add((CConsumableEntity)lObject);
+                }
+            }
+        }
+        return lMunitions;
+    }
+
+    @JsonIgnore
+    public List<CConsumableEntity> getMunitionsByRarity(int pRarity){
+        List<CConsumableEntity> lMunitions = new ArrayList<CConsumableEntity>();
+        for (CConsumableEntity lMunition : getMunitions()) {
+            if (lMunition.getRarity()==pRarity){
+                lMunitions.add(lMunition);
+            }
+        }
+        return lMunitions;
+    }
+
+    @JsonIgnore
+    public Set<Integer> getRaritiesOfMunition(){
+        Set<Integer> lRarities = new HashSet<Integer>();
+        for (CConsumableEntity lMunition : getMunitions()) {
+            lRarities.add(lMunition.getRarity());
+        }
+        return lRarities;
+    }
 
 }

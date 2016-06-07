@@ -3,8 +3,8 @@ package fr.univtln.groupc.activities.profil;
 import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,9 +12,6 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.pkmmte.view.CircularImageView;
 
 import java.util.Objects;
-
-import fr.univtln.groupc.activities.google.SCurrentPlayer;
-
 
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
 
@@ -54,7 +51,12 @@ public class CProfilActivity extends AppCompatActivity {
 
             // on met le drapeau de la team à laquelle l'user courant appartient
 
+<<<<<<< HEAD
             if (Objects.equals(SCurrentPlayer.mPlayer.getTeam().getColor(), "bleu"))
+=======
+            if (SCurrentPlayer.mPlayer.getTeam().getColor() == "bleu")
+
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
                 mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
             else
                 mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logxenom));

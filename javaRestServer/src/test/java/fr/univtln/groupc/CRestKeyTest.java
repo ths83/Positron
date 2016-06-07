@@ -26,9 +26,9 @@ public class CRestKeyTest extends TestCase {
     // Tests CRUD CKeyService
 
     public void testPostKeyService() throws Exception {
-        CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(700).longitude(150).latitude(150).build();
+        CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(19).longitude(150).latitude(150).build();
 
-        CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder(1).name("key1").portal(lPortal1).build();
+        CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder(21).name("key1").portal(lPortal1).build();
         mJson = mMapper.writeValueAsString(lKeyEntity);
         ClientResponse lResponse = mWebResource.path("/keys").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);

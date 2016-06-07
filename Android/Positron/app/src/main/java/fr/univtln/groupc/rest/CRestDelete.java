@@ -20,7 +20,31 @@ import fr.univtln.groupc.entities.CShieldEntity;
  * Created by toms on 08/05/2016.
  */
 
+<<<<<<< HEAD
 public class CRestDelete extends CRest{
+=======
+public class CRestDelete extends AsyncTask<String, String, Void> {
+
+
+    @Override
+    protected Void doInBackground(String... params) {
+        String lUrlString = params[0]; // URL to call
+        String lResultToDisplay = "";
+        InputStream lIn = null;
+        String lJson = "";
+        HttpDelete lHttpDelete;
+        try {
+            lHttpDelete = new HttpDelete(lUrlString);
+            HttpClient lHttpClient = new DefaultHttpClient();
+            HttpResponse lHttpResponse = lHttpClient.execute(lHttpDelete);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
 
     /**
      * Supprime le lien identifie par le parametre

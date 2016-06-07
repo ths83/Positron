@@ -22,6 +22,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CLinkEntity implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "link_id")
     private int mId;
     @ManyToOne(cascade = CascadeType.REMOVE)
@@ -38,7 +39,7 @@ public class CLinkEntity implements Serializable {
     }
 
     public CLinkEntity(CLinkBuilder pBuilder) {
-        mId = pBuilder.mId;
+        //mId = pBuilder.mId;
         mPortals = pBuilder.mPortals;
         for (CPortalEntity cPortalEntity : mPortals) {
             cPortalEntity.addLink(this);
@@ -76,12 +77,16 @@ public class CLinkEntity implements Serializable {
     }
 
     public static class CLinkBuilder{
-        private int mId;
+        //private int mId;
         private List<CPortalEntity> mPortals = new ArrayList<CPortalEntity>();
 
+        /*
         public CLinkBuilder(int pId) {
             mId = pId;
         }
+*/
+
+        public CLinkBuilder(){}
 
         public CLinkBuilder portals(List<CPortalEntity> pPortals){
 

@@ -11,58 +11,58 @@ import java.io.Serializable;
  */
 public class CAttackAOE implements Serializable {
 
-    private CPortalEntity mPortal;
-    private CPlayerEntity mPlayer;
-    private CConsumableEntity mConsumable;
+    private int mPortalId;
+    private int mPlayerId;
+    private int mConsumableId;
 
     public CAttackAOE(){}
 
     public CAttackAOE(CAttackAOEBuilder pBuilder){
-        mPlayer = pBuilder.mPlayer;
+        mPlayerId = pBuilder.mPlayer;
     }
 
-    public CPortalEntity getPortal(){
-        return mPortal;
+    public int getPortalId(){
+        return mPortalId;
     }
 
-    public void setPortal(CPortalEntity pPortal){
-        mPortal = pPortal;
+    public void setPortalId(int pPortal){
+        mPortalId = pPortal;
     }
 
-    public CPlayerEntity getPlayer(){
-        return mPlayer;
+    public int getPlayerId(){
+        return mPlayerId;
     }
 
-    public void setPlayer(CPlayerEntity pPlayer){
-        mPlayer = pPlayer;
+    public void setPlayerId(int pPlayer){
+        mPlayerId = pPlayer;
     }
 
-    public CConsumableEntity getConsumable(){
-        return mConsumable;
+    public int getConsumableId(){
+        return mConsumableId;
     }
 
-    public void setConsumable(CConsumableEntity pConsumable){
-        mConsumable = pConsumable;
+    public void setConsumableId(int pConsumable){
+        mConsumableId = pConsumable;
     }
 
     public static class CAttackAOEBuilder implements Serializable{
-        private CPortalEntity mPortal;
-        private CPlayerEntity mPlayer;
-        private CConsumableEntity mConsumable;
+        private int mPortal;
+        private int mPlayer;
+        private int mConsumable;
 
         CAttackAOEBuilder(){}
 
-        public CAttackAOEBuilder portal(CPortalEntity pPortal){
+        public CAttackAOEBuilder portal(int pPortal){
             mPortal = pPortal;
             return this;
         }
 
-        public CAttackAOEBuilder player(CPlayerEntity pPlayer){
+        public CAttackAOEBuilder player(int pPlayer){
             mPlayer = pPlayer;
             return this;
         }
 
-        public CAttackAOEBuilder consumable(CConsumableEntity pConsumable){
+        public CAttackAOEBuilder consumable(int pConsumable){
             mConsumable = pConsumable;
             return this;
         }

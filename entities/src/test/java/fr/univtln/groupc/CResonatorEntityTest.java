@@ -1,6 +1,8 @@
 package fr.univtln.groupc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
 import fr.univtln.groupc.entities.CTurretEntity;
@@ -14,6 +16,7 @@ import java.util.List;
  */
 public class CResonatorEntityTest extends TestCase {
     private ObjectMapper mMapper = new ObjectMapper();
+    //private CCrudMethods mCrud = new CCrudMethods();
 
     public void testSerDeserResonator() throws Exception {
         CResonatorEntity lReso = new CResonatorEntity.CResonatorBuilder(1).energy(50).energyMax(100).name("reso").build();
@@ -37,4 +40,18 @@ public class CResonatorEntityTest extends TestCase {
         //System.out.println(mMapper.writeValueAsString(lPortal));
         System.out.println(mMapper.writeValueAsString(lReso));
     }
+
+    /*public void testgetPlayer1() throws Exception {
+        CPlayerEntity lPlayer = mCrud.find(CPlayerEntity.class, 1);
+        System.out.println("taille step 1 -> " + lPlayer.getObjects().size());
+        System.out.println("objects step 1 -> " + lPlayer.getObjects());
+
+        lPlayer.addObjects(new CResonatorEntity.CResonatorBuilder(786).level(4).build());
+
+        mCrud.update(lPlayer);
+
+        CPlayerEntity lPlayerGotten = mCrud.find(CPlayerEntity.class, 1);
+        System.out.println("taille step 2 -> " + lPlayerGotten.getObjects().size());
+        System.out.println("objects step 2 -> " + lPlayerGotten.getObjects());
+    }*/
 }

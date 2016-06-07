@@ -1,5 +1,6 @@
 package fr.univtln.groupc;
 
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import java.io.Serializable;
@@ -7,14 +8,18 @@ import java.io.Serializable;
 /**
  * Created by marti on 30/05/2016.
  */
+
 public class CResonatorPosed implements Serializable {
 
     private CPortalEntity mPortal;
 
+    private CPlayerEntity mPlayer;
+
     public CResonatorPosed(){}
 
-    public CResonatorPosed(CPortalEntity pPortal){
-        mPortal = pPortal;
+    public CResonatorPosed(CResonatorPosedBuilder pBuild){
+        mPortal = pBuild.mPortal;
+        mPlayer = pBuild.mPlayer;
     }
 
     public CPortalEntity getPortal(){
@@ -23,6 +28,14 @@ public class CResonatorPosed implements Serializable {
 
     public void setPortal(CPortalEntity pPortal){
         mPortal = pPortal;
+    }
+
+    public CPlayerEntity getPlayer(){
+        return mPlayer;
+    }
+
+    public void setPlayer(CPlayerEntity pPlayer){
+        mPlayer = pPlayer;
     }
 
     @Override
@@ -46,5 +59,28 @@ public class CResonatorPosed implements Serializable {
         return "CResonatorPosed{" +
                 "mPortal=" + mPortal +
                 '}';
+    }
+
+    public static class CResonatorPosedBuilder{
+        private CPortalEntity mPortal;
+        private CPlayerEntity mPlayer;
+
+        public CResonatorPosedBuilder(){
+
+        }
+
+        public CResonatorPosedBuilder portal(CPortalEntity pPortal){
+            mPortal = pPortal;
+            return this;
+        }
+
+        public CResonatorPosedBuilder player(CPlayerEntity pPlayer){
+            mPlayer = pPlayer;
+            return this;
+        }
+
+        public CResonatorPosed build(){
+            return new CResonatorPosed(this);
+        }
     }
 }
