@@ -57,9 +57,9 @@ import javax.swing.JMenuItem;
  */
 public class JIFrameDemo {
 
-    /* Main View */
+    /* CMap View */
     public static void main(String[] a) {
-        final JFrame jf = new JFrame("JIFrameDemo Main Window");
+        final JFrame jf = new JFrame("JIFrameDemo CMap Window");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenSize.width -= 42;

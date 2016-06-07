@@ -30,7 +30,7 @@ https://developers.google.com/maps/documentation/static-maps/
 
 */
 
-public class Main {
+public class CMap {
 
     public static JFrame generateMap(final JFrame pFest, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals) {
 
@@ -204,7 +204,7 @@ public class Main {
         }
 
         // Une fois les données REST récupérées, on genere à partir de ça notre map
-        lFrame = Main.generateMap(lFrame, lBluePlayers, lRedPlayers, lBluePortals, lRedPortals);
+        lFrame = CMap.generateMap(lFrame, lBluePlayers, lRedPlayers, lBluePortals, lRedPortals);
         return lFrame;
     }
 

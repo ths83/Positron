@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * Created by arouani277 on 30/05/16.
  */
-public class test {
+public class CRegex {
     public static void main(String[] args) {
         String s = "15.156414, 1561.154984";
         String match = null;

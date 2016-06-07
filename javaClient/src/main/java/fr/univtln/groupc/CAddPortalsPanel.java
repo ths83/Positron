@@ -90,7 +90,7 @@ public class CAddPortalsPanel {
 
     private void createMainPanel() {
         panel = new JPanel();
-        panel.setName("Main Panel");
+        panel.setName("CMap Panel");
         panel.setLayout(new BorderLayout());
     }
 

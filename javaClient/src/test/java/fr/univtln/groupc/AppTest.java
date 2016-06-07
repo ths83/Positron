@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit fr.univtln.groupc.CAddPortalsPanel for simple Main.
+ * Unit fr.univtln.groupc.CAddPortalsPanel for simple CMap.
  */
 public class AppTest 
     extends TestCase
