@@ -1,4 +1,4 @@
-package fr.univtln.groupc.test;
+package fr.univtln.groupc;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -21,11 +21,11 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
-public class list {
-
+public class CTopList {
 
     public void mainFrame() throws IOException {
     }
+
     public static void main(String[] args) throws IOException {
         System.out.println("go");
 
@@ -52,10 +52,8 @@ public class list {
             System.out.println(lPlayers.get(i).getXp());
         }
 
-
-
         JFrame.setDefaultLookAndFeelDecorated(true);
-        JFrame frame = new JFrame("JList Test");
+        JFrame frame = new JFrame("TOP USERS");
         frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

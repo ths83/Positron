@@ -32,7 +32,10 @@ https://developers.google.com/maps/documentation/static-maps/
 
 public class CMap {
 
-    public static JFrame generateMap(final JFrame pFest, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals) {
+    static String path="";
+
+
+    public static JFrame generateMap(final JFrame pFest, List<String> pBluePlayers, List<String> pRedPlayers, List<String> pBluePortals, List<String> pRedPortals, ArrayList<String> pBlackPortals) {
 
         try {
             String lImageUrl =
@@ -58,21 +61,41 @@ public class CMap {
             }
 
             if (pBluePortals != null) {
+                path="path" + "=color:0x000000|weight:5";
+
                 // portails capturés team bleu
                 for (String portal : pBluePortals) {
                     System.out.println("add portail bleu lien" + portal);
+                    path = path + "|"+portal;
                     lImageUrl = lImageUrl + "markers=color:blue%7Clabel:P%7C" + portal + "&";
                 }
+                path = path + "&";
             }
 
+            lImageUrl = lImageUrl + path;
+
             if (pRedPortals != null) {
+                path="path" + "=color:0x000000|weight:5";
+
                 // portails capturés team rouge
                 for (String portal : pRedPortals) {
                     System.out.println("add portail rouge au lien" + portal);
+                    path = path + "|"+portal;
                     lImageUrl = lImageUrl + "markers=color:red%7Clabel:P%7C" + portal + "&";
                 }
+                path = path + "&";
+
             }
 
+            lImageUrl = lImageUrl + path;
+
+            if (pBlackPortals != null) {
+                // portails capturés team rouge
+                for (String portal : pBlackPortals) {
+                    System.out.println("add portail rouge au lien" + portal);
+                    lImageUrl = lImageUrl + "markers=color:black%7Clabel:P%7C" + portal + "&";
+                }
+            }
 
             // API lKey
             String lKey = "maptype=roadmap&key=AIzaSyDFJqyWFbnya88SCV5Ezsrfnq9DEIVdT5c\n";
@@ -132,7 +155,9 @@ public class CMap {
         Client c = Client.create();
         WebResource webResource = c.resource(CServer.BASE_URI);
         String lPortalsJson = webResource.path("/portals").get(String.class);
+        System.out.println("portals get");
         String lPlayersJson = webResource.path("/players").get(String.class);
+        System.out.println("players get");
 
         ObjectMapper lMapper = new ObjectMapper();
         lMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
@@ -145,6 +170,8 @@ public class CMap {
         List<CPlayerEntity> lPlayers = null;
         ArrayList<String> lBluePortals = new ArrayList<String>();
         ArrayList<String> lRedPortals = new ArrayList<String>();
+        ArrayList<String> lblackPortals = new ArrayList<String>();
+
         ArrayList<String> lBluePlayers = new ArrayList<String>();
         ArrayList<String> lRedPlayers = new ArrayList<String>();
 
@@ -158,6 +185,8 @@ public class CMap {
 
         String redPortal;
         String bluePortal;
+        String blackPortal;
+
         String redPlayer;
         String bluePlayer;
 
@@ -200,11 +229,15 @@ public class CMap {
                 else System.out.println("portals vide");
 
             }
-            else System.out.println("lPortalEntity.getTeam() == null");
+            else {
+                System.out.println("portal black " + lPortalEntity.getLong() + " lat : " + lPortalEntity.getLat() + " team " + lPortalEntity.getTeam());
+                blackPortal = String.valueOf(lPortalEntity.getLat()) + "," + String.valueOf(lPortalEntity.getLong());
+                lblackPortals.add(blackPortal);
+            }
         }
 
         // Une fois les données REST récupérées, on genere à partir de ça notre map
-        lFrame = CMap.generateMap(lFrame, lBluePlayers, lRedPlayers, lBluePortals, lRedPortals);
+        lFrame = CMap.generateMap(lFrame, lBluePlayers, lRedPlayers, lBluePortals, lRedPortals, lblackPortals);
         return lFrame;
     }
 
@@ -214,7 +247,8 @@ public class CMap {
         while (true) {
             // On regenere la frame à chaque fois avec les nouvelles données proventante du serveur REST
             jFrame = generateFrame(jFrame);
-            sleep(5000);
+            System.out.println("new frame generated");
+            sleep(10000);
         }
     }
 

@@ -53,7 +53,7 @@ public class CAddPortalsPanel {
         System.out.println(Double.parseDouble(pPortalLong) + " " + Double.parseDouble(pPortalLat));
         mJson = mMapper.writeValueAsString(lPortal);
         mWebResource.path("/portals").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
-
+        System.out.println("portal posted");
     }
 
     public CAddPortalsPanel(boolean introduceBugs) {
