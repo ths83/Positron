@@ -25,10 +25,9 @@ import fr.univtln.groupc.entities.CShieldEntity;
 public class CRestUpdate extends CRest {
 
     @Override
-    protected void onPostExecute (Void v){
-        super.onPostExecute(v);
+    protected void onPostExecute (String s){
+        super.onPostExecute(s);
     }
-
 
     /**
      * envoi au serveur la mise a jour effectuee sur un portal (objets, niveau, equipe ...)

@@ -50,7 +50,6 @@ public class CPlayerService {
         return lJsonValue;
     }
 
-
     @GET
     @Produces("application/json")
     public String readAll(){

@@ -11,17 +11,13 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.pkmmte.view.CircularImageView;
 
-<<<<<<< HEAD
-import fr.univtln.groupc.activities.google.SCurrentPlayer;
-=======
 import java.util.Objects;
 
-<<<<<<< HEAD
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
-=======
-import fr.univtln.groupc.activities.google.CCurrentPlayer;
->>>>>>> 03723e28068a38f5afcae4664eec38b4ebf457ae
->>>>>>> 2b2b18dda86cf9699c9e04b1bb2a12ecc21a2e10
+
+
+import fr.univtln.groupc.activities.google.SCurrentPlayer;
+
 import fr.univtln.groupc.rest.CRestPlayer;
 import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
@@ -41,17 +37,8 @@ public class CProfilActivity extends AppCompatActivity {
 
         mCircularImageView = (CircularImageView) findViewById(R.id.yourCircularImageView);
         mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
-<<<<<<< HEAD
-        
-        if (SCurrentPlayer.mPlayer != null) {
-=======
 
-<<<<<<< HEAD
         if (SCurrentPlayer.mPlayer != null) {
-=======
-        if (CCurrentPlayer.mPlayer != null) {
->>>>>>> 03723e28068a38f5afcae4664eec38b4ebf457ae
->>>>>>> 2b2b18dda86cf9699c9e04b1bb2a12ecc21a2e10
 
             mTextName = (TextView) findViewById(R.id.textName);
             if (mTextName != null) {
@@ -67,15 +54,7 @@ public class CProfilActivity extends AppCompatActivity {
 
             // on met le drapeau de la team à laquelle l'user courant appartient
 
-<<<<<<< HEAD
             if (Objects.equals(SCurrentPlayer.mPlayer.getTeam().getColor(), "bleu"))
-=======
-<<<<<<< HEAD
-            if (SCurrentPlayer.mPlayer.getTeam().getColor() == "bleu")
-=======
-            if (Objects.equals(CCurrentPlayer.mPlayer.getTeam().getColor(), "bleu"))
->>>>>>> 03723e28068a38f5afcae4664eec38b4ebf457ae
->>>>>>> 2b2b18dda86cf9699c9e04b1bb2a12ecc21a2e10
                 mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
             else
                 mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logxenom));
