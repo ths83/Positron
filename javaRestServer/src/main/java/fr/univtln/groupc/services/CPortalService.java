@@ -42,6 +42,7 @@ public class CPortalService implements ContextResolver<ObjectMapper>{
     @Produces("application/json")
     @Path("/{id}")
     public String readPortal(@PathParam("id") int pId){
+        mCrudMethods.clearCache();
         String lJsonValue = null;
         CPortalEntity lPortal = (CPortalEntity)mCrudMethods.find(CPortalEntity.class, pId);
         try {

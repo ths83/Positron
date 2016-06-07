@@ -18,7 +18,7 @@ public class CAction {
      * and increases the player xp.
      */
 /*
-    public static CPoseResonator attachResonatorToPortal(CPoseResonator pPoseResonator){
+    public static CPoseResornator attachResonatorToPortal(CPoseResonator pPoseResonator){
         System.out.println("salut attach 1");
         pPoseResonator.getmResonatorId()
         if (pPoseResonator.getPortal().getResonators().size() < 8){

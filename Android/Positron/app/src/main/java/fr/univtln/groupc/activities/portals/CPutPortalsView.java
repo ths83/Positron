@@ -91,7 +91,7 @@ public class CPutPortalsView extends AppCompatActivity {
         List<CPortalEntity> lPortals = new ArrayList<>();
         lPortals.add(lPortal1);
         lPortals.add(lPortal2);
-        CLinkEntity lLinkToCreate = new CLinkEntity.CLinkBuilder(756).portals(lPortals).build();
+        CLinkEntity lLinkToCreate = new CLinkEntity.CLinkBuilder().portals(lPortals).build();
         CRestPost lPost = new CRestPost();
         lPost.postLinkRest(lLinkToCreate);
         mIntent = new Intent(this, CMapsActivity.class);

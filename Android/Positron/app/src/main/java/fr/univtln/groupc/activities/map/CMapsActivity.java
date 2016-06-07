@@ -67,6 +67,7 @@ import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.activities.profil.CChoiceActivity;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
+import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -86,7 +87,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
-    public final static int GPS_PLAYER_RADIUS = 150;
+    public final static int GPS_PLAYER_RADIUS = 300;
     public final static float MAX_ZOOM_MAP = 17f;
     public static final int NB_PORTALS_LINK = 2;
     public static final float LINE_WIDTH = 5f;
@@ -186,12 +187,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     SCurrentPlayer.mPlayer = lPlayer;
 
                 }
-                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED.toString())) {
-                    CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
-                    ABuildingEntity lBuilding = (ABuildingEntity) pIntent.getSerializableExtra(CMessageHandler.BUILDING);
-
-                }
-
                 else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED.toString())) {
                     CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
                     CPortalEntity lPortal = (CPortalEntity) pIntent.getSerializableExtra(CMessageHandler.PORTAL);
@@ -1198,9 +1193,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
 
-<<<<<<< HEAD
-=======
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void InitDrawerAttack() {
         buttonCanceled();
@@ -1254,8 +1246,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     }
 
-
->>>>>>> eaa0e51698217e52670baf08584592e574ff2438
     /**
      *  acces au menu via un bouton flottant sur la carte
      *  -----

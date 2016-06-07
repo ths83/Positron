@@ -267,6 +267,8 @@ public class CServer {
             }
             CBuildingAttacked lBuildingAttacked = new CBuildingAttacked.CBuildingAttackedBuilder().portal(lPortal).player(lPlayer).build();
             CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.BUILDING_ATTACKED.toString()).objectBuildingAttacked(lBuildingAttacked).build();
+            mCrudMethods.update(lBeanToSend.getBuildingAttacked().getPlayer());
+            mCrudMethods.update(lBeanToSend.getBuildingAttacked().getPlayer());
             System.out.println(lBeanToSend);
             for (Session lSession : mSessions) {
                 lSession.getBasicRemote().sendObject(lBeanToSend);

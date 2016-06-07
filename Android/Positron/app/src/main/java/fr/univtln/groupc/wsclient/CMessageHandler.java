@@ -42,7 +42,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
         if (pBean.getType().equals(EPayloadType.CONNECTED.toString())){
             Log.d("tag", "ok connected recu!");
         }
-        else if (pBean.getType().equals(EPayloadType.RESONATOR_POSED.toString())){
+        if (pBean.getType().equals(EPayloadType.RESONATOR_POSED.toString())){
             Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.RESONATOR_POSED.toString());
             lIntent.putExtra(PORTAL, pBean.getResonatorPosed().getPortal());
@@ -50,7 +50,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             mWebSocketService.sendBroadcast(lIntent);
         }
 
-        else if (pBean.getType().equals(EPayloadType.PORTAL_CHANGING_TEAM.toString())){
+        if (pBean.getType().equals(EPayloadType.PORTAL_CHANGING_TEAM.toString())){
             Log.d("tag", "taille des reso du portal recu : " + pBean.getTeamPortalChanged().getPortal().getResonators().size());
 
             Intent lIntent = new Intent(INTENT_TYPE);
@@ -60,7 +60,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             mWebSocketService.sendBroadcast(lIntent);
         }
 
-        else if (pBean.getType().equals(EPayloadType.LINK_CREATED.toString())){
+        if (pBean.getType().equals(EPayloadType.LINK_CREATED.toString())){
             Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.LINK_CREATED.toString());
             lIntent.putExtra(LINK, pBean.getLinkCreated().getLink());
@@ -68,7 +68,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
         }
 
 
-        else if (pBean.getType().equals(EPayloadType.BUILDING_ATTACKED.toString())){
+        if (pBean.getType().equals(EPayloadType.BUILDING_ATTACKED.toString())){
             Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.BUILDING_ATTACKED.toString());
             lIntent.putExtra(PORTAL, pBean.getBuildingAttacked().getPortal());
@@ -76,7 +76,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             mWebSocketService.sendBroadcast(lIntent);
         }
 
-        else if (pBean.getType().equals(EPayloadType.VIRUS_POSED.toString())){
+        if (pBean.getType().equals(EPayloadType.VIRUS_POSED.toString())){
             Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.VIRUS_POSED.toString());
             lIntent.putExtra(PORTAL, pBean.getVirusPosed().getPortal());

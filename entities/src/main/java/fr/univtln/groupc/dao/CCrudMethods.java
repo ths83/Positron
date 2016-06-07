@@ -35,7 +35,7 @@ public class CCrudMethods {
     }
 
     public  <T> T find(Class<T> type,Object id) {
-        em.clear();
+
         T t = this.em.find(type, id);
         //em.refresh(t);
         //return (T) this.em.find(type, id);
@@ -91,5 +91,9 @@ public class CCrudMethods {
 
     public List findWithNamedQuery(String namedQueryName, Map parameters){
         return findWithNamedQuery(namedQueryName, parameters, 0);
+    }
+
+    public void clearCache(){
+        em.getEntityManagerFactory().getCache().evictAll();
     }
 }
