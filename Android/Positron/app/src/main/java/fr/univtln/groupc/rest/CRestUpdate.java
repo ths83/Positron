@@ -22,8 +22,10 @@ import fr.univtln.groupc.entities.CShieldEntity;
 /**
  * Created by toms on 08/05/2016.
  */
-public class CRestUpdate extends AsyncTask<String, String, Void> {
+public class CRestUpdate extends CRest {
 
+<<<<<<< HEAD
+=======
 
     @Override
     protected Void doInBackground(String... params) {
@@ -48,11 +50,11 @@ public class CRestUpdate extends AsyncTask<String, String, Void> {
         }
         return null;
     }
+>>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
     @Override
-    protected void onPostExecute (Void v){
-        super.onPostExecute(v);
+    protected void onPostExecute (String s){
+        super.onPostExecute(s);
     }
-
 
     /**
      * envoi au serveur la mise a jour effectuee sur un portal (objets, niveau, equipe ...)

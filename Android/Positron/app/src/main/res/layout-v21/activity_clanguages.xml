@@ -15,7 +15,7 @@
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/arabian_language_button"
-        android:onClick=""
+        android:onClick="setArabianLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12sp"
@@ -29,7 +29,7 @@
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/english_language_button"
-        android:onClick=""
+        android:onClick="setEnglishLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12sp"
@@ -43,7 +43,7 @@
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/french_language_button"
-        android:onClick=""
+        android:onClick="setFrenchLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12sp"

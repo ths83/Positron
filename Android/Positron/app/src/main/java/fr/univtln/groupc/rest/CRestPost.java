@@ -10,6 +10,7 @@ import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.SimpleTimeZone;
 import java.util.concurrent.ExecutionException;
 
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -17,35 +18,12 @@ import fr.univtln.groupc.entities.CLinkEntity;
 /**
  * Created by toms on 08/05/2016.
  */
-public class CRestPost extends AsyncTask<String, String, Void> {
+public class CRestPost extends CRest{
 
 
     @Override
-    protected Void doInBackground(String... params) {
-        String lUrlString = params[0]; // URL to call
-        String lJsonString = params[1];
-        BufferedOutputStream out = null;
-        try {
-            URL url = new URL(lUrlString);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("POST");
-            urlConnection.setDoOutput(true);
-            urlConnection.setDoInput(true);
-            urlConnection.setRequestProperty("Content-Type", "application/json");
-            urlConnection.setChunkedStreamingMode(0);
-            OutputStream output = new BufferedOutputStream(urlConnection.getOutputStream());
-            output.write(lJsonString.getBytes());
-            output.flush();
-            System.out.println(urlConnection.getInputStream());
-            output.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-    @Override
-    protected void onPostExecute (Void v){
-        super.onPostExecute(v);
+    protected void onPostExecute (String s){
+        super.onPostExecute(s);
     }
 
 

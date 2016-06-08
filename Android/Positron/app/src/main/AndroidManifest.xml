@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.univtln.m1dapm.groupec.tperron710.positron" >
+    package="fr.univtln.m1dapm.groupec.tperron710.positron">
 
     <!-- <uses-sdk android:minSdkVersion="19" /> -->
 
@@ -32,7 +32,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <!-- service for Android device -->
         <service android:name="fr.univtln.groupc.services.services.CLaunchService" />
@@ -54,59 +54,45 @@
             android:name="fr.univtln.groupc.activities.map.CMapsActivity"
             android:configChanges="screenLayout|screenSize|orientation"
             android:exported="true"
-            android:label="@string/title_activity_maps" >
->
+            android:label="@string/title_activity_maps">
+            >
         </activity>
-        <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity" >
-        </activity>
+        <activity android:name="fr.univtln.groupc.signin.google.CSignInActivity"></activity>
         <activity android:name="fr.univtln.groupc.activities.CDrawerActivity" />
         <activity
             android:name="fr.univtln.groupc.activities.portals.CHackPortalsView"
-            android:label="@string/title_activity_chack_portals_view" >
-        </activity>
+            android:label="@string/title_activity_chack_portals_view"></activity>
         <activity
             android:name="fr.univtln.groupc.activities.portals.CMaintainPortalsView"
-            android:label="@string/title_activity_cmaintain_portals_view" >
-        </activity>
+            android:label="@string/title_activity_cmaintain_portals_view"></activity>
         <activity
             android:name="fr.univtln.groupc.activities.portals.CPutPortalsView"
-            android:label="@string/title_activity_cput_portals_view" >
-        </activity>
+            android:label="@string/title_activity_cput_portals_view"></activity>
         <activity
             android:name="fr.univtln.groupc.activities.portals.CClickPortalsAcitivity"
-            android:label="@string/title_activity_cclick_portals_acitivity" >
-        </activity>
+            android:label="@string/title_activity_cclick_portals_acitivity"></activity>
         <activity
             android:name="fr.univtln.groupc.activities.profil.CProfilActivity"
-            android:label="@string/title_activity_cprofil" >
-        </activity>
+            android:label="@string/title_activity_cprofil"></activity>
         <activity
             android:name="fr.univtln.groupc.activities.settings.CSettingsAcitvity"
-            android:label="@string/title_activity_csettings_acitvity" >
-        </activity>
+            android:label="@string/title_activity_csettings_acitvity"></activity>
         <activity
             android:name="fr.univtln.groupc.activities.profil.CStatsActivity"
-            android:label="@string/title_activity_cstats" >
-        </activity>
+            android:label="@string/title_activity_cstats"></activity>
         <activity
             android:name="fr.univtln.groupc.activities.profil.CSkillTree"
             android:label="@string/title_activity_cskill_tree"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <service android:name="fr.univtln.groupc.wsclient.CWebSocketService" />
 
         <activity
             android:name="fr.univtln.groupc.activities.profil.CChoiceActivity"
-            android:label="@string/title_activity_cchoice" >
-        </activity>
-
-        <activity android:name="fr.univtln.groupc.activities.menu.CParametersActivity"/>
-
-        <activity android:name="fr.univtln.groupc.activities.menu.CManualActivity"/>
-
-        <activity android:name="fr.univtln.groupc.activities.menu.CLanguagesActivity"/>
-
+            android:label="@string/title_activity_cchoice"></activity>
+        <activity android:name="fr.univtln.groupc.activities.menu.CParametersActivity" />
+        <activity android:name="fr.univtln.groupc.activities.menu.CManualActivity" />
+        <activity android:name="fr.univtln.groupc.activities.menu.CLanguagesActivity" />
         <activity android:name="fr.univtln.groupc.activities.launcher.CWelcomeActivity">
             <intent-filter>
                 <action android:name="ANDROID.INTENT.ACTION.MAIN" />
@@ -114,6 +100,7 @@
                 <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="fr.univtln.groupc.activities.launcher.CSelectTeamActivity"></activity>
     </application>
 
 </manifest>
