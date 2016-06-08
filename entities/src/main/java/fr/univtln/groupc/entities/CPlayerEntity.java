@@ -386,8 +386,14 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
     public void takeDamage(IFighter pFighter, int pDamage) {
         int lDamages = pDamage - getLevel()*2;
-        if(lDamages > 0) {
-            loseEnergy(pDamage);
+        int lLuck = (int) (Math.random()*100);
+        if( this.havingSkill(221) && lLuck > 70 ){
+            System.out.println("Attaque esquivée grace à l'invisibilité.");
+        }
+        else {
+            if (lDamages > 0) {
+                loseEnergy(pDamage);
+            }
         }
     }
 
