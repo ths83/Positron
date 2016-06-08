@@ -64,6 +64,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.LINK_CREATED.toString());
             lIntent.putExtra(LINK, pBean.getLinkCreated().getLink());
+            lIntent.putExtra(PLAYER, pBean.getLinkCreated().getPlayer());
             mWebSocketService.sendBroadcast(lIntent);
         }
 
@@ -81,6 +82,16 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             lIntent.putExtra(TYPE, EPayloadType.VIRUS_POSED.toString());
             lIntent.putExtra(PORTAL, pBean.getVirusPosed().getPortal());
             lIntent.putExtra(PLAYER, pBean.getVirusPosed().getPlayer());
+            mWebSocketService.sendBroadcast(lIntent);
+        }
+
+        if (pBean.getType().equals(EPayloadType.FIELD_CREATED.toString())){
+            Intent lIntent = new Intent(INTENT_TYPE);
+            lIntent.putExtra(TYPE, EPayloadType.FIELD_CREATED.toString());
+            lIntent.putExtra(LINK, pBean.getFieldCreated().getLink());
+            lIntent.putExtra(PLAYER, pBean.getFieldCreated().getPlayer());
+            mWebSocketService.sendBroadcast(lIntent);
+
         }
 
     }

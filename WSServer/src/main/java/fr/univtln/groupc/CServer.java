@@ -198,7 +198,8 @@ public class CServer {
                             System.out.println("Lien " + lID + " détruit");
                             mCrudMethods.delete(CLinkEntity.class, lID);
                         }
-                        CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.FIELD_CREATED.toString()).objectFieldCreated(new CFieldCreated(lField)).build();
+                        lLink.setField(lField);
+                        CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.FIELD_CREATED.toString()).objectFieldCreated(new CFieldCreated.CFieldCreatedBuilder().link(lLink).player(lPlayer).build()).build();
                         for (Session lSession : mSessions) {
                             lSession.getBasicRemote().sendObject(lBeanToSend);
                         }
@@ -364,7 +365,8 @@ public class CServer {
                 new org.glassfish.tyrus.server.Server(SERVER_IP, SERVER_PORT, "/", null, CServer.class);
 
         try {
-            server.start();
+
+               server.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Please press a key to stop the server.");
             while(true){

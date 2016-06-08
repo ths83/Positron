@@ -15,8 +15,7 @@ public class CLinkCreated implements Serializable{
 
     private CLinkEntity mLink;
     private CPlayerEntity mPlayer;
-    private CPortalEntity mPortal1;
-    private CPortalEntity mPortal2;
+
 
     public CLinkCreated(){}
 
@@ -41,27 +40,10 @@ public class CLinkCreated implements Serializable{
         mPlayer = pPlayer;
     }
 
-    public CPortalEntity getPortal1(){
-        return mPortal1;
-    }
-
-    public void setPortal1(CPortalEntity pPortal1){
-        mPortal1 = pPortal1;
-    }
-
-    public CPortalEntity getPortal2(){
-        return mPortal2;
-    }
-
-    public void setPortal2(CPortalEntity pPortal2){
-        mPortal2 = pPortal2;
-    }
 
     public static class CLinkCreatedBuilder{
         private CLinkEntity mLink;
         private CPlayerEntity mPlayer;
-        private CPortalEntity mPortal1;
-        private CPortalEntity mPortal2;
 
         public CLinkCreatedBuilder(){}
 

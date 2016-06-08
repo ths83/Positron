@@ -74,6 +74,7 @@ public class TestApp {
         //CPortalEntity lP0 = crud.find(CPortalEntity.class, 7);
         //lP0.addResonator(r1);
         //crud.update(p1);
+        /*
         CTeamEntity lTeams2 =crud.find(CTeamEntity.class,2);
 
         CPlayerEntity p6 = crud.find(CPlayerEntity.class,3);
@@ -87,7 +88,7 @@ public class TestApp {
         lObjects2.add(lResoOfP3);
         CPlayerEntity lPlayer4 = new CPlayerEntity.CPlayerBuilder(4).objects(lObjects2).xp(1500000).nickname("olé").energy(100).energyMax(100).team(lTeams2).build();
         crud.create(lPlayer4);
-
+*/
 
 
     }
