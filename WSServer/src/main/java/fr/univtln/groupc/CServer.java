@@ -162,7 +162,7 @@ public class CServer {
             List<CLinkEntity> lLinks = mCrudMethods.findWithNamedQuery(CLinkEntity.GET_ALL);
             List<CFieldEntity> lFields = mCrudMethods.findWithNamedQuery(CFieldEntity.GET_ALL);
 
-            if (CAlgorithm.detectColision(lLink, lLinks, lFields)) {
+            if (CAlgorithm.detectColision(lLink, lLinks, lFields) && CAlgorithm.inRange(lPortal1, lKey.getPortal())) {
                 System.out.println("Aucune colision detectee");// \n!!!!!!!!!!!!!!!" + lLink+"!!!!!!!!!!!!!!");
                 mCrudMethods.create(lLink);
                 lPlayer.removeObject(lKey);

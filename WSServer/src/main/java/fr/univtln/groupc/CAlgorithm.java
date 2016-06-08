@@ -540,6 +540,23 @@ public class CAlgorithm {
     }
 
 
+    public static boolean inRange(CPortalEntity pOriginalPortal, CPortalEntity pPortalTargeted){
+        //haversine();
+        double RangeMax = 100;
+
+        for(ABuildingEntity lBuilding : pOriginalPortal.getBuildings()){
+            if(lBuilding instanceof CLinkImprovementEntity){
+                RangeMax = RangeMax + ((CLinkImprovementEntity) lBuilding).getmRangeBonus();
+            }
+        }
+        if (haversine(pOriginalPortal.getLat(),pOriginalPortal.getLong(),pPortalTargeted.getLat(),pPortalTargeted.getLong()) <= RangeMax){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
 
 
 
