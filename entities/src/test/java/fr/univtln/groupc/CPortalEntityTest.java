@@ -1,6 +1,7 @@
 package fr.univtln.groupc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.univtln.groupc.dao.CCrudMethods;
 import fr.univtln.groupc.entities.CLinkEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 import fr.univtln.groupc.entities.CResonatorEntity;
@@ -17,11 +18,11 @@ public class CPortalEntityTest extends TestCase {
     private ObjectMapper mObjectMapper = new ObjectMapper();
 
     public void testSerDeserListPortalsWithLinks() throws Exception {
-        /*
         CLinkEntity lLink1 = new CLinkEntity.CLinkBuilder().build();
         CLinkEntity lLink2 = new CLinkEntity.CLinkBuilder().build();
         CLinkEntity lLink3 = new CLinkEntity.CLinkBuilder().build();
         CLinkEntity lLink4 = new CLinkEntity.CLinkBuilder().build();
+        /*
         List<CLinkEntity> lLinks = new ArrayList<CLinkEntity>();
         List<CPortalEntity> lPortals = new ArrayList<CPortalEntity>();
         lLinks.add(lLink1);
@@ -37,11 +38,13 @@ public class CPortalEntityTest extends TestCase {
         lPortals.add(lPortal2);
 
         String lJson = mObjectMapper.writeValueAsString(lPortals);
+        CCrudMethods lCrud = new CCrudMethods();
+        lCrud.*/
 
-        List<CPortalEntity> lPortalsGotten = mObjectMapper.readValue(lJson, mObjectMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
+        //List<CPortalEntity> lPortalsGotten = mObjectMapper.readValue(lJson, mObjectMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
         //System.out.println("portails : \n" + mObjectMapper.readValue(lJson, mObjectMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class)));
-        System.out.println(lPortalsGotten);
-*/
+        //System.out.println(lPortalsGotten);
+
     }
 
     public void testSerDeserPortalWithResonators() throws Exception {

@@ -117,15 +117,10 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
             // Mettre le compte courant disponible pour tout le programme globalement
             if (lAcct != null) {
                 SCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(lAcct.getEmail());
-            }
-
-            String idToken = null;
-            if (lAcct != null) {
+                String idToken = null;
                 idToken = lAcct.getIdToken();
+                Log.d(TAG, "idToken:" + idToken);
             }
-
-            // Show signed-in UI.
-            Log.d(TAG, "idToken:" + idToken);
 
             Toast.makeText(getBaseContext(),AUTHENTIFICATION_SUCCESS_FRENCH,Toast.LENGTH_SHORT).show();
             /*mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));

@@ -333,7 +333,7 @@ public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity
             lPortalListe.add(pPortal);
             lPortalListe.add(pKey.getPortal());
 
-            return new CLinkEntity.CLinkBuilder(1).portals(lPortalListe).build();
+            return new CLinkEntity.CLinkBuilder().portals(lPortalListe).build();
         }
         else{
             return null;

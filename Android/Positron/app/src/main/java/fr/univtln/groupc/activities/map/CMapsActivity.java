@@ -59,6 +59,7 @@ import java.util.Map;
 import java.util.Set;
 
 import fr.univtln.groupc.CAttackBuilding;
+import fr.univtln.groupc.CCreateLink;
 import fr.univtln.groupc.CPayloadBean;
 import fr.univtln.groupc.CPoseResonator;
 import fr.univtln.groupc.EPayloadType;
@@ -67,6 +68,7 @@ import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
 import fr.univtln.groupc.activities.profil.CChoiceActivity;
 import fr.univtln.groupc.entities.ABuildingEntity;
 import fr.univtln.groupc.entities.AObjectEntity;
+import fr.univtln.groupc.entities.CConsumableEntity;
 import fr.univtln.groupc.entities.CFieldEntity;
 import fr.univtln.groupc.entities.CKeyEntity;
 import fr.univtln.groupc.entities.CLinkEntity;
@@ -86,7 +88,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     public final static String GPS_OFF_FRENCH = "Le GPS est inactif!";
     public final static String GPS_ON_FRENCH = "Le GPS est actif!";
-    public final static int GPS_PLAYER_RADIUS = 150;
+    public final static int GPS_PLAYER_RADIUS = 300;
     public final static float MAX_ZOOM_MAP = 17f;
     public static final int NB_PORTALS_LINK = 2;
     public static final float LINE_WIDTH = 5f;
@@ -188,12 +190,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 }
                 else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED.toString())) {
                     CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
-                    ABuildingEntity lBuilding = (ABuildingEntity) pIntent.getSerializableExtra(CMessageHandler.BUILDING);
-
-                }
-
-                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.BUILDING_ATTACKED.toString())) {
-                    CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
                     CPortalEntity lPortal = (CPortalEntity) pIntent.getSerializableExtra(CMessageHandler.PORTAL);
                     mPortalClicked = lPortal;
                     replacePortal(lPortal);
@@ -201,9 +197,23 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 }
 
 
-                    else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.LINK_CREATED.toString())){
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.LINK_CREATED.toString())){
                     CLinkEntity lLink = (CLinkEntity) pIntent.getSerializableExtra(CMessageHandler.LINK);
+                    CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
+                    displayLink(lLink);
+                    SCurrentPlayer.mPlayer = lPlayer;
                 }
+
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.FIELD_CREATED.toString())){
+                    CLinkEntity lLink = (CLinkEntity) pIntent.getSerializableExtra(CMessageHandler.LINK);
+                    CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
+                    Log.d("test78", "field null ? -> " + Boolean.toString(lLink.getField() == null));
+                    CFieldEntity lField = lLink.getField();
+                    displayLink(lLink);
+                    displayField(lField);
+                    SCurrentPlayer.mPlayer = lPlayer;
+                }
+
 
             }
         };
@@ -534,10 +544,10 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         double lLong = pPortal.getLong();
         double lIdent = -0.0007;
         LatLng lLatLng;
+        IconGenerator tc = new IconGenerator(this);
+        //tc.setTextAppearance(R.style.iconGenText);
         for (CResonatorEntity lResonator : lResonators) {
             lLatLng = new LatLng(lLat - 0.0004, lLong + lIdent);
-            IconGenerator tc = new IconGenerator(this);
-            tc.setTextAppearance(R.style.iconGenText);
             if (lResonator.getOwner().getTeam().getId() == 1) {
                 if (pState!=1) {
                     Marker lMarker = mMap.addMarker(new MarkerOptions()
@@ -564,7 +574,8 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 lLatLng = new LatLng(lLat - 0.0004, lLong + lIdent);
                 mResonatorMarkers.add(mMap.addMarker(new MarkerOptions()
                         .position(lLatLng).snippet("resonator empty")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.emptyplaceresonator))));
+                        .icon(BitmapDescriptorFactory.fromBitmap(displayEmptyPlaceResonator(tc,R.mipmap.emptyplaceresonator)))));
+                //fromResource(R.mipmap.emptyplaceresonator)
                 lIdent = lIdent + 0.0002;
                 i = i + 1;
             }
@@ -941,6 +952,25 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         lLinearLayout.addView(lHealth);
         pIg.setContentView(lLinearLayout);
         Bitmap bp = pIg.makeIcon();
+// Resize the bitmap to 150x100 (width x height)
+        //Bitmap bMapScaled = Bitmap.createScaledBitmap(bp, 50, 50, true);
+
+// Loads the resized Bitmap into an ImageView
+        return bp;
+    }
+
+    public Bitmap displayEmptyPlaceResonator(IconGenerator pIg, int pId) {
+        pIg.setBackground(null);
+        Context lContext = getApplicationContext();
+        LinearLayout lLinearLayout = new LinearLayout(lContext);
+        lLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        ImageView lImage = new ImageView(lContext);
+        LinearLayout.LayoutParams lParams1 = new LinearLayout.LayoutParams(100, 100);
+        lImage.setLayoutParams(lParams1);
+        lImage.setImageDrawable(getResources().getDrawable(pId));
+        lLinearLayout.addView(lImage);
+        pIg.setContentView(lLinearLayout);
+        Bitmap bp = pIg.makeIcon();
         return bp;
     }
 
@@ -1034,12 +1064,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                 lButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CPortalEntity lPortal = lKeys.get(0).getPortal();
-                        List<CPortalEntity> lPortals = new ArrayList<CPortalEntity>();
-                        lPortals.add(mPortalClicked);
-                        lPortals.add(lPortal);
-                        CLinkEntity lLinkToCreate = new CLinkEntity.CLinkBuilder().portals(lPortals).build();
-
+                        int lKeyId = lKeys.get(0).getId();
+                        int lPortalId = mPortalClicked.getId();
+                        int lPlayerId = SCurrentPlayer.mPlayer.getId();
+                        CCreateLink lCreateLink = new CCreateLink.CCreateLinkBuilder().keyId(lKeyId).playerId(lPlayerId).portalId(lPortalId).build();
+                        CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.CREATE_LINK.toString()).objectCreateLink(lCreateLink).build();
+                        CTyrusClient.sendMessage(lBeanToSend);
                     }
                 });
                 TextView lText = new TextView(context);
@@ -1198,9 +1228,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
 
-<<<<<<< HEAD
-=======
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void InitDrawerAttack() {
         buttonCanceled();
@@ -1254,8 +1281,6 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     }
 
-
->>>>>>> eaa0e51698217e52670baf08584592e574ff2438
     /**
      *  acces au menu via un bouton flottant sur la carte
      *  -----

@@ -13,7 +13,7 @@ public class TestFieldCreated extends TestCase {
 
 
     public void testSerDeserFieldCreated() throws Exception {
-        System.out.println(mMapper.writeValueAsString(new CFieldCreated(new CFieldEntity.CFieldBuilder(1).build())));
+        System.out.println(mMapper.writeValueAsString(new CFieldCreated()));
     }
 
 

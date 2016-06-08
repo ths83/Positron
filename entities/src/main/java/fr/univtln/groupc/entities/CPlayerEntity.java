@@ -204,12 +204,8 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         mObjects = pObjects;
     }
 
-    public void addObjects(AObjectEntity pObject) {
-        mObjects.add(pObject);
-        if (pObject instanceof CResonatorEntity){
-            ((CResonatorEntity) pObject).setOwner(this);
-        }
-
+    public void addObjects(AObjectEntity o) {
+        mObjects.add(o);
     }
 
     public void attack(ITarget pTarget,CConsumableEntity pAmmunition) {
@@ -409,9 +405,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
     public void removeObject (AObjectEntity pObject){
         mObjects.remove(pObject);
-        if (pObject instanceof CResonatorEntity){
-            ((CResonatorEntity) pObject).setOwner(null);
-        }
+        //TODO DELETE OBJECT
     }
 
     public void loseEnergy(int pEnergyLose){
@@ -514,11 +508,11 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
     public boolean skillAvailable(CSkillEntity pSkillWanted ,int pFreeSkillPoint){
 
-        if(pFreeSkillPoint < pSkillWanted.getLevel()){
+        if(pFreeSkillPoint<pSkillWanted.getCost()){
             return false;
         }
         else if(pSkillWanted.getLevel() == 1) {
-            return true;
+            return false;
         }
         else{
 
@@ -534,13 +528,11 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return false;
     }
 
-    public boolean havingSkill(int pIdSkillVerified){
+    public boolean havingSkill(int pIdSkill){
 
         for(CSkillEntity lSkill : mSkills){
-
-            if (pIdSkillVerified == lSkill.getId()) {
+            if (lSkill.getId() == pIdSkill) {
                 return true;
-
             }
         }
         return false;
@@ -603,5 +595,6 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         }
         return lRarities;
     }
+
 
 }

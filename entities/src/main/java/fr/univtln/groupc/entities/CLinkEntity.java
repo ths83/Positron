@@ -77,16 +77,11 @@ public class CLinkEntity implements Serializable {
     }
 
     public static class CLinkBuilder{
-        //private int mId;
+        private int mId;
         private List<CPortalEntity> mPortals = new ArrayList<CPortalEntity>();
 
-        /*
-        public CLinkBuilder(int pId) {
-            mId = pId;
+        public CLinkBuilder(){
         }
-*/
-
-        public CLinkBuilder(){}
 
         public CLinkBuilder portals(List<CPortalEntity> pPortals){
 

@@ -1,6 +1,8 @@
 package fr.univtln.groupc;
 
 import fr.univtln.groupc.entities.CFieldEntity;
+import fr.univtln.groupc.entities.CLinkEntity;
+import fr.univtln.groupc.entities.CPlayerEntity;
 
 import java.io.Serializable;
 
@@ -9,19 +11,52 @@ import java.io.Serializable;
  */
 public class CFieldCreated implements Serializable {
 
-    private CFieldEntity mField;
+    private CLinkEntity mLink;
+    private CPlayerEntity mPlayer;
 
     public CFieldCreated(){}
 
-    public CFieldCreated(CFieldEntity pField){
-        mField = pField;
+    public CFieldCreated(CFieldCreatedBuilder pBuilder){
+        mLink = pBuilder.mLink;
+        mPlayer = pBuilder.mPlayer;
     }
 
-    public CFieldEntity getField(){
-        return mField;
+    public CLinkEntity getLink(){
+        return mLink;
     }
 
-    public void setField(CFieldEntity pField){
-        mField = pField;
+    public void setLink(CLinkEntity pLink){
+        mLink = pLink;
     }
+
+    public CPlayerEntity getPlayer(){
+        return mPlayer;
+    }
+
+    public void setPlayer(CPlayerEntity pPlayer){
+        mPlayer = pPlayer;
+    }
+
+    public static class CFieldCreatedBuilder {
+        private CLinkEntity mLink;
+        private CPlayerEntity mPlayer;
+
+        public CFieldCreatedBuilder(){}
+
+        public CFieldCreatedBuilder link(CLinkEntity pLink){
+            mLink = pLink;
+            return this;
+        }
+
+        public CFieldCreatedBuilder player(CPlayerEntity pPlayer){
+            mPlayer = pPlayer;
+            return this;
+        }
+
+        public CFieldCreated build(){
+            return new CFieldCreated(this);
+        }
+
+    }
+
 }

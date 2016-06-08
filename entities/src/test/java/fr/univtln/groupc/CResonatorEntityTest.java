@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class CResonatorEntityTest extends TestCase {
     private ObjectMapper mMapper = new ObjectMapper();
-    //private CCrudMethods mCrud = new CCrudMethods();
+    private CCrudMethods mCrud = new CCrudMethods();
 
     public void testSerDeserResonator() throws Exception {
         CResonatorEntity lReso = new CResonatorEntity.CResonatorBuilder(1).energy(50).energyMax(100).name("reso").build();
