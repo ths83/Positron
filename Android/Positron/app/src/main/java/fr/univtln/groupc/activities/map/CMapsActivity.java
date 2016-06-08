@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -1328,6 +1329,23 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         else {
             Toast.makeText(getBaseContext(),getText(R.string.portrait_view),Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Supprime l'action du bouton de retour
+     * -----
+     * Delete back button action
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode== KeyEvent.KEYCODE_BACK)
+            Toast.makeText(getApplicationContext(), getText(R.string.rm_back_button),
+                    Toast.LENGTH_LONG).show();
+
+        return false;
     }
 }
 

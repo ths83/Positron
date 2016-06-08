@@ -51,6 +51,17 @@
     <string name="themes">Thèmes</string>
     <string name="Langues">Langues</string>
     <string name="select_team">Sélection de l\'équipe</string>
+    <string name="title_activity_cselect_team2">CSelectTeamActivity2</string>
+    <string name="french_language">Français</string>
+    <string name="english_language">English</string>
+    <string name="sign_in_text">se connecter</string>
+    <string name="atom_story">Les adeptes d\'Atom pensent que l\'humanité n\'a plus de choix que de se tourner vers l\'adaptation totale de son environnement et vénèrent par dessus tout le nucléaire. L\'Institut est le noyau de cette communauté, et cherche désespérement à encadrer le phénomène de fission nucléaire permettant une énergie quasi illimitée. Leur credo? La fin justifie les moyens.</string>
+    <string name="atom_text">atom</string>
+    <string name="no">non</string>
+    <string name="xenom_story">Xenom est un groupe qui s\'est formé à la suite des expériences douteuses pratiquées par l\'Institut. Leur but est de remettre les choses dans l\'ordre et limiter le mal provoqué par l\'inconscience et la folie des adeptes d\'Atom avant qu\'il ne soit trop tard.</string>
+    <string name="long_text_listener">Un appui long sur l\'image de l\'une des deux équipes permet sa sélection.\nATTENTION !! Il est impossible d\'en changer !</string>
+    <string name="rm_back_button">bouton de retour désactivé !</string>
+    <string name="disconnection_button">se déconnecter</string>
 
 
 </resources>

@@ -7,4 +7,5 @@
     <color name="borderColor">#8ee5ee</color>
     <color name="params_buttons">#057965</color>
     <color name="backgroundaction">#fff0bd</color>
+    <color name="red">#CC0000</color>
 </resources>

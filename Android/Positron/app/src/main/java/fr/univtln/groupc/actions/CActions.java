@@ -332,7 +332,7 @@ public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity
             List<CPortalEntity> lPortalListe = new ArrayList<>();
             lPortalListe.add(pPortal);
             lPortalListe.add(pKey.getPortal());
-
+            //TODO delete 2000
             return new CLinkEntity.CLinkBuilder().portals(lPortalListe).build();
         }
         else{
