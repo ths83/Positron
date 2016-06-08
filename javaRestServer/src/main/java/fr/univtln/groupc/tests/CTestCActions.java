@@ -64,16 +64,16 @@ public class CTestCActions {
         switch (pTypeObjet) {
 
             case (0): {
-                return (AObjectEntity) new CResonatorEntity.CResonatorBuilder(10).energyMax(pLevelObject * 20).energy(pLevelObject * 20).level(pLevelObject).build();
+                return (AObjectEntity) new CResonatorEntity.CResonatorBuilder().energyMax(pLevelObject * 20).energy(pLevelObject * 20).level(pLevelObject).build();
             }
             case (1): {
-                return (AObjectEntity) new CTurretEntity.CTurretBuilder(10).energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
+                return (AObjectEntity) new CTurretEntity.CTurretBuilder().energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
             }
             case (2): {
-                return (AObjectEntity) new CShieldEntity.CShieldBuilder(10).level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
+                return (AObjectEntity) new CShieldEntity.CShieldBuilder().level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
             }
             case (3): {
-                return (CConsumableEntity) new CConsumableEntity.CConsumableBuilder(10).name("Attack").rarity(pRarety).build();
+                return (CConsumableEntity) new CConsumableEntity.CConsumableBuilder().name("Attack").rarity(pRarety).build();
             }
 
 
@@ -240,6 +240,6 @@ public class CTestCActions {
 
     // TODO : Choirsie/Vérifier sens de création: Cascade Player -> Object or Object -> Player
     public CKeyEntity keyHacking(CPortalEntity pPortal){
-        return new CKeyEntity.CKeyBuilder(140).portal(pPortal).build();
+        return new CKeyEntity.CKeyBuilder().portal(pPortal).build();
     }
 }

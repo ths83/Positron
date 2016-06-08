@@ -54,8 +54,8 @@ public class CLinkImprovementEntity extends ABuildingEntity implements Serializa
         private double mRangeBonus;
 
 
-        public CLinkImprovementBuilder(int pId) {
-            mId = pId;
+        public CLinkImprovementBuilder() {
+
         }
 
         public CLinkImprovementBuilder rangeBonus(double pRangeBonus) {

@@ -22,6 +22,14 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CPlayerEntity.class)
 
 public class CPlayerEntity implements Serializable, ITarget, IFighter {
+    public static int XP_LVL_2 = 500;
+    public static int XP_LVL_3 = 1200;
+    public static int XP_LVL_4 = 2100;
+    public static int XP_LVL_5 = 3200;
+    public static int XP_LVL_6 = 4500;
+    public static int XP_LVL_7 = 6000;
+    public static int XP_LVL_8 = 7700;
+
     @Id
     @Column(name = "id")
     private int mId;
@@ -204,8 +212,12 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         mObjects = pObjects;
     }
 
-    public void addObjects(AObjectEntity o) {
-        mObjects.add(o);
+    public void addObjects(AObjectEntity pObject) {
+        mObjects.add(pObject);
+        if (pObject instanceof CResonatorEntity){
+            ((CResonatorEntity) pObject).setOwner(this);
+        }
+
     }
 
     public void attack(ITarget pTarget,CConsumableEntity pAmmunition) {
@@ -248,29 +260,29 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
     @JsonIgnore
     public int getLevel(){
         int lLevel = 0;
-        if (mXp < 500){
+        if (mXp < XP_LVL_2){
             lLevel = 1;
         }
-        else if(500 <= mXp && mXp < 1200){
+        else if(XP_LVL_2 <= mXp && mXp < XP_LVL_3){
             lLevel = 2;
         }
 
-        else if(1200 <= mXp && mXp < 2100){
+        else if(XP_LVL_3 <= mXp && mXp < XP_LVL_4){
             lLevel = 3;
         }
-        else if(2100 <= mXp && mXp < 3200){
+        else if(XP_LVL_4 <= mXp && mXp < XP_LVL_5){
             lLevel = 4;
         }
-        else if(3200 <= mXp && mXp < 4500){
+        else if(XP_LVL_5 <= mXp && mXp < XP_LVL_6){
             lLevel = 5;
         }
-        else if(4500 <= mXp && mXp < 6000){
+        else if(XP_LVL_6 <= mXp && mXp < XP_LVL_7){
             lLevel = 6;
         }
-        else if(6000 <= mXp && mXp < 7700){
+        else if(XP_LVL_7 <= mXp && mXp < XP_LVL_8){
             lLevel = 7;
         }
-        else if(mXp >= 7700){
+        else if(mXp >= XP_LVL_8){
             lLevel = 8;
         }
         System.out.println("level => " + lLevel);

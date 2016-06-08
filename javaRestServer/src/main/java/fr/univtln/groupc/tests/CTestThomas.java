@@ -30,15 +30,15 @@ public class CTestThomas {
         List<CPortalEntity> lPortalLinked4 = new ArrayList<>();
 
         List<CKeyEntity> lKeyPortals1 = new ArrayList<>();
-        CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder(2000).build();
+        CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder().build();
         lKeyPortals1.add(lKeyEntity);
 
         List<CKeyEntity> lKeyPortals2 = new ArrayList<>();
-        CKeyEntity lKeyEntity2 = new CKeyEntity.CKeyBuilder(2001).build();
+        CKeyEntity lKeyEntity2 = new CKeyEntity.CKeyBuilder().build();
         lKeyPortals2.add(lKeyEntity2);
 
         List<CKeyEntity> lKeyPortals3 = new ArrayList<>();
-        CKeyEntity lKeyEntity3 = new CKeyEntity.CKeyBuilder(2002).build();
+        CKeyEntity lKeyEntity3 = new CKeyEntity.CKeyBuilder().build();
         lKeyPortals3.add(lKeyEntity3);
 
 /*
@@ -72,13 +72,13 @@ public class CTestThomas {
         lPortalLinked4.add(lPortalGotten4);
         lPortalLinked4.add(lPortalGotten5);
 
-        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(10).owner(lPlayer).build();
-        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder(11).owner(lPlayer).build();
-        CResonatorEntity lResonator3 = new CResonatorEntity.CResonatorBuilder(12).owner(lPlayer).build();
+        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder().owner(lPlayer).build();
+        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder().owner(lPlayer).build();
+        CResonatorEntity lResonator3 = new CResonatorEntity.CResonatorBuilder().owner(lPlayer).build();
 
-        CKeyEntity lKey = new CKeyEntity.CKeyBuilder(500).build();
-        CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(600).build();
-        CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder(200).build();
+        CKeyEntity lKey = new CKeyEntity.CKeyBuilder().build();
+        CTurretEntity lTurret = new CTurretEntity.CTurretBuilder().build();
+        CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder().build();
 
 
 
