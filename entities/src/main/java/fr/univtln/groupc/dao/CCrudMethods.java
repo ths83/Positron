@@ -25,12 +25,12 @@ public class CCrudMethods {
 
 
     public  <T> T create(T t) {
-        EntityTransaction transac = em.getTransaction();
-        transac.begin();
+        //EntityTransaction transac = em.getTransaction();
+        //transac.begin();
         this.em.merge(t);
         this.em.flush();
         //this.em.refresh(t);
-        transac.commit();
+        //transac.commit();
         return t;
     }
 
@@ -51,12 +51,12 @@ public class CCrudMethods {
     }
 
     public <T> T update(T t){
-        EntityTransaction transac = em.getTransaction();
-        transac.begin();
+        //EntityTransaction transac = em.getTransaction();
+        //transac.begin();
         em.merge(t);
         this.em.flush();
         //this.em.refresh(t);
-        transac.commit();
+        //transac.commit();
         return t;
     }
 
@@ -95,5 +95,19 @@ public class CCrudMethods {
 
     public void clearCache(){
         em.getEntityManagerFactory().getCache().evictAll();
+    }
+
+    public Boolean openTransaction() {
+        if (!em.getTransaction().isActive()){
+            em.getTransaction().begin();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void commitTransaction(){
+        em.getTransaction().commit();
     }
 }

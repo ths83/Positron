@@ -16,10 +16,9 @@ import java.util.Objects;
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
 
 import fr.univtln.groupc.rest.CRestPlayer;
-import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CProfilActivity extends AppCompatActivity {
-
+/*
     CircularImageView mCircularImageView;
     TextView mTextName, mTextLevel;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -53,6 +52,7 @@ public class CProfilActivity extends AppCompatActivity {
 
 
             if (Objects.equals(SCurrentPlayer.mPlayer.getTeam().getColor(), "bleu"))
+
 
                 mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
             else
@@ -107,5 +107,5 @@ public class CProfilActivity extends AppCompatActivity {
             }
         }
     }
-
+*/
 }

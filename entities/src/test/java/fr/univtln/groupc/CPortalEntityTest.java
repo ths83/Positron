@@ -48,7 +48,7 @@ public class CPortalEntityTest extends TestCase {
     }
 
     public void testSerDeserPortalWithResonators() throws Exception {
-        CResonatorEntity lReso = new CResonatorEntity.CResonatorBuilder(1).level(4).build();
+        CResonatorEntity lReso = new CResonatorEntity.CResonatorBuilder().level(4).build();
         CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(1).longitude(214.2).latitude(58.1).build();
         lPortal1.addResonator(lReso);
         String lJson = mObjectMapper.writeValueAsString(lPortal1);

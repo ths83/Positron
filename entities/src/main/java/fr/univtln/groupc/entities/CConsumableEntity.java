@@ -50,8 +50,8 @@ public class CConsumableEntity extends AObjectEntity implements Serializable {
         private String mName;
         private int mRarity;
 
-        public CConsumableBuilder(int pId){
-            mId = pId;
+        public CConsumableBuilder(){
+
         }
 
         public CConsumableBuilder name(String pName){

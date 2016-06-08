@@ -55,8 +55,7 @@ public class CShieldEntity extends ABuildingEntity implements Serializable {
         private int mDefensBonus;
 
 
-        public CShieldBuilder(int pId){
-            mId = pId;
+        public CShieldBuilder(){
         }
 
         public CShieldBuilder defensBonus(int pDefensBonus){

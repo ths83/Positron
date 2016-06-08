@@ -25,23 +25,23 @@ public class CTestThomas2 {
         List<CPortalEntity> lPortalLinked5 = new ArrayList<>();
 
         List<CKeyEntity> lKeyPortals1 = new ArrayList<>();
-        CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder(20000).build();
+        CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder().build();
         lKeyPortals1.add(lKeyEntity);
 
         List<CKeyEntity> lKeyPortals2 = new ArrayList<>();
-        CKeyEntity lKeyEntity2 = new CKeyEntity.CKeyBuilder(20010).build();
+        CKeyEntity lKeyEntity2 = new CKeyEntity.CKeyBuilder().build();
         lKeyPortals2.add(lKeyEntity2);
 
         List<CKeyEntity> lKeyPortals3 = new ArrayList<>();
-        CKeyEntity lKeyEntity3 = new CKeyEntity.CKeyBuilder(20020).build();
+        CKeyEntity lKeyEntity3 = new CKeyEntity.CKeyBuilder().build();
         lKeyPortals3.add(lKeyEntity3);
 
         List<CKeyEntity> lKeyPortals4 = new ArrayList<>();
-        CKeyEntity lKeyEntity4 = new CKeyEntity.CKeyBuilder(20030).build();
+        CKeyEntity lKeyEntity4 = new CKeyEntity.CKeyBuilder().build();
         lKeyPortals4.add(lKeyEntity4);
 
         List<CKeyEntity> lKeyPortals5 = new ArrayList<>();
-        CKeyEntity lKeyEntity5 = new CKeyEntity.CKeyBuilder(20040).build();
+        CKeyEntity lKeyEntity5 = new CKeyEntity.CKeyBuilder().build();
         lKeyPortals5.add(lKeyEntity5);
 
 
@@ -85,11 +85,11 @@ public class CTestThomas2 {
         lLinkForField.add(lLink2);
         lLinkForField.add(lLink3);
 
-        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(100).build();
-        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder(110).build();
-        CKeyEntity lKey = new CKeyEntity.CKeyBuilder(5000).build();
-        CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(6000).build();
-        CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder(2000).build();
+        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder().build();
+        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder().build();
+        CKeyEntity lKey = new CKeyEntity.CKeyBuilder().build();
+        CTurretEntity lTurret = new CTurretEntity.CTurretBuilder().build();
+        CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder().build();
 
         lResonatorEntityList.add(lResonator);
         lResonatorEntityList.add(lResonator2);

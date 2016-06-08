@@ -25,6 +25,7 @@ import java.io.Serializable;
 //@JsonIdentityReference(alwaysAsId = true)
 public abstract class AObjectEntity implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int mId;
     @Column(name = "name")
@@ -43,7 +44,7 @@ public abstract class AObjectEntity implements Serializable {
     public AObjectEntity(){}
 
     public AObjectEntity(int pId, String pName) {
-        mId = pId;
+        //mId = pId;
         mName = pName;
     }
 

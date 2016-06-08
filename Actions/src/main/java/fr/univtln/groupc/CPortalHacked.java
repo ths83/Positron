@@ -18,10 +18,10 @@ public class CPortalHacked implements Serializable{
     }
 
     public void setPlayer(CPlayerEntity pPlayer) {
-        this.mPlayer = pPlayer;
+        mPlayer = pPlayer;
     }
 
     public CPortalHacked(CPlayerEntity pPlayer) {
-        this.mPlayer = pPlayer;
+        mPlayer = pPlayer;
     }
 }

@@ -80,8 +80,7 @@ public class CResonatorEntity extends ABuildingEntity implements Serializable {
         private CPortalEntity mPortal;
         private CPlayerEntity mOwner;
 
-        public CResonatorBuilder(int pId){
-            mId = pId;
+        public CResonatorBuilder(){
         }
 
         public CResonatorBuilder name(String pName){

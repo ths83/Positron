@@ -166,44 +166,36 @@ public class CAction {
         return pBuilding;
     }
 
-    /*public static Boolean isDeadBuilding(CAttackBuilding pAttackBuilding){
-        System.out.println("pv building avant atq : " + pAttackBuilding.getBuilding().getEnergy());
-        //CAttackBuilding lAttackBuilding = applyAttack(pAttackBuilding);
-        System.out.println("pv building apres atq : " + pAttackBuilding.getBuilding().getEnergy());
-        if (pAttackBuilding.getBuilding().getEnergy() <= 0){
-            if (pAttackBuilding.getBuilding() instanceof CResonatorEntity){
-                pAttackBuilding.getBuilding().getPortal().removeResonator((CResonatorEntity)pAttackBuilding.getBuilding());
+    public static CPlayerEntity hacking(CPlayerEntity pPlayer, CPortalEntity pPortal){
+        int li =0;
+        //TODO prendre en compte Multi Piratage.
+
+        if(pPortal.getTeam() == null){
+            pPlayer.addXP(10);
+            for(li=0;li<5;li++){
+                pPlayer.addObjects(CAlgorithm.createObject(CAlgorithm.calculTypeObject(), CAlgorithm.calculLevel(pPortal.getLevel(), pPlayer.getLevel()), CAlgorithm.calculRarety(pPortal.getLevel())));
             }
-            else{
-                pAttackBuilding.getBuilding().getPortal().removeBuilding(pAttackBuilding.getBuilding());
-            }
-            return true;
         }
         else{
-            return false;
-        }
-    }*/
+            pPlayer.addXP(5);
+            if(pPortal.getTeam() == pPlayer.getTeam()){
+                for(li=0;li<10;li++){
+                    pPlayer.addObjects(CAlgorithm.createObject(CAlgorithm.calculTypeObject(), CAlgorithm.calculLevel(pPortal.getLevel(), pPlayer.getLevel()), CAlgorithm.calculRarety(pPortal.getLevel())));
 
-    /*public static Boolean isPortalTeamOfBuildingChanged(ABuildingEntity pBuilding, CConsumableEntity pConsumable, CPlayerEntity pPlayer){
-        CAttackBuilding lAttackBuilding = applyAttack(pAttackBuilding);
-        if (lAttackBuilding.getBuilding() instanceof CResonatorEntity){
-            if (isDeadBuilding(lAttackBuilding)){
-                int lTeamId = lAttackBuilding.getBuilding().getPortal().getTeam().getId();
-                lAttackBuilding.getBuilding().getPortal().attributeTeam();
-                int lTeamToCompare = lAttackBuilding.getBuilding().getPortal().getTeam().getId();
-                return (lTeamId != lTeamToCompare);
                 }
-            else{
-                return false;
+            }
+            else {
+                pPlayer.addXP(20);
+                for(li=0;li<5;li++){
+                    pPlayer.addObjects(CAlgorithm.createObject(CAlgorithm.calculTypeObject(), CAlgorithm.calculLevel(pPortal.getLevel(), pPlayer.getLevel()), CAlgorithm.calculRarety(pPortal.getLevel())));
+
+                }
             }
         }
-        else{
-            return false;
-        }
-<<<<<<< HEAD
-=======
+        return pPlayer;
 
-    }*/
+    }
+
 
 
 

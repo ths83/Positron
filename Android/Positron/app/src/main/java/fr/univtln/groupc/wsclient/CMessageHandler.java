@@ -80,7 +80,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
         if (pBean.getType().equals(EPayloadType.VIRUS_POSED.toString())){
             Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.VIRUS_POSED.toString());
-            lIntent.putExtra(PORTAL, pBean.getVirusPosed().getPortal());
+            //lIntent.putExtra(PORTAL, pBean.getVirusPosed().getPortal());
             lIntent.putExtra(PLAYER, pBean.getVirusPosed().getPlayer());
             mWebSocketService.sendBroadcast(lIntent);
         }
@@ -91,7 +91,21 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             lIntent.putExtra(LINK, pBean.getFieldCreated().getLink());
             lIntent.putExtra(PLAYER, pBean.getFieldCreated().getPlayer());
             mWebSocketService.sendBroadcast(lIntent);
+        }
 
+        if (pBean.getType().equals(EPayloadType.PORTAL_HACKED.toString())){
+            Intent lIntent = new Intent(INTENT_TYPE);
+            lIntent.putExtra(TYPE, EPayloadType.PORTAL_HACKED.toString());
+            lIntent.putExtra(PLAYER, pBean.getPortalHacked().getPlayer());
+            mWebSocketService.sendBroadcast(lIntent);
+        }
+
+
+        if(pBean.getType().equals(EPayloadType.PORTAL_KEY_HACKED.toString())){
+            Intent lIntent = new Intent(INTENT_TYPE);
+            lIntent.putExtra(TYPE, EPayloadType.PORTAL_KEY_HACKED.toString());
+            lIntent.putExtra(PLAYER, pBean.getPortalKeyHacked().getPlayer());
+            mWebSocketService.sendBroadcast(lIntent);
         }
 
     }

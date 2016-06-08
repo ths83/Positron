@@ -62,7 +62,7 @@ public class CTestsBoby {
 
 
         CTurretEntity lTurretPost = new CTurretEntity
-                .CTurretBuilder(151).level(10).build();
+                .CTurretBuilder().level(10).build();
         String lJsonTurret = mMapper.writeValueAsString(lTurretPost);
 
         lResponse = mWebResource.path("/turrets").type("application/json").accept("application/json").post(ClientResponse.class, lJsonTurret);

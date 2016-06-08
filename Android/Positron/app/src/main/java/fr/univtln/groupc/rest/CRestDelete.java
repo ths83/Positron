@@ -20,7 +20,6 @@ import fr.univtln.groupc.entities.CShieldEntity;
  * Created by toms on 08/05/2016.
  */
 
-
 public class CRestDelete extends CRest{
 
 

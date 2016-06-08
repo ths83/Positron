@@ -54,8 +54,7 @@ public class CKeyEntity extends AObjectEntity implements Serializable {
         String mName;
         CPortalEntity mPortal;
 
-        public CKeyBuilder(int pId){
-            mId = pId;
+        public CKeyBuilder(){
         }
 
         public CKeyBuilder name(String pName){

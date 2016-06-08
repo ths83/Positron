@@ -350,31 +350,31 @@ public class CAlgorithm {
         switch (pTypeObjet) {
 
             case (0): {
-                AObjectEntity lResonator = new CResonatorEntity.CResonatorBuilder(10).energyMax(pLevelObject * 20).energy(pLevelObject * 20).level(pLevelObject).build();
+                AObjectEntity lResonator = new CResonatorEntity.CResonatorBuilder().name("resonator").energyMax(pLevelObject * 20).energy(pLevelObject * 20).level(pLevelObject).build();
                 return lResonator;
             }
             case (1): {
-                AObjectEntity lTurret =new CTurretEntity.CTurretBuilder(10).energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
+                AObjectEntity lTurret =new CTurretEntity.CTurretBuilder().name("turret").energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
                 return lTurret;
-            }
+            }/*
             case (2): {
-                AObjectEntity lShield = new CShieldEntity.CShieldBuilder(10).level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
+                AObjectEntity lShield = new CShieldEntity.CShieldBuilder().name("shield").level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
                 return lShield;
-            }
+            }*/
             case (3): {
-                AObjectEntity lAttack = new CConsumableEntity.CConsumableBuilder(10).name("Attack").rarity(pRarety).build();
+                AObjectEntity lAttack = new CConsumableEntity.CConsumableBuilder().name("Attack").rarity(pRarety).build();
                 return lAttack;
             }
             case (4): {
-                AObjectEntity lBombe =  new CConsumableEntity.CConsumableBuilder(10).name("Bombe").rarity(pRarety).build();
+                AObjectEntity lBombe =  new CConsumableEntity.CConsumableBuilder().name("Bombe").rarity(pRarety).build();
                 return lBombe;
             }
             case (5): {
-                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder(1).hackBonus((int) pLevelObject/2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder().name("multipirate").hackBonus((int) pLevelObject/2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
                 return lMultiPiratage;
             }
             case (6): {
-                AObjectEntity lLinkImprovement = new CLinkImprovementEntity.CLinkImprovementBuilder(1).rangeBonus(pLevelObject/4).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                AObjectEntity lLinkImprovement = new CLinkImprovementEntity.CLinkImprovementBuilder().name("link improve").rangeBonus(pLevelObject/4).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
                 return lLinkImprovement;
             }
 
@@ -530,7 +530,8 @@ public class CAlgorithm {
             lType = 1;
         }
         else if(40 < lRandom && lRandom <= 60){
-            lType = 2;
+            lType = 1;
+            // todo : remettre 2 qd ca marche
         }
         else if(lRandom <= 40){
             lType = 3;

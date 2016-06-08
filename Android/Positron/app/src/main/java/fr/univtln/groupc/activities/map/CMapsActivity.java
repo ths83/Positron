@@ -61,8 +61,11 @@ import java.util.Set;
 
 import fr.univtln.groupc.CAttackBuilding;
 import fr.univtln.groupc.CCreateLink;
+import fr.univtln.groupc.CHackPortal;
+import fr.univtln.groupc.CHackPortalKey;
 import fr.univtln.groupc.CPayloadBean;
 import fr.univtln.groupc.CPoseResonator;
+import fr.univtln.groupc.CPoseVirus;
 import fr.univtln.groupc.EPayloadType;
 import fr.univtln.groupc.activities.google.SCurrentPlayer;
 import fr.univtln.groupc.activities.portals.CClickPortalsAcitivity;
@@ -213,6 +216,23 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     displayLink(lLink);
                     displayField(lField);
                     SCurrentPlayer.mPlayer = lPlayer;
+                }
+
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.VIRUS_POSED.toString())){
+                    //List<Integer> lLinkIds =
+                }
+
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.PORTAL_HACKED.toString())){
+                    CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
+                    SCurrentPlayer.mPlayer = lPlayer;
+                    Toast.makeText(getBaseContext(), "hack reussi", Toast.LENGTH_SHORT).show();
+                }
+
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.PORTAL_KEY_HACKED.toString())){
+                    CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
+                    SCurrentPlayer.mPlayer = lPlayer;
+                    Toast.makeText(getBaseContext(), "clef recup", Toast.LENGTH_SHORT).show();
+
                 }
 
 
@@ -620,7 +640,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
             deleteFieldInGoogleMapAndHashMap(lFieldToDelete);
         }
-        new CRestDelete().deleteLinkRest(pLink.getId());
+        //new CRestDelete().deleteLinkRest(pLink.getId());
     }
 
 
@@ -915,6 +935,30 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         mLinear.addView(lButtonBuild);
         ImageButton lButtonPirate = generateButton(R.mipmap.pirate);
         mLinear.addView(lButtonPirate);
+        lButtonPirate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int lPortalId = mPortalClicked.getId();
+                int lPlayerId = SCurrentPlayer.mPlayer.getId();
+                CHackPortal lHackPortal = new CHackPortal.CHackPortalBuilder().portal(lPortalId).player(lPlayerId).builder();
+                CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.HACK_PORTAL.toString()).objectHackPortal(lHackPortal).build();
+                CTyrusClient.sendMessage(lBeanToSend);
+
+            }
+        });
+        ImageButton lButtonPirateKey = generateButton(R.mipmap.keyportal);
+        mLinear.addView(lButtonPirateKey);
+        lButtonPirateKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int lPortalId = mPortalClicked.getId();
+                int lPlayerId = SCurrentPlayer.mPlayer.getId();
+                CHackPortalKey lHackPortalKey = new CHackPortalKey.CHackPortalKeyBuilder().portal(lPortalId).player(lPlayerId).builder();
+                CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.HACK_PORTAL_KEY.toString()).objectHackPortalKey(lHackPortalKey).build();
+                CTyrusClient.sendMessage(lBeanToSend);
+
+            }
+        });
         /*ImageButton lButtonCancel = generateButton(R.mipmap.cancel);
         mLinear.addView(lButtonCancel);*/
         buttonCanceled();
@@ -1043,10 +1087,21 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
             }
         });
-        ImageButton lButtonBuild = generateButton(R.mipmap.virus);
-        mLinear.addView(lButtonBuild);
-        ImageButton lButtonPirate = generateButton(R.mipmap.kitsoin);
-        mLinear.addView(lButtonPirate);
+        ImageButton lButtonVirus = generateButton(R.mipmap.virus);
+        mLinear.addView(lButtonVirus);
+        lButtonVirus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int lVirusId = SCurrentPlayer.mPlayer.getViruses().get(0).getId();
+                int lPortalId = mPortalClicked.getId();
+                int lPlayerId = SCurrentPlayer.mPlayer.getId();
+                CPoseVirus lPoseVirus = new CPoseVirus.CPoseVirusBuilder().virusId(lVirusId).playerId(lPlayerId).portalId(lPortalId).build();
+                CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.POSE_VIRUS.toString()).objectPoseVirus(lPoseVirus).build();
+                CTyrusClient.sendMessage(lBeanToSend);
+            }
+        });
+        ImageButton lButtonHeal = generateButton(R.mipmap.kitsoin);
+        mLinear.addView(lButtonHeal);
         buttonCanceled();
     }
 

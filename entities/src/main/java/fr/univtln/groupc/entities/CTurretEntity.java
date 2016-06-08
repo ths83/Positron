@@ -56,8 +56,8 @@ public class CTurretEntity extends ABuildingEntity implements Serializable, IFig
         private int mDamage;
 
 
-        public CTurretBuilder(int pId){
-            mId = pId;
+        public CTurretBuilder(){
+
         }
 
         public CTurretBuilder damage(int pDamage){
