@@ -34,9 +34,7 @@ import fr.univtln.groupc.entities.CSkillEntity;
 /**
  * Created by toms on 5/3/16.
  */
-<<<<<<< HEAD
-public class CRestGet extends CRest {
-=======
+
 public class CRestGet extends AsyncTask<String,String,String> {
 
 
@@ -64,7 +62,6 @@ public class CRestGet extends AsyncTask<String,String,String> {
         }
         return lJson;
     }
->>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
 
     /**
      * get all portals from database to display them on Android Map

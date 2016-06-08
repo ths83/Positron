@@ -14,11 +14,6 @@ import fr.univtln.groupc.entities.CPlayerEntity;
  */
 public class CRestPlayer extends CRest {
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
     /**
      * get player by id from database
      * @return

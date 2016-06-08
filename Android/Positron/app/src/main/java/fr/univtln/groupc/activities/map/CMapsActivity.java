@@ -639,7 +639,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             }
             deleteFieldInGoogleMapAndHashMap(lFieldToDelete);
         }
-        new CRestDelete().deleteLinkRest(pLink.getId());
+        //new CRestDelete().deleteLinkRest(pLink.getId());
     }
 
 

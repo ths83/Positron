@@ -156,7 +156,8 @@ public class CServer {
                 System.out.println("pb de transaction");
             }
 
-            CVirusPosed lVirusPosed = new CVirusPosed.CVirusPosedBuilder().player(lPlayer).portal(lPortal).build();
+            // todo : virus posed list id
+            CVirusPosed lVirusPosed = new CVirusPosed.CVirusPosedBuilder().player(lPlayer).build();
             CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().objectVirusPosed(lVirusPosed).type(EPayloadType.VIRUS_POSED.toString()).build();
             for (Session lSession : mSessions) {
                 lSession.getBasicRemote().sendObject(lBeanToSend);

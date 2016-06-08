@@ -4,13 +4,14 @@ import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.entities.CPortalEntity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by tperron710 on 02/06/16.
  */
 public class CVirusPosed implements Serializable {
 
-    private CPortalEntity mPortal;
+    private List<Integer> mIdsToRemove;
     private CPlayerEntity mPlayer;
 
     public CVirusPosed() {
@@ -18,16 +19,16 @@ public class CVirusPosed implements Serializable {
 
     public CVirusPosed(CVirusPosedBuilder pBuilder) {
 
-        mPortal = pBuilder.mPortal;
+        mIdsToRemove = pBuilder.mIdsToRemove;
         mPlayer = pBuilder.mPlayer;
     }
 
-    public CPortalEntity getPortal() {
-        return mPortal;
+    public List<Integer> getIdsToRemove() {
+        return mIdsToRemove;
     }
 
-    public void setPortal(CPortalEntity mPortal) {
-        this.mPortal = mPortal;
+    public void setIdsToRemove(List<Integer> pIdsToRemove) {
+        mIdsToRemove = pIdsToRemove;
     }
 
     public CPlayerEntity getPlayer(){
@@ -38,25 +39,10 @@ public class CVirusPosed implements Serializable {
         mPlayer = pPlayer;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CVirusPosed that = (CVirusPosed) o;
-
-        return !(mPortal != null ? !mPortal.equals(that.mPortal) : that.mPortal != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return mPortal != null ? mPortal.hashCode() : 0;
-    }
 
     public static class CVirusPosedBuilder{
         private CPlayerEntity mPlayer;
-        private CPortalEntity mPortal;
+        private List<Integer> mIdsToRemove;
 
         public CVirusPosedBuilder(){}
 
@@ -65,8 +51,8 @@ public class CVirusPosed implements Serializable {
             return this;
         }
 
-        public CVirusPosedBuilder portal(CPortalEntity pPortal){
-            mPortal = pPortal;
+        public CVirusPosedBuilder idsToRemove(List<Integer> pIdsToRemove){
+            mIdsToRemove = pIdsToRemove;
             return this;
         }
 

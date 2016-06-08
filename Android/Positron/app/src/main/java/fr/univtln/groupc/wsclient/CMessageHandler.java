@@ -80,7 +80,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
         if (pBean.getType().equals(EPayloadType.VIRUS_POSED.toString())){
             Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.VIRUS_POSED.toString());
-            lIntent.putExtra(PORTAL, pBean.getVirusPosed().getPortal());
+            //lIntent.putExtra(PORTAL, pBean.getVirusPosed().getPortal());
             lIntent.putExtra(PLAYER, pBean.getVirusPosed().getPlayer());
             mWebSocketService.sendBroadcast(lIntent);
         }

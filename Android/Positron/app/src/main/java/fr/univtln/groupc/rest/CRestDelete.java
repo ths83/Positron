@@ -20,9 +20,7 @@ import fr.univtln.groupc.entities.CShieldEntity;
  * Created by toms on 08/05/2016.
  */
 
-<<<<<<< HEAD
-public class CRestDelete extends CRest{
-=======
+
 public class CRestDelete extends AsyncTask<String, String, Void> {
 
 
@@ -44,7 +42,6 @@ public class CRestDelete extends AsyncTask<String, String, Void> {
         return null;
     }
 
->>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
 
     /**
      * Supprime le lien identifie par le parametre
