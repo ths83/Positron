@@ -20,7 +20,6 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 
 import fr.univtln.groupc.rest.CRestPlayer;
-import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CSignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
@@ -121,6 +120,10 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
                 idToken = lAcct.getIdToken();
                 Log.d(TAG, "idToken:" + idToken);
             }
+
+            CPlayerEntity lPlayerEntity = new CPlayerEntity.CPlayerBuilder(lAcct.getId()).email(lAcct.getEmail()).nickname(lAcct.getDisplayName()).build();
+            SCurrentPlayer.mPlayer = lPlayerEntity;
+            new CRestPlayer().postPlayerRest(lPlayerEntity);
 
             Toast.makeText(getBaseContext(),AUTHENTIFICATION_SUCCESS_FRENCH,Toast.LENGTH_SHORT).show();
             /*mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
