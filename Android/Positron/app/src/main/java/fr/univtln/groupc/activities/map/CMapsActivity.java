@@ -210,6 +210,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     mPortalClicked = lPortal;
                     replacePortal(lPortal);
                     SCurrentPlayer.mPlayer = lPlayer;
+                    setHealth();
                 }
 
 
@@ -656,19 +657,22 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         Log.d("pogba10","->"+lBuildings);
         int cpt =0;
         for (ABuildingEntity lBuilding : lBuildings) {
-            if (!(lBuilding instanceof CResonatorEntity)) {
+            if (!(lBuilding instanceof CResonatorEntity )) {
                 lLatLng = new LatLng(lLatitudes.get(cpt), lLongitudes.get(cpt));
                 if (lBuilding.getPortal().getTeam().getId() == 1) {
                     if (pState != 1) {
-                    /*Marker lMarker = mMap.addMarker(new MarkerOptions()
+                    Marker lMarker = mMap.addMarker(new MarkerOptions()
                             .position(lLatLng).snippet("building " + Integer.toString(lBuilding.getId()))
-                            .icon(BitmapDescriptorFactory.fromBitmap(displayElementWithEnergy(tc, R.mipmap.resred, lBuilding.getEnergy(), lBuilding.getEnergyMax()))));*/
+                            .icon(BitmapDescriptorFactory.fromBitmap(displayElementWithEnergy(tc, attributeIconToBuilding(lBuilding), lBuilding.getEnergy(), lBuilding.getEnergyMax()))));
                     /*mResonatorMarkers.add(lMarker);
                     mResonatorMarkersHashMap.put(lResonator.getId(), lMarker);*/
                     }
                 }
                 if (lBuilding.getPortal().getTeam().getId() == 2) {
                     if (pState != 2) {
+                        Marker lMarker = mMap.addMarker(new MarkerOptions()
+                                .position(lLatLng).snippet("building " + Integer.toString(lBuilding.getId()))
+                                .icon(BitmapDescriptorFactory.fromBitmap(displayElementWithEnergy(tc, attributeIconToBuilding(lBuilding), lBuilding.getEnergy(), lBuilding.getEnergyMax()))));
                     /*Marker lMarker = mMap.addMarker(new MarkerOptions()
                             .position(lLatLng).snippet("building " + Integer.toString(lBuilding.getId()))
                             .icon(BitmapDescriptorFactory.fromBitmap(displayElementWithEnergy(tc, R.mipmap.resred, lBuilding.getEnergy(),lBuilding.getEnergyMax()))));*/
@@ -1642,7 +1646,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         //enlever le =0
         if (pBuilding instanceof CTurretEntity){
             //TODO mettre l'icone de base et non ceux de couleurs des tourelles
-            //lIcon = R.mipmap.tourelle
+            lIcon = R.mipmap.turret;
         }
         if (pBuilding instanceof CMultiHackEntity){
             //TODO mettre l'icone de base et non ceux de couleurs
@@ -1655,7 +1659,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
         if (pBuilding instanceof CShieldEntity){
             //idée visuelle:établir un champ de couleur de team si présence autour du portail?
             //TODO mettre l'icone de base des boucliers
-            //lIcon = R.mipmap.
+            lIcon = R.mipmap.bouclier;
         }
         return lIcon;
     }
@@ -1668,16 +1672,16 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 mLinear.removeAllViews();
                 if (pIcon==R.mipmap.multipir){
-                    initDrawerMultiHack();
+                    initDrawerBuilding(pIcon, SCurrentPlayer.mPlayer.getLevelsOfMultiHacks());
                 }
                 if (pIcon==R.mipmap.turret){
-                    initDrawerTurret();
+                    initDrawerBuilding(pIcon,SCurrentPlayer.mPlayer.getLevelsOfTurrets());
                 }
                 if (pIcon==R.mipmap.bouclier){
-                    initDrawerShield();
+                    initDrawerBuilding(pIcon,SCurrentPlayer.mPlayer.getLevelsOfShields());
                 }
                 if (pIcon==R.mipmap.lien){
-                    initDrawerLinkImprovement();
+                    initDrawerBuilding(pIcon,SCurrentPlayer.mPlayer.getLevelsOfLinkImprovements());
                 }
                 mDrawerAction.openDrawer(mScroll);
                 //mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN,mScroll);
@@ -1733,16 +1737,66 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
     }
 
-    public void initDrawerTurret() {
+    public void buttonListener(int pId, ImageButton pButton){
+        final int lId = pId;
+        pButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("test_ws", "dans la methode");
+                CPoseBuilding lPose = new CPoseBuilding.CPoseBuildingBuilder().portalId(mPortalClicked.getId()).buildingId(lId).player(SCurrentPlayer.mPlayer.getId()).build();
+                CPayloadBean lBean = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.POSE_BUILDING.toString()).objectPoseBuilding(lPose).build();
+                Log.d("test_ws", "bean null ? " + Boolean.toString(lBean == null));
+                CTyrusClient.sendMessage(lBean);
+                mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mScroll);
+                //mPortalClicked = CActions.buildResonator(mPortalClicked, lResonators.get(0));
+                //CRestUpdate lUpdate = new CRestUpdate();
+                //SCurrentPlayer.mPlayer.removeObject((AObjectEntity) lResonators.get(0));
+                //lUpdate.updatePortalRest(mPortalClicked);
+                    /*Log.d("test_ws", "dans la methode");
+                    CPoseResonator lPose = new CPoseResonator.CPoseResonatorBuilder().portalId(mPortalClicked.getId()).resonatorId(lMultiHacks.get(0).getId()).build();
+                    CPayloadBean lBean = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.POSE_RESONATOR.toString()).objectPoseResonator(lPose).build();
+                    Log.d("test_ws", "bean null ? " + Boolean.toString(lBean == null));
+                    CTyrusClient.sendMessage(lBean);
+                    mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mScroll);*/
+            }
+        });
+    }
+
+
+
+
+    public void initDrawerBuilding(int pIcon, Set<Integer> pListLevel) {
         buttonCanceled();
         //Log.d("test60", "objects -> " + mPlayer.getObjects());
         //Log.d("test60","-->"+mPlayer.getResonators());
         //Log.d("test60", "-" + mPlayer.getLevelsOfResonators());
-        for (int i : SCurrentPlayer.mPlayer.getLevelsOfTurrets()) {
+        for (int i : pListLevel) {
             Context context = getApplicationContext();
             RelativeLayout info = new RelativeLayout(context);
-            final List<CTurretEntity> lTurret= SCurrentPlayer.mPlayer.getTurretsByLevel(i);
-            ImageButton lButton = generateButton(R.mipmap.turret);
+            int lId=0;
+            int lSize=0;
+            if (pIcon==R.mipmap.multipir){
+                final List<CMultiHackEntity> lBuildings = SCurrentPlayer.mPlayer.getMultiHacksByLevel(i);
+                lId=lBuildings.get(0).getId();
+                lSize = lBuildings.size();
+            }
+            else if (pIcon==R.mipmap.turret){
+                final List<CTurretEntity> lBuildings = SCurrentPlayer.mPlayer.getTurretsByLevel(i);
+                lId=lBuildings.get(0).getId();
+                lSize = lBuildings.size();
+            }
+            else if (pIcon==R.mipmap.bouclier){
+                final List<CShieldEntity> lBuildings  = SCurrentPlayer.mPlayer.getShieldsByLevel(i);
+                lId=lBuildings.get(0).getId();
+                lSize = lBuildings.size();
+            }
+            else if (pIcon==R.mipmap.lien){
+                final List<CLinkImprovementEntity> lBuildings  = SCurrentPlayer.mPlayer.getLinkImprovementsByLevel(i);
+                lId=lBuildings.get(0).getId();
+                lSize = lBuildings.size();
+            }
+
+            ImageButton lButton = generateButton(pIcon);
             info.addView(lButton);
             TextView lText = new TextView(new ContextThemeWrapper(context, R.style.iconGenText), null, 0);
             lText.setText(Integer.toString(i));
@@ -1754,33 +1808,14 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             lText.setLayoutParams(lParams);
             info.addView(lText);
             TextView lText2 = new TextView(context);
-            lText2.setText("x" + Integer.toString(SCurrentPlayer.mPlayer.getTurretsByLevel(i).size()));
+            lText2.setText("x" + Integer.toString(lSize));
             lText2.setTextColor(ColorStateList.valueOf(Color.BLACK));
             info.addView(lText2);
             Log.d("test21", "---->" + i);
             mLinear.addView(info);
-            lButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("test_ws", "dans la methode");
-                    CPoseBuilding lPose = new CPoseBuilding.CPoseBuildingBuilder().portalId(mPortalClicked.getId()).buildingId(lTurret.get(0).getId()).player(SCurrentPlayer.mPlayer.getId()).build();
-                    CPayloadBean lBean = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.POSE_BUILDING.toString()).objectPoseBuilding(lPose).build();
-                    Log.d("test_ws", "bean null ? " + Boolean.toString(lBean == null));
-                    CTyrusClient.sendMessage(lBean);
-                    mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mScroll);
-                    //mPortalClicked = CActions.buildResonator(mPortalClicked, lResonators.get(0));
-                    //CRestUpdate lUpdate = new CRestUpdate();
-                    //SCurrentPlayer.mPlayer.removeObject((AObjectEntity) lResonators.get(0));
-                    //lUpdate.updatePortalRest(mPortalClicked);
-                    /*Log.d("test_ws", "dans la methode");
-                    CPoseResonator lPose = new CPoseResonator.CPoseResonatorBuilder().portalId(mPortalClicked.getId()).resonatorId(lMultiHacks.get(0).getId()).build();
-                    CPayloadBean lBean = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.POSE_RESONATOR.toString()).objectPoseResonator(lPose).build();
-                    Log.d("test_ws", "bean null ? " + Boolean.toString(lBean == null));
-                    CTyrusClient.sendMessage(lBean);
-                    mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mScroll);*/
-                }
-            });
+            buttonListener(lId, lButton);
         }
+
 
     }
 

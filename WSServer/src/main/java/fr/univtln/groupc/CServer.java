@@ -409,31 +409,30 @@ public class CServer {
             CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getPoseBulding().getPlayerId());
 
             // TODO Metre double sécurité pour les vérification Team, Level et place libre.
+            if (lPortal.getTeam()!=null && lPortal.getBuildings().size()-lPortal.getResonators().size()<5 && lBuilding.getLevel()<=lPlayer.getLevel()) {
+                lPlayer.removeObject(lBuilding);
+                lPortal.addBuilding(lBuilding);
+                if (mCrudMethods.openTransaction()) {
+                    mCrudMethods.update(lPlayer);
+                    mCrudMethods.commitTransaction();
+                } else {
+                    System.out.println("pb de transaction");
+                }
 
-            lPlayer.removeObject(lBuilding);
-            lPortal.addBuilding(lBuilding);
-            if (mCrudMethods.openTransaction()){
-                mCrudMethods.update(lPlayer);
-                mCrudMethods.commitTransaction();
-            }
-            else{
-                System.out.println("pb de transaction");
-            }
-
-            if (mCrudMethods.openTransaction()){
-                mCrudMethods.update(lPortal);
-                mCrudMethods.commitTransaction();
-            }
-            else{
-                System.out.println("pb de transaction");
-            }
+                if (mCrudMethods.openTransaction()) {
+                    mCrudMethods.update(lPortal);
+                    mCrudMethods.commitTransaction();
+                } else {
+                    System.out.println("pb de transaction");
+                }
 
 
-            CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.BUILDING_POSED.toString()).objectBuildingPosed(new CBuildingPosed.CBuildingPosedBuilder().player(lPlayer).portal(lPortal).build()).build();
+                CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.BUILDING_POSED.toString()).objectBuildingPosed(new CBuildingPosed.CBuildingPosedBuilder().player(lPlayer).portal(lPortal).build()).build();
 
-            System.out.println(lBeanToSend);
-            for (Session lSession : mSessions) {
-                lSession.getBasicRemote().sendObject(lBeanToSend);
+                System.out.println(lBeanToSend);
+                for (Session lSession : mSessions) {
+                    lSession.getBasicRemote().sendObject(lBeanToSend);
+                }
             }
 
         } else if (pBean.getType().equals(EPayloadType.ATTACK_AOE.toString())) {
