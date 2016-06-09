@@ -17,7 +17,7 @@ import java.util.List;
 @NamedQueries(@NamedQuery(name = CTeamEntity.GET_ALL, query = "select t from CTeamEntity t"))
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CTeamEntity.class)
 
-public class CTeamEntity implements Serializable {
+public class  CTeamEntity implements Serializable {
 
     @Id
     @Column(name = "id")

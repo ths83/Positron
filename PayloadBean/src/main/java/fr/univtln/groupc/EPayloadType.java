@@ -128,5 +128,11 @@ public enum EPayloadType{
         public String toString(){
             return "hack_limitation";
         }
-    }
+    },
+    REPAIR_BUILDING{
+        public String toString() { return "repair_building"; }
+    },
+    BUILDING_REPAIRED{
+        public String toString() { return  "building_repaired";}
+    },
 }

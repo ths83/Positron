@@ -34,6 +34,8 @@ public class CPayloadBean implements Serializable {
     private CPoseBuilding mPoseBulding;
     private CBuildingPosed mBuildingPosed;
     private CHackLimitation mHackLimitation;
+    private CRepairBuilding mRepairBuilding;
+    private CBuildingRepaired mBuildingRepaired;
 
     public CPayloadBean() {
     }
@@ -61,7 +63,8 @@ public class CPayloadBean implements Serializable {
         mVirusPosed = pBuilder.mVirusPosed;
         mPoseVirus = pBuilder.mPoseVirus;
         mHackLimitation = pBuilder.mHackLimitation;
-
+        mBuildingRepaired = pBuilder.mBuildingRepaired;
+        mRepairBuilding = pBuilder.mRepairBuilding;
     }
 
     public void setType(String pType) {mType = pType;}
@@ -156,6 +159,22 @@ public class CPayloadBean implements Serializable {
 
     public void setBuildingPosed(CBuildingPosed pBuildingPosed) {this.mBuildingPosed = pBuildingPosed;}
 
+    public CBuildingRepaired getBuildingRepaired() {
+        return mBuildingRepaired;
+    }
+
+    public void setBuildingRepaired(CBuildingRepaired pBuildingRepaired) {
+        mBuildingRepaired = pBuildingRepaired;
+    }
+
+    public CRepairBuilding getRepairBuilding() {
+        return mRepairBuilding;
+    }
+
+    public void setRepairBuilding(CRepairBuilding pRepairBuilding) {
+        mRepairBuilding = pRepairBuilding;
+    }
+
     public CHackLimitation getHackLimitation(){
         return mHackLimitation;
     }
@@ -202,6 +221,8 @@ public class CPayloadBean implements Serializable {
         private CBuildingPosed mBuildingPosed;
         private CAOEAttacked mAOEAttacked;
         private CHackLimitation mHackLimitation;
+        private CRepairBuilding mRepairBuilding;
+        private CBuildingRepaired mBuildingRepaired;
 
 
         public CPayloadBeanBuilder(){};
@@ -318,6 +339,15 @@ public class CPayloadBean implements Serializable {
             return this;
         }
 
+        public CPayloadBeanBuilder objectRepairBuilding(CRepairBuilding pRepairBuilding){
+            mRepairBuilding = pRepairBuilding;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectBuildingRepaired (CBuildingRepaired pBuildingRepaired){
+            mBuildingRepaired = pBuildingRepaired;
+            return this;
+        }
         public CPayloadBean build(){
             return new CPayloadBean(this);
         }
