@@ -135,6 +135,8 @@ public class CServer {
 
             lPortal.clearLinks();
             lPlayer.removeObject(lVirus);
+            lPlayer.loseEnergy(5);
+            lPlayer.addXP(lVirus.getRarity()*100);
             System.out.println("liens du portail post clear : " + lPortal.getLinks().size());
             if (lVirus.getRarity() == 3) {
                 for (ABuildingEntity lBuilding : lPortal.getBuildings()) {
@@ -200,6 +202,8 @@ public class CServer {
                 }
 
                 lPlayer.removeObject(lKey);
+                lPlayer.addXP(300);
+                lPlayer.loseEnergy(5);
                 if (mCrudMethods.openTransaction()){
                     mCrudMethods.update(lPlayer);
                     mCrudMethods.commitTransaction();
@@ -219,8 +223,7 @@ public class CServer {
                     System.out.println(lLinkListField.size() / 3 + " field à créer");
 
                     lListFieldToCreate = CAlgorithm.convertLinkListToFieldList(lLinkListField);
-
-
+                    lPlayer.addXP(500);
                     System.out.println("Aprés trie: " + lListFieldToCreate);
                     System.out.println("Pre-CreationField");
 
@@ -275,6 +278,7 @@ public class CServer {
             lBuilding = CAction.applyAttack(lBuilding, lConsumable, lPlayer);
             lPlayer.removeObject(lConsumable);
             lPlayer.addXP((lBuildStartEnergy - lBuilding.getEnergy()) * 10);
+            lPlayer.loseEnergy(5);
             //lPlayer.attack(lBuilding, lConsumable);
             if (CAction.isPortalTeamOfBuildingChanged(lBuilding)) {
                 lPortal.attributeTeam();
@@ -313,7 +317,7 @@ public class CServer {
 
             List<Long> lTimes = new ArrayList<Long>();
             List<CStatPortalHacked> lList = (List<CStatPortalHacked>)mCrudMethods.findWithNamedQuery(CStatPortalHacked.GET_BY_PLAYER_ID, CQueryParameter.with("mPlayerId", lPlayer.getId()).parameters());
-
+            lPlayer.loseEnergy(2);
 
             for (CStatPortalHacked lStatHack : lList){
                 long lDiff = lCurrentDate.getTime() - lStatHack.getDate().getTime();
@@ -395,6 +399,8 @@ public class CServer {
             System.out.println("team du portal: " + ((CKeyEntity)lKey).getPortal().getId());
 
             lPlayer.addObjects(lKey);
+            lPlayer.addXP(100);
+            lPlayer.loseEnergy(2);
 
             // todo : update
             if (mCrudMethods.openTransaction()){
@@ -419,6 +425,9 @@ public class CServer {
 
             lPlayer.removeObject(lBuilding);
             lPortal.addBuilding(lBuilding);
+            lPlayer.loseEnergy(5);
+            lPlayer.addXP(lBuilding.getLevel() * 100);
+
             if (mCrudMethods.openTransaction()){
                 mCrudMethods.update(lPlayer);
                 mCrudMethods.commitTransaction();
@@ -448,6 +457,8 @@ public class CServer {
             CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getAttackAOE().getPlayerId());
             CConsumableEntity lAmmuniton = mCrudMethods.find(CConsumableEntity.class, pBean.getAttackAOE().getConsumableId());
             int OriginalEnergy = 0;
+
+            lPlayer.loseEnergy(10);
 
             for (ABuildingEntity lBuilding : lPortal.getBuildings()) {
                 OriginalEnergy = lBuilding.getEnergy();
@@ -488,6 +499,7 @@ public class CServer {
             ABuildingEntity lBuilding = mCrudMethods.find(ABuildingEntity.class, pBean.getRepairBuilding().getBuildingId());
             CConsumableEntity lConsomable = mCrudMethods.find(CConsumableEntity.class, pBean.getRepairBuilding().getConsomableId());
 
+            lPlayer.loseEnergy(5);
             if (lPlayer.havingSkill(122) && lConsomable.getName().equals("RepaireKit")) {
                 int lBuildingEnergy = lBuilding.getEnergy();
                 lBuilding.gainEnergy(lConsomable.getRarity() * 20 + lPlayer.getLevel() * 2);

@@ -377,6 +377,9 @@ public class CAlgorithm {
                 AObjectEntity lLinkImprovement = new CLinkImprovementEntity.CLinkImprovementBuilder().name("linkImprove").rangeBonus(pLevelObject * 20).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
                 return lLinkImprovement;
             }
+            case (7): {
+                AObjectEntity lRepairKit = new CConsumableEntity.CConsumableBuilder().name("RepaireKit").rarity(pRarety).build();
+            }
 
         }
         return null;
@@ -526,24 +529,26 @@ public class CAlgorithm {
         if(lRandom > 84){
             lType = 0;
         }
-        else if(70 < lRandom && lRandom <= 84){
+        else if(72 < lRandom && lRandom <= 84){
             lType = 1;
         }
-        else if(56 < lRandom && lRandom <= 70){
+        else if(60 < lRandom && lRandom <= 72){
             lType = 2;
-            // todo : remettre 2 qd ca marche
         }
-        else if(lRandom < 42 && lRandom <= 56){
+        else if(lRandom < 48 && lRandom <= 60){
             lType = 3;
         }
-        else if(lRandom < 28 && lRandom <= 42){
+        else if(lRandom < 36 && lRandom <= 48){
             lType = 4;
         }
-        else if(lRandom < 14 && lRandom <= 28){
+        else if(lRandom < 24 && lRandom <= 36){
             lType = 5;
         }
-        else if(lRandom <= 14 ){
+        else if(lRandom < 12 && lRandom <= 24  ){
             lType = 6;
+        }
+        else if(lRandom <= 12){
+            lType = 7;
         }
         return lType;
     }
