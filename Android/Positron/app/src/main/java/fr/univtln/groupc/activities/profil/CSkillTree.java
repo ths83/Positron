@@ -53,7 +53,7 @@ public class CSkillTree extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cskill_tree);
-
+        //mPlayer = SCurrentPlayer.mPlayer;
         mFree_SkillPoints = (TextView) findViewById(R.id.View_Free_SkillPoint);
         mButtonReset = (Button) findViewById(R.id.button_Reset_Skill);
 

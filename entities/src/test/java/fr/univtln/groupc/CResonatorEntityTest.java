@@ -15,6 +15,8 @@ import java.util.List;
  * Created by marti on 20/05/2016.
  */
 public class CResonatorEntityTest extends TestCase {
+
+    /*
     private ObjectMapper mMapper = new ObjectMapper();
     private CCrudMethods mCrud = new CCrudMethods();
 

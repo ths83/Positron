@@ -516,7 +516,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
             return false;
         }
         else if(pSkillWanted.getLevel() == 1) {
-            return false;
+            return true;
         }
         else{
 

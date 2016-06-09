@@ -358,7 +358,7 @@ public class CAlgorithm {
                 return lTurret;
             }
             case (2): {
-                AObjectEntity lShield = new CShieldEntity.CShieldBuilder().name("shield").level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
+                AObjectEntity lShield = new CShieldEntity.CShieldBuilder().name("shield").level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(5 * pLevelObject).build();
                 return lShield;
             }
             case (3): {
@@ -370,11 +370,11 @@ public class CAlgorithm {
                 return lBombe;
             }
             case (5): {
-                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder().name("multipirate").hackBonus((int) pLevelObject/2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder().name("multipirate").hackBonus((int) pLevelObject / 2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
                 return lMultiPiratage;
             }
             case (6): {
-                AObjectEntity lLinkImprovement = new CLinkImprovementEntity.CLinkImprovementBuilder().name("link improve").rangeBonus(pLevelObject/4).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                AObjectEntity lLinkImprovement = new CLinkImprovementEntity.CLinkImprovementBuilder().name("linkImprove").rangeBonus(pLevelObject * 20).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
                 return lLinkImprovement;
             }
 
@@ -523,20 +523,28 @@ public class CAlgorithm {
         int lType = 0, lRandom=0;
         lRandom = (int)(Math.random() * (100));
 
-        if(lRandom > 90){
+        if(lRandom > 84){
             lType = 0;
         }
-        else if(60 < lRandom && lRandom <= 90){
+        else if(70 < lRandom && lRandom <= 84){
             lType = 1;
         }
-        else if(40 < lRandom && lRandom <= 60){
+        else if(56 < lRandom && lRandom <= 70){
             lType = 1;
             // todo : remettre 2 qd ca marche
         }
-        else if(lRandom <= 40){
+        else if(lRandom < 42 && lRandom <= 56){
             lType = 3;
         }
-
+        else if(lRandom < 28 && lRandom <= 42){
+            lType = 4;
+        }
+        else if(lRandom < 14 && lRandom <= 28){
+            lType = 5;
+        }
+        else if(lRandom <= 14 ){
+            lType = 6;
+        }
         return lType;
     }
 
