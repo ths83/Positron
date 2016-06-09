@@ -123,5 +123,10 @@ public enum EPayloadType{
     },
     AOE_ATTACKED{
         public String toString () { return "aoe_attacked";}
+    },
+    HACK_LIMITATION{
+        public String toString(){
+            return "hack_limitation";
+        }
     }
 }

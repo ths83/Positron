@@ -1,7 +1,9 @@
 package fr.univtln.groupc;
 
 import fr.univtln.groupc.dao.CCrudMethods;
+import fr.univtln.groupc.dao.CQueryParameter;
 import fr.univtln.groupc.entities.*;
+import fr.univtln.groupc.stats.CStatPortalHacked;
 
 
 import javax.websocket.*;
@@ -9,8 +11,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by marti on 26/05/2016.
@@ -308,28 +309,55 @@ public class CServer {
             System.out.println("Hack du portail : " + lPortal.getId() + " par le joueur : " + lPlayer.getNickName() + " " + lPlayer.getId());
             AObjectEntity lObjetCreated = CAlgorithm.createObject(CAlgorithm.calculTypeObject(), CAlgorithm.calculLevel(lPortal.getLevel(), lPlayer.getLevel()), CAlgorithm.calculRarety(lPortal.getLevel()));
             System.out.println("objet cree : " + lObjetCreated.getName());
-            lPlayer.addObjects(lObjetCreated);
-            lPlayer = CAction.hacking(lPlayer, lPortal);
-            System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 5).getName());
-            System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 5).getId() + "\n");
+            Date lCurrentDate = new Date();
 
-            System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 4).getName());
-            System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 4).getId() + "\n");
+            List<Long> lTimes = new ArrayList<Long>();
+            List<CStatPortalHacked> lList = (List<CStatPortalHacked>)mCrudMethods.findWithNamedQuery(CStatPortalHacked.GET_BY_PLAYER_ID, CQueryParameter.with("mPlayerId", lPlayer.getId()).parameters());
 
-            System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 3).getName());
-            System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 3).getId() + "\n");
-
-            System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 2).getName());
-            System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 2).getId() + "\n");
-
-
-            System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 1).getName());
-            System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 1).getId() + "\n");
-
-            if (mCrudMethods.openTransaction()){
-                lPlayer = mCrudMethods.update(lPlayer);
-                mCrudMethods.commitTransaction();
+            for (CStatPortalHacked lStatHack : lList){
+                long lDiff = lCurrentDate.getTime() - lStatHack.getDate().getTime();
+                long lDiffDays = lDiff / (24 * 60 * 60 - 1000);
+                long lDiffHours = lDiff / (60 * 60 * 1000) % 24;
+                long lDiffMinutes = lDiff / (60 * 1000) % 60;
+                long lDiffSeconds = lDiff / 1000 % 60;
+                /*if (lDiffDays < 1 && lDiffHours < 1 && lDiffMinutes < 1 && lDiffSeconds < 45){
+                    lCount++;
+                }*/
+                if ((lDiff / 1000) < 60){
+                    lTimes.add(lDiff / 1000);
+                }
             }
+
+            if (lTimes.size() < 5){
+                System.out.println("ok hack faisable");
+                lPlayer.addObjects(lObjetCreated);
+                lPlayer = CAction.hacking(lPlayer, lPortal);
+
+                if (mCrudMethods.openTransaction()){
+                    lPlayer = mCrudMethods.update(lPlayer);
+                    mCrudMethods.commitTransaction();
+                }
+                CStatPortalHacked lNewPortalHacked = new CStatPortalHacked.CStatPortalHackedBuilder().portalId(lPortal.getId()).player(lPlayer.getId()).date(lCurrentDate).build();
+                if (mCrudMethods.openTransaction()){
+                    mCrudMethods.create(lNewPortalHacked);
+                    mCrudMethods.commitTransaction();
+                }
+
+                CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_HACKED.toString()).objectPortalHacked(new CPortalHacked(lPlayer)).build();
+                System.out.println(lBeanToSend);
+                pPeer.getBasicRemote().sendObject(lBeanToSend);
+            }
+            else{
+                System.out.println("trop de hacks recents");
+                Collections.sort(lTimes);
+                double lTimeLeft = 60 - lTimes.get(lTimes.size() - 5);
+                System.out.println("prochain hack dispo dans : " + Double.toString(lTimeLeft));
+                CHackLimitation lHackLimitation = new CHackLimitation(Double.toString(lTimeLeft));
+                CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.HACK_LIMITATION.toString()).objectHackLimitation(lHackLimitation).build();
+                pPeer.getBasicRemote().sendObject(lBeanToSend);
+            }
+
+            /*
             System.out.println("--- APRES UPDATE ---");
             System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 5).getName());
             System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 5).getId() + "\n");
@@ -347,10 +375,8 @@ public class CServer {
             System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 1).getName());
             System.out.println(lPlayer.getObjects().get(lPlayer.getObjects().size() - 1).getId() + "\n");
 
+*/
 
-            CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.PORTAL_HACKED.toString()).objectPortalHacked(new CPortalHacked(lPlayer)).build();
-            System.out.println(lBeanToSend);
-            pPeer.getBasicRemote().sendObject(lBeanToSend);
         }
 
         else if (pBean.getType().equals(EPayloadType.HACK_PORTAL_KEY.toString())) {

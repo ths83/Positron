@@ -33,6 +33,7 @@ public class CPayloadBean implements Serializable {
     private CBuildingAttacked mBuildingAttacked;
     private CPoseBuilding mPoseBulding;
     private CBuildingPosed mBuildingPosed;
+    private CHackLimitation mHackLimitation;
 
     public CPayloadBean() {
     }
@@ -59,6 +60,7 @@ public class CPayloadBean implements Serializable {
         mAOEAttacked = pBuilder.mAOEAttacked;
         mVirusPosed = pBuilder.mVirusPosed;
         mPoseVirus = pBuilder.mPoseVirus;
+        mHackLimitation = pBuilder.mHackLimitation;
 
     }
 
@@ -154,6 +156,14 @@ public class CPayloadBean implements Serializable {
 
     public void setBuildingPosed(CBuildingPosed pBuildingPosed) {this.mBuildingPosed = pBuildingPosed;}
 
+    public CHackLimitation getHackLimitation(){
+        return mHackLimitation;
+    }
+
+    public void setHackLimitation(CHackLimitation pHackLimitation){
+        mHackLimitation = pHackLimitation;
+    }
+
     @Override
     public String toString() {
         return "CPayloadBean{" +
@@ -191,6 +201,7 @@ public class CPayloadBean implements Serializable {
         private CPoseBuilding mPoseBuilding;
         private CBuildingPosed mBuildingPosed;
         private CAOEAttacked mAOEAttacked;
+        private CHackLimitation mHackLimitation;
 
 
         public CPayloadBeanBuilder(){};
@@ -299,6 +310,11 @@ public class CPayloadBean implements Serializable {
 
         public CPayloadBeanBuilder objectAOEAttacked (CAOEAttacked pAOEAttakced){
             mAOEAttacked = pAOEAttakced;
+            return this;
+        }
+
+        public CPayloadBeanBuilder objectHackLimitation(CHackLimitation pHackLimitation){
+            mHackLimitation = pHackLimitation;
             return this;
         }
 

@@ -24,7 +24,7 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
     public static String PLAYER = "player";
     public static String LINK = "link";
     public static String BUILDING = "building";
-
+    public static String HACK_LIMITATION = "hack_limitation";
     public static String INTENT_TYPE = "intent_type";
 
 
@@ -105,6 +105,14 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.PORTAL_KEY_HACKED.toString());
             lIntent.putExtra(PLAYER, pBean.getPortalKeyHacked().getPlayer());
+            mWebSocketService.sendBroadcast(lIntent);
+        }
+
+        if (pBean.getType().equals(EPayloadType.HACK_LIMITATION.toString())){
+            Log.d("test150", "hack limit -> " + pBean.getHackLimitation());
+            Intent lIntent = new Intent(INTENT_TYPE);
+            lIntent.putExtra(TYPE, EPayloadType.HACK_LIMITATION.toString());
+            lIntent.putExtra(HACK_LIMITATION,pBean.getHackLimitation());
             mWebSocketService.sendBroadcast(lIntent);
         }
 

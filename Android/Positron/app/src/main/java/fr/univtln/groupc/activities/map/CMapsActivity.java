@@ -60,6 +60,7 @@ import java.util.Set;
 
 import fr.univtln.groupc.CAttackBuilding;
 import fr.univtln.groupc.CCreateLink;
+import fr.univtln.groupc.CHackLimitation;
 import fr.univtln.groupc.CHackPortal;
 import fr.univtln.groupc.CHackPortalKey;
 import fr.univtln.groupc.CPayloadBean;
@@ -231,7 +232,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
                     SCurrentPlayer.mPlayer = lPlayer;
                     Toast.makeText(getBaseContext(), "clef recup", Toast.LENGTH_SHORT).show();
+                }
 
+                else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.HACK_LIMITATION.toString())){
+                    String lTimeLeft = ((CHackLimitation) pIntent.getSerializableExtra(CMessageHandler.HACK_LIMITATION)).getDuration();
+                    Log.d("test150", lTimeLeft);
+                    Toast.makeText(getBaseContext(), "hack trop recents, attendez " + lTimeLeft + "secondes", Toast.LENGTH_SHORT).show();
                 }
 
 
