@@ -25,13 +25,13 @@ public class CRestStatsPlayerTest extends TestCase{
     public void testPostStatsPlayerService() throws Exception {
 
         CTurretEntity lTurret = new CTurretEntity
-                .CTurretBuilder(78678687).level(10).damage(10).lifeTime(1111)
+                .CTurretBuilder().level(10).damage(10).lifeTime(1111)
                 .energy(150).energyMax(200)
                 .name("t1").radius(100).build();
         ArrayList <ABuildingEntity> lTurrets= new ArrayList<>();
         lTurrets.add(lTurret);
 
-        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(78687678).energy(100)
+        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder().energy(100)
                 .latitude(10.5).energyMax(200)
                 .level(9).longitude(5.2).name("cr")
                 .radius(54).build();
@@ -39,7 +39,7 @@ public class CRestStatsPlayerTest extends TestCase{
         ArrayList <CResonatorEntity> lResonators = new ArrayList<>();
         lResonators.add(lResonator);
 
-        CConsumableEntity lConsumableEntity = new CConsumableEntity.CConsumableBuilder(1).name("bob").rarity(5).build();
+        CConsumableEntity lConsumableEntity = new CConsumableEntity.CConsumableBuilder().name("bob").rarity(5).build();
         ArrayList <CConsumableEntity> lConsumables = new ArrayList<>();
         lConsumables.add(lConsumableEntity);
 
