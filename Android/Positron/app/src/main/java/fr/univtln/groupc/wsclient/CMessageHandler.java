@@ -108,5 +108,13 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             mWebSocketService.sendBroadcast(lIntent);
         }
 
+        if (pBean.getType().equals(EPayloadType.AOE_ATTACKED.toString())){
+            Intent lIntent = new Intent(INTENT_TYPE);
+            lIntent.putExtra(TYPE, EPayloadType.AOE_ATTACKED.toString());
+            lIntent.putExtra(PORTAL, pBean.getBuildingAttacked().getPortal());
+            lIntent.putExtra(PLAYER, pBean.getBuildingAttacked().getPlayer());
+            mWebSocketService.sendBroadcast(lIntent);
+        }
+
     }
 }

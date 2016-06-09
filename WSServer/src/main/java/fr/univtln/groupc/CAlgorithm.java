@@ -356,11 +356,11 @@ public class CAlgorithm {
             case (1): {
                 AObjectEntity lTurret =new CTurretEntity.CTurretBuilder().name("turret").energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
                 return lTurret;
-            }/*
+            }
             case (2): {
                 AObjectEntity lShield = new CShieldEntity.CShieldBuilder().name("shield").level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(5 * pLevelObject).build();
                 return lShield;
-            }*/
+            }
             case (3): {
                 AObjectEntity lAttack = new CConsumableEntity.CConsumableBuilder().name("Attack").rarity(pRarety).build();
                 return lAttack;
