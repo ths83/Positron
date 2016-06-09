@@ -314,6 +314,7 @@ public class CServer {
             List<Long> lTimes = new ArrayList<Long>();
             List<CStatPortalHacked> lList = (List<CStatPortalHacked>)mCrudMethods.findWithNamedQuery(CStatPortalHacked.GET_BY_PLAYER_ID, CQueryParameter.with("mPlayerId", lPlayer.getId()).parameters());
 
+
             for (CStatPortalHacked lStatHack : lList){
                 long lDiff = lCurrentDate.getTime() - lStatHack.getDate().getTime();
                 long lDiffDays = lDiff / (24 * 60 * 60 - 1000);
@@ -327,8 +328,14 @@ public class CServer {
                     lTimes.add(lDiff / 1000);
                 }
             }
-
-            if (lTimes.size() < 5){
+            // MultiPiratage Calcule
+            List<CMultiHackEntity> lMultiHackList = lPortal.getMultiHack();
+            int lBonusHack = 0;
+            for (CMultiHackEntity lMHack : lMultiHackList){
+                lBonusHack = lBonusHack + lMHack.getHackBonus();
+            }
+           // Fin calcule MultiHack
+            if (lTimes.size() < 5  || ((lTimes.size() < 5 + lBonusHack) && lPlayer.havingSkill(33)) ){
                 System.out.println("ok hack faisable");
                 lPlayer.addObjects(lObjetCreated);
                 lPlayer = CAction.hacking(lPlayer, lPortal);
@@ -474,6 +481,29 @@ public class CServer {
                 lSession.getBasicRemote().sendObject(lBeanToSend);
             }
 
+        }
+
+        else if (pBean.getType().equals(EPayloadType.REPAIR_BUILDING.toString())) {
+            CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getRepairBuilding().getPlayerId());
+            ABuildingEntity lBuilding = mCrudMethods.find(ABuildingEntity.class, pBean.getRepairBuilding().getBuildingId());
+            CConsumableEntity lConsomable = mCrudMethods.find(CConsumableEntity.class, pBean.getRepairBuilding().getConsomableId());
+
+            if (lPlayer.havingSkill(122) && lConsomable.getName().equals("RepaireKit")) {
+                int lBuildingEnergy = lBuilding.getEnergy();
+                lBuilding.gainEnergy(lConsomable.getRarity() * 20 + lPlayer.getLevel() * 2);
+
+                if(lBuilding.getEnergy() > lBuildingEnergy){
+                    lPlayer.addXP((lBuilding.getEnergy()-lBuildingEnergy)*20);
+                }
+
+                CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.BUILDING_REPAIRED.toString()).objectBuildingRepaired(new CBuildingRepaired.CBuildingRepairedBuidler().player(lPlayer).building(lBuilding).build()).build();
+
+                System.out.println(lBeanToSend);
+                for (Session lSession : mSessions) {
+                    lSession.getBasicRemote().sendObject(lBeanToSend);
+                }
+
+            }
         }
 
     }

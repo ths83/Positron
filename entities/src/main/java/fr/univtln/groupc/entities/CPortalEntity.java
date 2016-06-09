@@ -412,4 +412,5 @@ public class CPortalEntity implements Serializable {
         return lMultiHackList;
     }
 
+
 }

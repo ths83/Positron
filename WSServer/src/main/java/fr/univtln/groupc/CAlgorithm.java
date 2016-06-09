@@ -370,7 +370,7 @@ public class CAlgorithm {
                 return lBombe;
             }
             case (5): {
-                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder().name("multipirate").hackBonus((int) pLevelObject / 2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder().name("multipirate").hackBonus(pLevelObject).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
                 return lMultiPiratage;
             }
             case (6): {
