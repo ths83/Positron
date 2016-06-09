@@ -7,4 +7,9 @@
     <color name="borderColor">#8ee5ee</color>
     <color name="params_buttons">#057965</color>
     <color name="backgroundaction">#fff0bd</color>
+    <color name="red">#CC0000</color>
+    <color name="gold">#ffe0ad</color>
+    <color name="brown">#9f8a62</color>
+    <color name="health">#faf52e</color>
+    <color name="xp">#fab429</color>
 </resources>

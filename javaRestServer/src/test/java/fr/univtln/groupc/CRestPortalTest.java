@@ -26,10 +26,10 @@ public class CRestPortalTest extends TestCase {
     public void testPostPortalService() throws Exception {
 
         CTurretEntity lTurret = new CTurretEntity
-                .CTurretBuilder(78678687).level(10).damage(10).lifeTime(1111)
+                .CTurretBuilder().level(10).damage(10).lifeTime(1111)
                 .energy(150).energyMax(200).name("t1").radius(100).build();
 
-        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(78687678).energy(100)
+        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder().energy(100)
                 .latitude(10.5).energyMax(200)
                 .level(9).longitude(5.2).name("cr")
                 .radius(54).build();

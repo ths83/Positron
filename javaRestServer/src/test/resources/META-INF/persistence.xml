@@ -22,6 +22,9 @@
         <class>fr.univtln.groupc.entities.CTurretEntity</class>
         <class>fr.univtln.groupc.stats.CStatPortalHacked</class>
 
+        <class>fr.univtln.groupc.entities.CShieldEntity</class>
+        <class>fr.univtln.groupc.entities.CMultiHackEntity</class>
+        <class>fr.univtln.groupc.entities.CLinkImprovementEntity</class>
 
         <!-- Abstracts stats -->
         <class>fr.univtln.groupc.stats.AStatsAttacked</class>
@@ -34,7 +37,6 @@
         <properties>
             <property name="javax.persistence.target-database" value="PostgreSQL"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-
 
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>

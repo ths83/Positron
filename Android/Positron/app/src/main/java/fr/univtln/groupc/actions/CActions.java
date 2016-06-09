@@ -132,7 +132,7 @@ public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity
                 return lTurret;
             }
             case (2): {
-                AObjectEntity lShield = new CShieldEntity.CShieldBuilder().level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
+                AObjectEntity lShield = new CShieldEntity.CShieldBuilder().level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defenseBonus(10 * pRarety).build();
                 return lShield;
             }
             case (3): {
@@ -332,7 +332,7 @@ public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity
             List<CPortalEntity> lPortalListe = new ArrayList<>();
             lPortalListe.add(pPortal);
             lPortalListe.add(pKey.getPortal());
-
+            //TODO delete 2000
             return new CLinkEntity.CLinkBuilder().portals(lPortalListe).build();
         }
         else{

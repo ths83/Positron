@@ -3,6 +3,7 @@ package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,30 +16,30 @@ import java.io.Serializable;
 @Table(name = "t_shield", schema = "positron")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries(@NamedQuery(name = CShieldEntity.GET_ALL, query = "select p from CShieldEntity  p"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CShieldEntity.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CShieldEntity.class)
 
-//@JsonDeserialize(as = CTurretEntity.class)
+@JsonDeserialize(as = CShieldEntity.class)
 public class CShieldEntity extends ABuildingEntity implements Serializable {
 
-    @Column(name = "defensBonus")
-    private int mDefensBonus;
+    @Column(name = "defenseBonus")
+    private int mDefenseBonus;
     public final static String GET_ALL = "Shield.getAll";
 
     public CShieldEntity(CShieldBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName, pBuilder.mPortal, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
-        mDefensBonus = pBuilder.mDefensBonus;
+        mDefenseBonus = pBuilder.mDefenseBonus;
     }
 
     public CShieldEntity() {
     }
 
 
-    public void setmDefensBonus(int mDefensBonus) {
-        this.mDefensBonus = mDefensBonus;
+    public void setDefenseBonus(int pDefenseBonus) {
+        mDefenseBonus = pDefenseBonus;
     }
 
-    public int getmDefensBonus() {
-        return mDefensBonus;
+    public int getDefenseBonus() {
+        return mDefenseBonus;
     }
 
     public static class CShieldBuilder{
@@ -52,14 +53,14 @@ public class CShieldEntity extends ABuildingEntity implements Serializable {
         private int mLifeTime;
         private int mRadius;
         private int mEnergyMax;
-        private int mDefensBonus;
+        private int mDefenseBonus;
 
 
         public CShieldBuilder(){
         }
 
-        public CShieldBuilder defensBonus(int pDefensBonus){
-            mDefensBonus = pDefensBonus;
+        public CShieldBuilder defenseBonus(int pDefenseBonus){
+            mDefenseBonus = pDefenseBonus;
             return this;
         }
 

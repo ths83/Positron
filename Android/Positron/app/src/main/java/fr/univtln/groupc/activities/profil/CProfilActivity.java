@@ -50,8 +50,9 @@ public class CProfilActivity extends AppCompatActivity {
 
             // on met le drapeau de la team à laquelle l'user courant appartient
 
+
             if (Objects.equals(SCurrentPlayer.mPlayer.getTeam().getColor(), "bleu"))
-            //if (SCurrentPlayer.mPlayer.getTeam().getColor() == "bleu")
+
 
                 mCircularImageView.setImageDrawable(getDrawable(R.mipmap.logatom));
             else

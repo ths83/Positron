@@ -24,7 +24,7 @@ public class CRestStatsResonatorAttackedTest extends TestCase {
     public void testPostStatsResonatorAttackedService() throws Exception {
         CPlayerEntity lPlayerEntity1 = new CPlayerEntity.CPlayerBuilder(1).email("zad").energy(5).build();
         CPlayerEntity lPlayerEntity2 = new CPlayerEntity.CPlayerBuilder(2).email("zad").energy(5).build();
-        CResonatorEntity lResonatorEntity = new CResonatorEntity.CResonatorBuilder(1).energy(5).level(10).build();
+        CResonatorEntity lResonatorEntity = new CResonatorEntity.CResonatorBuilder().energy(5).level(10).build();
 
         CStatsResonatorAttacked lStatsResonatorAttacked = new CStatsResonatorAttacked.CStatsResonatorAttackedBuilder(1).resonator(lResonatorEntity).cpt(5)
                 .attacker(lPlayerEntity1).owner(lPlayerEntity2).build();

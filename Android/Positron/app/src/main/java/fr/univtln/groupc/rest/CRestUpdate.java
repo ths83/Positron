@@ -24,9 +24,10 @@ import fr.univtln.groupc.entities.CShieldEntity;
  */
 public class CRestUpdate extends CRest {
 
+
 /*
     @Override
-    protected Void doInBackground(String... params) {
+    protected void doInBackground(String... params) {
         String lUrlString = params[0]; // URL to call
         String lJsonString = params[1];
         BufferedOutputStream out = null;
@@ -49,6 +50,7 @@ public class CRestUpdate extends CRest {
         return null;
     }
     @Override
+>>>>>>> 4681d50eb14499351f1e46a112443fab4c1b4c3c
     protected void onPostExecute (String s){
         super.onPostExecute(s);
     }

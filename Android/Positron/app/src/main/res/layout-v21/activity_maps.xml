@@ -27,31 +27,83 @@
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/menu_button"
                 android:onClick="displayMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:layout_marginLeft="12sp"
                 android:layout_marginBottom="12sp"
                 android:src="@mipmap/menu"
-                app:fab_colorNormal="#3E3482"
+                app:fab_colorNormal="#ecebdd"
                 app:fab_showShadow="true"
                 app:fab_shadowColor="#66000000"
                 app:fab_shadowRadius="4dp"
                 app:fab_shadowXOffset="1dp"
                 app:fab_shadowYOffset="3dp"
+                app:fab_size="mini"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
+
+            <ProgressBar
+                android:id="@+id/health_player"
+                android:layout_width="200sp"
+                android:layout_height="20sp"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:id="@+id/imagesoin"
+                android:layout_width="10sp"
+                android:layout_height="10sp"
+                android:src="@mipmap/kitsoin"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/health_player"
+                android:layout_alignParentBottom="true"
+
+                />
+
+            <ProgressBar
+                android:id="@+id/xp"
+                android:layout_width="200sp"
+                android:layout_height="16sp"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@id/health_player"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="XP"
+                android:textSize="10sp"
+                android:textColor="@color/xp"
+                android:layout_toLeftOf="@id/xp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="22dp"
+                android:layout_alignParentBottom="true"
+                android:layout_above="@id/imagesoin"
+                />
+            <TextView
+                android:id="@+id/niv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="22dp"
+                android:layout_alignParentBottom="true"/>
 
         </RelativeLayout>
     </FrameLayout>
 
 
-    <ScrollView
+    <HorizontalScrollView
         android:id="@+id/drawerleft"
-        android:layout_width="300sp"
+        android:layout_width="305sp"
         android:layout_height="50sp"
         android:orientation="horizontal"
         android:layout_gravity="start"
+        android:isScrollContainer="true"
         android:background="@color/backgroundaction">
 
         <LinearLayout
@@ -61,10 +113,9 @@
             android:layout_height="match_parent"
             android:divider="@android:color/black"
             android:dividerHeight="10dp"
-            style="@style/buttondef"
             />
 
-    </ScrollView>
+    </HorizontalScrollView>
 
 
     <ScrollView

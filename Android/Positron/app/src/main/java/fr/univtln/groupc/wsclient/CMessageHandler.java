@@ -108,11 +108,17 @@ public class CMessageHandler implements MessageHandler.Whole<CPayloadBean> {
             mWebSocketService.sendBroadcast(lIntent);
         }
 
-        if (pBean.getType().equals(EPayloadType.HACK_LIMITATION.toString())){
+        if (pBean.getType().equals(EPayloadType.HACK_LIMITATION.toString())) {
             Log.d("test150", "hack limit -> " + pBean.getHackLimitation());
             Intent lIntent = new Intent(INTENT_TYPE);
             lIntent.putExtra(TYPE, EPayloadType.HACK_LIMITATION.toString());
-            lIntent.putExtra(HACK_LIMITATION,pBean.getHackLimitation());
+            lIntent.putExtra(HACK_LIMITATION, pBean.getHackLimitation());
+        }
+        if (pBean.getType().equals(EPayloadType.AOE_ATTACKED.toString())){
+            Intent lIntent = new Intent(INTENT_TYPE);
+            lIntent.putExtra(TYPE, EPayloadType.AOE_ATTACKED.toString());
+            lIntent.putExtra(PORTAL, pBean.getBuildingAttacked().getPortal());
+            lIntent.putExtra(PLAYER, pBean.getBuildingAttacked().getPlayer());
             mWebSocketService.sendBroadcast(lIntent);
         }
 

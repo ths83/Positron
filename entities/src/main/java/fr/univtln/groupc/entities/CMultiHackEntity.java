@@ -2,6 +2,7 @@ package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,9 +16,9 @@ import java.io.Serializable;
     @Table(name = "t_multiHack", schema = "positron")
     @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
     @NamedQueries(@NamedQuery(name = CMultiHackEntity.GET_ALL, query = "select p from CMultiHackEntity  p"))
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CMultiHackEntity.class)
+    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CMultiHackEntity.class)
 
-//@JsonDeserialize(as = CTurretEntity.class)
+@JsonDeserialize(as = CMultiHackEntity.class)
     public class CMultiHackEntity extends ABuildingEntity implements Serializable {
 
         @Column(name = "hackBonus")
@@ -33,11 +34,11 @@ import java.io.Serializable;
         }
 
 
-        public void setmHackBonus(int mHackBonus) {
-            this.mHackBonus = mHackBonus;
+        public void setHackBonus(int pHackBonus) {
+            mHackBonus = pHackBonus;
         }
 
-        public int getmHackBonus() {
+        public int getHackBonus() {
             return mHackBonus;
         }
 
@@ -57,8 +58,8 @@ import java.io.Serializable;
 
             }
 
-            public CMultiHackBuilder hackBonus(int pDefensBonus){
-                mHackBonus = pDefensBonus;
+            public CMultiHackBuilder hackBonus(int pHackBonus){
+                mHackBonus = pHackBonus;
                 return this;
             }
 

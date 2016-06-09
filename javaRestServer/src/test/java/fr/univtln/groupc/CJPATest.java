@@ -18,7 +18,7 @@ public class CJPATest extends TestCase {
 
     @Test
     public void testPostPortalWithResonators() throws Exception {
-        CTurretEntity lTurret1 = new CTurretEntity.CTurretBuilder(365).build();
+        CTurretEntity lTurret1 = new CTurretEntity.CTurretBuilder().build();
         List<ABuildingEntity> lBuildings = new ArrayList<>();
         lBuildings.add(lTurret1);
         CPortalEntity lPort1 = new CPortalEntity.CPortalBuilder(462).build();
@@ -27,8 +27,8 @@ public class CJPATest extends TestCase {
         lTurret1.setPortal(lPort1);
         mCrud.create(lTurret1);
 
-        CResonatorEntity lReso1 = new CResonatorEntity.CResonatorBuilder(451).portal(lPort1).build();
-        CResonatorEntity lReso2 = new CResonatorEntity.CResonatorBuilder(453).portal(lPort1).build();
+        CResonatorEntity lReso1 = new CResonatorEntity.CResonatorBuilder().portal(lPort1).build();
+        CResonatorEntity lReso2 = new CResonatorEntity.CResonatorBuilder().portal(lPort1).build();
 
         System.out.println(lPort1.getResonators());
 
