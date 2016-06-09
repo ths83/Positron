@@ -13,18 +13,20 @@ public class CHackPortal implements Serializable {
     private int mPlayerId;
 
 
+    public CHackPortal(){}
+
     public CHackPortal (CHackPortalBuilder pBuilder){
         mPlayerId = pBuilder.mPlayer;
         mPortalId = pBuilder.mPortal;
     }
 
 
-    public int getmPortalId() {
+    public int getPortalId() {
         return mPortalId;
     }
 
     public void setPortalId(int pPortal) {
-        this.mPortalId = pPortal;
+        mPortalId = pPortal;
     }
 
     public int getPlayerId() {
@@ -32,7 +34,7 @@ public class CHackPortal implements Serializable {
     }
 
     public void setPlayerId(int pPlayer) {
-        this.mPlayerId = pPlayer;
+        mPlayerId = pPlayer;
     }
 
 

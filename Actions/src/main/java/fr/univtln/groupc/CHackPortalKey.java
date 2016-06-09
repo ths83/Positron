@@ -12,6 +12,7 @@ public class CHackPortalKey implements Serializable{
     public int mPortalId;
     public int mPlayerId;
 
+    CHackPortalKey(){}
 
     public CHackPortalKey(CHackPortalKeyBuilder pBuilder){
         mPlayerId = pBuilder.mPlayerId;

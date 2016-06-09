@@ -47,7 +47,7 @@ public class CTestsNicolas {
 
         lCrud.create(lTeam2);
 
-        CResonatorEntity lResonator1 = new CResonatorEntity.CResonatorBuilder(1).level(2).owner(lPlayer1).radius(16).energy(150).energyMax(150).longitude(120.3).latitude(442.3).build();
+        CResonatorEntity lResonator1 = new CResonatorEntity.CResonatorBuilder().level(2).owner(lPlayer1).radius(16).energy(150).energyMax(150).longitude(120.3).latitude(442.3).build();
         lCrud.create(lResonator1);
         lCrud.create(lSkill1);
         lCrud.create(lSkill2);

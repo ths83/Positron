@@ -16,12 +16,12 @@ public class Testmat {
         CPortalEntity p1 = new CPortalEntity.CPortalBuilder(1).radius(10).build();
         CPortalEntity p2 = new CPortalEntity.CPortalBuilder(2).radius(10).build();
         CPortalEntity p3 = new CPortalEntity.CPortalBuilder(3).radius(10).build();
-        CKeyEntity k1 = new CKeyEntity.CKeyBuilder(1).portal(p1).build();
-        CKeyEntity k2 = new CKeyEntity.CKeyBuilder(2).portal(p1).build();
-        CKeyEntity k3 = new CKeyEntity.CKeyBuilder(3).portal(p2).build();
-        CKeyEntity k4 = new CKeyEntity.CKeyBuilder(4).portal(p1).build();
-        CKeyEntity k5 = new CKeyEntity.CKeyBuilder(5).portal(p1).build();
-        CResonatorEntity r1 = new CResonatorEntity.CResonatorBuilder(6).build();
+        CKeyEntity k1 = new CKeyEntity.CKeyBuilder().portal(p1).build();
+        CKeyEntity k2 = new CKeyEntity.CKeyBuilder().portal(p1).build();
+        CKeyEntity k3 = new CKeyEntity.CKeyBuilder().portal(p2).build();
+        CKeyEntity k4 = new CKeyEntity.CKeyBuilder().portal(p1).build();
+        CKeyEntity k5 = new CKeyEntity.CKeyBuilder().portal(p1).build();
+        CResonatorEntity r1 = new CResonatorEntity.CResonatorBuilder().build();
         //lp.add(p1);
         //lp.add(p2);
         //System.out.printf("liste : " + lp.toString());

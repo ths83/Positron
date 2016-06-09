@@ -99,7 +99,10 @@ public class CPortalService implements ContextResolver<ObjectMapper>{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mCrudMethods.update(lPortal);
+        if (mCrudMethods.openTransaction()){
+            mCrudMethods.update(lPortal);
+            mCrudMethods.commitTransaction();
+        }
         return Response.status(200).build();
     }
 

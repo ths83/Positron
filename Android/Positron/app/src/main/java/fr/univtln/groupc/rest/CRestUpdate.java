@@ -24,6 +24,8 @@ import fr.univtln.groupc.entities.CShieldEntity;
  */
 public class CRestUpdate extends CRest {
 
+
+/*
     @Override
     protected void doInBackground(String... params) {
         String lUrlString = params[0]; // URL to call
@@ -48,6 +50,7 @@ public class CRestUpdate extends CRest {
         return null;
     }
     @Override
+>>>>>>> 4681d50eb14499351f1e46a112443fab4c1b4c3c
     protected void onPostExecute (String s){
         super.onPostExecute(s);
     }

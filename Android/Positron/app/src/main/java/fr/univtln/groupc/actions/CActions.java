@@ -124,31 +124,31 @@ public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity
         switch (pTypeObjet) {
 
             case (0): {
-                AObjectEntity lResonator = new CResonatorEntity.CResonatorBuilder(10).energyMax(pLevelObject * 20).energy(pLevelObject * 20).level(pLevelObject).build();
+                AObjectEntity lResonator = new CResonatorEntity.CResonatorBuilder().energyMax(pLevelObject * 20).energy(pLevelObject * 20).level(pLevelObject).build();
                 return lResonator;
             }
             case (1): {
-                AObjectEntity lTurret =new CTurretEntity.CTurretBuilder(10).energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
+                AObjectEntity lTurret =new CTurretEntity.CTurretBuilder().energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
                 return lTurret;
             }
             case (2): {
-                AObjectEntity lShield = new CShieldEntity.CShieldBuilder(10).level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
+                AObjectEntity lShield = new CShieldEntity.CShieldBuilder().level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
                 return lShield;
             }
             case (3): {
-                AObjectEntity lAttack = new CConsumableEntity.CConsumableBuilder(10).name("Attack").rarity(pRarety).build();
+                AObjectEntity lAttack = new CConsumableEntity.CConsumableBuilder().name("Attack").rarity(pRarety).build();
                 return lAttack;
             }
             case (4): {
-                AObjectEntity lBombe =  new CConsumableEntity.CConsumableBuilder(10).name("Bombe").rarity(pRarety).build();
+                AObjectEntity lBombe =  new CConsumableEntity.CConsumableBuilder().name("Bombe").rarity(pRarety).build();
                 return lBombe;
             }
             case (5): {
-                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder(1).hackBonus((int) pLevelObject/2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                AObjectEntity lMultiPiratage = new CMultiHackEntity.CMultiHackBuilder().hackBonus((int) pLevelObject/2).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
                 return lMultiPiratage;
             }
             case (6): {
-                AObjectEntity lLinkImprovement = new CLinkImprovementEntity.CLinkImprovementBuilder(1).rangeBonus(pLevelObject/4).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
+                AObjectEntity lLinkImprovement = new CLinkImprovementEntity.CLinkImprovementBuilder().rangeBonus(pLevelObject/4).energy(pLevelObject * 20).energyMax(pLevelObject * 20).level(pLevelObject).build();
                 return lLinkImprovement;
             }
 
@@ -299,7 +299,7 @@ public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity
 
     // TODO : Choirsie/Vérifier sens de création: Cascade Player -> Object or Object -> Player
     public CKeyEntity keyHacking(CPortalEntity pPortal){
-        return new CKeyEntity.CKeyBuilder(140).portal(pPortal).build();
+        return new CKeyEntity.CKeyBuilder().portal(pPortal).build();
     }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -332,7 +332,7 @@ public static CPortalEntity buildBuilding(CPortalEntity pPortal, ABuildingEntity
             List<CPortalEntity> lPortalListe = new ArrayList<>();
             lPortalListe.add(pPortal);
             lPortalListe.add(pKey.getPortal());
-
+            //TODO delete 2000
             return new CLinkEntity.CLinkBuilder().portals(lPortalListe).build();
         }
         else{

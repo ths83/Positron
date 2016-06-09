@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -36,6 +37,7 @@ public class CLanguagesActivity extends AppCompatActivity {
         lConfig.locale = lLocale;
         getBaseContext().getResources().updateConfiguration(lConfig,
                 getBaseContext().getResources().getDisplayMetrics());
+        Toast.makeText(getBaseContext(),"Langue française activée", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -53,6 +55,7 @@ public class CLanguagesActivity extends AppCompatActivity {
         lConfig.locale = lLocale;
         getBaseContext().getResources().updateConfiguration(lConfig,
                 getBaseContext().getResources().getDisplayMetrics());
+        Toast.makeText(getBaseContext(),"English language set", Toast.LENGTH_SHORT).show();
     }
 
     /**

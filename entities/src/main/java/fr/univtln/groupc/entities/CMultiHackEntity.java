@@ -53,8 +53,8 @@ import java.io.Serializable;
             private int mHackBonus;
 
 
-            public CMultiHackBuilder(int pId){
-                mId = pId;
+            public CMultiHackBuilder(){
+
             }
 
             public CMultiHackBuilder hackBonus(int pDefensBonus){
