@@ -2,6 +2,7 @@ package fr.univtln.groupc.rest;
 
 import android.util.Log;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -14,15 +15,11 @@ import fr.univtln.groupc.entities.CPlayerEntity;
  */
 public class CRestPlayer extends CRest {
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 0a0f0567b08d3d2f66c470db59345140f4f21fe3
     /**
      * get player by id from database
      * @return
      */
+
     public CPlayerEntity getPlayerByID(int pId){
         ObjectMapper lMapper = new ObjectMapper();
         String lUrlString = CRest.API_URL + "/players/"+Integer.toString(pId);
@@ -46,25 +43,33 @@ public class CRestPlayer extends CRest {
         return lPlayer;
     }
 
-    public CPlayerEntity getPlayerByMail(String pMail){
+    public void postPlayerRest(CPlayerEntity pPlayer){
+        ObjectMapper lMapper = new ObjectMapper();
+        String lUrlString = CRest.API_URL + "/players";
+        Log.d("test", "->-> " + lUrlString);
+        try {
+            String lPlayerJson = lMapper.writeValueAsString(pPlayer);
+            CRestPost lPost = new CRestPost();
+            lPost.execute(lUrlString,lPlayerJson).get();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+    public CPlayerEntity getPlayerByMail(String pMail) throws ExecutionException, InterruptedException {
         ObjectMapper lMapper = new ObjectMapper();
         String lUrlString = CRest.API_URL + "/players/mails"+pMail;
 
         Log.d("test", "->-> " + lUrlString);
         String lPlayerJson = null;
         CPlayerEntity lPlayer = null;
-        try {
-            lPlayerJson = new CRestGet().execute(lUrlString).get();
-            Log.d("test", lPlayerJson);
-            lPlayer = lMapper.readValue(lPlayerJson, CPlayerEntity.class);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        lPlayerJson = new CRestGet().execute(lUrlString).get();
+        Log.d("test", lPlayerJson);
+        lPlayer = lMapper.readValue(lPlayerJson, CPlayerEntity.class);
 
         Log.d("test", "-> player object :\n  " + lPlayer);
         return lPlayer;
