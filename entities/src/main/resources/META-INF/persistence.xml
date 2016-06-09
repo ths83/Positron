@@ -20,6 +20,9 @@
         <class>fr.univtln.groupc.entities.CTerritoryEntity</class>
         <class>fr.univtln.groupc.entities.CSkillEntity</class>
         <class>fr.univtln.groupc.entities.CTurretEntity</class>
+        <class>fr.univtln.groupc.entities.CShieldEntity</class>
+        <class>fr.univtln.groupc.entities.CMultiHackEntity</class>
+        <class>fr.univtln.groupc.entities.CLinkImprovementEntity</class>
 
         <!-- Abstracts stats -->
         <class>fr.univtln.groupc.stats.AStatsAttacked</class>
@@ -33,10 +36,9 @@
             <property name="javax.persistence.target-database" value="PostgreSQL"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5433/postgres"/>
-            <property name="javax.persistence.jdbc.user" value="postgres"/>
-            <property name="javax.persistence.jdbc.password" value="groupc"/>
-
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://sinfo1:5432/mpesnel786"/>
+            <property name="javax.persistence.jdbc.user" value="mpesnel786"/>
+            <property name="javax.persistence.jdbc.password" value="2304015302"/>
 
 
             <!-- Les options de générations des tables -->

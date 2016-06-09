@@ -69,7 +69,11 @@ public class CRestPlayer extends CRest {
 
         lPlayerJson = new CRestGet().execute(lUrlString).get();
         Log.d("test", lPlayerJson);
-        lPlayer = lMapper.readValue(lPlayerJson, CPlayerEntity.class);
+        try {
+            lPlayer = lMapper.readValue(lPlayerJson, CPlayerEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Log.d("test", "-> player object :\n  " + lPlayer);
         return lPlayer;

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by marti on 20/05/2016.
  */
 public class CPortalEntityTest extends TestCase {
-/*
+
     private ObjectMapper mObjectMapper = new ObjectMapper();
 
     public void testSerDeserListPortalsWithLinks() throws Exception {
@@ -40,7 +40,7 @@ public class CPortalEntityTest extends TestCase {
         String lJson = mObjectMapper.writeValueAsString(lPortals);
         CCrudMethods lCrud = new CCrudMethods();
         lCrud.*/
-/*
+
         //List<CPortalEntity> lPortalsGotten = mObjectMapper.readValue(lJson, mObjectMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class));
         //System.out.println("portails : \n" + mObjectMapper.readValue(lJson, mObjectMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class)));
         //System.out.println(lPortalsGotten);
@@ -57,5 +57,5 @@ public class CPortalEntityTest extends TestCase {
         //System.out.println("portails : \n" + mObjectMapper.readValue(lJson, mObjectMapper.getTypeFactory().constructCollectionType(List.class, CPortalEntity.class)));
         System.out.println(lPortalGotten);
 
-    }*/
+    }
 }

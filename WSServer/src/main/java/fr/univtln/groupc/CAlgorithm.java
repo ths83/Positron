@@ -346,7 +346,7 @@ public class CAlgorithm {
      * @return Un Objet qui peut être une fille de building ou un consomable.
      */
     public static AObjectEntity createObject(int pTypeObjet, int pLevelObject, int pRarety) {
-
+        System.out.println("\ntype d'objet créé: "+pTypeObjet);
         switch (pTypeObjet) {
 
             case (0): {
@@ -354,11 +354,11 @@ public class CAlgorithm {
                 return lResonator;
             }
             case (1): {
-                AObjectEntity lTurret =new CTurretEntity.CTurretBuilder().name("turret").energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
+                AObjectEntity lTurret =new CTurretEntity.CTurretBuilder().name("turret").energy(pLevelObject * 50).level(pLevelObject).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
                 return lTurret;
             }
             case (2): {
-                AObjectEntity lShield = new CShieldEntity.CShieldBuilder().name("shield").level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(5 * pLevelObject).build();
+                AObjectEntity lShield = new CShieldEntity.CShieldBuilder().name("shield").level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defenseBonus(5 * pLevelObject).build();
                 return lShield;
             }
             case (3): {
@@ -530,7 +530,7 @@ public class CAlgorithm {
             lType = 1;
         }
         else if(56 < lRandom && lRandom <= 70){
-            lType = 1;
+            lType = 2;
             // todo : remettre 2 qd ca marche
         }
         else if(lRandom < 42 && lRandom <= 56){
@@ -555,7 +555,7 @@ public class CAlgorithm {
 
         for(ABuildingEntity lBuilding : pOriginalPortal.getBuildings()){
             if(lBuilding instanceof CLinkImprovementEntity){
-                RangeMax = RangeMax + ((CLinkImprovementEntity) lBuilding).getmRangeBonus();
+                RangeMax = RangeMax + ((CLinkImprovementEntity) lBuilding).getRangeBonus();
             }
         }
         if (haversine(pOriginalPortal.getLat(),pOriginalPortal.getLong(),pPortalTargeted.getLat(),pPortalTargeted.getLong()) <= RangeMax){

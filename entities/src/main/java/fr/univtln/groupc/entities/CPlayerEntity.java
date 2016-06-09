@@ -676,7 +676,7 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         List<CShieldEntity> lShields = new ArrayList<CShieldEntity>();
         for (AObjectEntity lObject : mObjects){
             if (lObject instanceof CShieldEntity){
-                if (((CMultiHackEntity) lObject).getLevel() == pLevel){
+                if (((CShieldEntity) lObject).getLevel() == pLevel){
                     lShields.add((CShieldEntity) lObject);
                 }
             }

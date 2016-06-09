@@ -21,7 +21,7 @@ public class CRestShieldTest extends TestCase{
 
     public void testPostShieldService() throws Exception {
 
-        CShieldEntity lShieldEntity = new CShieldEntity.CShieldBuilder().energy(10).defensBonus(5).level(10).name("shield1").build();
+        CShieldEntity lShieldEntity = new CShieldEntity.CShieldBuilder().energy(10).defenseBonus(5).level(10).name("shield1").build();
 
         mJson = mMapper.writeValueAsString(lShieldEntity);
         lResponse = mWebResource.path("/shields").type("application/json").accept("application/json").post(ClientResponse.class, mJson);

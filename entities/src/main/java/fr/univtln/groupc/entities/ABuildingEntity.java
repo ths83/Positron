@@ -2,7 +2,6 @@ package fr.univtln.groupc.entities;
 
 
 import com.fasterxml.jackson.annotation.*;
-import sun.rmi.runtime.Log;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +17,9 @@ import java.util.List;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 @JsonSubTypes({@JsonSubTypes.Type(value = CResonatorEntity.class, name = "CResonatorEntity"),
         @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity"),
-@JsonSubTypes.Type(value = CShieldEntity.class, name = "CShieldEntity")})
+@JsonSubTypes.Type(value = CShieldEntity.class, name = "CShieldEntity"),
+        @JsonSubTypes.Type(value = CMultiHackEntity.class, name = "CMultiHackEntity"),
+        @JsonSubTypes.Type(value = CLinkImprovementEntity.class, name = "CLinkImprovementEntity")})
 //@JsonIdentityReference(alwaysAsId = true)
 
 public abstract class ABuildingEntity extends AObjectEntity implements Serializable ,ITarget {
@@ -158,7 +159,7 @@ public abstract class ABuildingEntity extends AObjectEntity implements Serializa
         // Application de la défense des shiels si le shield  et la cible sont de la même équipe.
         for (CShieldEntity lShield : lShieldList) {
             if(lShield.getPortal().getTeam() == getTargetTeam()) {
-                lDefense = lDefense + lShield.getmDefensBonus();
+                lDefense = lDefense + lShield.getDefenseBonus();
             }
         }
 

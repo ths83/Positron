@@ -33,11 +33,11 @@ public class CLinkImprovementEntity extends ABuildingEntity implements Serializa
     }
 
 
-    public void setmRangeBonus(int mRangeBonus) {
-        this.mRangeBonus = mRangeBonus;
+    public void setRangeBonus(int pRangeBonus) {
+        mRangeBonus = pRangeBonus;
     }
 
-    public double getmRangeBonus() {
+    public double getRangeBonus() {
         return mRangeBonus;
     }
 

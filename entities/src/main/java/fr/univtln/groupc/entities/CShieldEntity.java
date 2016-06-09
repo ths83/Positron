@@ -21,25 +21,25 @@ import java.io.Serializable;
 @JsonDeserialize(as = CShieldEntity.class)
 public class CShieldEntity extends ABuildingEntity implements Serializable {
 
-    @Column(name = "defensBonus")
-    private int mDefensBonus;
+    @Column(name = "defenseBonus")
+    private int mDefenseBonus;
     public final static String GET_ALL = "Shield.getAll";
 
     public CShieldEntity(CShieldBuilder pBuilder){
         super(pBuilder.mId, pBuilder.mName, pBuilder.mPortal, pBuilder.mLifeTime, pBuilder.mRadius, pBuilder.mLevel, pBuilder.mEnergy, pBuilder.mEnergyMax);
-        mDefensBonus = pBuilder.mDefensBonus;
+        mDefenseBonus = pBuilder.mDefenseBonus;
     }
 
     public CShieldEntity() {
     }
 
 
-    public void setmDefensBonus(int mDefensBonus) {
-        this.mDefensBonus = mDefensBonus;
+    public void setDefenseBonus(int pDefenseBonus) {
+        mDefenseBonus = pDefenseBonus;
     }
 
-    public int getmDefensBonus() {
-        return mDefensBonus;
+    public int getDefenseBonus() {
+        return mDefenseBonus;
     }
 
     public static class CShieldBuilder{
@@ -53,14 +53,14 @@ public class CShieldEntity extends ABuildingEntity implements Serializable {
         private int mLifeTime;
         private int mRadius;
         private int mEnergyMax;
-        private int mDefensBonus;
+        private int mDefenseBonus;
 
 
         public CShieldBuilder(){
         }
 
-        public CShieldBuilder defensBonus(int pDefensBonus){
-            mDefensBonus = pDefensBonus;
+        public CShieldBuilder defenseBonus(int pDefenseBonus){
+            mDefenseBonus = pDefenseBonus;
             return this;
         }
 

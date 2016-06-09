@@ -10,7 +10,7 @@ import java.util.List;
  * Created by marti on 20/05/2016.
  */
 public class CPlayerEntityTest extends TestCase {
-/*
+
     public void testGetResonatorById() throws Exception {
         List<AObjectEntity> lObjects = new ArrayList<AObjectEntity>();
         AObjectEntity lReso1 = new CResonatorEntity.CResonatorBuilder().name("myPortal1").level(3).build();
@@ -59,5 +59,5 @@ public class CPlayerEntityTest extends TestCase {
 
         //AObjectEntity
 
-    }*/
+    }
 }

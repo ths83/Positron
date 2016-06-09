@@ -14,13 +14,15 @@ public class TestApp {
     public static void main(String[] args) {
         CCrudMethods crud = new CCrudMethods();
         /*CTeamEntity lTeam1 = new CTeamEntity.CTeamBuilder(1).color("blue").build();
-        CTeamEntity lTeam2 = new CTeamEntity.CTeamBuilder(2).color("red").build();
+        CTeamEntity lTeam2 = new CTeamEntity.CTeamBuilder(2).color("red").build();*/
+        CTeamEntity lTeam1 = crud.find(CTeamEntity.class, 1);
+        CTeamEntity lTeam2 = crud.find(CTeamEntity.class,2);
 
-        AObjectEntity lResoOfPlayer1 = new CResonatorEntity.CResonatorBuilder(1).energy(100).energyMax(100).level(3).build();
-        AObjectEntity lResoOfPlayer2 = new CResonatorEntity.CResonatorBuilder(2).energy(100).energyMax(100).level(4).build();
-        AObjectEntity lResoOfPlayer3 = new CResonatorEntity.CResonatorBuilder(3).energy(100).energyMax(100).level(5).build();
-        AObjectEntity lKey1 = new CKeyEntity.CKeyBuilder(4).portal(crud.find(CPortalEntity.class, 9)).build();
-        AObjectEntity lKey2 = new CKeyEntity.CKeyBuilder(5).portal(crud.find(CPortalEntity.class, 12)).build();
+        AObjectEntity lResoOfPlayer1 = new CResonatorEntity.CResonatorBuilder().energy(100).energyMax(100).level(3).build();
+        AObjectEntity lResoOfPlayer2 = new CResonatorEntity.CResonatorBuilder().energy(100).energyMax(100).level(4).build();
+        AObjectEntity lResoOfPlayer3 = new CResonatorEntity.CResonatorBuilder().energy(100).energyMax(100).level(5).build();
+        AObjectEntity lKey1 = new CKeyEntity.CKeyBuilder().portal(crud.find(CPortalEntity.class, 9)).build();
+        AObjectEntity lKey2 = new CKeyEntity.CKeyBuilder().portal(crud.find(CPortalEntity.class, 12)).build();
         List<AObjectEntity> lObjects = new ArrayList<AObjectEntity>();
         lObjects.add(lResoOfPlayer1);
         lObjects.add(lResoOfPlayer2);
@@ -33,10 +35,19 @@ public class TestApp {
 
 
 
+        if (crud.openTransaction()) {
+            crud.create(lPlayer1);
+            crud.commitTransaction();
+        }
+        if (crud.openTransaction()) {
+            crud.create(lPlayer2);
+            crud.commitTransaction();
+        }
+        if (crud.openTransaction()) {
+            crud.create(lPlayer3);
+            crud.commitTransaction();
+        }
 
-        crud.create(lPlayer1);
-        crud.create(lPlayer2);
-        crud.create(lPlayer3);*/
 
 
         /*CResonatorEntity lResoOfPortal6 = new CResonatorEntity.CResonatorBuilder(6).energy(100).energyMax(100).level(3).owner(lPlayer2).build();

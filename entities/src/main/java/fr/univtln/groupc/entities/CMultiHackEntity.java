@@ -34,11 +34,11 @@ import java.io.Serializable;
         }
 
 
-        public void setmHackBonus(int mHackBonus) {
-            this.mHackBonus = mHackBonus;
+        public void setHackBonus(int pHackBonus) {
+            mHackBonus = pHackBonus;
         }
 
-        public int getmHackBonus() {
+        public int getHackBonus() {
             return mHackBonus;
         }
 
@@ -58,8 +58,8 @@ import java.io.Serializable;
 
             }
 
-            public CMultiHackBuilder hackBonus(int pDefensBonus){
-                mHackBonus = pDefensBonus;
+            public CMultiHackBuilder hackBonus(int pHackBonus){
+                mHackBonus = pHackBonus;
                 return this;
             }
 

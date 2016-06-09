@@ -20,7 +20,9 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = CTurretEntity.class, name = "CTurretEntity"),
         @JsonSubTypes.Type(value = CConsumableEntity.class, name = "CConsumableEntity"),
         @JsonSubTypes.Type(value = CKeyEntity.class, name = "CKeyEntity"),
-        @JsonSubTypes.Type(value = CShieldEntity.class, name = "CShieldEntity")})
+        @JsonSubTypes.Type(value = CShieldEntity.class, name = "CShieldEntity"),
+        @JsonSubTypes.Type(value = CMultiHackEntity.class, name = "CMultiHackEntity"),
+        @JsonSubTypes.Type(value = CLinkImprovementEntity.class, name = "CLinkImprovementEntity")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = AObjectEntity.class)
 //@JsonIdentityReference(alwaysAsId = true)
 public abstract class AObjectEntity implements Serializable {

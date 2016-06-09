@@ -16,16 +16,16 @@ import java.util.List;
  */
 public class CResonatorEntityTest extends TestCase {
 
-    /*
+
     private ObjectMapper mMapper = new ObjectMapper();
-    private CCrudMethods mCrud = new CCrudMethods();
+    /*private CCrudMethods mCrud = new CCrudMethods();
 
     public void testSerDeserResonator() throws Exception {
         System.out.println("pas d id");/*
         CResonatorEntity lReso = new CResonatorEntity.CResonatorBuilder().energy(50).energyMax(100).name("reso").build();
         String lJson = mMapper.writeValueAsString(lReso);
         System.out.println(lJson);*/
-    }
+
 
     public void testSerDeserTurret() throws Exception {
         System.out.println("pas d id");

@@ -19,7 +19,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 
+import java.util.concurrent.ExecutionException;
+
+import fr.univtln.groupc.entities.CPlayerEntity;
 import fr.univtln.groupc.rest.CRestPlayer;
+import fr.univtln.m1dapm.groupec.tperron710.positron.R;
 
 public class CSignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
@@ -115,13 +119,19 @@ public class CSignInActivity extends AppCompatActivity implements GoogleApiClien
 
             // Mettre le compte courant disponible pour tout le programme globalement
             if (lAcct != null) {
-                SCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(lAcct.getEmail());
+                try {
+                    SCurrentPlayer.mPlayer = new CRestPlayer().getPlayerByMail(lAcct.getEmail());
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 String idToken = null;
                 idToken = lAcct.getIdToken();
                 Log.d(TAG, "idToken:" + idToken);
             }
 
-            CPlayerEntity lPlayerEntity = new CPlayerEntity.CPlayerBuilder(lAcct.getId()).email(lAcct.getEmail()).nickname(lAcct.getDisplayName()).build();
+            CPlayerEntity lPlayerEntity = new CPlayerEntity.CPlayerBuilder(Integer.parseInt(lAcct.getId())).email(lAcct.getEmail()).nickname(lAcct.getDisplayName()).build();
             SCurrentPlayer.mPlayer = lPlayerEntity;
             new CRestPlayer().postPlayerRest(lPlayerEntity);
 
