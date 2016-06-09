@@ -28,11 +28,11 @@ public class CBuildingPosed implements Serializable{
         this.mPortal = pPortal;
     }
 
-    public CPlayerEntity getmPlayer() {
+    public CPlayerEntity getPlayer() {
         return mPlayer;
     }
 
-    public void setmPlayer(CPlayerEntity mPlayer) {
+    public void setPlayer(CPlayerEntity mPlayer) {
         this.mPlayer = mPlayer;
     }
 

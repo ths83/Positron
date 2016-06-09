@@ -68,6 +68,7 @@ import fr.univtln.groupc.CHackLimitation;
 import fr.univtln.groupc.CHackPortal;
 import fr.univtln.groupc.CHackPortalKey;
 import fr.univtln.groupc.CPayloadBean;
+import fr.univtln.groupc.CPoseBuilding;
 import fr.univtln.groupc.CPoseResonator;
 import fr.univtln.groupc.CPoseVirus;
 import fr.univtln.groupc.EPayloadType;
@@ -247,7 +248,7 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
 
                 else if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.HACK_LIMITATION.toString())){
                     String lTimeLeft = ((CHackLimitation) pIntent.getSerializableExtra(CMessageHandler.HACK_LIMITATION)).getDuration();
-                    Log.d("test150", lTimeLeft);
+                    Log.d("test150", "tps restant " + lTimeLeft);
                     Toast.makeText(getBaseContext(), "hack trop recents, attendez " + lTimeLeft + "secondes", Toast.LENGTH_SHORT).show();
                 }
 
@@ -255,13 +256,20 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
                     CPortalEntity lPortal = (CPortalEntity) pIntent.getSerializableExtra(CMessageHandler.PORTAL);
                 }
+                if (pIntent.getStringExtra(CMessageHandler.TYPE).equals(EPayloadType.RESONATOR_POSED.toString())) {
+                    Log.d("tag", "premier if pas else");
+                    CPortalEntity lPortal = (CPortalEntity) pIntent.getSerializableExtra(CMessageHandler.PORTAL);
+                    CPlayerEntity lPlayer = (CPlayerEntity) pIntent.getSerializableExtra(CMessageHandler.PLAYER);
+                    Log.d("tag", "portal recupere : " + lPortal);
+                    replacePortal(lPortal);
+                    SCurrentPlayer.mPlayer = lPlayer;
+                }
 
 
             }
         };
         registerReceiver(mBroadCastReceiverWS,new IntentFilter(CMessageHandler.INTENT_TYPE));
 
-        registerReceiver(mBroadCastReceiverWS,new IntentFilter(CMessageHandler.INTENT_TYPE));
         mHealthPlayer = (ProgressBar) findViewById(R.id.health_player);
         mXp = (ProgressBar) findViewById(R.id.xp);
         mDrawerAction = (DrawerLayout) findViewById(R.id.drawerlayout);
@@ -1754,6 +1762,12 @@ public class CMapsActivity extends FragmentActivity implements OnMapReadyCallbac
             lButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("test_ws", "dans la methode");
+                    CPoseBuilding lPose = new CPoseBuilding.CPoseBuildingBuilder().portalId(mPortalClicked.getId()).buildingId(lTurret.get(0).getId()).player(SCurrentPlayer.mPlayer.getId()).build();
+                    CPayloadBean lBean = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.POSE_BUILDING.toString()).objectPoseBuilding(lPose).build();
+                    Log.d("test_ws", "bean null ? " + Boolean.toString(lBean == null));
+                    CTyrusClient.sendMessage(lBean);
+                    mDrawerAction.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mScroll);
                     //mPortalClicked = CActions.buildResonator(mPortalClicked, lResonators.get(0));
                     //CRestUpdate lUpdate = new CRestUpdate();
                     //SCurrentPlayer.mPlayer.removeObject((AObjectEntity) lResonators.get(0));

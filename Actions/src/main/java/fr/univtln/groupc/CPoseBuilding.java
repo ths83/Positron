@@ -49,12 +49,12 @@ public class CPoseBuilding implements Serializable{
 
         public CPoseBuildingBuilder(){}
 
-        public CPoseBuildingBuilder portal (int pPortal){
+        public CPoseBuildingBuilder portalId (int pPortal){
             mPortal = pPortal;
             return this;
         }
 
-        public  CPoseBuildingBuilder building (int pBuilding){
+        public  CPoseBuildingBuilder buildingId (int pBuilding){
             mBuilding = pBuilding;
             return this;
         }

@@ -11,13 +11,10 @@ CREATE TABLE positron.t_team (id INTEGER NOT NULL, color VARCHAR(255), PRIMARY K
 CREATE TABLE positron.t_territory (territory_id INTEGER NOT NULL, PRIMARY KEY (territory_id))
 CREATE TABLE positron.t_skill (id INTEGER NOT NULL, cost INTEGER, level INTEGER, name VARCHAR(255), type VARCHAR(255), PRIMARY KEY (id))
 CREATE TABLE positron.t_turret (id INTEGER NOT NULL, damage INTEGER, PRIMARY KEY (id))
-<<<<<<< HEAD
 CREATE TABLE positron.t_portal_hacked (MID INTEGER NOT NULL, MDATE DATE, MPLAYERID INTEGER, MPORTALID INTEGER, PRIMARY KEY (MID))
-=======
 CREATE TABLE positron.t_shield (id INTEGER NOT NULL, defenseBonus INTEGER, PRIMARY KEY (id))
 CREATE TABLE positron.t_multiHack (id INTEGER NOT NULL, hackBonus INTEGER, PRIMARY KEY (id))
 CREATE TABLE positron.t_linkImprovement (id INTEGER NOT NULL, rangeBonus FLOAT, PRIMARY KEY (id))
->>>>>>> 826c459924dcdb9bf396a73982cf13560c8bf873
 CREATE TABLE positron.t_stats_attacked (MID INTEGER NOT NULL, DTYPE VARCHAR(31), MCPT INTEGER, attacker INTEGER, owner INTEGER, PRIMARY KEY (MID))
 CREATE TABLE positron.t_stats_building_attacked (MID INTEGER NOT NULL, building INTEGER, MRESONATOR_id INTEGER, PRIMARY KEY (MID))
 CREATE TABLE positron.t_stats_player (MID INTEGER NOT NULL, MPLAYER_id INTEGER, PRIMARY KEY (MID))
