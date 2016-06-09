@@ -3,6 +3,7 @@ package fr.univtln.groupc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,9 +16,9 @@ import java.io.Serializable;
 @Table(name = "t_shield", schema = "positron")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries(@NamedQuery(name = CShieldEntity.GET_ALL, query = "select p from CShieldEntity  p"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CShieldEntity.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = CShieldEntity.class)
 
-//@JsonDeserialize(as = CTurretEntity.class)
+@JsonDeserialize(as = CShieldEntity.class)
 public class CShieldEntity extends ABuildingEntity implements Serializable {
 
     @Column(name = "defensBonus")

@@ -24,7 +24,7 @@ public class CRestTurretTest extends TestCase {
     public void testPostCTurretService() throws Exception {
 
         CTurretEntity lTurretPost = new CTurretEntity
-                .CTurretBuilder(150).level(10).damage(10).lifeTime(1111)
+                .CTurretBuilder().level(10).damage(10).lifeTime(1111)
                 .energy(150).energyMax(200).name("c1").radius(100).build();
 
         mJson = mMapper.writeValueAsString(lTurretPost);

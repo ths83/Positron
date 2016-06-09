@@ -82,7 +82,7 @@ public class CJavaClient {
 
         // TEST PERSIST CONSUMABLE + GET BY ID
 
-        CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder(10).name("conso1").rarity(2).build();
+        CConsumableEntity lConsumable = new CConsumableEntity.CConsumableBuilder().name("conso1").rarity(2).build();
 
         //webResource.path("consumables/create").post(lConsumable);
         CConsumableEntity lConsumableGotten = webResource.path("consumables/10").get(CConsumableEntity.class);
@@ -129,7 +129,7 @@ public class CJavaClient {
         // TEST SUCCESFUL
 
         // TEST CREATE RESONATOR
-        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder(50).name("reso_de_test").level(3).energyMax(40).energy(30).radius(45).build();
+        CResonatorEntity lResonator = new CResonatorEntity.CResonatorBuilder().name("reso_de_test").level(3).energyMax(40).energy(30).radius(45).build();
         lCrud.create(lResonator);
         // TEST SUCCESFUL
 

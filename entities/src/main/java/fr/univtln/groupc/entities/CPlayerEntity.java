@@ -291,20 +291,6 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
 
 
     @JsonIgnore
-    public List<CTurretEntity> getTurretsByLevel(int pId){
-        List<CTurretEntity> lTurrets = new ArrayList<CTurretEntity>();
-        for (AObjectEntity lObject : mObjects){
-            if (lObject instanceof CTurretEntity){
-                if (((CTurretEntity) lObject).getLevel() == pId){
-                    lTurrets.add((CTurretEntity) lObject);
-                }
-            }
-        }
-        return lTurrets;
-    }
-
-
-    @JsonIgnore
     public List<CConsumableEntity> getBombs(){
         List<CConsumableEntity> lBombs = new ArrayList<CConsumableEntity>();
         for (AObjectEntity lObject : mObjects){
@@ -614,5 +600,145 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         return lRarities;
     }
 
+    @JsonIgnore
+    public List<CTurretEntity> getTurretsByLevel(int pLevel){
+        List<CTurretEntity> lTurrets = new ArrayList<CTurretEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CTurretEntity){
+                if (((CTurretEntity) lObject).getLevel() == pLevel){
+                    lTurrets.add((CTurretEntity) lObject);
+                }
+            }
+        }
+        return lTurrets;
+    }
 
+
+    @JsonIgnore
+    public List<CTurretEntity> getTurrets(){
+        List<CTurretEntity> lTurrets = new ArrayList<CTurretEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CTurretEntity){
+                lTurrets.add((CTurretEntity)lObject);
+            }
+        }
+        return lTurrets;
+    }
+
+
+    @JsonIgnore
+    public Set<Integer> getLevelsOfTurrets(){
+        Set<Integer> lLevels = new HashSet<Integer>();
+        for (CTurretEntity lTurret : getTurrets()) {
+            lLevels.add(lTurret.getLevel());
+        }
+        return lLevels;
+    }
+
+    @JsonIgnore
+    public List<CMultiHackEntity> getMultiHacksByLevel(int pLevel){
+        List<CMultiHackEntity> lMultiHacks = new ArrayList<CMultiHackEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CMultiHackEntity){
+                if (((CMultiHackEntity) lObject).getLevel() == pLevel){
+                    lMultiHacks.add((CMultiHackEntity) lObject);
+                }
+            }
+        }
+        return lMultiHacks;
+    }
+
+
+    @JsonIgnore
+    public List<CMultiHackEntity> getMultiHacks(){
+        List<CMultiHackEntity> lMultyHacks = new ArrayList<CMultiHackEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CMultiHackEntity){
+                lMultyHacks.add((CMultiHackEntity)lObject);
+            }
+        }
+        return lMultyHacks;
+    }
+
+
+    @JsonIgnore
+    public Set<Integer> getLevelsOfMultiHacks(){
+        Set<Integer> lLevels = new HashSet<Integer>();
+        for (CMultiHackEntity lMultiHack : getMultiHacks()) {
+            lLevels.add(lMultiHack.getLevel());
+        }
+        return lLevels;
+    }
+
+
+    @JsonIgnore
+    public List<CShieldEntity> getShieldsByLevel(int pLevel){
+        List<CShieldEntity> lShields = new ArrayList<CShieldEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CShieldEntity){
+                if (((CMultiHackEntity) lObject).getLevel() == pLevel){
+                    lShields.add((CShieldEntity) lObject);
+                }
+            }
+        }
+        return lShields;
+    }
+
+
+    @JsonIgnore
+    public List<CShieldEntity> getShields(){
+        List<CShieldEntity> lShields = new ArrayList<CShieldEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CShieldEntity){
+                lShields.add((CShieldEntity)lObject);
+            }
+        }
+        return lShields;
+    }
+
+
+    @JsonIgnore
+    public Set<Integer> getLevelsOfShields(){
+        Set<Integer> lLevels = new HashSet<Integer>();
+        for (CShieldEntity lShield : getShields()) {
+            lLevels.add(lShield.getLevel());
+        }
+        return lLevels;
+    }
+
+
+    @JsonIgnore
+    public List<CLinkImprovementEntity> getLinkImprovementsByLevel(int pLevel){
+        List<CLinkImprovementEntity> lLinkImprovements = new ArrayList<CLinkImprovementEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CLinkImprovementEntity){
+                if (((CLinkImprovementEntity) lObject).getLevel() == pLevel){
+                    lLinkImprovements.add((CLinkImprovementEntity) lObject);
+                }
+            }
+        }
+        return lLinkImprovements;
+    }
+
+
+    @JsonIgnore
+    public List<CLinkImprovementEntity> getLinkImprovements(){
+        List<CLinkImprovementEntity> lLinkImprovements = new ArrayList<CLinkImprovementEntity>();
+        for (AObjectEntity lObject : mObjects){
+            if (lObject instanceof CLinkImprovementEntity){
+                lLinkImprovements.add((CLinkImprovementEntity)lObject);
+            }
+        }
+        return lLinkImprovements;
+    }
+
+
+    @JsonIgnore
+    public Set<Integer> getLevelsOfLinkImprovements(){
+        Set<Integer> lLevels = new HashSet<Integer>();
+        for (CLinkImprovementEntity lLinkImprovement : getLinkImprovements()) {
+            lLevels.add(lLinkImprovement.getLevel());
+        }
+        return lLevels;
+    }
 }

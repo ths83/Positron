@@ -46,10 +46,10 @@ public class App
         crud.create(r6);
         //crud.create(r7);
         crud.create(r8);*/
-        CResonatorEntity r9= new CResonatorEntity.CResonatorBuilder(6).level(8).owner(p1).energy(100).energyMax(100).portal(po3).build();
-        CResonatorEntity r10= new CResonatorEntity.CResonatorBuilder(7).level(5).owner(p2).energy(100).energyMax(100).portal(po2).build();
+        CResonatorEntity r9= new CResonatorEntity.CResonatorBuilder().level(8).owner(p1).energy(100).energyMax(100).portal(po3).build();
+        CResonatorEntity r10= new CResonatorEntity.CResonatorBuilder().level(5).owner(p2).energy(100).energyMax(100).portal(po2).build();
         //CResonatorEntity r13= new CResonatorEntity.CResonatorBuilder(8).level(7).owner(p1).energy(100).energyMax(100).portal(po2).build();
-        CResonatorEntity r14= new CResonatorEntity.CResonatorBuilder(9).level(1).owner(p2).energy(100).energyMax(100).portal(po4).build();
+        CResonatorEntity r14= new CResonatorEntity.CResonatorBuilder().level(1).owner(p2).energy(100).energyMax(100).portal(po4).build();
         //CResonatorEntity r16= new CResonatorEntity.CResonatorBuilder(10).level(8).owner(p1).energy(100).energyMax(100).portal(po4).build();
         crud.create(r9);
         crud.create(r10);

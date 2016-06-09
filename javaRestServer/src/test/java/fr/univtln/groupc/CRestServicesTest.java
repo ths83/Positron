@@ -70,7 +70,7 @@ public class CRestServicesTest extends TestCase {
 
     public void testPostConsumableService() throws Exception {
 
-        CConsumableEntity lConsumableEntity = new CConsumableEntity.CConsumableBuilder(1).name("bob").rarity(5).build();
+        CConsumableEntity lConsumableEntity = new CConsumableEntity.CConsumableBuilder().name("bob").rarity(5).build();
         String lJsonConsumable = mMapper.writeValueAsString(lConsumableEntity);
         lResponse = mWebResource.path("/consumables").type("application/json").accept("application/json").post(ClientResponse.class, lJsonConsumable);
 
@@ -93,7 +93,7 @@ public class CRestServicesTest extends TestCase {
     public void testPostCTurretService() throws Exception {
 
         CTurretEntity lTurretPost = new CTurretEntity
-                .CTurretBuilder(150).level(10).damage(10).lifeTime(1111)
+                .CTurretBuilder().level(10).damage(10).lifeTime(1111)
                 .energy(150).energyMax(200).name("c1").radius(100).build();
 
         mJson = mMapper.writeValueAsString(lTurretPost);
@@ -149,7 +149,7 @@ public class CRestServicesTest extends TestCase {
     public void testPostKeyService() throws Exception {
         CPortalEntity lPortal1 = new CPortalEntity.CPortalBuilder(700).longitude(150).latitude(150).build();
 
-        CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder(1).name("key1").portal(lPortal1).build();
+        CKeyEntity lKeyEntity = new CKeyEntity.CKeyBuilder().name("key1").portal(lPortal1).build();
         mJson = mMapper.writeValueAsString(lKeyEntity);
         ClientResponse lResponse = mWebResource.path("/keys").type("application/json").accept("application/json").post(ClientResponse.class, mJson);
         assertEquals(lResponse.getStatus(), 201);
@@ -434,9 +434,9 @@ public class CRestServicesTest extends TestCase {
 
 
     public void testPortalWithKeyAndBuildingsPost() throws Exception {
-        CKeyEntity lKey1 = new CKeyEntity.CKeyBuilder(23).name("clef1").build();
-        CKeyEntity lKey2 = new CKeyEntity.CKeyBuilder(24).name("clef2").build();
-        ABuildingEntity lTurret1 = new CTurretEntity.CTurretBuilder(74).name("turret1").build();
+        CKeyEntity lKey1 = new CKeyEntity.CKeyBuilder().name("clef1").build();
+        CKeyEntity lKey2 = new CKeyEntity.CKeyBuilder().name("clef2").build();
+        ABuildingEntity lTurret1 = new CTurretEntity.CTurretBuilder().name("turret1").build();
         List<CKeyEntity> lKeys = new ArrayList<>();
         List<ABuildingEntity> lBuildings = new ArrayList<>();
         lKeys.add(lKey1);
@@ -472,7 +472,7 @@ public class CRestServicesTest extends TestCase {
 
     public void testgetAllPortals() throws Exception {
 
-        CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(89).build();
+        CTurretEntity lTurret = new CTurretEntity.CTurretBuilder().build();
         List<ABuildingEntity> lBuildings = new ArrayList<>();
         lBuildings.add(lTurret);
         CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(1112).buildings(lBuildings).build();

@@ -45,7 +45,7 @@ public class CSerializationTest extends TestCase {
     public void testDeserializeAObjectEntityIntoCConsumableEntity() throws Exception {
         String lSerializedJsonObject = null;
         AObjectEntity lDeserializedObject = null;
-        AObjectEntity lObject = new CConsumableEntity.CConsumableBuilder(1).rarity(3).name("le consommable").build();
+        AObjectEntity lObject = new CConsumableEntity.CConsumableBuilder().rarity(3).name("le consommable").build();
         lSerializedJsonObject = mMapper.writeValueAsString(lObject);
         System.out.println("object serialized :\n" + lSerializedJsonObject);
         lDeserializedObject = mMapper.readValue(lSerializedJsonObject, AObjectEntity.class);
@@ -56,7 +56,7 @@ public class CSerializationTest extends TestCase {
     public void testDeserializeAObjectEntityIntoCKeyEntity() throws Exception {
         String lSerializedJsonObject = null;
         AObjectEntity lDeserializedObject = null;
-        AObjectEntity lObject = new CKeyEntity.CKeyBuilder(1).name("le consommable").build();
+        AObjectEntity lObject = new CKeyEntity.CKeyBuilder().name("le consommable").build();
         lSerializedJsonObject = mMapper.writeValueAsString(lObject);
         System.out.println("object serialized :\n" + lSerializedJsonObject);
         lDeserializedObject = mMapper.readValue(lSerializedJsonObject, AObjectEntity.class);
@@ -66,8 +66,8 @@ public class CSerializationTest extends TestCase {
 
     public void testDeserializeListOfAObjectEntitiesContainingOnlyConsumables() throws Exception {
         String lSerializedList = null;
-        AObjectEntity lConsumable1 = new CConsumableEntity.CConsumableBuilder(1).rarity(2).name("le consommable 1").build();
-        AObjectEntity lConsumable2 = new CConsumableEntity.CConsumableBuilder(2).rarity(3).name("le consommable 2").build();
+        AObjectEntity lConsumable1 = new CConsumableEntity.CConsumableBuilder().rarity(2).name("le consommable 1").build();
+        AObjectEntity lConsumable2 = new CConsumableEntity.CConsumableBuilder().rarity(3).name("le consommable 2").build();
 
         List<AObjectEntity> lDeserializedList = new ArrayList<>();
         List<AObjectEntity> lObjects = new ArrayList<>();
@@ -90,8 +90,8 @@ public class CSerializationTest extends TestCase {
         String lSerializedList = null;
         List<AObjectEntity> lDeserializedList = new ArrayList<>();
         List<AObjectEntity> lObjects = new ArrayList<>();
-        AObjectEntity lKey = new CKeyEntity.CKeyBuilder(1).name("la clef").build();
-        AObjectEntity lConsumable = new CConsumableEntity.CConsumableBuilder(1).rarity(3).name("le consommable").build();
+        AObjectEntity lKey = new CKeyEntity.CKeyBuilder().name("la clef").build();
+        AObjectEntity lConsumable = new CConsumableEntity.CConsumableBuilder().rarity(3).name("le consommable").build();
         //CTurretEntity lTurret = new CTurretEntity.CTurretBuilder(1).damage(15).level(12).name("la tourelle").build();
         lObjects.add(lKey);
         lObjects.add(lConsumable);
@@ -110,8 +110,8 @@ public class CSerializationTest extends TestCase {
     public void testSerializationOfPortal() throws Exception {
         mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         List<CResonatorEntity> lResonators = new ArrayList<>();
-        CResonatorEntity lResonator1 = new CResonatorEntity.CResonatorBuilder(1).build();
-        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder(2).build();
+        CResonatorEntity lResonator1 = new CResonatorEntity.CResonatorBuilder().build();
+        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder().build();
         lResonators.add(lResonator1);
         lResonators.add(lResonator2);
         CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(1).longitude(120.0).latitude(110).resonators(lResonators).build();
@@ -125,8 +125,8 @@ public class CSerializationTest extends TestCase {
         mMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         List<CResonatorEntity> lResonators = new ArrayList<>();
         List<CPortalEntity> lPortals = new ArrayList<>();
-        CResonatorEntity lResonator1 = new CResonatorEntity.CResonatorBuilder(1).build();
-        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder(2).build();
+        CResonatorEntity lResonator1 = new CResonatorEntity.CResonatorBuilder().build();
+        CResonatorEntity lResonator2 = new CResonatorEntity.CResonatorBuilder().build();
         lResonators.add(lResonator1);
         lResonators.add(lResonator2);
         CPortalEntity lPortal = new CPortalEntity.CPortalBuilder(1).longitude(120.0).latitude(110).resonators(lResonators).build();
@@ -151,8 +151,8 @@ public class CSerializationTest extends TestCase {
 
     public void testSerializationOfPlayerWithAListOfObjects() throws Exception {
         List<AObjectEntity> lObjects = new ArrayList<>();
-        AObjectEntity lObject = new CConsumableEntity.CConsumableBuilder(1).name("le bon consommable").build();
-        AObjectEntity lObject2 = new CKeyEntity.CKeyBuilder(2).build();
+        AObjectEntity lObject = new CConsumableEntity.CConsumableBuilder().name("le bon consommable").build();
+        AObjectEntity lObject2 = new CKeyEntity.CKeyBuilder().build();
         lObjects.add(lObject);
         lObjects.add(lObject2);
         CPlayerEntity lPlayer = new CPlayerEntity.CPlayerBuilder(1).nickname("nicolas").objects(lObjects).build();
