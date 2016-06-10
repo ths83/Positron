@@ -43,11 +43,11 @@ public class CCrudMethods {
     }
 
     public void delete(Class type,Object id) {
-        EntityTransaction transac = em.getTransaction();
-        transac.begin();
+        //EntityTransaction transac = em.getTransaction();
+        //transac.begin();
         Object ref = this.em.getReference(type, id);
         this.em.remove(ref);
-        transac.commit();
+        //transac.commit();
     }
 
     public <T> T update(T t){

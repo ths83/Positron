@@ -123,7 +123,10 @@ public class CPlayerService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mCrudMethods.update(lPlayer);
+        if (mCrudMethods.openTransaction()){
+            mCrudMethods.update(lPlayer);
+            mCrudMethods.commitTransaction();
+        }
         return Response.status(200).build();
     }
 

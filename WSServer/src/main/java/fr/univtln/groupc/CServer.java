@@ -285,13 +285,32 @@ public class CServer {
             }
             if (CAction.isDeadBuilding(lBuilding)) {
                 if (lBuilding instanceof CResonatorEntity) {
-                    lBuilding.getPortal().removeResonator((CResonatorEntity) lBuilding);
+                    lPortal.removeResonator((CResonatorEntity) lBuilding);
+                    ((CResonatorEntity) lBuilding).getOwner().removeObject(lBuilding);
+                    lPortal.attributeTeam();
+                    if (mCrudMethods.openTransaction()){
+                        mCrudMethods.delete(ABuildingEntity.class, lBuilding.getId());
+                        mCrudMethods.commitTransaction();
+                    }
+                    if (mCrudMethods.openTransaction()){
+                        mCrudMethods.update(((CResonatorEntity) lBuilding).getOwner());
+                        mCrudMethods.commitTransaction();
+                    }
                 } else {
                     lBuilding.getPortal().removeBuilding(lBuilding);
+                    if (mCrudMethods.openTransaction()){
+                        mCrudMethods.delete(ABuildingEntity.class, lBuilding.getId());
+                        mCrudMethods.commitTransaction();
+                    }
                 }
             }
             CBuildingAttacked lBuildingAttacked = new CBuildingAttacked.CBuildingAttackedBuilder().portal(lPortal).player(lPlayer).build();
             CPayloadBean lBeanToSend = new CPayloadBean.CPayloadBeanBuilder().type(EPayloadType.BUILDING_ATTACKED.toString()).objectBuildingAttacked(lBuildingAttacked).build();
+            if (mCrudMethods.openTransaction()){
+                mCrudMethods.update(lBeanToSend.getBuildingAttacked().getPortal());
+                mCrudMethods.commitTransaction();
+            }
+
             if (mCrudMethods.openTransaction()){
                 mCrudMethods.update(lBeanToSend.getBuildingAttacked().getPlayer());
                 mCrudMethods.commitTransaction();
@@ -457,7 +476,14 @@ public class CServer {
             CPortalEntity lPortal = mCrudMethods.find(CPortalEntity.class, pBean.getAttackAOE().getPortalId());
             CPlayerEntity lPlayer = mCrudMethods.find(CPlayerEntity.class, pBean.getAttackAOE().getPlayerId());
             CConsumableEntity lAmmuniton = mCrudMethods.find(CConsumableEntity.class, pBean.getAttackAOE().getConsumableId());
+            System.out.println("id port: " + pBean.getAttackAOE().getPortalId());
             int OriginalEnergy = 0;
+            if (lPortal.getBuildings() != null){
+                System.out.println("taille portails : " + lPortal.getBuildings().size());
+            }
+            else{
+                System.out.println("portal getbuildings null");
+            }
 
             lPlayer.loseEnergy(10);
 

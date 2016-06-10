@@ -154,7 +154,7 @@ public class CRestUpdate extends CRest {
      */
     public void updatePlayerRest(CPlayerEntity pPlayer){
         ObjectMapper lMapper = new ObjectMapper();
-        String lUrlString = CRest.API_URL + "/portals";
+        String lUrlString = CRest.API_URL + "/players";
         Log.d("test", "->-> " + lUrlString);
         try {
             String lPortalJson = lMapper.writeValueAsString(pPlayer);

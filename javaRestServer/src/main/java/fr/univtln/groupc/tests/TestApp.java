@@ -48,12 +48,13 @@ public class TestApp {
             crud.commitTransaction();
         }*/
 
-        CPlayerEntity p1 = crud.find(CPlayerEntity.class,2);
+       // CPlayerEntity p1 = crud.find(CPlayerEntity.class,2);
 
-        CResonatorEntity lResoOfPortal6 = new CResonatorEntity.CResonatorBuilder().energy(100).energyMax(100).level(3).owner(p1).build();
-        CPortalEntity lPortal6 = crud.find(CPortalEntity.class, 7);
+        /*CResonatorEntity lResoOfPortal6 = new CResonatorEntity.CResonatorBuilder().energy(100).energyMax(100).level(3).owner(p1).build();
+        CPortalEntity lPortal6 = crud.find(CPortalEntity.class, 6);
         lPortal6.addResonator(lResoOfPortal6);
         lPortal6.attributeTeam();
+        p1.addObjects(new CConsumableEntity.CConsumableBuilder().name("Bombe").rarity(2).build());
         if (crud.openTransaction()) {
             crud.update(lPortal6);
             crud.commitTransaction();
@@ -62,8 +63,42 @@ public class TestApp {
             System.out.println("prob transac");
         }
 
-        /*CPortalEntity lPortal6 = crud.find(CPortalEntity.class, 7);
-        CTurretEntity l6 = new CTurretEntity.CTurretBuilder().energy(100).energyMax(100).level(3).build();
+        CResonatorEntity lResoOfPortal7 = new CResonatorEntity.CResonatorBuilder().energy(100).energyMax(100).level(3).owner(p1).build();
+        lPortal6.addResonator(lResoOfPortal7);
+        lPortal6.attributeTeam();
+        if (crud.openTransaction()) {
+            crud.update(lPortal6);
+            crud.commitTransaction();
+        }
+        else {
+            System.out.println("prob transac");
+        }*/
+
+        CPlayerEntity p1 = crud.find(CPlayerEntity.class,1);
+        p1.addObjects(new CConsumableEntity.CConsumableBuilder().name("Bombe").rarity(2).build());
+
+        if (crud.openTransaction()) {
+            crud.update(p1);
+            crud.commitTransaction();
+        }
+        else {
+            System.out.println("prob transac");
+        }
+
+
+        /*CResonatorEntity lResoOfPortal8 = new CResonatorEntity.CResonatorBuilder().energy(100).energyMax(100).level(3).owner(p1).build();
+        lPortal6.addResonator(lResoOfPortal8);
+        lPortal6.attributeTeam();
+        if (crud.openTransaction()) {
+            crud.update(lPortal6);
+            crud.commitTransaction();
+        }
+        else {
+            System.out.println("prob transac");
+        }*/
+
+
+       /* CTurretEntity l6 = new CTurretEntity.CTurretBuilder().energy(100).energyMax(100).level(3).build();
         lPortal6.addBuilding(l6);
         if (crud.openTransaction()) {
             crud.update(lPortal6);
@@ -71,7 +106,7 @@ public class TestApp {
         }*/
 
 
-        /*CResonatorEntity lResoOfPortal7 = new CResonatorEntity.CResonatorBuilder(7).energy(100).energyMax(100).level(3).owner(lPlayer3).build();
+        /*CResonatorEntity lResoOfPortal7 = new CResonatorEntity.CResonatorBuilder().energy(100).energyMax(100).level(3).owner(lPlayer3).build();
         CPortalEntity lPortal10 = crud.find(CPortalEntity.class, 10);
         lPortal10.addResonator(lResoOfPortal7);
         crud.update(lPortal10);*/

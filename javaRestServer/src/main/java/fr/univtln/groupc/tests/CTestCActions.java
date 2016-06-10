@@ -70,7 +70,7 @@ public class CTestCActions {
                 return (AObjectEntity) new CTurretEntity.CTurretBuilder().energy(pLevelObject * 50).energyMax(pLevelObject * 50).damage(10 * pLevelObject).build();
             }
             case (2): {
-                return (AObjectEntity) new CShieldEntity.CShieldBuilder().level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defensBonus(10 * pRarety).build();
+                return (AObjectEntity) new CShieldEntity.CShieldBuilder().level(pLevelObject).energy(pLevelObject * 50).energyMax(pRarety * 50).defenseBonus(10 * pRarety).build();
             }
             case (3): {
                 return (CConsumableEntity) new CConsumableEntity.CConsumableBuilder().name("Attack").rarity(pRarety).build();

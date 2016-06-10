@@ -12,4 +12,7 @@
     <color name="brown">#9f8a62</color>
     <color name="health">#faf52e</color>
     <color name="xp">#fab429</color>
+    <color name="gray">#a59b9c9d</color>
+    <color name="radiusred">#43b51c18</color>
+    <color name="radiusblue">#764171ff</color>
 </resources>

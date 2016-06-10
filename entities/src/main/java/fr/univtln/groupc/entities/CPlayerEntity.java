@@ -741,4 +741,53 @@ public class CPlayerEntity implements Serializable, ITarget, IFighter {
         }
         return lLevels;
     }
+
+
+    @JsonIgnore
+    public int getProgressOfLevel (){
+        int lProgress = 0;
+        int lXp = getXp();
+
+        switch (getLevel()){
+            case 1 :
+                lProgress =  (XP_LVL_2/lXp) *100;
+                break;
+
+            case 2 :
+                lProgress =  (XP_LVL_3/lXp) *100;
+                break;
+
+            case 3 :
+                lProgress =  (XP_LVL_4/lXp) *100;
+
+                break;
+
+            case 4 :
+                lProgress =  (XP_LVL_5/lXp) *100;
+
+                break;
+
+            case 5 :
+                lProgress =  (XP_LVL_6/lXp) *100;
+
+                break;
+
+            case 6 :
+                lProgress =  (XP_LVL_7/lXp) *100;
+
+                break;
+
+            case 7 :
+                lProgress =  (XP_LVL_8/lXp) *100;
+
+                break;
+
+            case 8 :
+                lProgress =100;
+                break;
+        }
+
+        return lProgress;
+
+    }
 }

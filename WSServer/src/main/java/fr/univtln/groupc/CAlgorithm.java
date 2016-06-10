@@ -379,6 +379,11 @@ public class CAlgorithm {
             }
             case (7): {
                 AObjectEntity lRepairKit = new CConsumableEntity.CConsumableBuilder().name("RepaireKit").rarity(pRarety).build();
+                return lRepairKit;
+            }
+            case (8): {
+                AObjectEntity lVirus = new CConsumableEntity.CConsumableBuilder().name("virus").rarity(1).build();
+                return lVirus;
             }
 
         }
@@ -525,30 +530,35 @@ public class CAlgorithm {
     public static int calculTypeObject(){
         int lType = 0, lRandom=0;
         lRandom = (int)(Math.random() * (100));
+        System.out.println("random : " + lRandom);
+        int lNbTypes = 100 / 9;
 
-        if(lRandom > 84){
+        if(lRandom > 100 - lNbTypes){
             lType = 0;
         }
-        else if(72 < lRandom && lRandom <= 84){
+        else if(100 - (2 * lNbTypes) < lRandom && lRandom <= 100 - lNbTypes){
             lType = 1;
         }
-        else if(60 < lRandom && lRandom <= 72){
+        else if(100 - (3 * lNbTypes) < lRandom && lRandom <= 100 - (2 * lNbTypes)){
             lType = 2;
         }
-        else if(lRandom < 48 && lRandom <= 60){
+        else if(100 - (4 * lNbTypes) < lRandom && lRandom <= 100 - (3 * lNbTypes)){
             lType = 3;
         }
-        else if(lRandom < 36 && lRandom <= 48){
+        else if(100 - (5 * lNbTypes) < lRandom && lRandom <= 100 - (4 * lNbTypes)){
             lType = 4;
         }
-        else if(lRandom < 24 && lRandom <= 36){
+        else if(100 - (6 * lNbTypes) < lRandom && lRandom <= 100 - (5 * lNbTypes)){
             lType = 5;
         }
-        else if(lRandom < 12 && lRandom <= 24  ){
+        else if(100 - (7 * lNbTypes) < lRandom && lRandom <= 100 - (6 * lNbTypes)  ){
             lType = 6;
         }
-        else if(lRandom <= 12){
+        else if(100 - (8 * lNbTypes) < lRandom && lRandom <= 100 - (7 * lNbTypes)){
             lType = 7;
+        }
+        else{
+            lType = 8;
         }
         return lType;
     }

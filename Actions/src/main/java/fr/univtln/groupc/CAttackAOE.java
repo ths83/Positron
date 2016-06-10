@@ -19,6 +19,8 @@ public class CAttackAOE implements Serializable {
 
     public CAttackAOE(CAttackAOEBuilder pBuilder){
         mPlayerId = pBuilder.mPlayer;
+        mPortalId = pBuilder.mPortal;
+        mConsumableId = pBuilder.mConsumable;
     }
 
     public int getPortalId(){
@@ -50,7 +52,7 @@ public class CAttackAOE implements Serializable {
         private int mPlayer;
         private int mConsumable;
 
-        CAttackAOEBuilder(){}
+        public CAttackAOEBuilder(){}
 
         public CAttackAOEBuilder portal(int pPortal){
             mPortal = pPortal;
